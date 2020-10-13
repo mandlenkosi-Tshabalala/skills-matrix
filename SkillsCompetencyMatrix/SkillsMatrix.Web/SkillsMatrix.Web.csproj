@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\capability-matrix-be\Dashboard.App.View\Matrix.App.View.csproj" />
     <ProjectReference Include="..\SkillsMatrix.Models\SkillsMatrix.Models.csproj" />
   </ItemGroup>
 

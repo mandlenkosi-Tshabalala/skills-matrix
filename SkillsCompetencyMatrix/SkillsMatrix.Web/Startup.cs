@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Skclusive.Blazor.Dashboard.App.View;
 using SkillsMatrix.Web.Services;
 
 namespace SkillsMatrix.Web
@@ -34,6 +35,15 @@ namespace SkillsMatrix.Web
             {
                 client.BaseAddress = new Uri("https://localhost:44330/");
             });
+
+            services.TryAddDashboardViewServices
+                (
+                    new DashboardViewConfigBuilder()
+                    .WithIsServer(true)
+                    .WithIsPreRendering(false)
+                    .WithResponsive(true)
+                    .Build()
+                );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

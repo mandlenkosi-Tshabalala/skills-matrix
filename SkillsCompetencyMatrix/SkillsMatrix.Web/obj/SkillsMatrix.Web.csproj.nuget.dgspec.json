@@ -1,33 +1,128 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projects\\SkillsCompetencyMatrix\\SkillsMatrix.Web\\SkillsMatrix.Web.csproj": {}
+    "C:\\dev\\capability-matrix-b\\SkillsCompetencyMatrix\\SkillsMatrix.Web\\SkillsMatrix.Web.csproj": {}
   },
   "projects": {
-    "C:\\Projects\\SkillsCompetencyMatrix\\SkillsMatrix.Models\\SkillsMatrix.Models.csproj": {
+    "C:\\dev\\capability-matrix-be\\Dashboard.App.View\\Matrix.App.View.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\SkillsCompetencyMatrix\\SkillsMatrix.Models\\SkillsMatrix.Models.csproj",
-        "projectName": "SkillsMatrix.Models",
-        "projectPath": "C:\\Projects\\SkillsCompetencyMatrix\\SkillsMatrix.Models\\SkillsMatrix.Models.csproj",
-        "packagesPath": "C:\\Users\\MNEMUKULA\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\SkillsCompetencyMatrix\\SkillsMatrix.Models\\obj\\",
+        "projectUniqueName": "C:\\dev\\capability-matrix-be\\Dashboard.App.View\\Matrix.App.View.csproj",
+        "projectName": "Skclusive.Blazor.Dashboard.App.View",
+        "projectPath": "C:\\dev\\capability-matrix-be\\Dashboard.App.View\\Matrix.App.View.csproj",
+        "packagesPath": "C:\\Users\\mnethathe\\.nuget\\packages\\",
+        "outputPath": "C:\\dev\\capability-matrix-be\\Dashboard.App.View\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files (x86)\\Progress\\ToolboxNuGetPackages",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\MNEMUKULA\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mnethathe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 20.1.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Telerik UI for WinForms.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Telerik UI for WPF.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 20.1\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.telerik.com/nuget": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {
+              "C:\\dev\\capability-matrix-b\\SkillsCompetencyMatrix\\SkillsMatrix.Models\\SkillsMatrix.Models.csproj": {
+                "projectPath": "C:\\dev\\capability-matrix-b\\SkillsCompetencyMatrix\\SkillsMatrix.Models\\SkillsMatrix.Models.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "dependencies": {
+            "ChartJs.Blazor": {
+              "target": "Package",
+              "version": "[1.0.2, )"
+            },
+            "Microsoft.AspNetCore.Blazor.HttpClient": {
+              "target": "Package",
+              "version": "[3.2.0-preview3.20168.3, )"
+            },
+            "Microsoft.AspNetCore.Components": {
+              "target": "Package",
+              "version": "[3.1.8, )"
+            },
+            "Microsoft.AspNetCore.Http.Extensions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.8, )"
+            },
+            "Skclusive.Material.Layout": {
+              "target": "Package",
+              "version": "[2.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\dev\\capability-matrix-b\\SkillsCompetencyMatrix\\SkillsMatrix.Models\\SkillsMatrix.Models.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\dev\\capability-matrix-b\\SkillsCompetencyMatrix\\SkillsMatrix.Models\\SkillsMatrix.Models.csproj",
+        "projectName": "SkillsMatrix.Models",
+        "projectPath": "C:\\dev\\capability-matrix-b\\SkillsCompetencyMatrix\\SkillsMatrix.Models\\SkillsMatrix.Models.csproj",
+        "packagesPath": "C:\\Users\\mnethathe\\.nuget\\packages\\",
+        "outputPath": "C:\\dev\\capability-matrix-b\\SkillsCompetencyMatrix\\SkillsMatrix.Models\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Progress\\ToolboxNuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\mnethathe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 20.1.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Telerik UI for WinForms.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Telerik UI for WPF.config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\DevExpress 20.1\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.telerik.com/nuget": {}
         },
         "frameworks": {
           "netstandard2.0": {
@@ -68,36 +163,43 @@
         }
       }
     },
-    "C:\\Projects\\SkillsCompetencyMatrix\\SkillsMatrix.Web\\SkillsMatrix.Web.csproj": {
+    "C:\\dev\\capability-matrix-b\\SkillsCompetencyMatrix\\SkillsMatrix.Web\\SkillsMatrix.Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\SkillsCompetencyMatrix\\SkillsMatrix.Web\\SkillsMatrix.Web.csproj",
+        "projectUniqueName": "C:\\dev\\capability-matrix-b\\SkillsCompetencyMatrix\\SkillsMatrix.Web\\SkillsMatrix.Web.csproj",
         "projectName": "SkillsMatrix.Web",
-        "projectPath": "C:\\Projects\\SkillsCompetencyMatrix\\SkillsMatrix.Web\\SkillsMatrix.Web.csproj",
-        "packagesPath": "C:\\Users\\MNEMUKULA\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\SkillsCompetencyMatrix\\SkillsMatrix.Web\\obj\\",
+        "projectPath": "C:\\dev\\capability-matrix-b\\SkillsCompetencyMatrix\\SkillsMatrix.Web\\SkillsMatrix.Web.csproj",
+        "packagesPath": "C:\\Users\\mnethathe\\.nuget\\packages\\",
+        "outputPath": "C:\\dev\\capability-matrix-b\\SkillsCompetencyMatrix\\SkillsMatrix.Web\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files (x86)\\Progress\\ToolboxNuGetPackages",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\MNEMUKULA\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mnethathe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 20.1.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Telerik UI for WinForms.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Telerik UI for WPF.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\DevExpress 20.1\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.telerik.com/nuget": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Projects\\SkillsCompetencyMatrix\\SkillsMatrix.Models\\SkillsMatrix.Models.csproj": {
-                "projectPath": "C:\\Projects\\SkillsCompetencyMatrix\\SkillsMatrix.Models\\SkillsMatrix.Models.csproj"
+              "C:\\dev\\capability-matrix-be\\Dashboard.App.View\\Matrix.App.View.csproj": {
+                "projectPath": "C:\\dev\\capability-matrix-be\\Dashboard.App.View\\Matrix.App.View.csproj"
+              },
+              "C:\\dev\\capability-matrix-b\\SkillsCompetencyMatrix\\SkillsMatrix.Models\\SkillsMatrix.Models.csproj": {
+                "projectPath": "C:\\dev\\capability-matrix-b\\SkillsCompetencyMatrix\\SkillsMatrix.Models\\SkillsMatrix.Models.csproj"
               }
             }
           }

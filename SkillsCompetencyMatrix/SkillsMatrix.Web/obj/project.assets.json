@@ -2,6 +2,47 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
+      "ChartJs.Blazor/1.0.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "3.0.0",
+          "Microsoft.CSharp": "4.6.0",
+          "Newtonsoft.Json": "12.0.3"
+        },
+        "compile": {
+          "lib/netstandard2.0/ChartJs.Blazor.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/ChartJs.Blazor.dll": {}
+        },
+        "contentFiles": {
+          "contentFiles/any/any/_._": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": false
+          }
+        },
+        "build": {
+          "buildTransitive/ChartJs.Blazor.props": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/ChartJs.Blazor.props": {}
+        }
+      },
+      "Microsoft.AspNetCore.Authorization/3.1.8": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Metadata": "3.1.8",
+          "Microsoft.Extensions.Logging.Abstractions": "3.1.8",
+          "Microsoft.Extensions.Options": "3.1.8"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Authorization.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Authorization.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Blazor.HttpClient/3.2.0-preview3.20168.3": {
         "type": "package",
         "dependencies": {
@@ -12,6 +53,53 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.AspNetCore.Blazor.HttpClient.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Components/3.1.8": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Authorization": "3.1.8",
+          "Microsoft.AspNetCore.Components.Analyzers": "3.1.8",
+          "Microsoft.JSInterop": "3.1.8"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Components.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Components.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Components.Analyzers/3.1.8": {
+        "type": "package",
+        "build": {
+          "buildTransitive/netstandard2.0/Microsoft.AspNetCore.Components.Analyzers.targets": {}
+        }
+      },
+      "Microsoft.AspNetCore.Components.Forms/3.1.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components": "3.1.2"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Components.Forms.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Components.Forms.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Components.Web/3.1.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components": "3.1.2",
+          "Microsoft.AspNetCore.Components.Forms": "3.1.2",
+          "Microsoft.Extensions.DependencyInjection": "3.1.2",
+          "Microsoft.JSInterop": "3.1.2"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Components.Web.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Components.Web.dll": {}
         }
       },
       "Microsoft.AspNetCore.Cryptography.Internal/3.1.8": {
@@ -45,6 +133,46 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.AspNetCore.Html.Abstractions.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Http.Abstractions/2.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Features": "2.2.0",
+          "System.Text.Encodings.Web": "4.5.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Http.Abstractions.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Http.Abstractions.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Http.Extensions/2.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
+          "Microsoft.Extensions.FileProviders.Abstractions": "2.2.0",
+          "Microsoft.Net.Http.Headers": "2.2.0",
+          "System.Buffers": "4.5.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Http.Extensions.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Http.Extensions.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Http.Features/2.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "2.2.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Http.Features.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Http.Features.dll": {}
         }
       },
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore/3.1.8": {
@@ -87,6 +215,15 @@
         "buildMultiTargeting": {
           "buildMultiTargeting/Microsoft.AspNetCore.Identity.UI.props": {},
           "buildMultiTargeting/Microsoft.AspnetCore.Identity.UI.targets": {}
+        }
+      },
+      "Microsoft.AspNetCore.Metadata/3.1.8": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Metadata.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Metadata.dll": {}
         }
       },
       "Microsoft.AspNetCore.Razor/2.2.0": {
@@ -783,6 +920,28 @@
           "lib/netstandard2.0/Microsoft.IdentityModel.Tokens.dll": {}
         }
       },
+      "Microsoft.JSInterop/3.1.8": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.1/Microsoft.JSInterop.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.JSInterop.dll": {}
+        }
+      },
+      "Microsoft.Net.Http.Headers/2.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "2.2.0",
+          "System.Buffers": "4.5.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Net.Http.Headers.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Net.Http.Headers.dll": {}
+        }
+      },
       "Microsoft.NETCore.Platforms/2.1.2": {
         "type": "package",
         "compile": {
@@ -990,7 +1149,7 @@
           "System.Xml.XDocument": "4.3.0"
         }
       },
-      "Newtonsoft.Json/12.0.2": {
+      "Newtonsoft.Json/12.0.3": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
@@ -1217,6 +1376,539 @@
           }
         }
       },
+      "Skclusive.Core.Component/2.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components": "3.1.2",
+          "Microsoft.AspNetCore.Components.Web": "3.1.2",
+          "Microsoft.AspNetCore.Http.Abstractions": "2.2.0"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Core.Component.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Core.Component.dll": {}
+        }
+      },
+      "Skclusive.Material.AppBar/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Core": "2.0.1",
+          "Skclusive.Material.Paper": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.AppBar.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.AppBar.dll": {}
+        }
+      },
+      "Skclusive.Material.Avatar/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Core": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Avatar.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Avatar.dll": {}
+        }
+      },
+      "Skclusive.Material.Badge/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Core": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Badge.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Badge.dll": {}
+        }
+      },
+      "Skclusive.Material.Baseline/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Core": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Baseline.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Baseline.dll": {}
+        }
+      },
+      "Skclusive.Material.Button/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Core": "2.0.1",
+          "Skclusive.Material.Transition": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Button.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Button.dll": {}
+        }
+      },
+      "Skclusive.Material.Card/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Avatar": "2.0.1",
+          "Skclusive.Material.Button": "2.0.1",
+          "Skclusive.Material.Core": "2.0.1",
+          "Skclusive.Material.Paper": "2.0.1",
+          "Skclusive.Material.Typography": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Card.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Card.dll": {}
+        }
+      },
+      "Skclusive.Material.Component/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.AppBar": "2.0.1",
+          "Skclusive.Material.Avatar": "2.0.1",
+          "Skclusive.Material.Badge": "2.0.1",
+          "Skclusive.Material.Baseline": "2.0.1",
+          "Skclusive.Material.Button": "2.0.1",
+          "Skclusive.Material.Card": "2.0.1",
+          "Skclusive.Material.Container": "2.0.1",
+          "Skclusive.Material.Core": "2.0.1",
+          "Skclusive.Material.Dialog": "2.0.1",
+          "Skclusive.Material.Divider": "2.0.1",
+          "Skclusive.Material.Drawer": "2.0.1",
+          "Skclusive.Material.Form": "2.0.1",
+          "Skclusive.Material.Grid": "2.0.1",
+          "Skclusive.Material.Hidden": "2.0.1",
+          "Skclusive.Material.Icon": "2.0.1",
+          "Skclusive.Material.Input": "2.0.1",
+          "Skclusive.Material.List": "2.0.1",
+          "Skclusive.Material.Menu": "2.0.1",
+          "Skclusive.Material.Modal": "2.0.1",
+          "Skclusive.Material.Paper": "2.0.1",
+          "Skclusive.Material.Popover": "2.0.1",
+          "Skclusive.Material.Progress": "2.0.1",
+          "Skclusive.Material.Script": "2.0.1",
+          "Skclusive.Material.Selection": "2.0.1",
+          "Skclusive.Material.Tab": "2.0.1",
+          "Skclusive.Material.Table": "2.0.1",
+          "Skclusive.Material.Text": "2.0.1",
+          "Skclusive.Material.Theme": "2.0.1",
+          "Skclusive.Material.Toolbar": "2.0.1",
+          "Skclusive.Material.Transition": "2.0.1",
+          "Skclusive.Material.Typography": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Component.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Component.dll": {}
+        }
+      },
+      "Skclusive.Material.Container/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Core": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Container.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Container.dll": {}
+        }
+      },
+      "Skclusive.Material.Core/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Core.Component": "2.0.0",
+          "Skclusive.Script.DomHelpers": "2.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Core.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Core.dll": {}
+        },
+        "contentFiles": {
+          "contentFiles/any/any/_._": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": false
+          }
+        }
+      },
+      "Skclusive.Material.Dialog/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Core": "2.0.1",
+          "Skclusive.Material.Modal": "2.0.1",
+          "Skclusive.Material.Paper": "2.0.1",
+          "Skclusive.Material.Transition": "2.0.1",
+          "Skclusive.Material.Typography": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Dialog.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Dialog.dll": {}
+        }
+      },
+      "Skclusive.Material.Divider/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Core": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Divider.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Divider.dll": {}
+        }
+      },
+      "Skclusive.Material.Drawer/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Core": "2.0.1",
+          "Skclusive.Material.Modal": "2.0.1",
+          "Skclusive.Material.Paper": "2.0.1",
+          "Skclusive.Material.Transition": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Drawer.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Drawer.dll": {}
+        }
+      },
+      "Skclusive.Material.Form/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Core": "2.0.1",
+          "Skclusive.Material.Typography": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Form.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Form.dll": {}
+        }
+      },
+      "Skclusive.Material.Grid/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Core": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Grid.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Grid.dll": {}
+        }
+      },
+      "Skclusive.Material.Hidden/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Core": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Hidden.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Hidden.dll": {}
+        }
+      },
+      "Skclusive.Material.Icon/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Core": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Icon.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Icon.dll": {}
+        }
+      },
+      "Skclusive.Material.Input/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Core": "2.0.1",
+          "Skclusive.Material.Form": "2.0.1",
+          "Skclusive.Material.Typography": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Input.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Input.dll": {}
+        }
+      },
+      "Skclusive.Material.Layout/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Component": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Layout.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Layout.dll": {}
+        }
+      },
+      "Skclusive.Material.List/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Button": "2.0.1",
+          "Skclusive.Material.Core": "2.0.1",
+          "Skclusive.Material.Typography": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.List.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.List.dll": {}
+        }
+      },
+      "Skclusive.Material.Menu/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.List": "2.0.1",
+          "Skclusive.Material.Popover": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Menu.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Menu.dll": {}
+        }
+      },
+      "Skclusive.Material.Modal/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Core": "2.0.1",
+          "Skclusive.Material.Script": "2.0.1",
+          "Skclusive.Material.Transition": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Modal.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Modal.dll": {}
+        }
+      },
+      "Skclusive.Material.Paper/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Core": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Paper.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Paper.dll": {}
+        }
+      },
+      "Skclusive.Material.Popover/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Modal": "2.0.1",
+          "Skclusive.Material.Paper": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Popover.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Popover.dll": {}
+        }
+      },
+      "Skclusive.Material.Progress/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Core": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Progress.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Progress.dll": {}
+        }
+      },
+      "Skclusive.Material.Script/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Core": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Script.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Script.dll": {}
+        },
+        "contentFiles": {
+          "contentFiles/any/any/_._": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": false
+          }
+        }
+      },
+      "Skclusive.Material.Selection/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Button": "2.0.1",
+          "Skclusive.Material.Form": "2.0.1",
+          "Skclusive.Material.Icon": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Selection.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Selection.dll": {}
+        }
+      },
+      "Skclusive.Material.Tab/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Button": "2.0.1",
+          "Skclusive.Material.Core": "2.0.1",
+          "Skclusive.Material.Icon": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Tab.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Tab.dll": {}
+        }
+      },
+      "Skclusive.Material.Table/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Button": "2.0.1",
+          "Skclusive.Material.Core": "2.0.1",
+          "Skclusive.Material.Icon": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Table.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Table.dll": {}
+        }
+      },
+      "Skclusive.Material.Text/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Core": "2.0.1",
+          "Skclusive.Material.Form": "2.0.1",
+          "Skclusive.Material.Input": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Text.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Text.dll": {}
+        }
+      },
+      "Skclusive.Material.Theme/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Core": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Theme.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Theme.dll": {}
+        }
+      },
+      "Skclusive.Material.Toolbar/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Core": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Toolbar.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Toolbar.dll": {}
+        }
+      },
+      "Skclusive.Material.Transition/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Core": "2.0.1",
+          "Skclusive.Material.Script": "2.0.1",
+          "Skclusive.Transition.Component": "2.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Transition.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Transition.dll": {}
+        },
+        "contentFiles": {
+          "contentFiles/any/any/_._": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": false
+          }
+        }
+      },
+      "Skclusive.Material.Typography/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Material.Core": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Material.Typography.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Material.Typography.dll": {}
+        }
+      },
+      "Skclusive.Script.DomHelpers/2.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Core.Component": "2.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Script.DomHelpers.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Script.DomHelpers.dll": {}
+        },
+        "contentFiles": {
+          "contentFiles/any/any/_._": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": false
+          }
+        }
+      },
+      "Skclusive.Transition.Component/2.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Skclusive.Core.Component": "2.0.0",
+          "Skclusive.Script.DomHelpers": "2.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.1/Skclusive.Transition.Component.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Skclusive.Transition.Component.dll": {}
+        },
+        "contentFiles": {
+          "contentFiles/any/any/_._": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": false
+          }
+        }
+      },
       "System.AppContext/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -1229,20 +1921,13 @@
           "lib/netstandard1.6/System.AppContext.dll": {}
         }
       },
-      "System.Buffers/4.3.0": {
+      "System.Buffers/4.5.0": {
         "type": "package",
-        "dependencies": {
-          "System.Diagnostics.Debug": "4.3.0",
-          "System.Diagnostics.Tracing": "4.3.0",
-          "System.Resources.ResourceManager": "4.3.0",
-          "System.Runtime": "4.3.0",
-          "System.Threading": "4.3.0"
-        },
         "compile": {
-          "lib/netstandard1.1/_._": {}
+          "ref/netcoreapp2.0/_._": {}
         },
         "runtime": {
-          "lib/netstandard1.1/System.Buffers.dll": {}
+          "lib/netcoreapp2.0/_._": {}
         }
       },
       "System.Collections/4.3.0": {
@@ -2717,6 +3402,25 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
+      "Skclusive.Blazor.Dashboard.App.View/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "ChartJs.Blazor": "1.0.2",
+          "Microsoft.AspNetCore.Blazor.HttpClient": "3.2.0-preview3.20168.3",
+          "Microsoft.AspNetCore.Components": "3.1.8",
+          "Microsoft.AspNetCore.Http.Extensions": "2.2.0",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.8",
+          "Skclusive.Material.Layout": "2.0.1",
+          "SkillsMatrix.Models": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Skclusive.Blazor.Dashboard.App.View.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Skclusive.Blazor.Dashboard.App.View.dll": {}
+        }
+      },
       "SkillsMatrix.Models/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -2733,6 +3437,53 @@
     }
   },
   "libraries": {
+    "ChartJs.Blazor/1.0.2": {
+      "sha512": "aM1XzzwbNXDf4UWGUlZSkkIqwsQ0Ib9KGzRPEpCGj0nLS5lfKy3vzOZfJifCmYrC/CMTgd2+cjt3sjTQgJx2tA==",
+      "type": "package",
+      "path": "chartjs.blazor/1.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/ChartJs.Blazor.props",
+        "build/Microsoft.AspNetCore.StaticWebAssets.props",
+        "buildMultiTargeting/ChartJs.Blazor.props",
+        "buildTransitive/ChartJs.Blazor.props",
+        "chartjs.blazor.1.0.2.nupkg.sha512",
+        "chartjs.blazor.nuspec",
+        "content/Properties/launchSettings.json",
+        "contentFiles/any/netstandard2.0/Properties/launchSettings.json",
+        "lib/netstandard2.0/ChartJs.Blazor.dll",
+        "lib/netstandard2.0/ChartJs.Blazor.xml",
+        "staticwebassets/Chart.min.js",
+        "staticwebassets/ChartJSBlazor.css",
+        "staticwebassets/ChartJsBlazorInterop.js",
+        "staticwebassets/ChartJsBlazorInterop.js.map",
+        "staticwebassets/moment-with-locales.min.js",
+        "staticwebassets/ts/ChartJsBlazorInterop.ts",
+        "staticwebassets/ts/ChartJsInterop.ts",
+        "staticwebassets/ts/MomentJsInterop.ts",
+        "staticwebassets/ts/types/Chart.min.d.ts",
+        "staticwebassets/ts/types/moment.d.ts",
+        "staticwebassets/tsconfig.json"
+      ]
+    },
+    "Microsoft.AspNetCore.Authorization/3.1.8": {
+      "sha512": "vBVCalVaxmv8MqFH1/Qe/fMjwmFWZhGJISiNEa6Is0ZNNFAHHdbvBmreL7qmGaIHt4krnDiV8i3GZa/zi21FBA==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.authorization/3.1.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/netcoreapp3.1/Microsoft.AspNetCore.Authorization.dll",
+        "lib/netcoreapp3.1/Microsoft.AspNetCore.Authorization.xml",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Authorization.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Authorization.xml",
+        "microsoft.aspnetcore.authorization.3.1.8.nupkg.sha512",
+        "microsoft.aspnetcore.authorization.nuspec"
+      ]
+    },
     "Microsoft.AspNetCore.Blazor.HttpClient/3.2.0-preview3.20168.3": {
       "sha512": "6J1vBdhSnGW53BQsKeIjI8algTQdW8+Dnx/R9eZ/ldhtY8mx2KXOSkEVr7Tb0xwg5OM5+rHZS+PuzIv1nuvDCg==",
       "type": "package",
@@ -2745,6 +3496,73 @@
         "lib/netstandard2.0/Microsoft.AspNetCore.Blazor.HttpClient.dll",
         "microsoft.aspnetcore.blazor.httpclient.3.2.0-preview3.20168.3.nupkg.sha512",
         "microsoft.aspnetcore.blazor.httpclient.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Components/3.1.8": {
+      "sha512": "lNMY8gacn3hcqpJQbpGmAHkKMN2Wx4U/2KpffJ3ZuWd2JW8ka9aebYvkfFsu7XIe0cQrBbAKngnZoX+Pr9svqw==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.components/3.1.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.txt",
+        "lib/netcoreapp3.1/Microsoft.AspNetCore.Components.dll",
+        "lib/netcoreapp3.1/Microsoft.AspNetCore.Components.xml",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Components.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Components.xml",
+        "microsoft.aspnetcore.components.3.1.8.nupkg.sha512",
+        "microsoft.aspnetcore.components.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Components.Analyzers/3.1.8": {
+      "sha512": "ODBBAHa7Kxk85HHf/En3ZYw+oGPb+oosb30PZrrB1gGqDo/qtleHLfdR2XsjOdRyZujesOMX0c/FU0t3hyXRpA==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.components.analyzers/3.1.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.txt",
+        "analyzers/dotnet/cs/Microsoft.AspNetCore.Components.Analyzers.dll",
+        "build/netstandard2.0/Microsoft.AspNetCore.Components.Analyzers.targets",
+        "buildTransitive/netstandard2.0/Microsoft.AspNetCore.Components.Analyzers.targets",
+        "microsoft.aspnetcore.components.analyzers.3.1.8.nupkg.sha512",
+        "microsoft.aspnetcore.components.analyzers.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Components.Forms/3.1.2": {
+      "sha512": "fTL2kS8vNJadi6UVRlOeZqIhrulWKWr3Uy2zVoo2vMAkyOs2AoGq9mTUZHU2S6okpHiD9ovexil2n1bERFm2/w==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.components.forms/3.1.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.txt",
+        "lib/netcoreapp3.1/Microsoft.AspNetCore.Components.Forms.dll",
+        "lib/netcoreapp3.1/Microsoft.AspNetCore.Components.Forms.xml",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Components.Forms.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Components.Forms.xml",
+        "microsoft.aspnetcore.components.forms.3.1.2.nupkg.sha512",
+        "microsoft.aspnetcore.components.forms.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Components.Web/3.1.2": {
+      "sha512": "tkPkm2WlqhWh54KsWfJzdsIiSIlTpvVE2hSlwbeUDNq5bMwVc1WdBakNGblYpQKdrliBlxIg0QOZg4YqAJyBKw==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.components.web/3.1.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.txt",
+        "lib/netcoreapp3.1/Microsoft.AspNetCore.Components.Web.dll",
+        "lib/netcoreapp3.1/Microsoft.AspNetCore.Components.Web.xml",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Components.Web.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Components.Web.xml",
+        "microsoft.aspnetcore.components.web.3.1.2.nupkg.sha512",
+        "microsoft.aspnetcore.components.web.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Cryptography.Internal/3.1.8": {
@@ -2794,6 +3612,45 @@
         "lib/netstandard2.0/Microsoft.AspNetCore.Html.Abstractions.xml",
         "microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
         "microsoft.aspnetcore.html.abstractions.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Http.Abstractions/2.2.0": {
+      "sha512": "Nxs7Z1q3f1STfLYKJSVXCs1iBl+Ya6E8o4Oy1bCxJ/rNI44E/0f6tbsrVqAWfB7jlnJfyaAtIalBVxPKUPQb4Q==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.http.abstractions/2.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Http.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Http.Abstractions.xml",
+        "microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
+        "microsoft.aspnetcore.http.abstractions.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Http.Extensions/2.2.0": {
+      "sha512": "2DgZ9rWrJtuR7RYiew01nGRzuQBDaGHGmK56Rk54vsLLsCdzuFUPqbDTJCS1qJQWTbmbIQ9wGIOjpxA1t0l7/w==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.http.extensions/2.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Http.Extensions.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Http.Extensions.xml",
+        "microsoft.aspnetcore.http.extensions.2.2.0.nupkg.sha512",
+        "microsoft.aspnetcore.http.extensions.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Http.Features/2.2.0": {
+      "sha512": "ziFz5zH8f33En4dX81LW84I6XrYXKf9jg6aM39cM+LffN9KJahViKZ61dGMSO2gd3e+qe5yBRwsesvyqlZaSMg==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.http.features/2.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Http.Features.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Http.Features.xml",
+        "microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
+        "microsoft.aspnetcore.http.features.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Identity.EntityFrameworkCore/3.1.8": {
@@ -2901,6 +3758,23 @@
         "staticwebassets/V4/lib/jquery/dist/jquery.js",
         "staticwebassets/V4/lib/jquery/dist/jquery.min.js",
         "staticwebassets/V4/lib/jquery/dist/jquery.min.map"
+      ]
+    },
+    "Microsoft.AspNetCore.Metadata/3.1.8": {
+      "sha512": "JBZcWJb3JsSsFqdh0DVcOIc/oZ0Mpn0DMeL7Rfk2mUBSm3wdCmJOpt+tVX+M7r0/BRPHe+/2jj9wth5ili+V9A==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.metadata/3.1.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/netcoreapp3.1/Microsoft.AspNetCore.Metadata.dll",
+        "lib/netcoreapp3.1/Microsoft.AspNetCore.Metadata.xml",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Metadata.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Metadata.xml",
+        "microsoft.aspnetcore.metadata.3.1.8.nupkg.sha512",
+        "microsoft.aspnetcore.metadata.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Razor/2.2.0": {
@@ -3812,6 +4686,35 @@
         "microsoft.identitymodel.tokens.nuspec"
       ]
     },
+    "Microsoft.JSInterop/3.1.8": {
+      "sha512": "unbg+GMGotfUoXa3+QsvqerVX//RYTtLI7dvnmQfNxVKkvaU7Ffm5Iv8j7xY5W1wunmH3RZyflhmkH8qSdSAcg==",
+      "type": "package",
+      "path": "microsoft.jsinterop/3.1.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "lib/netcoreapp3.1/Microsoft.JSInterop.dll",
+        "lib/netcoreapp3.1/Microsoft.JSInterop.xml",
+        "lib/netstandard2.0/Microsoft.JSInterop.dll",
+        "lib/netstandard2.0/Microsoft.JSInterop.xml",
+        "microsoft.jsinterop.3.1.8.nupkg.sha512",
+        "microsoft.jsinterop.nuspec"
+      ]
+    },
+    "Microsoft.Net.Http.Headers/2.2.0": {
+      "sha512": "iZNkjYqlo8sIOI0bQfpsSoMTmB/kyvmV2h225ihyZT33aTp48ZpF6qYnXxzSXmHt8DpBAwBTX+1s1UFLbYfZKg==",
+      "type": "package",
+      "path": "microsoft.net.http.headers/2.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.Net.Http.Headers.dll",
+        "lib/netstandard2.0/Microsoft.Net.Http.Headers.xml",
+        "microsoft.net.http.headers.2.2.0.nupkg.sha512",
+        "microsoft.net.http.headers.nuspec"
+      ]
+    },
     "Microsoft.NETCore.Platforms/2.1.2": {
       "sha512": "mOJy3M0UN+LUG21dLGMxaWZEP6xYpQEpLuvuEQBaownaX4YuhH6NmNUlN9si+vNkAS6dwJ//N1O4DmLf2CikVg==",
       "type": "package",
@@ -4345,10 +5248,10 @@
         "netstandard.library.nuspec"
       ]
     },
-    "Newtonsoft.Json/12.0.2": {
-      "sha512": "rTK0s2EKlfHsQsH6Yx2smvcTCeyoDNgCW7FEYyV01drPlh2T243PR2DiDXqtC5N4GDm4Ma/lkxfW5a/4793vbA==",
+    "Newtonsoft.Json/12.0.3": {
+      "sha512": "6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
       "type": "package",
-      "path": "newtonsoft.json/12.0.2",
+      "path": "newtonsoft.json/12.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4371,8 +5274,9 @@
         "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.xml",
         "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.dll",
         "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.xml",
-        "newtonsoft.json.12.0.2.nupkg.sha512",
-        "newtonsoft.json.nuspec"
+        "newtonsoft.json.12.0.3.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "packageIcon.png"
       ]
     },
     "NuGet.Frameworks/4.7.0": {
@@ -4464,12 +5368,11 @@
       ]
     },
     "runtime.native.System.IO.Compression/4.3.0": {
-      "sha512": "INBPonS5QPEgn7naufQFXJEp3zX6L4bwHgJ/ZH78aBTpeNfQMtf7C6VrAFhlq2xxWBveIOWyFzQjJ8XzHMhdOQ==",
+      "sha512": "b+V9JC/Ii3sR659flBeaBJww111425tgjcDS1k+hqV4sGh9FALRDBvJnDtQ895gAzpPTUOFDHdqaZ2Et7BpZMg==",
       "type": "package",
       "path": "runtime.native.system.io.compression/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.0/_._",
@@ -4576,12 +5479,11 @@
       ]
     },
     "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
-      "sha512": "nyFNiCk/r+VOiIqreLix8yN+q3Wga9+SE8BCgkf+2BwEKiNx6DyvFjCgkfV743/grxv8jHJ8gUK4XEQw7yzRYg==",
+      "sha512": "T5NvFgmHX0WH4c7lP72krsnk+IJI10vJf2j2twGE+5QBRA4RyRAgD+ZjEgdmpLOjW4B+nZGaadewTCUcR899OQ==",
       "type": "package",
       "path": "runtime.rhel.7-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "runtime.rhel.7-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
@@ -4679,6 +5581,458 @@
         "version.txt"
       ]
     },
+    "Skclusive.Core.Component/2.0.0": {
+      "sha512": "X4+4LW5rkJz75H9EsY9VMU7QYKyqG93CieG9UZ1/WTZeyEvoVNIC0E0iKEKyJiJRM0B0PcXZOgD/tnDaoJbKmQ==",
+      "type": "package",
+      "path": "skclusive.core.component/2.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Core.Component.dll",
+        "skclusive.core.component.2.0.0.nupkg.sha512",
+        "skclusive.core.component.nuspec"
+      ]
+    },
+    "Skclusive.Material.AppBar/2.0.1": {
+      "sha512": "NgAn95NkDseWabs0Y457dlamgz4YUiamyDs6ml84YBN+H1bwx6RMoS2rXedwEzfC1IOnmrg8j5sZjXiVetJRKw==",
+      "type": "package",
+      "path": "skclusive.material.appbar/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.AppBar.dll",
+        "skclusive.material.appbar.2.0.1.nupkg.sha512",
+        "skclusive.material.appbar.nuspec"
+      ]
+    },
+    "Skclusive.Material.Avatar/2.0.1": {
+      "sha512": "5xPugK3r0bwW9AuLzU78u9RHlp/stQOyiFgjd99l/K2T3hPWgYrooU7crlKqpvQaXTfRYMO2XSf9jT0ZIIU7GA==",
+      "type": "package",
+      "path": "skclusive.material.avatar/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.Avatar.dll",
+        "skclusive.material.avatar.2.0.1.nupkg.sha512",
+        "skclusive.material.avatar.nuspec"
+      ]
+    },
+    "Skclusive.Material.Badge/2.0.1": {
+      "sha512": "qs9xLVQLuMoA+SGpnUFDuDrwOmn15dANC5fcF1Tq/bt/CWD5GP2fK6ZcSK/dmTxRF5rM/8p7UkSenvvG0fwgJg==",
+      "type": "package",
+      "path": "skclusive.material.badge/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.Badge.dll",
+        "skclusive.material.badge.2.0.1.nupkg.sha512",
+        "skclusive.material.badge.nuspec"
+      ]
+    },
+    "Skclusive.Material.Baseline/2.0.1": {
+      "sha512": "mhG4xTVIiTP36u7yO807DeXVZ322VhJcAPZgSZnIXlcPivpdoVolq/99lVZc0JMBlnA3E0nSRJe6t/typ3Ifow==",
+      "type": "package",
+      "path": "skclusive.material.baseline/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.Baseline.dll",
+        "skclusive.material.baseline.2.0.1.nupkg.sha512",
+        "skclusive.material.baseline.nuspec"
+      ]
+    },
+    "Skclusive.Material.Button/2.0.1": {
+      "sha512": "NN5vkw6WPLIutCK0tuCG681U8oO8+si7I3ro1aixcA5CfEKMX7sxvk47oh5/TINpIcyRXelNBwhRxDNUMIBWuw==",
+      "type": "package",
+      "path": "skclusive.material.button/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.Button.dll",
+        "skclusive.material.button.2.0.1.nupkg.sha512",
+        "skclusive.material.button.nuspec"
+      ]
+    },
+    "Skclusive.Material.Card/2.0.1": {
+      "sha512": "MrbAwkGUiswjT1R1hWiG+Xx8q+7ZQHH6ymOpkh9hBMdcqVmFeTId+3EJrIWfRTvmx+fq3CjccL7TIHivX1Taig==",
+      "type": "package",
+      "path": "skclusive.material.card/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.Card.dll",
+        "skclusive.material.card.2.0.1.nupkg.sha512",
+        "skclusive.material.card.nuspec"
+      ]
+    },
+    "Skclusive.Material.Component/2.0.1": {
+      "sha512": "D1W0ESSFnzcQNsjvUEwF5lAkWf3wHlNLHuCqSv4xr2AjHr9m1QCQRmZK5rIfx9sqie9q5EP6o7QFzDMvKDUc/w==",
+      "type": "package",
+      "path": "skclusive.material.component/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.Component.dll",
+        "skclusive.material.component.2.0.1.nupkg.sha512",
+        "skclusive.material.component.nuspec"
+      ]
+    },
+    "Skclusive.Material.Container/2.0.1": {
+      "sha512": "j+Ib4PF9WczfHwYyINT8Vv9q6nOSzzjitWwBCsfFB2I0uGuELHNoIUfDnydEDFnUla06Vd4juAWxY9zs4y5nPw==",
+      "type": "package",
+      "path": "skclusive.material.container/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.Container.dll",
+        "skclusive.material.container.2.0.1.nupkg.sha512",
+        "skclusive.material.container.nuspec"
+      ]
+    },
+    "Skclusive.Material.Core/2.0.1": {
+      "sha512": "1BMbNlYMGxJUAMlN0ughimNBXXli39k44GKyLBffwzv9CPpZteO6TKk+rQ8tJzOMvHm44Fdwxz0VjoAPJF+/lA==",
+      "type": "package",
+      "path": "skclusive.material.core/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/package-lock.json",
+        "content/package.json",
+        "contentFiles/any/netstandard2.1/package-lock.json",
+        "contentFiles/any/netstandard2.1/package.json",
+        "lib/netstandard2.1/Skclusive.Material.Core.dll",
+        "skclusive.material.core.2.0.1.nupkg.sha512",
+        "skclusive.material.core.nuspec"
+      ]
+    },
+    "Skclusive.Material.Dialog/2.0.1": {
+      "sha512": "2+3/BlR+9uVgZ1xVTP3DoOES8YZQIZYaaupRF1v2onMfO6Coj7JLb6XW0uAQiSoPG4yu0UQTp1/kD0HITinfmg==",
+      "type": "package",
+      "path": "skclusive.material.dialog/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.Dialog.dll",
+        "skclusive.material.dialog.2.0.1.nupkg.sha512",
+        "skclusive.material.dialog.nuspec"
+      ]
+    },
+    "Skclusive.Material.Divider/2.0.1": {
+      "sha512": "ekQws791/eq3UlTsYYL1Ooj5xiejEF3cqV8+uqx8rWzLRFdq50+vHqSDJ8izzy1jv8LwjX0TyE9sQrNdf+USSg==",
+      "type": "package",
+      "path": "skclusive.material.divider/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.Divider.dll",
+        "skclusive.material.divider.2.0.1.nupkg.sha512",
+        "skclusive.material.divider.nuspec"
+      ]
+    },
+    "Skclusive.Material.Drawer/2.0.1": {
+      "sha512": "KGk47L1EygoP7vPI0nNJp4VwOoQAz+F55D6ga1vMajvfaB55WY3ofOuhrJpdI6NIM8T3gxCnPLbDPVN7sen/zA==",
+      "type": "package",
+      "path": "skclusive.material.drawer/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.Drawer.dll",
+        "skclusive.material.drawer.2.0.1.nupkg.sha512",
+        "skclusive.material.drawer.nuspec"
+      ]
+    },
+    "Skclusive.Material.Form/2.0.1": {
+      "sha512": "/EhMJ5BY/5B6GNuHlf/QTNUfWimXqhb+Yc8uwD6s7SUHTrmBzIrweVWGCAI40DiuKwpjJ5C6HFjBxspns4Bwiw==",
+      "type": "package",
+      "path": "skclusive.material.form/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.Form.dll",
+        "skclusive.material.form.2.0.1.nupkg.sha512",
+        "skclusive.material.form.nuspec"
+      ]
+    },
+    "Skclusive.Material.Grid/2.0.1": {
+      "sha512": "jsXJ6TKaUW7dTaW2jcbQOeCbTNU28IFlv2XK2qq0BsIWRODPP2kAykei4ZTWAu4xq4y9LSRka6IFVC0QkeP5Nw==",
+      "type": "package",
+      "path": "skclusive.material.grid/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.Grid.dll",
+        "skclusive.material.grid.2.0.1.nupkg.sha512",
+        "skclusive.material.grid.nuspec"
+      ]
+    },
+    "Skclusive.Material.Hidden/2.0.1": {
+      "sha512": "eOS08ciCXpfyMt+gQnAucdHtBjWRMIIomTjKOgc1s2le9d/UG7J6sNlq0feL2pCfpTeMq7ZNWI2fkEiH6Mzy8g==",
+      "type": "package",
+      "path": "skclusive.material.hidden/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.Hidden.dll",
+        "skclusive.material.hidden.2.0.1.nupkg.sha512",
+        "skclusive.material.hidden.nuspec"
+      ]
+    },
+    "Skclusive.Material.Icon/2.0.1": {
+      "sha512": "yQpudOYh5yZUA9sgkMNeNWvaF5XWe3OeQ7sHZ/wARFMHGxA3p1k/gcdkapk766QwnThRrIcftVhJEdmrIxddbw==",
+      "type": "package",
+      "path": "skclusive.material.icon/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.Icon.dll",
+        "skclusive.material.icon.2.0.1.nupkg.sha512",
+        "skclusive.material.icon.nuspec"
+      ]
+    },
+    "Skclusive.Material.Input/2.0.1": {
+      "sha512": "Xj5+X3KGtM9L3zUED3gPxBV4OIF80HwgE9Osl7yeOy+arQdQAoyDiNYu0NzS/G2g59M8AobnXBTh7fijMrgOTw==",
+      "type": "package",
+      "path": "skclusive.material.input/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.Input.dll",
+        "skclusive.material.input.2.0.1.nupkg.sha512",
+        "skclusive.material.input.nuspec"
+      ]
+    },
+    "Skclusive.Material.Layout/2.0.1": {
+      "sha512": "aB9snt+8NLz5ut5yFZYdNId2QS9O45IQbB6mIxwGtHm/p7eFJvWX2C/fsEXGv+dW1pcR8mrzC97dol75kA0ufA==",
+      "type": "package",
+      "path": "skclusive.material.layout/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.Layout.dll",
+        "skclusive.material.layout.2.0.1.nupkg.sha512",
+        "skclusive.material.layout.nuspec"
+      ]
+    },
+    "Skclusive.Material.List/2.0.1": {
+      "sha512": "z/yr9EyJV23kd+A4umUKHXJw0mzZmILyOGeaQf2Ee4Jnj276Ym9EZ0hlmzWy9dLM2lnT5Mw1OrooYubN4PBt+g==",
+      "type": "package",
+      "path": "skclusive.material.list/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.List.dll",
+        "skclusive.material.list.2.0.1.nupkg.sha512",
+        "skclusive.material.list.nuspec"
+      ]
+    },
+    "Skclusive.Material.Menu/2.0.1": {
+      "sha512": "/z7YVMEtRu5bWs0JuoHIVbGX+q/l4Y001yKdyKR6TyA4ldGmncPZ+7U5/tZZxkzh2FrSpXnqEBXsczh9XizBgg==",
+      "type": "package",
+      "path": "skclusive.material.menu/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.Menu.dll",
+        "skclusive.material.menu.2.0.1.nupkg.sha512",
+        "skclusive.material.menu.nuspec"
+      ]
+    },
+    "Skclusive.Material.Modal/2.0.1": {
+      "sha512": "IdvE0Aoxvw26Zxt/2f64E2znex25fRjaTOKIDlzJbqWhL8QYYzJorLdQaxY8utMCYEhXd9cXptS8uC1VZLADKw==",
+      "type": "package",
+      "path": "skclusive.material.modal/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.Modal.dll",
+        "skclusive.material.modal.2.0.1.nupkg.sha512",
+        "skclusive.material.modal.nuspec"
+      ]
+    },
+    "Skclusive.Material.Paper/2.0.1": {
+      "sha512": "Eb+0XIESu29wQIgDbJYoGEdRLufxA9QUlclZxdH6k2ebpey609jdWMlWDdB0TXa1q9DgSI6AwLZs+/gnlhHwrQ==",
+      "type": "package",
+      "path": "skclusive.material.paper/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.Paper.dll",
+        "skclusive.material.paper.2.0.1.nupkg.sha512",
+        "skclusive.material.paper.nuspec"
+      ]
+    },
+    "Skclusive.Material.Popover/2.0.1": {
+      "sha512": "1g/aAm6RaaDvvr9ookvh4ClvUEHv0fkWXGp5aivbv3RIzJX9Jp6PH69XVAKE+Ju0kud+d6M/WqHyCi0L2MheFQ==",
+      "type": "package",
+      "path": "skclusive.material.popover/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.Popover.dll",
+        "skclusive.material.popover.2.0.1.nupkg.sha512",
+        "skclusive.material.popover.nuspec"
+      ]
+    },
+    "Skclusive.Material.Progress/2.0.1": {
+      "sha512": "HXkWR6HvVBuAx3diHFt51YfFTTSyBqtBmphOFKyY3qItsYR1bwdHC4u+ZZG59oS+aUE5j8ba0o88GUcCee/57w==",
+      "type": "package",
+      "path": "skclusive.material.progress/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.Progress.dll",
+        "skclusive.material.progress.2.0.1.nupkg.sha512",
+        "skclusive.material.progress.nuspec"
+      ]
+    },
+    "Skclusive.Material.Script/2.0.1": {
+      "sha512": "k6N+M/zj6tPqhrAhQTyZitNacW2XeDmggAMa8xJfja3AprSYgJFX3i9Y0zo8dSx1KcRv34Kdmg3HhIstUYjNlg==",
+      "type": "package",
+      "path": "skclusive.material.script/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/package-lock.json",
+        "content/package.json",
+        "contentFiles/any/netstandard2.1/package-lock.json",
+        "contentFiles/any/netstandard2.1/package.json",
+        "lib/netstandard2.1/Skclusive.Material.Script.dll",
+        "skclusive.material.script.2.0.1.nupkg.sha512",
+        "skclusive.material.script.nuspec"
+      ]
+    },
+    "Skclusive.Material.Selection/2.0.1": {
+      "sha512": "8r6s9zTSojUzvIJZzzky4dflOpCdaHVZd9N/HF7uFLxT3sDCxIy7J2nna+PoXPFo0sZURfpdkq5hcEZtjTkY+A==",
+      "type": "package",
+      "path": "skclusive.material.selection/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.Selection.dll",
+        "skclusive.material.selection.2.0.1.nupkg.sha512",
+        "skclusive.material.selection.nuspec"
+      ]
+    },
+    "Skclusive.Material.Tab/2.0.1": {
+      "sha512": "C+6WIM0UOCkMwsGIRMP5HdJPl79xC4FDWMOuGafS0efszVdg8L9LqzZSIMDycmsaFn47cuh6njM4UqsFEEuaVQ==",
+      "type": "package",
+      "path": "skclusive.material.tab/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.Tab.dll",
+        "skclusive.material.tab.2.0.1.nupkg.sha512",
+        "skclusive.material.tab.nuspec"
+      ]
+    },
+    "Skclusive.Material.Table/2.0.1": {
+      "sha512": "0cvOpPYE5WhS0/hElK54QCrs2CBL1vWWguQnOrhwDxAWoLFrhHDd0DJrsgn0ezq4XuhYvqTP9cRDL3mrxZb8tA==",
+      "type": "package",
+      "path": "skclusive.material.table/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.Table.dll",
+        "skclusive.material.table.2.0.1.nupkg.sha512",
+        "skclusive.material.table.nuspec"
+      ]
+    },
+    "Skclusive.Material.Text/2.0.1": {
+      "sha512": "NkR/qmGsQ8hzM9CTfITnyqqXjQVcLSfcrJliuMHZq+ac0V827AKiRU45Irr38y0s5R92t8QiyG7wAOVTYrxlBw==",
+      "type": "package",
+      "path": "skclusive.material.text/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.Text.dll",
+        "skclusive.material.text.2.0.1.nupkg.sha512",
+        "skclusive.material.text.nuspec"
+      ]
+    },
+    "Skclusive.Material.Theme/2.0.1": {
+      "sha512": "yYPlhRw1TdVtKi3tQe5zI58zfwE8WVnsHJsPhmhmj+o/Gvj2RiBp/E0JC1QOwV49acTee0EVNlKOHdW3n+Um5Q==",
+      "type": "package",
+      "path": "skclusive.material.theme/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.Theme.dll",
+        "skclusive.material.theme.2.0.1.nupkg.sha512",
+        "skclusive.material.theme.nuspec"
+      ]
+    },
+    "Skclusive.Material.Toolbar/2.0.1": {
+      "sha512": "rnYjAg8JaN4HQ1CpRIAuCG0iX5AVopG1YVYGUcwj+LtZYVHQi7ig1DMlDAc4Aw1UTzen7zj7go1cXwLU6uCSiw==",
+      "type": "package",
+      "path": "skclusive.material.toolbar/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.Toolbar.dll",
+        "skclusive.material.toolbar.2.0.1.nupkg.sha512",
+        "skclusive.material.toolbar.nuspec"
+      ]
+    },
+    "Skclusive.Material.Transition/2.0.1": {
+      "sha512": "k1f3P8AEg9hsBvUK8b7l3wc3ZsI4TeiZrDJmli59hnv7wcabwRXeImrUlfjhG+/VDoRFynPVQWWD4KaHr7FeMQ==",
+      "type": "package",
+      "path": "skclusive.material.transition/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/package-lock.json",
+        "content/package.json",
+        "contentFiles/any/netstandard2.1/package-lock.json",
+        "contentFiles/any/netstandard2.1/package.json",
+        "lib/netstandard2.1/Skclusive.Material.Transition.dll",
+        "skclusive.material.transition.2.0.1.nupkg.sha512",
+        "skclusive.material.transition.nuspec"
+      ]
+    },
+    "Skclusive.Material.Typography/2.0.1": {
+      "sha512": "hxQXKWTm24snPD/V0Kb1C3l9T3jv70dLEIeMCor6vBoOhWGd4DjaZ6ucs5FPXDnkonwuM0xh2nQEAhs0+HdtqQ==",
+      "type": "package",
+      "path": "skclusive.material.typography/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Skclusive.Material.Typography.dll",
+        "skclusive.material.typography.2.0.1.nupkg.sha512",
+        "skclusive.material.typography.nuspec"
+      ]
+    },
+    "Skclusive.Script.DomHelpers/2.0.0": {
+      "sha512": "nNW0PHGISFTPyV9kYjLdDABIZkXrs6YAolCVSraDjVeliEkM+8HVzgQmUy3mqSemdxVpkvGvd/G1WpJrS9xM3Q==",
+      "type": "package",
+      "path": "skclusive.script.domhelpers/2.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/package-lock.json",
+        "content/package.json",
+        "contentFiles/any/netstandard2.1/package-lock.json",
+        "contentFiles/any/netstandard2.1/package.json",
+        "lib/netstandard2.1/Skclusive.Script.DomHelpers.dll",
+        "skclusive.script.domhelpers.2.0.0.nupkg.sha512",
+        "skclusive.script.domhelpers.nuspec"
+      ]
+    },
+    "Skclusive.Transition.Component/2.0.0": {
+      "sha512": "1tx/fpy0lkhahdhrx1QbXufXPiCfui77PRthJc3UGt4KriN7PgAw2irYUE2sVFFvkXfyJ15tFeFGSxRDHRuOQQ==",
+      "type": "package",
+      "path": "skclusive.transition.component/2.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/package-lock.json",
+        "content/package.json",
+        "contentFiles/any/netstandard2.1/package-lock.json",
+        "contentFiles/any/netstandard2.1/package.json",
+        "lib/netstandard2.1/Skclusive.Transition.Component.dll",
+        "skclusive.transition.component.2.0.0.nupkg.sha512",
+        "skclusive.transition.component.nuspec"
+      ]
+    },
     "System.AppContext/4.3.0": {
       "sha512": "fKC+rmaLfeIzUhagxY17Q9siv/sPrjjKcfNg1Ic8IlQkZLipo8ljcaZQu4VtI4Jqbzjc2VTjzGLF6WmsRXAEgA==",
       "type": "package",
@@ -4734,19 +6088,33 @@
         "system.appcontext.nuspec"
       ]
     },
-    "System.Buffers/4.3.0": {
-      "sha512": "ratu44uTIHgeBeI0dE8DWvmXVBSo4u7ozRZZHOMmK/JPpYyo0dAfgSiHlpiObMQ5lEtEyIXA40sKRYg5J6A8uQ==",
+    "System.Buffers/4.5.0": {
+      "sha512": "pL2ChpaRRWI/p4LXyy4RgeWlYF2sgfj/pnVMvBqwNFr5cXg7CXNnWZWxrOONLg8VGdFB8oB+EG2Qw4MLgTOe+A==",
       "type": "package",
-      "path": "system.buffers/4.3.0",
+      "path": "system.buffers/4.5.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "ThirdPartyNotices.txt",
-        "dotnet_library_license.txt",
-        "lib/netstandard1.1/.xml",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/netcoreapp2.0/_._",
         "lib/netstandard1.1/System.Buffers.dll",
-        "system.buffers.4.3.0.nupkg.sha512",
-        "system.buffers.nuspec"
+        "lib/netstandard1.1/System.Buffers.xml",
+        "lib/netstandard2.0/System.Buffers.dll",
+        "lib/netstandard2.0/System.Buffers.xml",
+        "lib/uap10.0.16299/_._",
+        "ref/net45/System.Buffers.dll",
+        "ref/net45/System.Buffers.xml",
+        "ref/netcoreapp2.0/_._",
+        "ref/netstandard1.1/System.Buffers.dll",
+        "ref/netstandard1.1/System.Buffers.xml",
+        "ref/netstandard2.0/System.Buffers.dll",
+        "ref/netstandard2.0/System.Buffers.xml",
+        "ref/uap10.0.16299/_._",
+        "system.buffers.4.5.0.nupkg.sha512",
+        "system.buffers.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
       ]
     },
     "System.Collections/4.3.0": {
@@ -4912,12 +6280,11 @@
       ]
     },
     "System.Collections.NonGeneric/4.3.0": {
-      "sha512": "prtjIEMhGUnQq6RnPEYLpFt8AtLbp9yq2zxOSrY7KJJZrw25Fi97IzBqY7iqssbM61Ek5b8f3MG/sG1N2sN5KA==",
+      "sha512": "LE/oChpRvkSi3U25u0KnJcI44JeDZ1QJCyN4qFDx2uusEypdqR24w7lKYw21eYe5esuCBuc862wRmpF63Yy1KQ==",
       "type": "package",
       "path": "system.collections.nongeneric/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -8867,6 +10234,11 @@
         "system.xml.xmlserializer.nuspec"
       ]
     },
+    "Skclusive.Blazor.Dashboard.App.View/1.0.0": {
+      "type": "project",
+      "path": "../../../capability-matrix-be/Dashboard.App.View/Matrix.App.View.csproj",
+      "msbuildProject": "../../../capability-matrix-be/Dashboard.App.View/Matrix.App.View.csproj"
+    },
     "SkillsMatrix.Models/1.0.0": {
       "type": "project",
       "path": "../SkillsMatrix.Models/SkillsMatrix.Models.csproj",
@@ -8881,44 +10253,52 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.1.8",
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.8",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.4",
+      "Skclusive.Blazor.Dashboard.App.View >= 1.0.0",
       "SkillsMatrix.Models >= 1.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\MNEMUKULA\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
+    "C:\\Users\\mnethathe\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Progress\\ToolboxNuGetPackages": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projects\\SkillsCompetencyMatrix\\SkillsMatrix.Web\\SkillsMatrix.Web.csproj",
+      "projectUniqueName": "C:\\dev\\capability-matrix-b\\SkillsCompetencyMatrix\\SkillsMatrix.Web\\SkillsMatrix.Web.csproj",
       "projectName": "SkillsMatrix.Web",
-      "projectPath": "C:\\Projects\\SkillsCompetencyMatrix\\SkillsMatrix.Web\\SkillsMatrix.Web.csproj",
-      "packagesPath": "C:\\Users\\MNEMUKULA\\.nuget\\packages\\",
-      "outputPath": "C:\\Projects\\SkillsCompetencyMatrix\\SkillsMatrix.Web\\obj\\",
+      "projectPath": "C:\\dev\\capability-matrix-b\\SkillsCompetencyMatrix\\SkillsMatrix.Web\\SkillsMatrix.Web.csproj",
+      "packagesPath": "C:\\Users\\mnethathe\\.nuget\\packages\\",
+      "outputPath": "C:\\dev\\capability-matrix-b\\SkillsCompetencyMatrix\\SkillsMatrix.Web\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\",
+        "C:\\Program Files (x86)\\Progress\\ToolboxNuGetPackages",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\MNEMUKULA\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\mnethathe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 20.1.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Program Files (x86)\\NuGet\\Config\\Telerik UI for WinForms.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Telerik UI for WPF.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\DevExpress 20.1\\Components\\System\\Components\\Packages": {},
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://nuget.telerik.com/nuget": {}
       },
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\Projects\\SkillsCompetencyMatrix\\SkillsMatrix.Models\\SkillsMatrix.Models.csproj": {
-              "projectPath": "C:\\Projects\\SkillsCompetencyMatrix\\SkillsMatrix.Models\\SkillsMatrix.Models.csproj"
+            "C:\\dev\\capability-matrix-be\\Dashboard.App.View\\Matrix.App.View.csproj": {
+              "projectPath": "C:\\dev\\capability-matrix-be\\Dashboard.App.View\\Matrix.App.View.csproj"
+            },
+            "C:\\dev\\capability-matrix-b\\SkillsCompetencyMatrix\\SkillsMatrix.Models\\SkillsMatrix.Models.csproj": {
+              "projectPath": "C:\\dev\\capability-matrix-b\\SkillsCompetencyMatrix\\SkillsMatrix.Models\\SkillsMatrix.Models.csproj"
             }
           }
         }

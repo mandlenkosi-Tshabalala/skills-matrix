@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "R0lCjGxbRvfWUFuDslvxDmcQR1c1wUpu7qWsYWBtBRsTgX8J5Cj1EvliuWqZm6NNwhuOl08gc8j7oISVQ+rpaA==",
+  "dgSpecHash": "EgU2HvkdZdcq/Aj9ut4YLcm2rWc9g7UHAQZ8p18RId+3I7jyd2SghLn7tnpq713weKbhlKQLH1yL/+tQgDZNeA==",
   "success": true,
-  "projectFilePath": "C:\\Projects\\SkillsCompetencyMatrix\\SkillsMatrix.Models\\SkillsMatrix.Models.csproj",
+  "projectFilePath": "C:\\dev\\capability-matrix-b\\SkillsCompetencyMatrix\\SkillsMatrix.Models\\SkillsMatrix.Models.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\MNEMUKULA\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
-    "C:\\Users\\MNEMUKULA\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
-    "C:\\Users\\MNEMUKULA\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\system.componentmodel.annotations.4.7.0.nupkg.sha512"
+    "C:\\Users\\mnethathe\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\mnethathe\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\system.componentmodel.annotations.4.7.0.nupkg.sha512"
   ],
   "logs": []
 }
