@@ -20,6 +20,9 @@ namespace Skclusive.Blazor.Dashboard.App.View.MyCvForms
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
+        [Parameter]
+        public string PersonId { get; set; }
+
         protected ProfessionalMembership professionalMembership = new ProfessionalMembership();
 
         protected EditContext editContext;
@@ -40,25 +43,26 @@ namespace Skclusive.Blazor.Dashboard.App.View.MyCvForms
 
         protected void HandleValidSubmit()
         {
+            if (professionalMembership != null)
+                professionalMembership.PersonID = int.Parse(PersonId);
 
             //Check if its a new record
             if (professionalMembership.Id == 0)
             {
 
                 ProfessionalMembershipService.Create(professionalMembership);
-                NavigationManager.NavigateTo("/personDetails");
+                NavigationManager.NavigateTo($"/personDetails/{PersonId}");
             }
             else
             {
                 ProfessionalMembershipService.Update(professionalMembership);
-                NavigationManager.NavigateTo("/personDetails");
+                NavigationManager.NavigateTo($"/personDetails/{PersonId}");
             }
-
         }
 
         protected void Back()
         {
-            NavigationManager.NavigateTo("/personDetails");
+            NavigationManager.NavigateTo($"/personDetails/{PersonId}");
         }
     }
 }

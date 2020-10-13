@@ -2453,11 +2453,12 @@
       ]
     },
     "System.Collections.NonGeneric/4.3.0": {
-      "sha512": "LE/oChpRvkSi3U25u0KnJcI44JeDZ1QJCyN4qFDx2uusEypdqR24w7lKYw21eYe5esuCBuc862wRmpF63Yy1KQ==",
+      "sha512": "prtjIEMhGUnQq6RnPEYLpFt8AtLbp9yq2zxOSrY7KJJZrw25Fi97IzBqY7iqssbM61Ek5b8f3MG/sG1N2sN5KA==",
       "type": "package",
       "path": "system.collections.nongeneric/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -5736,44 +5737,40 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mnethathe\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Progress\\ToolboxNuGetPackages": {},
+    "C:\\Users\\MNEMUKULA\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\dev\\capability-matrix-b\\SkillsCompetencyMatrix\\SkillsMatrix.Api\\SkillsMatrix.Api.csproj",
+      "projectUniqueName": "C:\\dev\\SkillsCompetencyMatrix\\SkillsMatrix.Api\\SkillsMatrix.Api.csproj",
       "projectName": "SkillsMatrix.Api",
-      "projectPath": "C:\\dev\\capability-matrix-b\\SkillsCompetencyMatrix\\SkillsMatrix.Api\\SkillsMatrix.Api.csproj",
-      "packagesPath": "C:\\Users\\mnethathe\\.nuget\\packages\\",
-      "outputPath": "C:\\dev\\capability-matrix-b\\SkillsCompetencyMatrix\\SkillsMatrix.Api\\obj\\",
+      "projectPath": "C:\\dev\\SkillsCompetencyMatrix\\SkillsMatrix.Api\\SkillsMatrix.Api.csproj",
+      "packagesPath": "C:\\Users\\MNEMUKULA\\.nuget\\packages\\",
+      "outputPath": "C:\\dev\\SkillsCompetencyMatrix\\SkillsMatrix.Api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Progress\\ToolboxNuGetPackages",
+        "C:\\Microsoft\\Xamarin\\NuGet\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\mnethathe\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 20.1.config",
+        "C:\\Users\\MNEMUKULA\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Telerik UI for WinForms.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Telerik UI for WPF.config"
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\DevExpress 20.1\\Components\\System\\Components\\Packages": {},
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://nuget.telerik.com/nuget": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\dev\\capability-matrix-b\\SkillsCompetencyMatrix\\SkillsMatrix.Models\\SkillsMatrix.Models.csproj": {
-              "projectPath": "C:\\dev\\capability-matrix-b\\SkillsCompetencyMatrix\\SkillsMatrix.Models\\SkillsMatrix.Models.csproj"
+            "C:\\dev\\SkillsCompetencyMatrix\\SkillsMatrix.Models\\SkillsMatrix.Models.csproj": {
+              "projectPath": "C:\\dev\\SkillsCompetencyMatrix\\SkillsMatrix.Models\\SkillsMatrix.Models.csproj"
             }
           }
         }

@@ -92,7 +92,7 @@ namespace SkillsMatrix.Api.Controllers
 
                 return CreatedAtAction(nameof(GetAddress), new { id = createdAddress.Id }, createdAddress);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                    "Error saving data");

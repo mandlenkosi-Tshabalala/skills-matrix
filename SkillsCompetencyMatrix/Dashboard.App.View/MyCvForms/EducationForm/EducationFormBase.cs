@@ -20,11 +20,14 @@ namespace Skclusive.Blazor.Dashboard.App.View.MyCvForms
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
+        [Parameter]
+        public string PersonId { get; set; }
+
         protected Education personEducation = new Education();
 
         protected EditContext editContext;
-      
-        protected override async Task  OnInitializedAsync()
+
+        protected override async Task OnInitializedAsync()
         {
 
             editContext = new EditContext(personEducation);
@@ -40,25 +43,27 @@ namespace Skclusive.Blazor.Dashboard.App.View.MyCvForms
 
         protected void HandleValidSubmit()
         {
+            if (personEducation != null)
+                personEducation.PersonID = int.Parse(PersonId);
 
             //Check if its a new record 
             if (personEducation.Id == 0)
             {
 
                 EducationService.Create(personEducation);
-                NavigationManager.NavigateTo("/personEmpolyment");
+                NavigationManager.NavigateTo($"/personEmpolyment/{PersonId}");
             }
             else
             {
                 EducationService.Update(personEducation);
-                NavigationManager.NavigateTo("/personEmpolyment");
+                NavigationManager.NavigateTo($"/personEmpolyment/{PersonId}");
             }
 
         }
 
         protected void Back()
         {
-            NavigationManager.NavigateTo("/address");
+            NavigationManager.NavigateTo($"/address/{PersonId}");
         }
     }
 }

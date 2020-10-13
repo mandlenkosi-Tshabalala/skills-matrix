@@ -20,6 +20,9 @@ namespace Skclusive.Blazor.Dashboard.App.View.MyCvForms
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
+        [Parameter]
+        public string PersonId { get; set; }
+
         protected Expertise personExpertise = new Expertise();
 
         protected EditContext editContext;
@@ -40,25 +43,27 @@ namespace Skclusive.Blazor.Dashboard.App.View.MyCvForms
 
         protected void HandleValidSubmit()
         {
+            //if(personExpertise != null)
+            //    personExpertise.PersonId
 
             //Check if its a new record 
             if (personExpertise.Id == 0)
             {
 
                 PersonExpertiseService.Create(personExpertise);
-                NavigationManager.NavigateTo("/personCompetencies");
+                NavigationManager.NavigateTo($"/personCompetencies/{PersonId}");
             }
             else
             {
                 PersonExpertiseService.Update(personExpertise);
-                NavigationManager.NavigateTo("/personCompetencies");
+                NavigationManager.NavigateTo($"/personCompetencies/{PersonId}");
             }
 
         }
 
         protected void Back()
         {
-            NavigationManager.NavigateTo("/personEmpolyment");
+            NavigationManager.NavigateTo($"/personEmpolyment/{PersonId}");
         }
     }
 }

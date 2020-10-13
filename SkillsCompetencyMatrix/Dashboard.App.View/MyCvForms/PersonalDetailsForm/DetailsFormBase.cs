@@ -19,43 +19,43 @@ namespace Skclusive.Blazor.Dashboard.App.View.MyCvForms
         public IPersonService PersonService { get; set; }
 
         [Inject]
-
         public NavigationManager NavigationManager { get; set; }
+
+        [Parameter]
+        public string UserId { get; set; }
 
         protected Person person = new Person();
 
 
         protected EditContext editContext;
-      
-        protected override async Task  OnInitializedAsync()
+
+        protected override async Task OnInitializedAsync()
         {
+            UserId = UserId ?? "1";
 
             editContext = new EditContext(person);
 
-            person = await PersonService.GetPerson(1);
+            person = await PersonService.GetPerson(int.Parse(UserId));
 
             if (person != null)
             {
                 editContext = new EditContext(person);
             }
-
         }
 
         protected void HandleValidSubmit()
-        {    
+        {
             //Check if its a new record 
             if (person.Id == 0)
             {
-               PersonService.Create(person);
-                NavigationManager.NavigateTo("/address");
+                PersonService.Create(person);
+                NavigationManager.NavigateTo($"/address/{person.Id}");
             }
             else
             {
-               PersonService.Update(person);
-                NavigationManager.NavigateTo("/address");
+                PersonService.Update(person);
+                NavigationManager.NavigateTo($"/address/{person.Id}");
             }
-
         }
-
     }
 }
