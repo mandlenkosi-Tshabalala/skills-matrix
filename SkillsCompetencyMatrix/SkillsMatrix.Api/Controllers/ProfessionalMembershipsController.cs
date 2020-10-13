@@ -76,21 +76,21 @@ namespace SkillsMatrix.Api.Controllers
             }
         }
 
-        [HttpPut("{id:int}")]
-        public async Task<ActionResult<ProfessionalMembership>> UpdateProfessionalMembership(int id, ProfessionalMembership professionalMembership)
+        [HttpPut]
+        public async Task<ActionResult<ProfessionalMembership>> UpdateProfessionalMembership(ProfessionalMembership professionalMembership)
         {
             try
             {
-                if (id != professionalMembership.Id)
-                {
-                    return BadRequest("ProfessionalMembership ID mismatch");
-                }
+                //if (id != professionalMembership.Id)
+                //{
+                //    return BadRequest("ProfessionalMembership ID mismatch");
+                //}
 
-                var result = await professionalMembershipRepository.GetById(id);
+                var result = await professionalMembershipRepository.GetById(professionalMembership.Id);
 
                 if (result == null)
                 {
-                    return NotFound($"ProfessionalMembership with Id = {id} not found.");
+                    return new ProfessionalMembership();
                 }
 
                 return await professionalMembershipRepository.Update(professionalMembership);

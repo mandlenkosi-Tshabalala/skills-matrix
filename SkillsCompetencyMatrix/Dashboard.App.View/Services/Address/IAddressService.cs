@@ -8,9 +8,9 @@ namespace Skclusive.Blazor.Dashboard.App.View.Services
 {
     public  interface IAddressService
     {
-      Task<Person> Get(int Id);
-      Task<Person> Create(Person person);
-      Task<Person> Update(Person person);
+      Task<Address> Get(int Id);
+      Task<Address> Create(Address address);
+      Task<Address> Update(Address address);
 
     }
 }

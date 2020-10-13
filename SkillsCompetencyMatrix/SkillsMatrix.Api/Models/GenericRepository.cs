@@ -49,7 +49,10 @@ namespace SkillsMatrix.Api.Models
 
         public async Task<TEntity> Update(TEntity entity)
         {
-            throw new NotImplementedException();
+            appDbContext.Set<TEntity>().Update(entity);
+            await appDbContext.SaveChangesAsync();
+
+            return entity;
         }
     }
 }

@@ -20,6 +20,10 @@
     <ProjectReference Include="..\SkillsMatrix.Models\SkillsMatrix.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Dashboard\" />
+  </ItemGroup>
+
   <!-- <ItemGroup>
     <ProjectReference Include="..\..\..\Skclusive.Material.Layout\src\Skclusive.Material.Layout.csproj" Version="2.0.1" />
   </ItemGroup> -->

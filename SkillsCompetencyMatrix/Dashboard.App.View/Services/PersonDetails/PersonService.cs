@@ -21,17 +21,17 @@ namespace Skclusive.Blazor.Dashboard.App.View.Services
 
         public async Task<Person> Create(Person person)
         {
-            return await httpClient.PostJsonAsync<Person>($"api/Person", person);
+            return await httpClient.PostJsonAsync<Person>($"api/Persons", person);
         }
 
         public async Task<Person> GetPerson(int Id)
         {
-           return await httpClient.GetJsonAsync<Person>($"api/Person/{Id}");
+           return await httpClient.GetJsonAsync<Person>($"api/Persons/{Id}");
         }
 
         public async Task<Person> Update(Person person)
         {
-            return await httpClient.PutJsonAsync<Person>($"api/Person", person);
+            return await httpClient.PutJsonAsync<Person>($"api/Persons", person);
         }
     }
 }

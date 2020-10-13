@@ -15,7 +15,7 @@ namespace Skclusive.Blazor.Dashboard.App.View.MyCvForms
     {
 
         [Inject]
-        public IAddressService AddressService { get; set; }
+        public IProfessionalMembershipService ProfessionalMembershipService { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -29,30 +29,30 @@ namespace Skclusive.Blazor.Dashboard.App.View.MyCvForms
 
             editContext = new EditContext(professionalMembership);
 
-            //address = await AddressService.Get(1);
+            professionalMembership = await ProfessionalMembershipService.Get(1);
 
-            //if (address != null)
-            //{
-            //    editContext = new EditContext(address);
-            //}
+            if (professionalMembership != null)
+            {
+                editContext = new EditContext(professionalMembership);
+            }
 
         }
 
         protected void HandleValidSubmit()
         {
 
-            //Check if its a new record 
-            //if (address.Id == 0)
-            //{
+            //Check if its a new record
+            if (professionalMembership.Id == 0)
+            {
 
-                //AddressService.Create(address);
+                ProfessionalMembershipService.Create(professionalMembership);
                 NavigationManager.NavigateTo("/personDetails");
-            //}
-            //else
-            //{
-                // AddressService.Update(address);
+            }
+            else
+            {
+                ProfessionalMembershipService.Update(professionalMembership);
                 NavigationManager.NavigateTo("/personDetails");
-            //}
+            }
 
         }
 

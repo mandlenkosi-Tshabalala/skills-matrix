@@ -5,6 +5,7 @@ using SkillsMatrix.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace SkillsMatrix.Api.Controllers
@@ -76,21 +77,21 @@ namespace SkillsMatrix.Api.Controllers
             }
         }
 
-        [HttpPut("{id:int}")]
-        public async Task<ActionResult<Industry>> UpdateIndustry(int id, Industry industry)
+        [HttpPut]
+        public async Task<ActionResult<Industry>> UpdateIndustry(Industry industry)
         {
             try
             {
-                if (id != industry.Id)
-                {
-                    return BadRequest("Industry ID mismatch");
-                }
+                //if (id != industry.Id)
+                //{
+                //    return BadRequest("Industry ID mismatch");
+                //}
 
-                var result = await industryRepository.GetById(id);
+                var result = await industryRepository.GetById(industry.Id);
 
                 if (result == null)
                 {
-                    return NotFound($"Industry with Id = {id} not found.");
+                    return new Industry();
                 }
 
                 return await industryRepository.Update(industry);

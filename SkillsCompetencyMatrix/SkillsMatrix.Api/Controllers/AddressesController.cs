@@ -66,7 +66,7 @@ namespace SkillsMatrix.Api.Controllers
 
                 if (result == null)
                 {
-                    return NotFound();
+                    return new Address();
                 }
 
                 return result;
@@ -99,23 +99,11 @@ namespace SkillsMatrix.Api.Controllers
             }
         }
 
-        [HttpPut("{id:int}")]
-        public async Task<ActionResult<Address>> UpdateAddress(int id, Address address)
+        [HttpPut]
+        public async Task<ActionResult<Address>> UpdateAddress(Address address)
         {
             try
             {
-                if (id != address.Id)
-                {
-                    return BadRequest("Address ID mismatch");
-                }
-
-                var result = await addressRepository.GetAddress(id);
-
-                if (result == null)
-                {
-                    return NotFound($"Address with Id = {id} not found.");
-                }
-
                 return await addressRepository.UpdateAddress(address);
             }
             catch (Exception)

@@ -15,12 +15,12 @@ namespace Skclusive.Blazor.Dashboard.App.View.MyCvForms
     {
 
         [Inject]
-        public IAddressService AddressService { get; set; }
+        public IEmployementHistoryService EmployementService { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
-        protected SkillsMatrix.Models.EmploymentHistory EmploymentHistory = new SkillsMatrix.Models.EmploymentHistory();
+        protected EmploymentHistory EmploymentHistory = new EmploymentHistory();
 
         protected EditContext editContext;
       
@@ -29,12 +29,12 @@ namespace Skclusive.Blazor.Dashboard.App.View.MyCvForms
 
             editContext = new EditContext(EmploymentHistory);
 
-            //address = await AddressService.Get(1);
+            EmploymentHistory = await EmployementService.Get(1);
 
-            //if (address != null)
-            //{
-            //    editContext = new EditContext(address);
-            //}
+            if (EmploymentHistory != null)
+            {
+                editContext = new EditContext(EmploymentHistory);
+            }
 
         }
 
@@ -45,12 +45,12 @@ namespace Skclusive.Blazor.Dashboard.App.View.MyCvForms
             if (EmploymentHistory.Id == 0)
             {
 
-                // AddressService.Create(address);
+                EmployementService.Create(EmploymentHistory);
                 NavigationManager.NavigateTo("/expertise");
             }
             else
             {
-                //AddressService.Update(address);
+                EmployementService.Update(EmploymentHistory);
                 NavigationManager.NavigateTo("/expertise");
             }
 

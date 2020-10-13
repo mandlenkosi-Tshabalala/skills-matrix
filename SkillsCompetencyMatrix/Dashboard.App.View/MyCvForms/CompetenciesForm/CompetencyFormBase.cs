@@ -15,7 +15,7 @@ namespace Skclusive.Blazor.Dashboard.App.View.MyCvForms
     {
 
         [Inject]
-        public IAddressService AddressService { get; set; }
+        public IPersonCompetencies PersonCompetencies { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -29,12 +29,12 @@ namespace Skclusive.Blazor.Dashboard.App.View.MyCvForms
 
             editContext = new EditContext(personCompetencies);
 
-            //address = await AddressService.Get(1);
+            personCompetencies = await PersonCompetencies.Get(1);
 
-            //if (address != null)
-            //{
-            //    editContext = new EditContext(address);
-            //}
+            if (personCompetencies != null)
+            {
+                editContext = new EditContext(personCompetencies);
+            }
 
         }
 
@@ -44,13 +44,13 @@ namespace Skclusive.Blazor.Dashboard.App.View.MyCvForms
             //Check if its a new record 
             if (personCompetencies.Id == 0)
             {
+                PersonCompetencies.Create(personCompetencies);
                 NavigationManager.NavigateTo("/viewCV");
-                //AddressService.Create(personCompetencies);
             }
             else
             {
+                PersonCompetencies.Update(personCompetencies);
                 NavigationManager.NavigateTo("/personDetails");
-                // AddressService.Update(personCompetencies);
             }
 
         }

@@ -76,21 +76,21 @@ namespace SkillsMatrix.Api.Controllers
             }
         }
 
-        [HttpPut("{id:int}")]
-        public async Task<ActionResult<ExpertiseCategory>> UpdateExpertiseCategory(int id, ExpertiseCategory expertiseCategory)
+        [HttpPut]
+        public async Task<ActionResult<ExpertiseCategory>> UpdateExpertiseCategory(ExpertiseCategory expertiseCategory)
         {
             try
             {
-                if (id != expertiseCategory.Id)
-                {
-                    return BadRequest("ExpertiseCategory ID mismatch");
-                }
+                //if (id != expertiseCategory.Id)
+                //{
+                //    return BadRequest("ExpertiseCategory ID mismatch");
+                //}
 
-                var result = await expertiseCategoryRepository.GetById(id);
+                var result = await expertiseCategoryRepository.GetById(expertiseCategory.Id);
 
                 if (result == null)
                 {
-                    return NotFound($"ExpertiseCategory with Id = {id} not found.");
+                    return new ExpertiseCategory();
                 }
 
                 return await expertiseCategoryRepository.Update(expertiseCategory);

@@ -46,12 +46,12 @@ namespace Skclusive.Blazor.Dashboard.App.View.MyCvForms
             //Check if its a new record 
             if (person.Id == 0)
             {
-              //  PersonService.Create(person);
+               PersonService.Create(person);
                 NavigationManager.NavigateTo("/address");
             }
             else
             {
-              //  PersonService.Update(person);
+               PersonService.Update(person);
                 NavigationManager.NavigateTo("/address");
             }
 

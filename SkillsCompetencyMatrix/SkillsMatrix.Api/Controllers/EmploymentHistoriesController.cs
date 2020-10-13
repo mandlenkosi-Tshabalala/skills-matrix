@@ -76,21 +76,21 @@ namespace SkillsMatrix.Api.Controllers
             }
         }
 
-        [HttpPut("{id:int}")]
-        public async Task<ActionResult<EmploymentHistory>> UpdateEmploymentHistory(int id, EmploymentHistory employmentHistory)
+        [HttpPut]
+        public async Task<ActionResult<EmploymentHistory>> UpdateEmploymentHistory(EmploymentHistory employmentHistory)
         {
             try
             {
-                if (id != employmentHistory.Id)
-                {
-                    return BadRequest("EmploymentHistory ID mismatch");
-                }
+                //if (id != employmentHistory.Id)
+                //{
+                //    return BadRequest("EmploymentHistory ID mismatch");
+                //}
 
-                var result = await employmentHistoryRepository.GetById(id);
+                var result = await employmentHistoryRepository.GetById(employmentHistory.Id);
 
                 if (result == null)
                 {
-                    return NotFound($"EmploymentHistory with Id = {id} not found.");
+                    return new EmploymentHistory();
                 }
 
                 return await employmentHistoryRepository.Update(employmentHistory);

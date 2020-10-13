@@ -76,21 +76,21 @@ namespace SkillsMatrix.Api.Controllers
             }
         }
 
-        [HttpPut("{id:int}")]
-        public async Task<ActionResult<Expertise>> UpdateExpertise(int id, Expertise expertise)
+        [HttpPut]
+        public async Task<ActionResult<Expertise>> UpdateExpertise(Expertise expertise)
         {
             try
             {
-                if (id != expertise.Id)
-                {
-                    return BadRequest("Expertise ID mismatch");
-                }
+                //if (id != expertise.Id)
+                //{
+                //    return BadRequest("Expertise ID mismatch");
+                //}
 
-                var result = await expertiseRepository.GetById(id);
+                var result = await expertiseRepository.GetById(expertise.Id);
 
                 if (result == null)
                 {
-                    return NotFound($"Expertise with Id = {id} not found.");
+                    return new Expertise();
                 }
 
                 return await expertiseRepository.Update(expertise);

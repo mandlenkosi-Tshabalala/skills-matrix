@@ -76,21 +76,21 @@ namespace SkillsMatrix.Api.Controllers
             }
         }
 
-        [HttpPut("{id:int}")]
-        public async Task<ActionResult<Education>> UpdateEducation(int id, Education education)
+        [HttpPut]
+        public async Task<ActionResult<Education>> UpdateEducation( Education education)
         {
             try
             {
-                if (id != education.Id)
-                {
-                    return BadRequest("Education ID mismatch");
-                }
+                //if (id != education.Id)
+                //{
+                //    return BadRequest("Education ID mismatch");
+                //}
 
-                var result = await educationRepository.GetById(id);
+                var result = await educationRepository.GetById(education.Id);
 
                 if (result == null)
                 {
-                    return NotFound($"Education with Id = {id} not found.");
+                    return new Education();
                 }
 
                 return await educationRepository.Update(education);

@@ -15,12 +15,12 @@ namespace Skclusive.Blazor.Dashboard.App.View.MyCvForms
     {
 
         [Inject]
-        public IAddressService AddressService { get; set; }
+        public IEducationService EducationService { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
-        protected SkillsMatrix.Models.Education personEducation = new SkillsMatrix.Models.Education();
+        protected Education personEducation = new Education();
 
         protected EditContext editContext;
       
@@ -29,12 +29,12 @@ namespace Skclusive.Blazor.Dashboard.App.View.MyCvForms
 
             editContext = new EditContext(personEducation);
 
-            //address = await AddressService.Get(1);
+            personEducation = await EducationService.Get(1);
 
-            //if (address != null)
-            //{
-            //    editContext = new EditContext(address);
-            //}
+            if (personEducation != null)
+            {
+                editContext = new EditContext(personEducation);
+            }
 
         }
 
@@ -45,12 +45,12 @@ namespace Skclusive.Blazor.Dashboard.App.View.MyCvForms
             if (personEducation.Id == 0)
             {
 
-                //AddressService.Create(personEducation);
+                EducationService.Create(personEducation);
                 NavigationManager.NavigateTo("/personEmpolyment");
             }
             else
             {
-                //AddressService.Update(personEducation);
+                EducationService.Update(personEducation);
                 NavigationManager.NavigateTo("/personEmpolyment");
             }
 

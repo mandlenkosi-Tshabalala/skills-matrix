@@ -10,7 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Skclusive.Blazor.Dashboard.App.View;
-using SkillsMatrix.Web.Services;
+using Skclusive.Blazor.Dashboard.App.View.Services;
+
 
 namespace SkillsMatrix.Web
 {
@@ -27,13 +28,42 @@ namespace SkillsMatrix.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+
+            string url = "https://localhost:60241/";
             services.AddAuthentication("Identity.Application")
                 .AddCookie();
             services.AddRazorPages();
             services.AddServerSideBlazor();
+
+            services.AddHttpClient<IPersonService, PersonService>(client =>
+            {
+                client.BaseAddress = new Uri(url);
+            });
+            services.AddHttpClient<IEducationService, EducationService>(client =>
+            {
+                client.BaseAddress = new Uri(url);
+            });
             services.AddHttpClient<IAddressService, AddressService>(client =>
             {
-                client.BaseAddress = new Uri("https://localhost:44330/");
+                client.BaseAddress = new Uri(url);
+            });
+
+
+            services.AddHttpClient<IProfessionalMembershipService, ProfessionalMembershipService>(client =>
+            {
+                client.BaseAddress = new Uri(url);
+            });
+            services.AddHttpClient<IEmployementHistoryService, EmployementHistoryService>(client =>
+            {
+                client.BaseAddress = new Uri(url);
+            });
+            services.AddHttpClient<IPersonExpertiseService, PersonExpertiseService>(client =>
+            {
+                client.BaseAddress = new Uri(url);
+            });
+            services.AddHttpClient<IPersonCompetencies, PersonCompetencies>(client =>
+            {
+                client.BaseAddress = new Uri(url);
             });
 
             services.TryAddDashboardViewServices

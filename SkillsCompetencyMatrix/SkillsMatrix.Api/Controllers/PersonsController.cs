@@ -44,7 +44,7 @@ namespace SkillsMatrix.Api.Controllers
 
                 if (result == null)
                 {
-                    return NotFound();
+                    return new Person();
                 }
 
                 return result;
@@ -77,29 +77,25 @@ namespace SkillsMatrix.Api.Controllers
             }
         }
 
-        [HttpPut("{id:int}")]
-        public async Task<ActionResult<Person>> UpdatePerson(int id, Person person)
+        [HttpPut]
+        public async Task<ActionResult<Person>> UpdatePerson(Person person)
         {
             try
             {
-                if (id != person.Id)
-                {
-                    return BadRequest("Person ID mismatch");
-                }
 
-                var result = await personRepository.GetById(id);
+                //var result = await personRepository.GetById(person.Id);
 
-                if (result == null)
-                {
-                    return NotFound($"Person with Id = {id} not found.");
-                }
+                //if (result == null)
+                //{
+                //    return NotFound($"Person with Id = {person.Id} not found.");
+                //}
 
                 return await personRepository.Update(person);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                  "Error updating data");
+                  $"Error updating data{ex.Message}" );
             }
         }
 

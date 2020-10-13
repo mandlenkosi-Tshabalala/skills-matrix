@@ -30,12 +30,12 @@ namespace Skclusive.Blazor.Dashboard.App.View.MyCvForms
 
             editContext = new EditContext(address);
 
-            //address = await AddressService.Get(1);
+            address = await AddressService.Get(1);
 
-            //if (address != null)
-            //{
-            //    editContext = new EditContext(address);
-            //}
+            if (address != null)
+            {
+                editContext = new EditContext(address);
+            }
 
         }
 
@@ -46,12 +46,12 @@ namespace Skclusive.Blazor.Dashboard.App.View.MyCvForms
             if (address.Id == 0)
             {
 
-               // AddressService.Create(address);
+                   AddressService.Create(address);
                 NavigationManager.NavigateTo("/personEducation");
             }
             else
             {
-               // AddressService.Update(address);
+                  AddressService.Update(address);
                 NavigationManager.NavigateTo("/personEducation");
             }
 
