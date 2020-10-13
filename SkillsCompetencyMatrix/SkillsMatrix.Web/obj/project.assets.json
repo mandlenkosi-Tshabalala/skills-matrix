@@ -10236,8 +10236,8 @@
     },
     "Skclusive.Blazor.Dashboard.App.View/1.0.0": {
       "type": "project",
-      "path": "../../../capability-matrix-be/Dashboard.App.View/Matrix.App.View.csproj",
-      "msbuildProject": "../../../capability-matrix-be/Dashboard.App.View/Matrix.App.View.csproj"
+      "path": "../Dashboard.App.View/Matrix.App.View.csproj",
+      "msbuildProject": "../Dashboard.App.View/Matrix.App.View.csproj"
     },
     "SkillsMatrix.Models/1.0.0": {
       "type": "project",
@@ -10294,8 +10294,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\dev\\capability-matrix-be\\Dashboard.App.View\\Matrix.App.View.csproj": {
-              "projectPath": "C:\\dev\\capability-matrix-be\\Dashboard.App.View\\Matrix.App.View.csproj"
+            "C:\\dev\\capability-matrix-b\\SkillsCompetencyMatrix\\Dashboard.App.View\\Matrix.App.View.csproj": {
+              "projectPath": "C:\\dev\\capability-matrix-b\\SkillsCompetencyMatrix\\Dashboard.App.View\\Matrix.App.View.csproj"
             },
             "C:\\dev\\capability-matrix-b\\SkillsCompetencyMatrix\\SkillsMatrix.Models\\SkillsMatrix.Models.csproj": {
               "projectPath": "C:\\dev\\capability-matrix-b\\SkillsCompetencyMatrix\\SkillsMatrix.Models\\SkillsMatrix.Models.csproj"

@@ -1,5 +1,0 @@
-﻿<StaticWebAssets Version="1.0">
-  <ContentRoot BasePath="/Identity" Path="C:\Users\mnethathe\.nuget\packages\microsoft.aspnetcore.identity.ui\3.1.8\staticwebassets\V4\" />
-  <ContentRoot BasePath="_content/ChartJs.Blazor" Path="C:\Users\mnethathe\.nuget\packages\chartjs.blazor\1.0.2\build\..\staticwebassets\" />
-  <ContentRoot BasePath="_content/Skclusive.Blazor.Dashboard.App.View" Path="C:\dev\capability-matrix-be\Dashboard.App.View\wwwroot\" />
-</StaticWebAssets>
