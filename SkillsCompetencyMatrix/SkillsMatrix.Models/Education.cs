@@ -4,9 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SkillsMatrix.Models
 {
-    public class Education
+    public class Education : BaseEntity
     {
-        public int Id { get; set; }
         [Required]
         public string Institution { get; set; }
         [Required]
@@ -17,8 +16,9 @@ namespace SkillsMatrix.Models
         public string QualificationEndDate { get; set; }
         [Required]
         public string QualificationLevel { get; set; }
-        public bool IsDeleted { get; set; }
-        public int PersonID { get; set; }
+
+        // Foreign key
+        public int PersonId { get; set; }
         public virtual Person Person { get; set; }
     }
 }

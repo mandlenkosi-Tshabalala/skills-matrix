@@ -29,7 +29,6 @@ namespace Skclusive.Blazor.Dashboard.App.View.MyCvForms
 
         protected override async Task OnInitializedAsync()
         {
-
             editContext = new EditContext(EmploymentHistory);
 
             EmploymentHistory = await EmployementService.Get(1);
@@ -38,18 +37,16 @@ namespace Skclusive.Blazor.Dashboard.App.View.MyCvForms
             {
                 editContext = new EditContext(EmploymentHistory);
             }
-
         }
 
         protected void HandleValidSubmit()
         {
             if (EmploymentHistory != null)
-                EmploymentHistory.PersonID = int.Parse(PersonId);
+                EmploymentHistory.PersonId = int.Parse(PersonId);
 
             //Check if its a new record 
             if (EmploymentHistory.Id == 0)
             {
-
                 EmployementService.Create(EmploymentHistory);
                 NavigationManager.NavigateTo($"/expertise/{PersonId}");
             }
@@ -58,7 +55,6 @@ namespace Skclusive.Blazor.Dashboard.App.View.MyCvForms
                 EmployementService.Update(EmploymentHistory);
                 NavigationManager.NavigateTo($"/expertise/{PersonId}");
             }
-
         }
 
         protected void Back()

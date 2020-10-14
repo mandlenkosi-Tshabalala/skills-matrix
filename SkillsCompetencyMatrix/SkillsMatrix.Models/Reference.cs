@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SkillsMatrix.Models
 {
-    public class Reference
+    public class Reference : BaseEntity
     {
-        public int Id { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]
@@ -19,7 +18,9 @@ namespace SkillsMatrix.Models
         [Required]
         public string ContactNumber { get; set; }
         public string Email { get; set; }
-        public int PersonID { get; set; }
+
+        // Foreign key
+        public int PersonId { get; set; }
         public virtual Person Person { get; set; }
     }
 }

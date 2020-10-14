@@ -44,7 +44,7 @@ namespace Skclusive.Blazor.Dashboard.App.View.MyCvForms
         protected void HandleValidSubmit()
         {
             if (professionalMembership != null)
-                professionalMembership.PersonID = int.Parse(PersonId);
+                professionalMembership.PersonId = int.Parse(PersonId);
 
             //Check if its a new record
             if (professionalMembership.Id == 0)

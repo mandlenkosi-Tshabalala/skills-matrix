@@ -2,8 +2,10 @@
 
 namespace SkillsMatrix.Models
 {
-    public class Document
+    public class Document:BaseEntity
     {
-        public int Id { get; set; }
+        // Foreign key
+        public int PersonId { get; set; }
+        public virtual Person Person { get; set; }
     }
 }

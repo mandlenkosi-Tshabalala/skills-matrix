@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SkillsMatrix.Models
 {
-    public class EmploymentHistory
+    public class EmploymentHistory : BaseEntity
     {
-        public int Id { get; set; }
         [Required]
         public string CompanyName { get; set; }
         [Required]
@@ -18,9 +17,10 @@ namespace SkillsMatrix.Models
         public string Country { get; set; }
         [Required]
         public String RoleDescription { get; set; }
-        public int PersonID { get; set; }
+
+        // Foreign key
+        public int PersonId { get; set; }
         public virtual Person Person { get; set; }
-        public bool IsDeleted { get; set; }
     }
 }
 

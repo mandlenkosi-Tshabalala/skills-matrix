@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SkillsMatrix.Models
 {
-    public class Address
+    public class Address : BaseEntity
     {        
-        public int Id { get; set; }
         [Required]
         public string PhysicalCode { get; set; }
         [Required]
@@ -17,8 +16,11 @@ namespace SkillsMatrix.Models
         public string PostalAddressLine2 { get; set; }        
         public string PhysicalAddressLine3 { get; set; }
         public string PostalAddressLine3 { get; set; }
-        public bool IsDeleted { get; set; }
-        public int PersonID { get; set; }
+
+        // Foreign key
+        public int PersonId { get; set; }
+
+        // Navigation properties
         public virtual Person Person { get; set; }
     }
 }
