@@ -24,7 +24,7 @@ namespace Skclusive.Blazor.Dashboard.App.View.MyCvForms
         [Parameter]
         public string UserId { get; set; }
 
-        protected Person person = new Person();
+        protected PersonalInfo person = new PersonalInfo();
 
 
         protected EditContext editContext;

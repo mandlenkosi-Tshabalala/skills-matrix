@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SkillsMatrix.Api.Models
 {
-    public interface ISkillsRepository : IGenericRepository<Skills>
+    public interface ISkillsRepository : IGenericRepository<Skill>
     {
     }
 }

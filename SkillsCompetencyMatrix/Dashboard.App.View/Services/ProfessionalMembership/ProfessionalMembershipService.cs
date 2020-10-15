@@ -19,19 +19,19 @@ namespace Skclusive.Blazor.Dashboard.App.View.Services
             this.httpClient = httpClient;
         }
 
-        public async Task<ProfessionalMembership> Create(ProfessionalMembership person)
+        public async Task<Membership> Create(Membership person)
         {
-            return await httpClient.PostJsonAsync<ProfessionalMembership>($"api/Persons", person);
+            return await httpClient.PostJsonAsync<Membership>($"api/Persons", person);
         }
 
-        public async Task<ProfessionalMembership> Get(int Id)
+        public async Task<Membership> Get(int Id)
         {
-           return await httpClient.GetJsonAsync<ProfessionalMembership>($"api/Persons/{Id}");
+           return await httpClient.GetJsonAsync<Membership>($"api/Persons/{Id}");
         }
 
-        public async Task<ProfessionalMembership> Update(ProfessionalMembership person)
+        public async Task<Membership> Update(Membership person)
         {
-            return await httpClient.PutJsonAsync<ProfessionalMembership>($"api/Persons", person);
+            return await httpClient.PutJsonAsync<Membership>($"api/Persons", person);
         }
     }
 }

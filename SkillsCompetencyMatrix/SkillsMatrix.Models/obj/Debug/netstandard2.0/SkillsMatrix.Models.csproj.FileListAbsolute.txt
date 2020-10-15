@@ -15,11 +15,3 @@ C:\dev\capability-matrix-b\SkillsCompetencyMatrix\SkillsMatrix.Models\obj\Debug\
 C:\dev\capability-matrix-b\SkillsCompetencyMatrix\SkillsMatrix.Models\obj\Debug\netstandard2.0\SkillsMatrix.Models.csproj.CoreCompileInputs.cache
 C:\dev\capability-matrix-b\SkillsCompetencyMatrix\SkillsMatrix.Models\obj\Debug\netstandard2.0\SkillsMatrix.Models.dll
 C:\dev\capability-matrix-b\SkillsCompetencyMatrix\SkillsMatrix.Models\obj\Debug\netstandard2.0\SkillsMatrix.Models.pdb
-C:\dev\SkillsCompetencyMatrix\SkillsMatrix.Models\bin\Debug\netstandard2.0\SkillsMatrix.Models.deps.json
-C:\dev\SkillsCompetencyMatrix\SkillsMatrix.Models\bin\Debug\netstandard2.0\SkillsMatrix.Models.dll
-C:\dev\SkillsCompetencyMatrix\SkillsMatrix.Models\bin\Debug\netstandard2.0\SkillsMatrix.Models.pdb
-C:\dev\SkillsCompetencyMatrix\SkillsMatrix.Models\obj\Debug\netstandard2.0\SkillsMatrix.Models.AssemblyInfoInputs.cache
-C:\dev\SkillsCompetencyMatrix\SkillsMatrix.Models\obj\Debug\netstandard2.0\SkillsMatrix.Models.AssemblyInfo.cs
-C:\dev\SkillsCompetencyMatrix\SkillsMatrix.Models\obj\Debug\netstandard2.0\SkillsMatrix.Models.csproj.CoreCompileInputs.cache
-C:\dev\SkillsCompetencyMatrix\SkillsMatrix.Models\obj\Debug\netstandard2.0\SkillsMatrix.Models.dll
-C:\dev\SkillsCompetencyMatrix\SkillsMatrix.Models\obj\Debug\netstandard2.0\SkillsMatrix.Models.pdb

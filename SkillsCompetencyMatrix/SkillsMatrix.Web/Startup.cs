@@ -24,14 +24,10 @@ namespace SkillsMatrix.Web
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-
             string url = "http://localhost:60241/";
-            services.AddAuthentication("Identity.Application")
-                .AddCookie();
+            services.AddAuthentication("Identity.Application").AddCookie();
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
@@ -39,28 +35,32 @@ namespace SkillsMatrix.Web
             {
                 client.BaseAddress = new Uri(url);
             });
+
             services.AddHttpClient<IEducationService, EducationService>(client =>
             {
                 client.BaseAddress = new Uri(url);
             });
+
             services.AddHttpClient<IAddressService, AddressService>(client =>
             {
                 client.BaseAddress = new Uri(url);
             });
 
-
             services.AddHttpClient<IProfessionalMembershipService, ProfessionalMembershipService>(client =>
             {
                 client.BaseAddress = new Uri(url);
             });
+
             services.AddHttpClient<IEmployementHistoryService, EmployementHistoryService>(client =>
             {
                 client.BaseAddress = new Uri(url);
             });
+
             services.AddHttpClient<IPersonExpertiseService, PersonExpertiseService>(client =>
             {
                 client.BaseAddress = new Uri(url);
             });
+
             services.AddHttpClient<IPersonCompetencies, PersonCompetencies>(client =>
             {
                 client.BaseAddress = new Uri(url);

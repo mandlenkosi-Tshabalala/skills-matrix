@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SkillsMatrix.Api.Models
 {
-    public class UsersRepository : GenericRepository<Users>, IUsersRepository
+    public class UsersRepository : GenericRepository<User>, IUsersRepository
     {
         private readonly AppDbContext appDbContext;
 

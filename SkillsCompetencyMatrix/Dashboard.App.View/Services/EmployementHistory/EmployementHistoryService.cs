@@ -19,19 +19,19 @@ namespace Skclusive.Blazor.Dashboard.App.View.Services
             this.httpClient = httpClient;
         }
 
-        public async Task<EmploymentHistory> Create(EmploymentHistory EmploymentHistory)
+        public async Task<Employment> Create(Employment EmploymentHistory)
         {
-            return await httpClient.PostJsonAsync<EmploymentHistory>($"api/Persons", EmploymentHistory);
+            return await httpClient.PostJsonAsync<Employment>($"api/Persons", EmploymentHistory);
         }
 
-        public async Task<EmploymentHistory> Get(int Id)
+        public async Task<Employment> Get(int Id)
         {
-           return await httpClient.GetJsonAsync<EmploymentHistory>($"api/Persons/{Id}");
+           return await httpClient.GetJsonAsync<Employment>($"api/Persons/{Id}");
         }
 
-        public async Task<EmploymentHistory> Update(EmploymentHistory EmploymentHistory)
+        public async Task<Employment> Update(Employment EmploymentHistory)
         {
-            return await httpClient.PutJsonAsync<EmploymentHistory>($"api/Persons", EmploymentHistory);
+            return await httpClient.PutJsonAsync<Employment>($"api/Persons", EmploymentHistory);
         }
     }
 }

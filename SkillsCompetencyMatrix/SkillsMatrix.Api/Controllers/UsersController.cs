@@ -35,7 +35,7 @@ namespace UsersMatrix.Api.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Users>> GetUser(int id)
+        public async Task<ActionResult<User>> GetUser(int id)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace UsersMatrix.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Users>> CreateUser(Users user)
+        public async Task<ActionResult<User>> CreateUser(User user)
         {
             try
             {
@@ -77,7 +77,7 @@ namespace UsersMatrix.Api.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<Users>> UpdateUsers(int id, Users user)
+        public async Task<ActionResult<User>> UpdateUsers(int id, User user)
         {
             try
             {
@@ -103,7 +103,7 @@ namespace UsersMatrix.Api.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult<Users>> DeleteUsers(int id)
+        public async Task<ActionResult<User>> DeleteUsers(int id)
         {
             try
             {

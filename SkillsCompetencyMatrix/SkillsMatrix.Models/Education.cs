@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -6,6 +7,11 @@ namespace SkillsMatrix.Models
 {
     public class Education : BaseEntity
     {
+        public Education()
+        {
+            UserEducations = new HashSet<UserEducation>();
+        }
+
         [Required]
         public string Institution { get; set; }
         [Required]
@@ -18,7 +24,6 @@ namespace SkillsMatrix.Models
         public string QualificationLevel { get; set; }
 
         // Foreign key
-        public int PersonId { get; set; }
-        public virtual Person Person { get; set; }
+        public virtual ICollection<UserEducation> UserEducations { get; set; }
     }
 }

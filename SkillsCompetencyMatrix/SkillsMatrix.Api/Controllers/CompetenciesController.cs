@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace SkillsMatrix.Api.Controllers
 {
@@ -14,10 +15,12 @@ namespace SkillsMatrix.Api.Controllers
     public class CompetenciesController : ControllerBase
     {
         private readonly ICompetencyRepository competencyRepository;
+        private readonly ILogger<CompetenciesController> _logger;
 
-        public CompetenciesController(ICompetencyRepository competencyRepository)
+        public CompetenciesController(ICompetencyRepository competencyRepository, ILogger<CompetenciesController> logger)
         {
             this.competencyRepository = competencyRepository;
+            this._logger = logger;
         }
 
         [HttpGet]
@@ -25,10 +28,12 @@ namespace SkillsMatrix.Api.Controllers
         {
             try
             {
+                _logger.LogInformation("GetCompetencies Started");
                 return Ok(await competencyRepository.GetAll());
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex, "Error retrieving data from the database", null);
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error retrieving data from the database");
             }

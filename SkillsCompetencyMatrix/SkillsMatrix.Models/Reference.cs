@@ -21,6 +21,6 @@ namespace SkillsMatrix.Models
 
         // Foreign key
         public int PersonId { get; set; }
-        public virtual Person Person { get; set; }
+        public virtual PersonalInfo Person { get; set; }
     }
 }

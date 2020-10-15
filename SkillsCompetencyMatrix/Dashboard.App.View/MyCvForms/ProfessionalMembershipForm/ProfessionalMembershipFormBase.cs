@@ -23,39 +23,36 @@ namespace Skclusive.Blazor.Dashboard.App.View.MyCvForms
         [Parameter]
         public string PersonId { get; set; }
 
-        protected ProfessionalMembership professionalMembership = new ProfessionalMembership();
+        protected Membership membership = new Membership();
 
         protected EditContext editContext;
       
         protected override async Task  OnInitializedAsync()
         {
+            // fetch all from DB and assign
+            editContext = new EditContext(membership);
 
-            editContext = new EditContext(professionalMembership);
+            membership = await ProfessionalMembershipService.Get(1);
 
-            professionalMembership = await ProfessionalMembershipService.Get(1);
-
-            if (professionalMembership != null)
+            if (membership != null)
             {
-                editContext = new EditContext(professionalMembership);
+                editContext = new EditContext(membership);
             }
 
         }
 
         protected void HandleValidSubmit()
         {
-            if (professionalMembership != null)
-                professionalMembership.PersonId = int.Parse(PersonId);
-
             //Check if its a new record
-            if (professionalMembership.Id == 0)
+            if (membership.Id == 0)
             {
 
-                ProfessionalMembershipService.Create(professionalMembership);
+                ProfessionalMembershipService.Create(membership);
                 NavigationManager.NavigateTo($"/personDetails/{PersonId}");
             }
             else
             {
-                ProfessionalMembershipService.Update(professionalMembership);
+                ProfessionalMembershipService.Update(membership);
                 NavigationManager.NavigateTo($"/personDetails/{PersonId}");
             }
         }

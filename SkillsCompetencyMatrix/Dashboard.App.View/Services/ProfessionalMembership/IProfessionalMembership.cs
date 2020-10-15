@@ -9,9 +9,9 @@ namespace Skclusive.Blazor.Dashboard.App.View.Services
 {
     public  interface IProfessionalMembershipService
     {
-      Task<ProfessionalMembership> Get(int Id);
-      Task<ProfessionalMembership> Create(ProfessionalMembership professionalMembership);
-      Task<ProfessionalMembership> Update(ProfessionalMembership professionalMembership);
+      Task<Membership> Get(int Id);
+      Task<Membership> Create(Membership professionalMembership);
+      Task<Membership> Update(Membership professionalMembership);
 
     }
 }

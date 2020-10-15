@@ -35,7 +35,7 @@ namespace SkillsMatrix.Api.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<EmploymentHistory>> GetEmploymentHistory(int id)
+        public async Task<ActionResult<Employment>> GetEmploymentHistory(int id)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace SkillsMatrix.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<EmploymentHistory>> CreateEmploymentHistory(EmploymentHistory employmentHistory)
+        public async Task<ActionResult<Employment>> CreateEmploymentHistory(Employment employmentHistory)
         {
             try
             {
@@ -77,7 +77,7 @@ namespace SkillsMatrix.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<EmploymentHistory>> UpdateEmploymentHistory(EmploymentHistory employmentHistory)
+        public async Task<ActionResult<Employment>> UpdateEmploymentHistory(Employment employmentHistory)
         {
             try
             {
@@ -90,7 +90,7 @@ namespace SkillsMatrix.Api.Controllers
 
                 if (result == null)
                 {
-                    return new EmploymentHistory();
+                    return new Employment();
                 }
 
                 return await employmentHistoryRepository.Update(employmentHistory);
@@ -103,7 +103,7 @@ namespace SkillsMatrix.Api.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult<EmploymentHistory>> DeleteEmploymentHistory(int id)
+        public async Task<ActionResult<Employment>> DeleteEmploymentHistory(int id)
         {
             try
             {

@@ -35,7 +35,7 @@ namespace SkillsMatrix.Api.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Skills>> GetSkills(int id)
+        public async Task<ActionResult<Skill>> GetSkills(int id)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace SkillsMatrix.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Skills>> CreateSkills(Skills skills)
+        public async Task<ActionResult<Skill>> CreateSkills(Skill skills)
         {
             try
             {
@@ -77,7 +77,7 @@ namespace SkillsMatrix.Api.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<Skills>> UpdateSkills(int id, Skills skills)
+        public async Task<ActionResult<Skill>> UpdateSkills(int id, Skill skills)
         {
             try
             {
@@ -103,7 +103,7 @@ namespace SkillsMatrix.Api.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult<Skills>> DeleteSkills(int id)
+        public async Task<ActionResult<Skill>> DeleteSkills(int id)
         {
             try
             {

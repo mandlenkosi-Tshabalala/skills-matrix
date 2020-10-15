@@ -4,17 +4,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SkillsMatrix.Models
 {
-    public class Industry : BaseEntity
+    public class Skill : BaseEntity
     {
-        public Industry()
+        public Skill()
         {
-            UserIndustries = new HashSet<UserIndustry>();
+            UserSkills = new HashSet<UserSkill>();
         }
-
-        [Required]
         public string Name { get; set; }
+        public string Level { get; set; }
 
         // Foreign key
-        public virtual ICollection<UserIndustry> UserIndustries { get; set; }
+        public virtual ICollection<UserSkill> UserSkills { get; set; }
     }
 }

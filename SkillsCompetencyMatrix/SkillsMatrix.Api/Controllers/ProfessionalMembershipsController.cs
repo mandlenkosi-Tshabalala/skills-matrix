@@ -35,7 +35,7 @@ namespace SkillsMatrix.Api.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<ProfessionalMembership>> GetProfessionalMembership(int id)
+        public async Task<ActionResult<Membership>> GetProfessionalMembership(int id)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace SkillsMatrix.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ProfessionalMembership>> CreateProfessionalMembership(ProfessionalMembership professionalMembership)
+        public async Task<ActionResult<Membership>> CreateProfessionalMembership(Membership professionalMembership)
         {
             try
             {
@@ -77,7 +77,7 @@ namespace SkillsMatrix.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<ProfessionalMembership>> UpdateProfessionalMembership(ProfessionalMembership professionalMembership)
+        public async Task<ActionResult<Membership>> UpdateProfessionalMembership(Membership professionalMembership)
         {
             try
             {
@@ -90,7 +90,7 @@ namespace SkillsMatrix.Api.Controllers
 
                 if (result == null)
                 {
-                    return new ProfessionalMembership();
+                    return new Membership();
                 }
 
                 return await professionalMembershipRepository.Update(professionalMembership);
@@ -103,7 +103,7 @@ namespace SkillsMatrix.Api.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult<ProfessionalMembership>> DeleteProfessionalMembership(int id)
+        public async Task<ActionResult<Membership>> DeleteProfessionalMembership(int id)
         {
             try
             {

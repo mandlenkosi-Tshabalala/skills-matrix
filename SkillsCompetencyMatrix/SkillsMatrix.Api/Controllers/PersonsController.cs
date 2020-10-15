@@ -36,7 +36,7 @@ namespace SkillsMatrix.Api.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Person>> GetPerson(int id)
+        public async Task<ActionResult<PersonalInfo>> GetPerson(int id)
         {
             try
             {
@@ -44,7 +44,7 @@ namespace SkillsMatrix.Api.Controllers
 
                 if (result == null)
                 {
-                    return new Person();
+                    return new PersonalInfo();
                 }
 
                 return result;
@@ -57,7 +57,7 @@ namespace SkillsMatrix.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Person>> CreatePerson(Person person)
+        public async Task<ActionResult<PersonalInfo>> CreatePerson(PersonalInfo person)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace SkillsMatrix.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<Person>> UpdatePerson(Person person)
+        public async Task<ActionResult<PersonalInfo>> UpdatePerson(PersonalInfo person)
         {
             try
             {
@@ -100,7 +100,7 @@ namespace SkillsMatrix.Api.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult<Person>> DeletePerson(int id)
+        public async Task<ActionResult<PersonalInfo>> DeletePerson(int id)
         {
             try
             {

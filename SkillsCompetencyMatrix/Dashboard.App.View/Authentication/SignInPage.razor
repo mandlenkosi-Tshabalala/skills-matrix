@@ -1,4 +1,5 @@
 @layout AuthLayout
+@inherits SignInPageBase
 
 @page "/signin"
 
@@ -85,32 +86,3 @@
     </Typography>
 </form>
 
-@code
-{
-    private string Email { set; get; }
-
-    private string Password { set; get; }
-
-    private void HandleEmailChange(ChangeEventArgs arg)
-    {
-        Email = arg.Value.ToString();
-
-        StateHasChanged();
-    }
-
-    private void HandlePasswordChange(ChangeEventArgs arg)
-    {
-        Password = arg.Value.ToString();
-
-        StateHasChanged();
-    }
-
-    private void HandleSignIn()
-    {
-        System.Console.WriteLine("HandleSignIn");
-
-         _ = ScriptHelpers.GoBackAsync();
-
-        System.Console.WriteLine("HandleSignInDone");
-    }
-}

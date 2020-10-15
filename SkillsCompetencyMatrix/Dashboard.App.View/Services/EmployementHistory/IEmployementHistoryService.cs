@@ -9,9 +9,9 @@ namespace Skclusive.Blazor.Dashboard.App.View.Services
 {
     public  interface IEmployementHistoryService
     {
-      Task<EmploymentHistory> Get(int Id);
-      Task<EmploymentHistory> Create(EmploymentHistory person);
-      Task<EmploymentHistory> Update(EmploymentHistory person);
+      Task<Employment> Get(int Id);
+      Task<Employment> Create(Employment person);
+      Task<Employment> Update(Employment person);
 
     }
 }
