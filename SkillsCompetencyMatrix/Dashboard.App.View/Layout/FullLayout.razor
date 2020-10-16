@@ -56,7 +56,7 @@
 
 @code
 {private List<NavigationItem> Items = new List<NavigationItem>
-        {
+    {
         new NavigationItem
         {
             Title = "Dashboard",
@@ -80,13 +80,13 @@
             Prefix =  true
         },
 
-        @*new NavigationItem
-        {
-            Title = "Products",
-            Path = "products",
-            Icon = @<ShoppingBasketIcon />,
-            Prefix = true
-        },*@
+@*new NavigationItem
+    {
+        Title = "Products",
+        Path = "products",
+        Icon = @<ShoppingBasketIcon />,
+        Prefix = true
+    },*@
 
         new NavigationItem
         {
@@ -96,40 +96,40 @@
             Prefix =  true
         },
 
-        @*new NavigationItem
-        {
-            Title = "Settings",
-            Path =  "settings",
-            Icon = @<SettingsIcon />,
-            Prefix =  true
-        },
+@*new NavigationItem
+    {
+        Title = "Settings",
+        Path =  "settings",
+        Icon = @<SettingsIcon />,
+        Prefix =  true
+    },
 
-        new NavigationItem
-        {
-            Title = "Typography",
-            Path =  "typography",
-            Icon = @<TextFieldsIcon />,
-            Prefix =  true
-        },
+    new NavigationItem
+    {
+        Title = "Typography",
+        Path =  "typography",
+        Icon = @<TextFieldsIcon />,
+        Prefix =  true
+    },
 
-        new NavigationItem
-        {
-            Title = "Authentication",
-            Path =  "signin",
-            Icon = @<LockOpenIcon />,
-            Prefix =  true
-        }*@
+    new NavigationItem
+    {
+        Title = "Authentication",
+        Path =  "signin",
+        Icon = @<LockOpenIcon />,
+        Prefix =  true
+    }*@
     };
 
-            private string Notifications { set; get; } = "10";
+        private string Notifications { set; get; } = "10";
 
-            private void HandleNotificationsClick()
-            {
-                // OnNotificationsClick?.Invoke();
-            }
+        private void HandleNotificationsClick()
+        {
+            // OnNotificationsClick?.Invoke();
+        }
 
-            private void HandleSignoutClick()
-            {
-                // OnSignoutClick?.Invoke();
-            }
+        private void HandleSignoutClick()
+        {
+            // OnSignoutClick?.Invoke();
+        }
 }

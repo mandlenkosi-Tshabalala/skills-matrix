@@ -155,5 +155,13 @@ namespace SkillsMatrix.Api.Models
         public DbSet<Reference> References { get; set; }
         public DbSet<Skill> Skills { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UserSkill> UserSkills { get; set; }
+        public DbSet<UserCompetency> UserCompetencies { get; private set; }
+        public DbSet<UserEducation> UserEducations { get; private set; }
+        public DbSet<UserEmployment> UserEmployments { get; private set; }
+        public DbSet<UserExpertise> UserExpertises { get; private set; }
+        public DbSet<UserIndustry> UserIndustries { get; private set; }
+        public DbSet<UserMembership> UserMemberships { get; private set; }
+        public DbSet<UserDocument> UserDocuments { get; private set; }
     }
 }
