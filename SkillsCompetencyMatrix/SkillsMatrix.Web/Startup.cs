@@ -34,6 +34,8 @@ namespace SkillsMatrix.Web
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
+            //services.AddDefaultIdentity<IdentityUser<int>>();
+
             services.AddHttpClient<IPersonService, PersonService>(client =>
             {
                 client.BaseAddress = new Uri(url);

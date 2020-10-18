@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SkillsMatrix.Web.Data
 {
-    public class SkillsMatrixWebContext : IdentityDbContext<IdentityUser>
+    public class SkillsMatrixWebContext : IdentityDbContext<IdentityUser<int>, IdentityRole<int>, int>
     {
         public SkillsMatrixWebContext(DbContextOptions<SkillsMatrixWebContext> options)
             : base(options)
