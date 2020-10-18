@@ -42,11 +42,9 @@ namespace SkillsMatrix.Web.Auth
 
         protected UserLoginDetails userLoginDetails = new UserLoginDetails();
 
-
-
-
         protected override Task OnInitializedAsync()
         {
+            Logger.LogInformation("OnInitializedAsync started...");
             editContext = new EditContext(userLoginDetails);
 
             return base.OnInitializedAsync();
@@ -68,6 +66,7 @@ namespace SkillsMatrix.Web.Auth
 
         public async void HandleSignIn()
         {
+            Logger.LogInformation("HandleSignIn started...");
             var user = await UserManager.FindByNameAsync(userLoginDetails.Email);
             var valid = await SignInManager.UserManager.CheckPasswordAsync(user, userLoginDetails.Password);
 
