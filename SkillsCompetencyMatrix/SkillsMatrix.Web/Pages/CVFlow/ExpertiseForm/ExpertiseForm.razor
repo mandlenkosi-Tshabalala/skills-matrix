@@ -1,4 +1,5 @@
-﻿@page "/expertise/{PersonId}"
+﻿@attribute [Authorize]
+@page "/expertise/{PersonId}"
 @inherits ExpertiseFormBase
 
 @using System.ComponentModel.DataAnnotations
