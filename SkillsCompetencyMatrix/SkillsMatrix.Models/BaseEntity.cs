@@ -9,9 +9,7 @@ namespace SkillsMatrix.Models
     {
         // Primary key
         public int Id { get; set; }
-
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
         public string IPAddress { get; set; }
         public bool IsDeleted { get; set; }
     }

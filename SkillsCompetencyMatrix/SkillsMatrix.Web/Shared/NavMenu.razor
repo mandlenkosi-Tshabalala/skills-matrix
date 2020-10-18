@@ -1,43 +1,92 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">Skills Matrix</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</div>
+﻿
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column">
-        <AuthorizeView>
-            <Authorized>
-                <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                        <span class="oi oi-home" aria-hidden="true"></span> Home
-                    </NavLink>
-                </li>
-                <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="/identity/account/logout" Match="NavLinkMatch.All">
-                        <span class="oi oi-power-standby" aria-hidden="true"></span> Logout
-                    </NavLink>
-                </li>
-            </Authorized>
-            <NotAuthorized>
-                <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="/identity/account/login" Match="NavLinkMatch.All">
-                        <span class="oi oi-lock-locked" aria-hidden="true"></span> Login
-                    </NavLink>
-                </li>
-            </NotAuthorized>
-        </AuthorizeView>
-    </ul>
-</div>
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-laugh-wink"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Solugrowth</div>
+    </a>
 
-@code {
-    private bool collapseNavMenu = true;
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+        <a class="nav-link" href="">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
 
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Menu
+    </div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <!--<li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Components</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Custom Components:</h6>
+                <a class="collapse-item" href="buttons.html">Buttons</a>
+                <a class="collapse-item" href="cards.html">Cards</a>
+            </div>
+        </div>
+    </li>-->
+
+
+    <li class="nav-item">
+        <a class="nav-link" href="personDetails">
+            <i class="fa fa-address-card-o"></i>
+            <span>My CV</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="admintool">
+            <i class="fa fa-lock"></i>
+            <span>Admin Tool</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="employees">
+            <i class="fa fa-users"></i>
+            <span>Search Employees</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="reports">
+            <i class="fa fa-flag"></i>
+            <span>Reports</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="profile">
+            <i class="fa fa-user-o"></i>
+            <span>Profile</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="settings">
+            <i class="fa fa-wrench"></i>
+            <span>Settings</span>
+        </a>
+    </li>
+
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+</ul>

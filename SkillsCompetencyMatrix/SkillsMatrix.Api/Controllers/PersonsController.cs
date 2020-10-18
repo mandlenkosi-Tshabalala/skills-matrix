@@ -70,10 +70,10 @@ namespace SkillsMatrix.Api.Controllers
 
                 return CreatedAtAction(nameof(GetPerson), new { id = result.Id }, result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                   "Error saving data");
+                   $"Error saving data {ex.Message}");
             }
         }
 
