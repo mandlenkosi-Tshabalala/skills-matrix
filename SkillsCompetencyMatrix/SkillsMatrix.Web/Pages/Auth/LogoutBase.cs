@@ -18,13 +18,24 @@ namespace SkillsMatrix.Web.Pages.Auth
         [Inject]
         public NavigationManager _navigationManager { get; set; }
 
-        protected override Task OnInitializedAsync()
+        //protected override Task OnInitializedAsync()
+        //{
+        //    _signInManager.SignOutAsync();
+
+        //    _logger.LogInformation("User logged out.");
+        //    _navigationManager.NavigateTo("/signin");
+
+        //    return base.OnInitializedAsync();
+        //}
+
+        protected override Task OnAfterRenderAsync(bool firstRender)
         {
             _signInManager.SignOutAsync();
-            _logger.LogInformation("User logged out.");
-            _navigationManager.NavigateTo("/");
 
-            return base.OnInitializedAsync();
+            _logger.LogInformation("User logged out.");
+            _navigationManager.NavigateTo("/signin");
+
+            return base.OnAfterRenderAsync(firstRender);
         }
     }
 }
