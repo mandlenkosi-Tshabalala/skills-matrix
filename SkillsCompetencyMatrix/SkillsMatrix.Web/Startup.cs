@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -14,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Skclusive.Blazor.Dashboard.App.View;
 using Skclusive.Blazor.Dashboard.App.View.Services;
+using SkillsMatrix.Web.Data;
 using SkillsMatrix.Web.Shared;
 
 namespace SkillsMatrix.Web
@@ -33,8 +35,6 @@ namespace SkillsMatrix.Web
             services.AddAuthentication("Identity.Application").AddCookie();
             services.AddRazorPages();
             services.AddServerSideBlazor();
-
-            //services.AddDefaultIdentity<IdentityUser<int>>();
 
             services.AddHttpClient<IPersonService, PersonService>(client =>
             {

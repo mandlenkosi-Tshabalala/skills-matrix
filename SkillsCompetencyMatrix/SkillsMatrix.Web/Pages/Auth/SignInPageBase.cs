@@ -39,7 +39,6 @@ namespace SkillsMatrix.Web.Auth
         public class UserLoginDetails
         {
             public string Email { set; get; }
-
             public string Password { set; get; }
         }
 
@@ -56,20 +55,17 @@ namespace SkillsMatrix.Web.Auth
         public void HandleEmailChange(ChangeEventArgs arg)
         {
             userLoginDetails.Email = arg.Value.ToString();
-
             StateHasChanged();
         }
 
         public void HandlePasswordChange(ChangeEventArgs arg)
         {
             userLoginDetails.Password = arg.Value.ToString();
-
             StateHasChanged();
         }
 
         public async void HandleSignIn()
         {
-            //CreateUser();
             Logger.LogInformation("HandleSignIn started...");
             var user = await UserManager.FindByNameAsync(userLoginDetails.Email);
             var valid = await SignInManager.UserManager.CheckPasswordAsync(user, userLoginDetails.Password);
@@ -82,6 +78,7 @@ namespace SkillsMatrix.Web.Auth
                     principal.Claims,
                     Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme
                 );
+
                 principal = new System.Security.Claims.ClaimsPrincipal(identity);
                 SignInManager.Context.User = principal;
                 HostAuthentication.SetAuthenticationState(Task.FromResult(new AuthenticationState(principal)));
@@ -97,26 +94,12 @@ namespace SkillsMatrix.Web.Auth
                 };
 
                 NavigationManager.NavigateTo("/");
-
             }
             else
             {
-                // successMessage = "";
-                // errorMessage = "Username or password is incorrect.";
+                Logger.LogWarning($"Username {userLoginDetails.Email} or password {userLoginDetails.Password} is incorrect.");
             }
-
-            //System.Console.WriteLine("HandleSignIn");
-
-            //_ = ScriptHelpers.GoBackAsync();
-            //use navigation manager
-
-            // System.Console.WriteLine("HandleSignInDone");
         }
-
-        //protected override void OnAfterRender(bool firstRender)
-        //{
-        //    NavigationManager.NavigateTo("/dashboard");
-        //}
 
         private async void CreateUser()
         {

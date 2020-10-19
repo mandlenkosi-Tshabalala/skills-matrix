@@ -18,6 +18,7 @@ namespace SkillsMatrix.Api.Models
         {
             // User Address
             modelBuilder.Entity<User>()
+                .ToTable("AspNetUsers")
                 .HasOne(a => a.Address)
                 .WithOne(a => a.User)
                 .HasForeignKey<Address>(c => c.UserId);

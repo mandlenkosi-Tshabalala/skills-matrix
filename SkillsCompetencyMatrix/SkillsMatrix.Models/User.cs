@@ -22,6 +22,7 @@ namespace SkillsMatrix.Models
         [Required]
         public string UserName { get; set; }
         public string NormalizedUserName { get; set; }
+        [DataType(DataType.EmailAddress)]
         [Required]
         public string Email { get; set; }
         public string NormalizedEmail { get; set; }
