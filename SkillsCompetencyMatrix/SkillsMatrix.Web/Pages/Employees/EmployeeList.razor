@@ -1,0 +1,112 @@
+﻿@attribute [Authorize]
+@page "/employees"
+
+
+@using System.ComponentModel.DataAnnotations
+@using System.Text.Json
+@inject IJSRuntime JSRuntime;
+
+<style data-name="Users">
+
+    /* users */
+
+    .users-root {
+        padding: 24px;
+    }
+
+    .users-content {
+        margin-top: 16px;
+    }
+
+    /* users-toolbar */
+
+    .users-toolbar-row {
+        height: 42px;
+        display: flex;
+        margin-top: 8px;
+        align-items: center;
+    }
+
+    .users-toolbar-spacer {
+        flex-grow: 1;
+    }
+
+    .users-toolbar-import-button {
+        margin-right: 8px;
+    }
+
+    .users-toolbar-export-button {
+        margin-right: 8px;
+    }
+
+    .users-toolbar-search-input {
+        margin-right: 8px;
+    }
+
+    /* users-table */
+
+    .users-table-content {
+        padding: 0;
+    }
+
+    .users-table-inner {
+        min-width: 1050px;
+    }
+
+    .users-table-name-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .users-table-avatar {
+        margin-right: 16px;
+    }
+
+    .users-table-actions {
+        justify-content: flex-end;
+    }
+</style>
+
+<div class="card m-3">
+    <div class="card-header">
+        <h3>Employees</h3>
+    </div>
+    <div class="card-body">
+        @if (Employees == null)
+        {
+            <p><em>No data...</em></p>
+        }
+        else
+        {
+            <table class='table'>
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" checked="@this.SelectAll" @onchange="eventArgs => { empSelectAll(eventArgs.Value); }" /></th>
+                        <th>Name</th>
+                        <th>ID Number</th>
+                        <th>EMail</th>
+                        <th>Phone Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var emp in Employees)
+                    {
+                    <tr>
+                        <td>
+                            <input type="checkbox" checked="@this.empCheckSelectStatus(emp.Id)" @onchange="eventArgs => { empSelect(emp.Id, eventArgs.Value); }" />
+                        </td>
+                        <td>@emp.FirstName @emp.MiddleName @emp.LastName</td>
+                        <td>@emp.IdNumber</td>
+                        <td>@emp.Email</td>
+                        <td>@emp.Phone</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+
+
+
+@inherits EmployeeListBase

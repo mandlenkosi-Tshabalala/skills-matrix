@@ -11,6 +11,7 @@ namespace SkillsMatrix.Web.Services
       Task<PersonalInfo> GetPerson(int Id);
       Task<PersonalInfo> Create(PersonalInfo person);
       Task<PersonalInfo> Update(PersonalInfo person);
+      Task<IEnumerable<PersonalInfo>> GetAllEmployees();
 
     }
 }

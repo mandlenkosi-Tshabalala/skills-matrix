@@ -32,5 +32,9 @@ namespace SkillsMatrix.Web.Services
         {
             return await httpClient.PutJsonAsync<PersonalInfo>($"api/Persons", person);
         }
+        public async Task<IEnumerable<PersonalInfo>> GetAllEmployees()
+        {
+            return await httpClient.GetJsonAsync<IEnumerable<PersonalInfo>>($"api/Persons/GetEmployees");
+        }
     }
 }

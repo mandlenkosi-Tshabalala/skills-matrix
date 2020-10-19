@@ -35,6 +35,20 @@ namespace SkillsMatrix.Api.Controllers
             }
         }
 
+        [HttpGet("[action]")]
+        public async Task<ActionResult> GetEmployees()
+        {
+            try
+            {
+                return Ok(await personRepository.GetAllEmployees());
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving data from the database");
+            }
+        }
+
         [HttpGet("{id:int}")]
         public async Task<ActionResult<PersonalInfo>> GetPerson(int id)
         {

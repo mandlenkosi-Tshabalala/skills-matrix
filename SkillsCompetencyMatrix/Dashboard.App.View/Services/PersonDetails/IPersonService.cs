@@ -12,6 +12,7 @@ namespace Skclusive.Blazor.Dashboard.App.View.Services
       Task<PersonalInfo> GetPerson(int Id);
       Task<PersonalInfo> Create(PersonalInfo person);
       Task<PersonalInfo> Update(PersonalInfo person);
+      Task<IEnumerable<PersonalInfo>> GetAllEmployees();
 
     }
 }
