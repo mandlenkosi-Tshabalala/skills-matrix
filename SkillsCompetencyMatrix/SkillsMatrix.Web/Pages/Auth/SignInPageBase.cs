@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using SkillsMatrix.Models;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -21,15 +22,17 @@ namespace SkillsMatrix.Web.Auth
         [Inject] IHostEnvironmentAuthenticationStateProvider HostAuthentication { get; set; }
 
         [Inject]
-        protected UserManager<IdentityUser> UserManager { get; set; }
+        protected UserManager<IdentityUser<int>> UserManager { get; set; }
         [Inject]
-        protected SignInManager<IdentityUser> SignInManager { get; set; }
+        protected SignInManager<IdentityUser<int>> SignInManager { get; set; }
         [Inject]
         protected ILogger<SignInPageBase> Logger { get; set; }
         [Inject]
         protected IEmailSender EmailSender { get; set; }
-        [Inject]     
+        [Inject]
         public NavigationManager NavigationManager { get; set; }
+
+        protected User User { get; set; }
 
         protected EditContext editContext;
 
@@ -42,11 +45,9 @@ namespace SkillsMatrix.Web.Auth
 
         protected UserLoginDetails userLoginDetails = new UserLoginDetails();
 
-
-
-
         protected override Task OnInitializedAsync()
         {
+            Logger.LogInformation("OnInitializedAsync started...");
             editContext = new EditContext(userLoginDetails);
 
             return base.OnInitializedAsync();
@@ -68,6 +69,8 @@ namespace SkillsMatrix.Web.Auth
 
         public async void HandleSignIn()
         {
+            //CreateUser();
+            Logger.LogInformation("HandleSignIn started...");
             var user = await UserManager.FindByNameAsync(userLoginDetails.Email);
             var valid = await SignInManager.UserManager.CheckPasswordAsync(user, userLoginDetails.Password);
 
@@ -85,6 +88,13 @@ namespace SkillsMatrix.Web.Auth
 
                 // now the authState is updated
                 var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+                User = new User
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    UserName = user.UserName
+                };
 
                 NavigationManager.NavigateTo("/");
 
@@ -110,13 +120,26 @@ namespace SkillsMatrix.Web.Auth
 
         private async void CreateUser()
         {
-            var user = new IdentityUser { UserName = userLoginDetails.Email, Email = userLoginDetails.Email };
+            var user = new IdentityUser<int> { UserName = userLoginDetails.Email, Email = userLoginDetails.Email };
             var result = await UserManager.CreateAsync(user, userLoginDetails.Password);
             if (result.Succeeded)
             {
                 Logger.LogInformation("User created a new account with password.");
 
-                await SignInManager.SignInAsync(user, isPersistent: false);
+                var principal = await SignInManager.CreateUserPrincipalAsync(user);
+
+                var identity = new ClaimsIdentity(
+                    principal.Claims,
+                    Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme
+                );
+                principal = new System.Security.Claims.ClaimsPrincipal(identity);
+                SignInManager.Context.User = principal;
+                HostAuthentication.SetAuthenticationState(Task.FromResult(new AuthenticationState(principal)));
+
+                // now the authState is updated
+                var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+                NavigationManager.NavigateTo("/");
             }
         }
     }

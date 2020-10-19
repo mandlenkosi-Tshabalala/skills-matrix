@@ -9,6 +9,8 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using SkillsMatrix.Models;
+using Microsoft.AspNetCore.Components.Authorization;
+using System.Security.Claims;
 
 namespace SkillsMatrix.Web.Pages.CVFlow.AddressForm
 {
@@ -28,16 +30,33 @@ namespace SkillsMatrix.Web.Pages.CVFlow.AddressForm
 
         protected EditContext editContext;
 
+        [CascadingParameter]
+        protected Task<AuthenticationState> AuthState { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
+            ClaimsPrincipal user = (await AuthState).User;
 
-            editContext = new EditContext(address);
-
-            address = await AddressService.Get(1);
-
-            if (address != null)
+            if (user.Identity.IsAuthenticated)
             {
                 editContext = new EditContext(address);
+
+                address = await AddressService.Get(1);
+
+                if (address != null)
+                {
+                    editContext = new EditContext(address);
+                }
+            }
+        }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            ClaimsPrincipal user = (await AuthState).User;
+
+            if (user.Identity.IsAuthenticated)
+            {
+                Console.WriteLine($"{user.Identity.Name} is authenticated.");
             }
         }
 

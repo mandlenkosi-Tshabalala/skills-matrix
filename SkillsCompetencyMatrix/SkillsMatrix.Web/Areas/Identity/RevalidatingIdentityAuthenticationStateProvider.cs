@@ -72,7 +72,5 @@ namespace SkillsMatrix.Web.Shared
                 return principalStamp == userStamp;
             }
         }
-
-
     }
 }
