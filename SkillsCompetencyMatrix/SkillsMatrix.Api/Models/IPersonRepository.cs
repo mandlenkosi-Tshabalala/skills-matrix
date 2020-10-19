@@ -8,5 +8,6 @@ namespace SkillsMatrix.Api.Models
 {
     public interface IPersonRepository : IGenericRepository<PersonalInfo>
     {
+        Task<IEnumerable<PersonalInfo>>GetAllEmployees();
     }
 }
