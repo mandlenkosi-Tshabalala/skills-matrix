@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SkillsMatrix.Api.Models;
 using SkillsMatrix.Models;
 using System;
@@ -15,10 +16,12 @@ namespace SkillsMatrix.Api.Controllers
     public class AddressesController : ControllerBase
     {
         private readonly IAddressRepository addressRepository;
+        private readonly ILogger<AddressesController> _logger;
 
-        public AddressesController(IAddressRepository addressRepository)
+        public AddressesController(IAddressRepository addressRepository, ILogger<AddressesController> logger)
         {
             this.addressRepository = addressRepository;
+            this._logger = logger;
         }
 
         [HttpGet("{search}")]
@@ -36,8 +39,10 @@ namespace SkillsMatrix.Api.Controllers
                 return NotFound();
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex, "addressRepository.Search");
+
                 return StatusCode(StatusCodes.Status500InternalServerError,
                    "Error retrieving data from the database");
             }
@@ -50,8 +55,10 @@ namespace SkillsMatrix.Api.Controllers
             {
                 return Ok(await addressRepository.GetAddresses());
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex, "addressRepository.GetAddresses()");
+
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error retrieving data from the database");
             }
@@ -71,8 +78,10 @@ namespace SkillsMatrix.Api.Controllers
 
                 return result;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex, "addressRepository.GetAddress(id)");
+
                 return StatusCode(StatusCodes.Status500InternalServerError,
                    "Error retrieving data from the database");
             }
@@ -94,6 +103,8 @@ namespace SkillsMatrix.Api.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "addressRepository.AddAddress(address)");
+
                 return StatusCode(StatusCodes.Status500InternalServerError,
                    "Error saving data");
             }
@@ -106,8 +117,10 @@ namespace SkillsMatrix.Api.Controllers
             {
                 return await addressRepository.UpdateAddress(address);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex, "addressRepository.UpdateAddress(address)");
+
                 return StatusCode(StatusCodes.Status500InternalServerError,
                   "Error updating data");
             }
@@ -127,8 +140,10 @@ namespace SkillsMatrix.Api.Controllers
 
                 return await addressRepository.DeleteAddress(id);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex, "addressRepository.DeleteAddress(id)");
+
                 return StatusCode(StatusCodes.Status500InternalServerError,
                  "Error deleting data");
             }
