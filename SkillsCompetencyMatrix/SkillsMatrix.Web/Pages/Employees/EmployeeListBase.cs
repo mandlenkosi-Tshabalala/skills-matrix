@@ -19,19 +19,48 @@ namespace SkillsMatrix.Web.Pages.Employees
         [Inject]
         public IPersonService PersonService { get; set; }
 
+        [Inject]
+        public IPersonExpertiseService PersonExpertiseService { get; set; }
+
+        [Inject]
+        public IPersonCompetencies PersonCompetenciesService { get; set; }
+
         public IEnumerable<PersonalInfo> Employees { set; get; }
 
-        public string EmployeeNameSearch { set; get; }
+        public string EmployeeName { set; get; }
 
         public bool SelectAll { set; get; }
+
+        public string expertiseID { get; set; }
+
+        public string competencyID { get; set; }
+
+        public IEnumerable<Expertise> functionalList { set; get; }
+
+        public IEnumerable<Competency> competencyList { set; get; }
 
         protected override async Task OnInitializedAsync()
         {
 
-            Employees = await PersonService.GetAllEmployees();
+            Employees = await PersonService.GetAllEmployees("", 0, 0);
+            functionalList = await PersonExpertiseService.GetExpertiseCategories();
+            competencyList = await PersonCompetenciesService.GetCompetencies();
+
         }
 
-        protected void HandleValidSubmit()
+        protected async Task Search()
+        {
+            Employees = await PersonService.GetAllEmployees(EmployeeName, Convert.ToInt32(expertiseID), Convert.ToInt32(competencyID));
+
+            if (Employees.Count() == 0)
+            {
+                Employees = null;
+            }
+
+            EmployeeCheckedList.Clear();
+        }
+
+        protected void DownloadCV()
         {
         }
 
@@ -102,6 +131,16 @@ namespace SkillsMatrix.Web.Pages.Employees
             {
                 return false;
             }
+        }
+
+        protected void functionalClicked(object functional)
+        {
+            expertiseID = functional.ToString();
+        }
+
+        protected void competencyClicked(object competency)
+        {
+            competencyID = competency.ToString();
         }
 
     }

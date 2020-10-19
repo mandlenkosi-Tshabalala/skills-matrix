@@ -72,6 +72,40 @@
         <h3>Employees</h3>
     </div>
     <div class="card-body">
+
+        <div class="form-row">
+            <div class="form-group col">
+                <input class="form-control" Placeholder="Employee Name" @bind-value="this.EmployeeName" />
+            </div>
+            <div class="form-group col">
+                <select class="form-control" @onchange="eventArgs => { functionalClicked(eventArgs.Value); }">
+                    <option value="0" selected>Functional Expertise...</option>
+                    @if (functionalList != null)
+                    {
+                        @foreach (var functional in functionalList)
+                        {
+                            <option value="@functional.Id">@functional.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group col">
+                <select class="form-control" @onchange="eventArgs => { competencyClicked(eventArgs.Value); }">
+                    <option value="0" selected>Competencies Catagories...</option>
+                    @if (competencyList != null)
+                    {
+                        @foreach (var competency in competencyList)
+                        {
+                            <option value="@competency.Id">@competency.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group col">
+                <button type="submit" @onclick="Search" class="btn btn-primary mr-1 ">Search</button>
+            </div>
+        </div>
+
         @if (Employees == null)
         {
             <p><em>No data...</em></p>
@@ -91,22 +125,30 @@
                 <tbody>
                     @foreach (var emp in Employees)
                     {
-                    <tr>
-                        <td>
-                            <input type="checkbox" checked="@this.empCheckSelectStatus(emp.Id)" @onchange="eventArgs => { empSelect(emp.Id, eventArgs.Value); }" />
-                        </td>
-                        <td>@emp.FirstName @emp.MiddleName @emp.LastName</td>
-                        <td>@emp.IdNumber</td>
-                        <td>@emp.Email</td>
-                        <td>@emp.Phone</td>
-                    </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" checked="@this.empCheckSelectStatus(emp.Id)" @onchange="eventArgs => { empSelect(emp.Id, eventArgs.Value); }" />
+                            </td>
+                            <td>@emp.FirstName @emp.MiddleName @emp.LastName</td>
+                            <td>@emp.IdNumber</td>
+                            <td>@emp.Email</td>
+                            <td>@emp.Phone</td>
+                        </tr>
                     }
                 </tbody>
             </table>
         }
     </div>
+    <div class="card-footer " style="background-color:white">
+        <div>
+            @if (EmployeeCheckedList.Count() > 0)
+            {
+
+                <button type="submit" @onclick="DownloadCV" class="btn btn-primary mr-1 ">Download</button>
+            }
+        </div>
+    </div>
 </div>
 
-
-
 @inherits EmployeeListBase
+

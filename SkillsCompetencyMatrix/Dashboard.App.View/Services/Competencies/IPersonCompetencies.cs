@@ -12,6 +12,8 @@ namespace Skclusive.Blazor.Dashboard.App.View.Services
       Task<Competency> Get(int Id);
       Task<Competency> Create(Competency competency);
       Task<Competency> Update(Competency competency);
+      Task<IEnumerable<Competency>> GetCompetencies();
+
 
     }
 }

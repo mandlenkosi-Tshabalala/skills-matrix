@@ -33,5 +33,9 @@ namespace Skclusive.Blazor.Dashboard.App.View.Services
         {
             return await httpClient.PutJsonAsync<Competency>($"api/Persons", person);
         }
+        public async Task<IEnumerable<Competency>> GetCompetencies()
+        {
+            return await httpClient.GetJsonAsync<IEnumerable<Competency>>($"api/Competencies/GetCompetencies");
+        }
     }
 }

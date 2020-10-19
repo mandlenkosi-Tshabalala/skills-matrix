@@ -20,7 +20,7 @@ namespace SkillsMatrix.Api.Controllers
             this.expertiseRepository = expertiseRepository;
         }
 
-        [HttpGet]
+        [HttpGet("[action]")]
         public async Task<ActionResult> GetExpertiseCategories()
         {
             try

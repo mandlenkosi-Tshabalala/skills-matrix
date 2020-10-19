@@ -23,7 +23,7 @@ namespace SkillsMatrix.Api.Controllers
             this._logger = logger;
         }
 
-        [HttpGet]
+        [HttpGet("[action]")]
         public async Task<ActionResult> GetCompetencies()
         {
             try
