@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Http.Extensions;
-using Skclusive.Blazor.Dashboard.App.View.Services;
+using Microsoft.AspNetCore.Identity;
 using SkillsMatrix.Models;
+using SkillsMatrix.Web.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -19,10 +21,18 @@ namespace SkillsMatrix.Web.Pages.CVFlow.PersonalDetailsForm
         public IPersonService PersonService { get; set; }
 
         [Inject]
+        protected SignInManager<IdentityUser<int>> SignInManager { get; set; }
+
+        [Inject]
+        protected UserManager<IdentityUser<int>> UserManager { get; set; }
+
+        [CascadingParameter]
+        protected Task<AuthenticationState> AuthState { get; set; }
+
+        [Inject]
         public NavigationManager NavigationManager { get; set; }
 
-        [Parameter]
-        public string UserId { get; set; }
+        public int UserId { get; set; }
 
         protected PersonalInfo person = new PersonalInfo();
 
@@ -31,32 +41,54 @@ namespace SkillsMatrix.Web.Pages.CVFlow.PersonalDetailsForm
 
         protected override async Task OnInitializedAsync()
         {
-            UserId = UserId ?? "8";
+            var principalUser = (await AuthState).User;
 
-
-            editContext = new EditContext(person);
-
-            person = await PersonService.GetPerson(int.Parse(UserId));
-
-            if (person != null)
+            if (principalUser.Identity.IsAuthenticated)
             {
-                editContext = new EditContext(person);
-            }
+                var user = await UserManager.FindByEmailAsync(principalUser.Identity.Name);
+                if (user != null)
+                {
+                    UserId = user.Id;
+                    editContext = new EditContext(person);
+
+                    person = await PersonService.GetPersonByUserId(user.Id);
+
+                    if (person != null)
+                    {
+                        editContext = new EditContext(person);
+                    }
+                }
+            }        
         }
 
-        protected void HandleValidSubmit()
+        protected async void HandleValidSubmit()
         {
             //Check if its a new record 
             if (person.Id == 0)
             {
-                person.UserId = 9;
-                PersonService.Create(person);
-                NavigationManager.NavigateTo($"/address/{person.Id}");
+                try
+                {
+                    person.UserId = UserId;
+                    await PersonService.Create(person);
+                }
+                catch (Exception ex)
+                {
+                    // display message
+                }
+              
+                NavigationManager.NavigateTo($"/address");
             }
             else
             {
-                PersonService.Update(person);
-                NavigationManager.NavigateTo($"/address/{person.Id}");
+                try
+                {
+                    await PersonService.Update(person);
+                }
+                catch (Exception ex)
+                {
+                    // display message
+                }
+                NavigationManager.NavigateTo($"/address");
             }
         }
     }

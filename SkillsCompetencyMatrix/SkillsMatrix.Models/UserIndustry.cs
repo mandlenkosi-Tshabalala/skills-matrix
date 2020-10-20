@@ -4,11 +4,9 @@ using System.Text;
 
 namespace SkillsMatrix.Models
 {
-    public class UserIndustry
+    public class UserIndustry : BaseEntity
     {
-        public int UserId { get; set; }
-        public User User { get; set; }
         public int IndustryId { get; set; }
-        public Industry Industry { get; set; }
+        public virtual Industry Industry { get; set; }
     }
 }

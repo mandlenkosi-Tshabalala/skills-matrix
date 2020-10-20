@@ -13,5 +13,7 @@ namespace SkillsMatrix.Web.Services
       Task<Competency> Create(Competency competency);
       Task<Competency> Update(Competency competency);
 
+        Task<IEnumerable<Competency>> GetCompetencies();
+
     }
 }

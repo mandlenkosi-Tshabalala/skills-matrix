@@ -12,6 +12,8 @@ namespace SkillsMatrix.Web.Services
       Task<Education> Get(int Id);
       Task<Education> Create(Education education);
       Task<Education> Update(Education education);
+      Task<List<Education>> GetEducations(int UserID);
+
 
     }
 }

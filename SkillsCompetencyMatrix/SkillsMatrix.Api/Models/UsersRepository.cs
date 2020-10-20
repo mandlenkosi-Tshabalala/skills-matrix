@@ -1,4 +1,5 @@
-﻿using SkillsMatrix.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using SkillsMatrix.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,12 @@ namespace SkillsMatrix.Api.Models
         {
             this.appDbContext = appDbContext;
         }
+
+        //public override async Task<User> GetById(int Id)
+        //{
+
+        //      var result = await appDbContext.Users.Include(x => x.Address).ThenInclude(y => y.)
+
+        //}
     }
 }

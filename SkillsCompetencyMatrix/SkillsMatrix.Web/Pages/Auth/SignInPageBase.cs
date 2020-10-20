@@ -93,6 +93,7 @@ namespace SkillsMatrix.Web.Auth
                     UserName = user.UserName
                 };
 
+               
                 NavigationManager.NavigateTo("/");
             }
             else

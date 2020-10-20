@@ -49,6 +49,27 @@ namespace SkillsMatrix.Api.Controllers
             }
         }
 
+        [HttpGet("GetByUserId/{UserId}")]
+        public async Task<ActionResult<PersonalInfo>> GetByUserId(int UserId)
+        {
+            try
+            {
+                var result = await personRepository.GetByUserId(UserId);
+
+                if (result == null)
+                {
+                    return new PersonalInfo();
+                }
+
+                return result;
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                   "Error retrieving data from the database");
+            }
+        }
+
         [HttpGet("{id:int}")]
         public async Task<ActionResult<PersonalInfo>> GetPerson(int id)
         {

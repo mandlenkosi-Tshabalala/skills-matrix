@@ -21,17 +21,22 @@ namespace SkillsMatrix.Web.Services
 
         public async Task<Education> Create(Education person)
         {
-            return await httpClient.PostJsonAsync<Education>($"api/Persons", person);
+            return await httpClient.PostJsonAsync<Education>($"api/Educations", person);
         }
 
         public async Task<Education> Get(int Id)
         {
-           return await httpClient.GetJsonAsync<Education>($"api/Persons/{Id}");
+           return await httpClient.GetJsonAsync<Education>($"api/Educations/{Id}");
+        }
+
+        public async Task<List<Education>> GetEducations(int UserID)
+        {
+            return await httpClient.GetJsonAsync<List<Education>>($"api/Educations/List/{UserID}");
         }
 
         public async Task<Education> Update(Education person)
         {
-            return await httpClient.PutJsonAsync<Education>($"api/Persons", person);
+            return await httpClient.PutJsonAsync<Education>($"api/Educations", person);
         }
     }
 }

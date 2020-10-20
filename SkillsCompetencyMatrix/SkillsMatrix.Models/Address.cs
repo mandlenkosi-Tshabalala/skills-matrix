@@ -5,22 +5,18 @@ namespace SkillsMatrix.Models
 {
     public class Address : BaseEntity
     {
-        [Required]
-        public string PhysicalCode { get; set; }
-        [Required]
-        public string PostalCode { get; set; }
-        public string PhysicalAddressLine1 { get; set; }
-        public string PostalAddressLine1 { get; set; }
-        [Required]
-        public string PhysicalAddressLine2 { get; set; }
-        public string PostalAddressLine2 { get; set; }
-        public string PhysicalAddressLine3 { get; set; }
-        public string PostalAddressLine3 { get; set; }
+        public string StreetNumber { get; set; }
+        public string StreetName { get; set; }
 
-        // Foreign key
-        public int UserId { get; set; }
+        [Required]
+        public string City { get; set; }
+        [Required]
+        public string State { get; set; }
+        [Required]
+        public string ZipCode { get; set; }
+        [Required]
+        public string Country { get; set; }
 
-        // Navigation properties
-        public virtual User User { get; set; }
+
     }
 }

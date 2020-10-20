@@ -51,12 +51,17 @@ namespace SkillsMatrix.Web.Pages.Auth
 
         protected async void HandleValidSubmit()
         {
-            var user = new IdentityUser<int> { UserName = Input.Email, Email = Input.Email, EmailConfirmed = true };
+            var user = new IdentityUser<int> { 
+                UserName = Input.Email, 
+                Email = Input.Email, 
+                EmailConfirmed = true 
+            };
 
             var result = await _userManager.CreateAsync(user, Input.Password);
 
             if (result.Succeeded)
             {
+                //create userrole
                 _logger.LogInformation("User created a new account with password.");
 
                 var principal = await _signInManager.CreateUserPrincipalAsync(user);

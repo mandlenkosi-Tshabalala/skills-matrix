@@ -8,10 +8,12 @@ namespace SkillsMatrix.Web.Services
 {
     public  interface IPersonService
     {
+      Task<PersonalInfo> GetPersonByUserId(int Id);
       Task<PersonalInfo> GetPerson(int Id);
       Task<PersonalInfo> Create(PersonalInfo person);
       Task<PersonalInfo> Update(PersonalInfo person);
       Task<IEnumerable<PersonalInfo>> GetAllEmployees();
+      Task<IEnumerable<PersonalInfo>> GetAllEmployees(string EmployeeName, int expertiseID, int competencyID);
 
     }
 }

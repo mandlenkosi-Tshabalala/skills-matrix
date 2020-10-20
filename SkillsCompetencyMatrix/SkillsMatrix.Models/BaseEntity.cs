@@ -12,5 +12,7 @@ namespace SkillsMatrix.Models
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         public string IPAddress { get; set; }
         public bool IsDeleted { get; set; }
+        public int UserId { get; set; }
+        public User User { get; set; }
     }
 }

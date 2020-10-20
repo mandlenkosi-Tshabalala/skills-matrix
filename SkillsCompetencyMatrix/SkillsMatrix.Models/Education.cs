@@ -7,10 +7,6 @@ namespace SkillsMatrix.Models
 {
     public class Education : BaseEntity
     {
-        public Education()
-        {
-            UserEducations = new HashSet<UserEducation>();
-        }
 
         [Required]
         public string Institution { get; set; }
@@ -23,7 +19,5 @@ namespace SkillsMatrix.Models
         [Required]
         public string QualificationLevel { get; set; }
 
-        // Foreign key
-        public virtual ICollection<UserEducation> UserEducations { get; set; }
     }
 }

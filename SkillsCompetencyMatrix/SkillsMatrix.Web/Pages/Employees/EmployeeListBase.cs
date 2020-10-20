@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Http.Extensions;
-using Skclusive.Blazor.Dashboard.App.View.Common;
-using Skclusive.Blazor.Dashboard.App.View.Services;
 using SkillsMatrix.Models;
+using SkillsMatrix.Web.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

@@ -4,12 +4,9 @@ using System.Text;
 
 namespace SkillsMatrix.Models
 {
-    public class UserCompetency
+    public class UserCompetency :BaseEntity
     {
-        public int UserId { get; set; }
-        public User User { get; set; }
-
         public int CompetencyId { get; set; }
-        public Competency Competency { get; set; }
+        public virtual Competency Competency { get; set; }
     }
 }

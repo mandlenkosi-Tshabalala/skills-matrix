@@ -17,8 +17,9 @@ namespace SkillsMatrix.Api.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // User Address
+            modelBuilder.Entity<User>().ToTable("AspNetUsers");
+
             modelBuilder.Entity<User>()
-                .ToTable("AspNetUsers")
                 .HasOne(a => a.Address)
                 .WithOne(a => a.User)
                 .HasForeignKey<Address>(c => c.UserId);
@@ -44,46 +45,23 @@ namespace SkillsMatrix.Api.Models
                 .HasForeignKey(uc => uc.CompetencyId);
 
             // User Document
-            modelBuilder.Entity<UserDocument>()
-               .HasKey(x => new { x.UserId, x.DocumentId });
-
-            modelBuilder.Entity<UserDocument>()
-                .HasOne<User>(uc => uc.User)
-                .WithMany(s => s.UserDocuments)
-                .HasForeignKey(uc => uc.UserId);
-
-            modelBuilder.Entity<UserDocument>()
-                .HasOne<Document>(uc => uc.Document)
-                .WithMany(s => s.UserDocuments)
-                .HasForeignKey(uc => uc.DocumentId);
+            modelBuilder.Entity<User>()
+                .HasMany<Document>(uc => uc.UserDocuments)
+                .WithOne(s => s.User);
 
             // User Education
-            modelBuilder.Entity<UserEducation>()
-               .HasKey(x => new { x.UserId, x.EducationId });
-
-            modelBuilder.Entity<UserEducation>()
-                .HasOne<User>(uc => uc.User)
-                .WithMany(s => s.UserEducations)
-                .HasForeignKey(uc => uc.UserId);
-
-            modelBuilder.Entity<UserEducation>()
-                .HasOne<Education>(uc => uc.Education)
-                .WithMany(s => s.UserEducations)
-                .HasForeignKey(uc => uc.EducationId);
+            modelBuilder.Entity<User>()
+                .HasMany<Education>(uc => uc.UserEducations)
+                .WithOne(s => s.User);
 
             // User Employment
-            modelBuilder.Entity<UserEmployment>()
-               .HasKey(x => new { x.UserId, x.EmploymentId });
+            modelBuilder.Entity<User>()
+                .HasMany<Employment>(uc => uc.UserEmployments)
+                .WithOne(s => s.User);
 
-            modelBuilder.Entity<UserEmployment>()
-                .HasOne<User>(uc => uc.User)
-                .WithMany(s => s.UserEmployments)
-                .HasForeignKey(uc => uc.UserId);
-
-            modelBuilder.Entity<UserEmployment>()
-                .HasOne<Employment>(uc => uc.Employment)
-                .WithMany(s => s.UserEmployments)
-                .HasForeignKey(uc => uc.EmploymentId);
+            modelBuilder.Entity<User>()
+                .HasMany<Employment>(uc => uc.UserEmployments)
+                .WithOne(s => s.User);
 
             // User Expertise
             modelBuilder.Entity<UserExpertise>()
@@ -114,32 +92,14 @@ namespace SkillsMatrix.Api.Models
                 .HasForeignKey(uc => uc.IndustryId);
 
             // User Membership
-            modelBuilder.Entity<UserMembership>()
-               .HasKey(x => new { x.UserId, x.MembershipId });
-
-            modelBuilder.Entity<UserMembership>()
-                .HasOne<User>(uc => uc.User)
-                .WithMany(s => s.UserMemberships)
-                .HasForeignKey(uc => uc.UserId);
-
-            modelBuilder.Entity<UserMembership>()
-                .HasOne<Membership>(uc => uc.Membership)
-                .WithMany(s => s.UserMemberships)
-                .HasForeignKey(uc => uc.MembershipId);
+            modelBuilder.Entity<User>()
+                .HasMany<Membership>(uc => uc.UserMemberships)
+                .WithOne(s => s.User);
 
             // User Skill
-            modelBuilder.Entity<UserSkill>()
-               .HasKey(x => new { x.UserId, x.SkillId });
-
-            modelBuilder.Entity<UserSkill>()
-                .HasOne<User>(uc => uc.User)
-                .WithMany(s => s.UserSkills)
-                .HasForeignKey(uc => uc.UserId);
-
-            modelBuilder.Entity<UserSkill>()
-                .HasOne<Skill>(uc => uc.Skill)
-                .WithMany(s => s.UserSkills)
-                .HasForeignKey(uc => uc.SkillId);
+            modelBuilder.Entity<User>()
+                .HasMany<Skill>(uc => uc.UserSkills)
+                .WithOne(s => s.User);
         }
 
         public DbSet<Address> Addresses { get; set; }
@@ -153,16 +113,13 @@ namespace SkillsMatrix.Api.Models
         public DbSet<Industry> Industries { get; set; }
         public DbSet<PersonalInfo> PersonalInfos { get; set; }
         public DbSet<Membership> Memberships { get; set; }
-        public DbSet<Reference> References { get; set; }
+        //public DbSet<Reference> References { get; set; }
         public DbSet<Skill> Skills { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<UserSkill> UserSkills { get; set; }
+        //public DbSet<User> Users { get; set; }
         public DbSet<UserCompetency> UserCompetencies { get; private set; }
-        public DbSet<UserEducation> UserEducations { get; private set; }
-        public DbSet<UserEmployment> UserEmployments { get; private set; }
+
         public DbSet<UserExpertise> UserExpertises { get; private set; }
         public DbSet<UserIndustry> UserIndustries { get; private set; }
-        public DbSet<UserMembership> UserMemberships { get; private set; }
-        public DbSet<UserDocument> UserDocuments { get; private set; }
+
     }
 }

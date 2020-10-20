@@ -27,10 +27,10 @@ namespace SkillsMatrix.Models
         public string Nationality { get; set; }
         [Required]
         public string Email { get; set; }
+        [Required]
         public string Phone { get; set; }
-
-        public int UserId { get; set; } 
-        public virtual User User { get; set; }
+        [Required]
+        public string Profile { get; set; }
 
     }
 }

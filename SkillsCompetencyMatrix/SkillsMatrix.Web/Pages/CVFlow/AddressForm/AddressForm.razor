@@ -1,5 +1,5 @@
 ﻿@attribute [Authorize]
-@page "/address/{PersonId}"
+@page "/address"
 @inherits AddressFormBase
 
 @using System.ComponentModel.DataAnnotations
@@ -80,38 +80,38 @@
                 <div class="form-row">
                     <div class="form-group col-3">
                         <label>Street Number</label>
-                        <InputText id="street_number" @bind-Value="address.PhysicalCode" class="form-control" />
-                        <ValidationMessage For="@(() => address.PhysicalCode)" />
+                        <InputText id="street_number" @bind-Value="address.StreetNumber" class="form-control" />
+                        <ValidationMessage For="@(() => address.StreetNumber)" />
                     </div>
                     <div class="form-group col-9">
                         <label>Street address</label>
-                        <InputText id="route" @bind-Value="address.PhysicalCode" class="form-control" />
-                        <ValidationMessage For="@(() => address.PhysicalCode)" />
+                        <InputText id="route" @bind-Value="address.StreetName" class="form-control" />
+                        <ValidationMessage For="@(() => address.StreetName)" />
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-6">
                         <label>City</label>
-                        <InputText id="locality" @bind-Value="address.PhysicalAddressLine1" class="form-control" />
-                        <ValidationMessage For="@(() => address.PhysicalAddressLine1)" />
+                        <InputText id="locality" @bind-Value="address.City" class="form-control" />
+                        <ValidationMessage For="@(() => address.City)" />
                     </div>
                     <div class="form-group col-6">
                         <label>State</label>
-                        <InputText id="administrative_area_level_1" @bind-Value="address.PhysicalAddressLine2" class="form-control" />
-                        <ValidationMessage For="@(() => address.PhysicalAddressLine2)" />
+                        <InputText id="administrative_area_level_1" @bind-Value="address.State" class="form-control" />
+                        <ValidationMessage For="@(() => address.State)" />
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group col-2">
                         <label>Zip code</label>
-                        <InputText id="postal_code" @bind-Value="address.PhysicalAddressLine3" class="form-control" />
-                        <ValidationMessage For="@(() => address.PhysicalAddressLine3)" />
+                        <InputText id="postal_code" @bind-Value="address.ZipCode" class="form-control" />
+                        <ValidationMessage For="@(() => address.ZipCode)" />
                     </div>
                     <div class="form-group col-10">
                         <label>Country</label>
-                        <InputText id="country" @bind-Value="address.PhysicalAddressLine3" class="form-control" />
-                        <ValidationMessage For="@(() => address.PhysicalAddressLine3)" />
+                        <InputText id="country" @bind-Value="address.Country" class="form-control" />
+                        <ValidationMessage For="@(() => address.Country)" />
                     </div>
                 </div>
 

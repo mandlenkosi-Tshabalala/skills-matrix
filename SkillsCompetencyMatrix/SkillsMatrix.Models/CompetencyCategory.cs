@@ -3,16 +3,13 @@ using System.Collections.Generic;
 
 namespace SkillsMatrix.Models
 {
-    public class CompetencyCategory : BaseEntity
+    public class CompetencyCategory 
     {
-        public CompetencyCategory()
-        {
-            Competencies = new HashSet<Competency>();
-        }
-
+        public int Id { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public string IPAddress { get; set; }
+        public bool IsDeleted { get; set; }
         public string Name { get; set; }
 
-        // Navigation properties
-        public virtual ICollection<Competency> Competencies { get; private set; }
     }
 }

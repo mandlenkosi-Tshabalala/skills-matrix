@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography.X509Certificates;
 
 namespace SkillsMatrix.Api.Models
 {
@@ -37,5 +38,9 @@ namespace SkillsMatrix.Api.Models
             return await employees.Distinct().ToListAsync();
         }
 
+        public Task<PersonalInfo> GetByUserId(int Id)
+        {
+            return appDbContext.PersonalInfos.SingleOrDefaultAsync(x => x.UserId== Id);
+        }
     }
 }

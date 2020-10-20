@@ -13,9 +13,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Skclusive.Blazor.Dashboard.App.View;
-using Skclusive.Blazor.Dashboard.App.View.Services;
 using SkillsMatrix.Web.Data;
+using SkillsMatrix.Web.Services;
 using SkillsMatrix.Web.Shared;
 
 namespace SkillsMatrix.Web
@@ -78,14 +77,6 @@ namespace SkillsMatrix.Web
                 return provider;
             });
 
-            services.TryAddDashboardViewServices
-                (
-                    new DashboardViewConfigBuilder()
-                    .WithIsServer(true)
-                    .WithIsPreRendering(false)
-                    .WithResponsive(true)
-                    .Build()
-                );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

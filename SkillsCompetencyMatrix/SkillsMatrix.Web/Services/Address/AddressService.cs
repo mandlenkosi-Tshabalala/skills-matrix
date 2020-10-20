@@ -26,12 +26,17 @@ namespace SkillsMatrix.Web.Services
 
         public async Task<Address> Get(int Id)
         {
-           return await httpClient.GetJsonAsync<Address>($"api/Addresses/{Id}");
+           return await httpClient.GetJsonAsync<Address>($"api/Addresses/GetByUserId/{Id}");
         }
 
         public async Task<Address> Update(Address PersonAddress)
         {
             return await httpClient.PutJsonAsync<Address>($"api/Addresses", PersonAddress);
+        }
+
+        public async Task<PersonalInfo> GetPersonByUserId(int Id)
+        {
+            return await httpClient.GetJsonAsync<PersonalInfo>($"api/Addresses/GetByUserId/{Id}");
         }
     }
 }

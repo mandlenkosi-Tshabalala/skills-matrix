@@ -24,36 +24,13 @@ namespace SkillsMatrix.Api.Controllers
             this._logger = logger;
         }
 
-        [HttpGet("{search}")]
-        public async Task<ActionResult<IEnumerable<Address>>> Search(string code, string addressline)
-        {
-            try
-            {
-                var result = await addressRepository.Search(code, addressline);
-
-                if (result.Any())
-                {
-                    return Ok(result);
-                }
-
-                return NotFound();
-
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "addressRepository.Search");
-
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                   "Error retrieving data from the database");
-            }
-        }
 
         [HttpGet]
         public async Task<ActionResult> GetAddresses()
         {
             try
             {
-                return Ok(await addressRepository.GetAddresses());
+                return Ok(await addressRepository.GetAll());
             }
             catch (Exception ex)
             {
@@ -69,7 +46,7 @@ namespace SkillsMatrix.Api.Controllers
         {
             try
             {
-                var result = await addressRepository.GetAddress(id);
+                var result = await addressRepository.GetById(id);
 
                 if (result == null)
                 {
@@ -87,6 +64,27 @@ namespace SkillsMatrix.Api.Controllers
             }
         }
 
+        [HttpGet("GetByUserId/{UserId}")]
+        public async Task<ActionResult<Address>> GetByUserId(int UserId)
+        {
+            try
+            {
+                var result = await addressRepository.GetByUserId(UserId);
+
+                if (result == null)
+                {
+                    return new Address();
+                }
+
+                return result;
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                   "Error retrieving data from the database");
+            }
+        }
+
         [HttpPost]
         public async Task<ActionResult<Address>> CreateAddress(Address address)
         {
@@ -97,7 +95,7 @@ namespace SkillsMatrix.Api.Controllers
                     return BadRequest();
                 }
 
-                var createdAddress = await addressRepository.AddAddress(address);
+                var createdAddress = await addressRepository.Add(address);
 
                 return CreatedAtAction(nameof(GetAddress), new { id = createdAddress.Id }, createdAddress);
             }
@@ -115,7 +113,7 @@ namespace SkillsMatrix.Api.Controllers
         {
             try
             {
-                return await addressRepository.UpdateAddress(address);
+                return await addressRepository.Update(address);
             }
             catch (Exception ex)
             {
@@ -131,14 +129,14 @@ namespace SkillsMatrix.Api.Controllers
         {
             try
             {
-                var addressToDelete = await addressRepository.GetAddress(id);
+                var addressToDelete = await addressRepository.GetById(id);
 
                 if (addressToDelete == null)
                 {
                     return NotFound($"Address with Id = {id} not found.");
                 }
 
-                return await addressRepository.DeleteAddress(id);
+                return await addressRepository.Delete(id);
             }
             catch (Exception ex)
             {

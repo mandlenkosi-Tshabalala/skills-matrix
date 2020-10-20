@@ -1,10 +1,7 @@
 ﻿using SkillsMatrix.Models;
 using Microsoft.AspNetCore.Components;
-using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace SkillsMatrix.Web.Services
@@ -32,6 +29,11 @@ namespace SkillsMatrix.Web.Services
         public async Task<Competency> Update(Competency person)
         {
             return await httpClient.PutJsonAsync<Competency>($"api/Persons", person);
+        }
+
+        public async Task<IEnumerable<Competency>> GetCompetencies()
+        {
+            return await httpClient.GetJsonAsync<IEnumerable<Competency>>($"api/Competencies/GetCompetencies");
         }
     }
 }

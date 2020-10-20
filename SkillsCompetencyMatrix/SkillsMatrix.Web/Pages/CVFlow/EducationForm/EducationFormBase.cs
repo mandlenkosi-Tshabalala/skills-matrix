@@ -1,13 +1,15 @@
 ﻿using SkillsMatrix.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Skclusive.Blazor.Dashboard.App.View.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using SkillsMatrix.Web.Services;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace SkillsMatrix.Web.Pages.CVFlow.EducationForm
 {
@@ -17,46 +19,60 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EducationForm
         [Inject]
         public IEducationService EducationService { get; set; }
 
+
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
-        [Parameter]
-        public string UserId { get; set; }
+        [Inject]
+        protected SignInManager<IdentityUser<int>> SignInManager { get; set; }
 
+        [Inject]
+        protected UserManager<IdentityUser<int>> UserManager { get; set; }
+
+        [CascadingParameter]
+        protected Task<AuthenticationState> AuthState { get; set; }
+
+        public int UserId { get; set; }
+
+        protected List<Education> personEducations = new List<Education>();
         protected Education personEducation = new Education();
-
         protected EditContext editContext;
 
         protected override async Task OnInitializedAsync()
         {
+            var principalUser = (await AuthState).User;
 
-            editContext = new EditContext(personEducation);
-
-            personEducation = await EducationService.Get(1);
-
-            if (personEducation != null)
+            if (principalUser.Identity.IsAuthenticated)
             {
-                editContext = new EditContext(personEducation);
+                var user = await UserManager.FindByEmailAsync(principalUser.Identity.Name);
+                if (user != null)
+                {
+                    UserId = user.Id;
+                    editContext = new EditContext(personEducation);
+
+                    personEducations = await EducationService.GetEducations(user.Id);
+                    if (personEducation != null)
+                    {
+                        editContext = new EditContext(personEducation);
+                    }
+                }
             }
 
         }
 
-        protected void HandleValidSubmit()
+        protected  async void HandleValidSubmit()
         {
-            //if (personEducation != null)
-            //    personEducation.PersonId = int.Parse(UserId);
 
-            //Check if its a new record 
             if (personEducation.Id == 0)
             {
 
-                EducationService.Create(personEducation);
-                NavigationManager.NavigateTo($"/personEmpolyment/{UserId}");
+                await EducationService.Create(personEducation);
+                NavigationManager.NavigateTo($"/personEmpolyment");
             }
             else
             {
-                EducationService.Update(personEducation);
-                NavigationManager.NavigateTo($"/personEmpolyment/{UserId}");
+                await EducationService.Update(personEducation);
+                NavigationManager.NavigateTo($"/personEmpolyment");
             }
 
         }
@@ -64,6 +80,11 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EducationForm
         protected void Back()
         {
             NavigationManager.NavigateTo($"/address/{UserId}");
+        }
+
+        protected void Next()
+        {
+            NavigationManager.NavigateTo("/personEmpolyment");
         }
     }
 }

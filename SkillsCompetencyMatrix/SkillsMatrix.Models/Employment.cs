@@ -6,10 +6,6 @@ namespace SkillsMatrix.Models
 {
     public class Employment : BaseEntity
     {
-        public Employment()
-        {
-            UserEmployments = new HashSet<UserEmployment>();
-        }
 
         [Required]
         public string CompanyName { get; set; }
@@ -24,8 +20,6 @@ namespace SkillsMatrix.Models
         [Required]
         public String RoleDescription { get; set; }
 
-        // Foreign key
-        public virtual ICollection<UserEmployment> UserEmployments { get; set; }
     }
 }
 

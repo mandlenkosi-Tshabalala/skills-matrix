@@ -1,5 +1,4 @@
 ﻿@attribute [Authorize]
-@page "/personDetails/{UserId}"
 @page  "/personDetails"
 @inherits DetailsFormBase
 
@@ -148,8 +147,8 @@
             <div class="form-row">
                 <div class="form-group col">
                     <label>Profile</label>
-                    <InputTextArea @bind-Value="person.Phone" class=" form-control" style="height:250px">
-                    <ValidationMessage For="@(() => person.Phone)" />
+                    <InputTextArea @bind-Value="person.Profile" class=" form-control" style="height:250px">
+                    <ValidationMessage For="@(() => person.Profile)" />
                 </InputTextArea>
                 </div>
                 </div>

@@ -8,6 +8,7 @@ namespace SkillsMatrix.Web.Services
 {
     public  interface IAddressService
     {
+      Task<PersonalInfo> GetPersonByUserId(int Id);
       Task<Address> Get(int Id);
       Task<Address> Create(Address address);
       Task<Address> Update(Address address);

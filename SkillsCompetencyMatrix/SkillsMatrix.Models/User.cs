@@ -9,14 +9,14 @@ namespace SkillsMatrix.Models
     {
         public User()
         {
-            UserSkills = new HashSet<UserSkill>();
+            UserSkills = new HashSet<Skill>();
             UserCompetencies = new HashSet<UserCompetency>();
-            UserEducations = new HashSet<UserEducation>();
-            UserEmployments = new HashSet<UserEmployment>();
+            UserEducations = new HashSet<Education>();
+            UserEmployments = new HashSet<Employment>();
             UserExpertises = new HashSet<UserExpertise>();
             UserIndustries = new HashSet<UserIndustry>();
-            UserMemberships = new HashSet<UserMembership>();
-            UserDocuments = new HashSet<UserDocument>();
+            UserMemberships = new HashSet<Membership>();
+            UserDocuments = new HashSet<Document>();
         }
 
         [Required]
@@ -44,13 +44,13 @@ namespace SkillsMatrix.Models
         // Navigation Properties
         public virtual PersonalInfo PersonalInfo { get; set; }
         public virtual Address Address { get; set; }
-        public virtual ICollection<UserSkill> UserSkills { get; set; }
+        public virtual ICollection<Skill> UserSkills { get; set; }
         public virtual ICollection<UserCompetency> UserCompetencies { get; private set; }
-        public virtual ICollection<UserEducation> UserEducations { get; private set; }
-        public virtual ICollection<UserEmployment> UserEmployments { get; private set; }
+        public virtual ICollection<Education> UserEducations { get; private set; }
+        public virtual ICollection<Employment> UserEmployments { get; private set; }
         public virtual ICollection<UserExpertise> UserExpertises { get; private set; }
         public virtual ICollection<UserIndustry> UserIndustries { get; private set; }
-        public virtual ICollection<UserMembership> UserMemberships { get; private set; }
-        public virtual ICollection<UserDocument> UserDocuments { get; private set; }
+        public virtual ICollection<Membership> UserMemberships { get; private set; }
+        public virtual ICollection<Document> UserDocuments { get; private set; }
     }
 }
