@@ -55,6 +55,27 @@ namespace SkillsMatrix.Api.Controllers
             }
         }
 
+        [HttpGet("List/{UserID:int}")]
+        public async Task<ActionResult<IEnumerable<Education>>> GetEducations(int UserID)
+          {
+            try
+            {
+                var result = await educationRepository.GetEducations(UserID);
+
+                if (result == null)
+                {
+                    return NotFound();
+                }
+
+                return result.ToList();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                   "Error retrieving data from the database");
+            }
+        }
+
         [HttpPost]
         public async Task<ActionResult<Education>> CreateEducation(Education education)
         {
@@ -86,19 +107,19 @@ namespace SkillsMatrix.Api.Controllers
                 //    return BadRequest("Education ID mismatch");
                 //}
 
-                var result = await educationRepository.GetById(education.Id);
+                //var result =  educationRepository.GetById(education.Id);
 
-                if (result == null)
+                if (education == null)
                 {
                     return new Education();
                 }
 
                 return await educationRepository.Update(education);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                  "Error updating data");
+                  "Error updating data"  + ex.Message );
             }
         }
 

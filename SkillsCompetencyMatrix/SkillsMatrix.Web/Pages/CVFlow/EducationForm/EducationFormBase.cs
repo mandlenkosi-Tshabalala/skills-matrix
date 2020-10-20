@@ -35,12 +35,18 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EducationForm
         public int UserId { get; set; }
 
         protected List<Education> personEducations = new List<Education>();
+
         protected Education personEducation = new Education();
+
         protected EditContext editContext;
+
+        private bool edit = false;
 
         protected override async Task OnInitializedAsync()
         {
             var principalUser = (await AuthState).User;
+
+            editContext = new EditContext(personEducation);
 
             if (principalUser.Identity.IsAuthenticated)
             {
@@ -48,19 +54,43 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EducationForm
                 if (user != null)
                 {
                     UserId = user.Id;
-                    editContext = new EditContext(personEducation);
 
+                 
                     personEducations = await EducationService.GetEducations(user.Id);
-                    if (personEducation != null)
-                    {
-                        editContext = new EditContext(personEducation);
-                    }
+
+
                 }
             }
 
         }
 
         protected  async void HandleValidSubmit()
+        {
+
+
+            if (edit == false)
+             {
+                personEducation.UserId = UserId;
+                await EducationService.Create(personEducation);
+                await OnInitializedAsync();
+                NavigationManager.NavigateTo($"/personEducation");
+                personEducation = new Education();
+
+            }
+            else
+            {
+                await EducationService.Update(personEducation);
+                await OnInitializedAsync();
+                edit = false;
+                NavigationManager.NavigateTo($"/personEducation");
+                personEducation = new Education();
+
+
+            }
+
+        }
+
+        protected async void HandleDelete()
         {
 
             if (personEducation.Id == 0)
@@ -79,12 +109,20 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EducationForm
 
         protected void Back()
         {
-            NavigationManager.NavigateTo($"/address/{UserId}");
+            NavigationManager.NavigateTo($"/address");
         }
 
         protected void Next()
         {
             NavigationManager.NavigateTo("/personEmpolyment");
+        }
+
+
+        protected async Task GetEducation(int id)
+        {
+            personEducation = await EducationService.Get(id);
+            edit = true;
+
         }
     }
 }

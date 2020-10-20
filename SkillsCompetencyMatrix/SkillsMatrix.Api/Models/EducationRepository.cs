@@ -33,5 +33,14 @@ namespace SkillsMatrix.Api.Models
 
             return await query.ToListAsync();
         }
+
+        public async Task<IEnumerable<Education>> GetEducations(int UserID)
+        {
+            IQueryable<Education> query =  appDbContext.Educations.Where(e => e.UserId == UserID);
+
+
+            return  await query.ToListAsync();
+
+        }
     }
 }

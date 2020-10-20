@@ -13,9 +13,9 @@ namespace SkillsMatrix.Models
         [Required]
         public string FieldOfStudy { get; set; }
         [Required]
-        public string QualificationStartDate { get; set; }
+        public DateTime QualificationStartDate { get; set; }
         [Required]
-        public string QualificationEndDate { get; set; }
+        public DateTime QualificationEndDate { get; set; }
         [Required]
         public string QualificationLevel { get; set; }
 
