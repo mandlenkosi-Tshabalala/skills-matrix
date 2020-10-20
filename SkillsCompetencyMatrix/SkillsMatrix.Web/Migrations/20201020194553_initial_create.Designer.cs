@@ -10,8 +10,8 @@ using SkillsMatrix.Web.Data;
 namespace SkillsMatrix.Web.Migrations
 {
     [DbContext(typeof(SkillsMatrixWebContext))]
-    [Migration("20201019221059_initial")]
-    partial class initial
+    [Migration("20201020194553_initial_create")]
+    partial class initial_create
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

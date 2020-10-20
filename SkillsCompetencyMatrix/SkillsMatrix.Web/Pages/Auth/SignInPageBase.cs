@@ -85,15 +85,7 @@ namespace SkillsMatrix.Web.Auth
 
                 // now the authState is updated
                 var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-
-                User = new User
-                {
-                    Id = user.Id,
-                    Email = user.Email,
-                    UserName = user.UserName
-                };
-
-               
+                               
                 NavigationManager.NavigateTo("/");
             }
             else

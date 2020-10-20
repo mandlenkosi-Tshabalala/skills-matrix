@@ -36,12 +36,10 @@ namespace SkillsMatrix.Api
             services.AddScoped<ICompetencyCategoryRepository, CompetencyCategoryRepository>();
             services.AddScoped<IEducationRepository, EducationRepository>();
             services.AddScoped<IEmploymentHistoryRepository, EmploymentHistoryRepository>();
-            services.AddScoped<IExpertiseCategoryRepository, ExpertiseCategoryRepository>();
             services.AddScoped<IExpertiseRepository, ExpertiseRepository>();
             services.AddScoped<IIndustryRepository, IndustryRepository>();
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IProfessionalMembershipRepository, ProfessionalMembershipRepository>();
-            services.AddScoped<IReferenceRepository, ReferenceRepository>();
             services.AddScoped<ISkillsRepository, SkillsRepository>();
             services.AddScoped<IUsersRepository, UsersRepository>();
 

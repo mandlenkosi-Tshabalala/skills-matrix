@@ -109,7 +109,6 @@ namespace SkillsMatrix.Api.Models
         public DbSet<Education> Educations { get; set; }
         public DbSet<Employment> Employments { get; set; }
         public DbSet<Expertise> Expertises { get; set; }
-        public DbSet<ExpertiseCategory> ExpertiseCategories { get; set; }
         public DbSet<Industry> Industries { get; set; }
         public DbSet<PersonalInfo> PersonalInfos { get; set; }
         public DbSet<Membership> Memberships { get; set; }

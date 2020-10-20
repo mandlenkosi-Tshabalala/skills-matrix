@@ -15,7 +15,6 @@ namespace SkillsMatrix.Models
         public bool IsDeleted { get; set; }
         public string Name { get; set; }
         public int ExpertiseId { get; set; }
-        public virtual ExpertiseCategory Catagory { get; set; }
         public virtual ICollection<UserExpertise> UserExpertises { get; set; }
 
     }
