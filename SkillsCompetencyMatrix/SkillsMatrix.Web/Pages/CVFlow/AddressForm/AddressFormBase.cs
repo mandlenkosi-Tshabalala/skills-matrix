@@ -17,7 +17,6 @@ namespace SkillsMatrix.Web.Pages.CVFlow.AddressForm
 {
     public class AddressFormBase : ComponentBase
     {
-
         [Inject]
         public IAddressService AddressService { get; set; }
 
@@ -33,14 +32,9 @@ namespace SkillsMatrix.Web.Pages.CVFlow.AddressForm
         [CascadingParameter]
         protected Task<AuthenticationState> AuthState { get; set; }
 
-
-
         public int UserId { get; set; }
-
         protected Address address = new Address();
-
         protected EditContext editContext;
-
 
         protected override async Task OnInitializedAsync()
         {
@@ -63,7 +57,6 @@ namespace SkillsMatrix.Web.Pages.CVFlow.AddressForm
             }
         }
 
-
         protected async void HandleValidSubmit()
         {
             if (address != null)
@@ -84,7 +77,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.AddressForm
             }
             else
             {
-               await AddressService.Update(address);
+                var result = await AddressService.Update(address);
                 NavigationManager.NavigateTo($"/personEducation");
             }
         }

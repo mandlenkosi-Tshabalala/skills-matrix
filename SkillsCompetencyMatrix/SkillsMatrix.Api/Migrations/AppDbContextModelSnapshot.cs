@@ -353,6 +353,9 @@ namespace SkillsMatrix.Api.Migrations
                     b.Property<long>("IdNumber")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 

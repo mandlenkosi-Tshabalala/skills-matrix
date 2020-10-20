@@ -231,7 +231,8 @@ namespace SkillsMatrix.Api.Migrations
                     Nationality = table.Column<string>(nullable: false),
                     Email = table.Column<string>(nullable: false),
                     Phone = table.Column<string>(nullable: false),
-                    Profile = table.Column<string>(nullable: false)
+                    Profile = table.Column<string>(nullable: false),
+                    ImagePath = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

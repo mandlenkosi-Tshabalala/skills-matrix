@@ -38,11 +38,9 @@ namespace SkillsMatrix.Web.Pages.Employees
 
         protected override async Task OnInitializedAsync()
         {
-
             Employees = await PersonService.GetAllEmployees("", 0, 0);
             functionalList = await PersonExpertiseService.GetExpertiseCategories();
             competencyList = await PersonCompetenciesService.GetCompetencies();
-
         }
 
         protected async Task Search()

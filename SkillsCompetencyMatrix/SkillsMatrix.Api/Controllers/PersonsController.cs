@@ -63,7 +63,7 @@ namespace SkillsMatrix.Api.Controllers
 
                 return result;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                    "Error retrieving data from the database");

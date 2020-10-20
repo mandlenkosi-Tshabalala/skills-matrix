@@ -10,7 +10,7 @@ using SkillsMatrix.Api.Models;
 namespace SkillsMatrix.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20201020200214_initial_create")]
+    [Migration("20201020215102_initial_create")]
     partial class initial_create
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -354,6 +354,9 @@ namespace SkillsMatrix.Api.Migrations
 
                     b.Property<long>("IdNumber")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
