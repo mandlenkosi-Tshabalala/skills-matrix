@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using SkillsMatrix.Web.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Aspose.Pdf;
+
 
 namespace SkillsMatrix.Web.Pages.CVFlow.NewFolderForm
 {
@@ -76,18 +76,6 @@ namespace SkillsMatrix.Web.Pages.CVFlow.NewFolderForm
 
                 }
             }
-
-        }
-
-        protected async void HandleValidSubmit()
-        {
-
-            // Create HTML load options
-            HtmlLoadOptions htmloptions = new HtmlLoadOptions();
-            // Load HTML file
-            Aspose.Pdf.Document doc = new Aspose.Pdf.Document("HTML-Document.html", htmloptions);
-            // Convert HTML file to PDF
-            doc.Save("HTML-to-PDF.pdf");
 
         }
 
