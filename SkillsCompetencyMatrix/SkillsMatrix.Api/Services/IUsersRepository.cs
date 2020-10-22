@@ -8,5 +8,6 @@ namespace SkillsMatrix.Api.Models
 {
     public interface IUsersRepository : IGenericRepository<User>
     {
+        Task<User> GetUserCVById(int Id);
     }
 }

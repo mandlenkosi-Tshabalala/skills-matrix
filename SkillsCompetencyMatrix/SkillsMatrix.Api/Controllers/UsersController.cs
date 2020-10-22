@@ -55,6 +55,27 @@ namespace UsersMatrix.Api.Controllers
             }
         }
 
+        [HttpGet("CV/{id:int}")]
+        public async Task<ActionResult<User>> GetUserCV(int id)
+        {
+            try
+            {
+                var result = await usersRepository.GetById(id);
+
+                if (result == null)
+                {
+                    return NotFound();
+                }
+
+                return result;
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                   "Error retrieving data from the database");
+            }
+        }
+
         [HttpPost]
         public async Task<ActionResult<User>> CreateUser(User user)
         {

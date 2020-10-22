@@ -63,28 +63,394 @@
 
         </div>
     </div>
+
+
     <div class="card-body">
         <div class="form-row">
-            <div class="col">
+            <div class="col align-self-center">
                 What is your education background?
             </div>
+
+            @*<div class="col">
+            What is your education background?
+        </div>*@
             <div class="col">
-                <p style="float:right"><a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> add</a></p>
+                @*<p style="float:right"><a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> add</a></p>*@
             </div>
         </div>
 
-        <div class="collapse" id="collapseExample">
+        <div>
             <div class="card card-body">
-                <EditForm EditContext="@editContext" >
+                <EditForm EditContext="@editContext">
                     <DataAnnotationsValidator />
                     <div class="form-row">
                         <div class="form-group col">
                             <label>Institution</label>
-                            <InputText @bind-Value="personEducation.Institution" class="form-control" />
+                            <InputSelect @bind-Value="personEducation.Institution" class="form-control">
+                                <option value=""></option>
+                                <option value="Sefako Makgatho Health Sciences University">Sefako Makgatho Health Sciences University</option>
+                                <option value="Sol Plaatje University">Sol Plaatje University</option>
+                                <option value="Durban University of Technology">Durban University of Technology</option>
+                                <option value="Vaal University of Technology">Vaal University of Technology</option>
+                                <option value="Tshwane University of Technology ">Tshwane University of Technology </option>
+                                <option value="Mangosuthu University of Technology ">Mangosuthu University of Technology </option>
+                                <option value="Central University of Technology ">Central University of Technology </option>
+                                <option value="Cape Peninsula University of Technology ">Cape Peninsula University of Technology </option>
+                                <option value="Walter Sisulu University ">Walter Sisulu University </option>
+                                <option value="University of Zululand ">University of Zululand </option>
+                                <option value="University of Venda ">University of Venda </option>
+                                <option value="University of South Africa ">University of South Africa </option>
+                                <option value="Nelson Mandela University">Nelson Mandela University</option>
+                                <option value="University of Johannesburg ">University of Johannesburg </option>
+                                <option value="University of Witwatersrand">University of Witwatersrand</option>
+                                <option value="University of Western Cape">University of Western Cape</option>
+                                <option value="University of Stellenbosch ">University of Stellenbosch </option>
+                                <option value="University of Pretoria ">University of Pretoria </option>
+                                <option value="University of Limpopo ">University of Limpopo </option>
+                                <option value="University of KwaZulu-Natal ">University of KwaZulu-Natal </option>
+                                <option value="University of Free State">University of Free State</option>
+                                <option value="University of Fort Hare ">University of Fort Hare </option>
+                                <option value="University of Cape Town ">University of Cape Town </option>
+                                <option value="North-West University ">North-West University </option>
+                                <option value="Rhodes University">Rhodes University</option>
+                                <option value="Western Cape Community Education and Training College">Western Cape Community Education and Training College</option>
+                                <option value="North West Community Education and Training College">North West Community Education and Training College</option>
+                                <option value="Northern Cape Community Education and Training College">Northern Cape Community Education and Training College</option>
+                                <option value="Mpumalanga Community Education and Training College">Mpumalanga Community Education and Training College</option>
+                                <option value="Limpopo Community Education and Training College">Limpopo Community Education and Training College</option>
+                                <option value="KwaZulu-Natal Community Education and Training College">KwaZulu-Natal Community Education and Training College</option>
+                                <option value="Gauteng Community Education and Training College">Gauteng Community Education and Training College</option>
+                                <option value="Free State Community Education and Training College">Free State Community Education and Training College</option>
+                                <option value="Eastern Cape Community Education and Training College">Eastern Cape Community Education and Training College</option>
+                                <option value="Grootfontein College of Agriculture">Grootfontein College of Agriculture</option>
+                                <option value="Madzivhandila Agricultural College">Madzivhandila Agricultural College</option>
+                                <option value="Cedara College of Agriculture">Cedara College of Agriculture</option>
+                                <option value="Fort Cox College of Agriculture">Fort Cox College of Agriculture</option>
+                                <option value="Elsenburg Agricultural Training Institute">Elsenburg Agricultural Training Institute</option>
+                                <option value="Taung College of Agriculture">Taung College of Agriculture</option>
+                                <option value="Potchefstroom College of Agriculture">Potchefstroom College of Agriculture</option>
+                                <option value="Glen College of Agriculture">Glen College of Agriculture</option>
+                                <option value="Tsolo Agricultural College">Tsolo Agricultural College</option>
+                                <option value="Owen Sithole College of Agriculture">Owen Sithole College of Agriculture</option>
+                                <option value="Tompi Seleka College of Agriculture">Tompi Seleka College of Agriculture</option>
+                                <option value="West Coast College">West Coast College</option>
+                                <option value="South Cape College">South Cape College</option>
+                                <option value="Northlink College">Northlink College</option>
+                                <option value="False Bay College">False Bay College</option>
+                                <option value="College of Cape Town College">College of Cape Town College</option>
+                                <option value="Boland College">Boland College</option>
+                                <option value="Vuselela College">Vuselela College</option>
+                                <option value="Taletso College">Taletso College</option>
+                                <option value="Orbit College">Orbit College</option>
+                                <option value="Northern Cape Urban College">Northern Cape Urban College</option>
+                                <option value="Northern Cape Rural College">Northern Cape Rural College</option>
+                                <option value="Nkangala College">Nkangala College</option>
+                                <option value="Gert Sibande College">Gert Sibande College</option>
+                                <option value="Ehlanzeni College">Ehlanzeni College</option>
+                                <option value="Waterberg College">Waterberg College</option>
+                                <option value="Vhembe College">Vhembe College</option>
+                                <option value="Sekhu-khune College">Sekhu-khune College</option>
+                                <option value="Mopani South East College">Mopani South East College</option>
+                                <option value="Letaba College">Letaba College</option>
+                                <option value="Lephalale College">Lephalale College</option>
+                                <option value="Capricorn College">Capricorn College</option>
+                                <option value="Umgungu-ndlovu College">Umgungu-ndlovu College</option>
+                                <option value="Umfolozi College">Umfolozi College</option>
+                                <option value="Thekwini College">Thekwini College</option>
+                                <option value="Mthashana College">Mthashana College</option>
+                                <option value="Mnambithi College">Mnambithi College</option>
+                                <option value="Majuba College">Majuba College</option>
+                                <option value="Esayidi College">Esayidi College</option>
+                                <option value="Elangeni College">Elangeni College</option>
+                                <option value="Coastal College (Mobeni)">Coastal College (Mobeni)</option>
+                                <option value="Western College ">Western College </option>
+                                <option value="Tshwane South College">Tshwane South College</option>
+                                <option value="Tshwane North College">Tshwane North College</option>
+                                <option value="South West College">South West College</option>
+                                <option value="Sedibeng College">Sedibeng College</option>
+                                <option value="Ekurhuleni West College ">Ekurhuleni West College </option>
+                                <option value="Ekurhuleni East College">Ekurhuleni East College</option>
+                                <option value="Central Johannesburg College">Central Johannesburg College</option>
+                                <option value="Motheo College">Motheo College</option>
+                                <option value="Maluti College">Maluti College</option>
+                                <option value="Goldfields College">Goldfields College</option>
+                                <option value="Flavius Mareka College">Flavius Mareka College</option>
+                                <option value="Port Elizabeth College">Port Elizabeth College</option>
+                                <option value="Lovedale College">Lovedale College</option>
+                                <option value="King Sabata Dalindyebo College">King Sabata Dalindyebo College</option>
+                                <option value="King Hintsa College">King Hintsa College</option>
+                                <option value="Ingwe College">Ingwe College</option>
+                                <option value="Ikhala College">Ikhala College</option>
+                                <option value="East Cape Midlands College">East Cape Midlands College</option>
+                                <option value="Buffalo City College">Buffalo City College</option>
+                                <option value="Boland FET College-Caledon Campus">Boland FET College-Caledon Campus</option>
+                                <option value="Boland FET College-Paarl Campus">Boland FET College-Paarl Campus</option>
+                                <option value="Boland FET College-Stellenbosch">Boland FET College-Stellenbosch</option>
+                                <option value="Boland FET College-Strand Campus">Boland FET College-Strand Campus</option>
+                                <option value="Boland FET College-Worcester">Boland FET College-Worcester</option>
+                                <option value="Buffalo City FET College-East London Campus">Buffalo City FET College-East London Campus</option>
+                                <option value="Buffalo City FET College-John Knox Bokwe Campus">Buffalo City FET College-John Knox Bokwe Campus</option>
+                                <option value="Buffalo City FET College-St Marks Campus">Buffalo City FET College-St Marks Campus</option>
+                                <option value="Capricorn FET College-Polokwane Campus">Capricorn FET College-Polokwane Campus</option>
+                                <option value="Capricorn FET College-Senwabarwana">Capricorn FET College-Senwabarwana</option>
+                                <option value="Capricorn FET College-Seshego Campus">Capricorn FET College-Seshego Campus</option>
+                                <option value="Central JHB College-Alexandra Campus">Central JHB College-Alexandra Campus</option>
+                                <option value="Central JHB College-Elispark Campus">Central JHB College-Elispark Campus</option>
+                                <option value="Central JHB College-Highveld Campus">Central JHB College-Highveld Campus</option>
+                                <option value="Central JHB College-Park Town Campus">Central JHB College-Park Town Campus</option>
+                                <option value="Coastal FET College (Mobeni)-Appelstosch Campus">Coastal FET College (Mobeni)-Appelstosch Campus</option>
+                                <option value="Coastal FET College (Mobeni)-As-Saloame Satellite">Coastal FET College (Mobeni)-As-Saloame Satellite</option>
+                                <option value="Coastal FET College (Mobeni)-Durban Campus">Coastal FET College (Mobeni)-Durban Campus</option>
+                                <option value="Coastal FET College (Mobeni)-Swinton Road Campus">Coastal FET College (Mobeni)-Swinton Road Campus</option>
+                                <option value="Coastal FET College (Mobeni)-Ubuhle Bengu">Coastal FET College (Mobeni)-Ubuhle Bengu</option>
+                                <option value="Coastal FET College (Mobeni)-Umbubulo">Coastal FET College (Mobeni)-Umbubulo</option>
+                                <option value="Coastal FET College (Mobeni)-Umlazi B Campus">Coastal FET College (Mobeni)-Umlazi B Campus</option>
+                                <option value="Coastal FET College (Mobeni)-Umlazi BB Campus">Coastal FET College (Mobeni)-Umlazi BB Campus</option>
+                                <option value="College of Cape Town FET College-Athlone Campus">College of Cape Town FET College-Athlone Campus</option>
+                                <option value="College of Cape Town FET College-City Campus">College of Cape Town FET College-City Campus</option>
+                                <option value="College of Cape Town FET College-Crawford Campus">College of Cape Town FET College-Crawford Campus</option>
+                                <option value="College of Cape Town FET College-Gardens Campus">College of Cape Town FET College-Gardens Campus</option>
+                                <option value="College of Cape Town FET College-Gugulethu Campus">College of Cape Town FET College-Gugulethu Campus</option>
+                                <option value="College of Cape Town FET College-Pinelands Campus">College of Cape Town FET College-Pinelands Campus</option>
+                                <option value="College of Cape Town FET CollegeThornton Campus">College of Cape Town FET CollegeThornton Campus</option>
+                                <option value="College of Cape Town FET College-Wynberg Campus">College of Cape Town FET College-Wynberg Campus</option>
+                                <option value="East Cape Midlands FET College - Park Avenue">East Cape Midlands FET College - Park Avenue</option>
+                                <option value="East Cape Midlands FET College- High Street">East Cape Midlands FET College- High Street</option>
+                                <option value="East Cape Midlands FET College-Charles Goodyear Campus">East Cape Midlands FET College-Charles Goodyear Campus</option>
+                                <option value="East Cape Midlands FET College-Graaf Reinet">East Cape Midlands FET College-Graaf Reinet</option>
+                                <option value="East Cape Midlands FET College-Grahamstown">East Cape Midlands FET College-Grahamstown</option>
+                                <option value="Ehlanzeni FET College-Barberton Campus">Ehlanzeni FET College-Barberton Campus</option>
+                                <option value="Ehlanzeni FET College-KaNyamazane Campus">Ehlanzeni FET College-KaNyamazane Campus</option>
+                                <option value="Ehlanzeni FET CollegeMapulaneng Campus">Ehlanzeni FET CollegeMapulaneng Campus</option>
+                                <option value="Ehlanzeni FET CollegeMlumati Campus">Ehlanzeni FET CollegeMlumati Campus</option>
+                                <option value="Ehlanzeni FET College-Mthimba">Ehlanzeni FET College-Mthimba</option>
+                                <option value="Ehlanzeni FET College-Nelspruit">Ehlanzeni FET College-Nelspruit</option>
+                                <option value="Ehlanzeni FET College-Waterwal Boven">Ehlanzeni FET College-Waterwal Boven</option>
+                                <option value="Ekurhuleni East FET College-Benoni Campus">Ekurhuleni East FET College-Benoni Campus</option>
+                                <option value="Ekurhuleni East FET College-Brakpan Campus">Ekurhuleni East FET College-Brakpan Campus</option>
+                                <option value="Ekurhuleni East FET College-Daveyton Campus">Ekurhuleni East FET College-Daveyton Campus</option>
+                                <option value="Ekurhuleni East FET College-Kwa-Thema Campus">Ekurhuleni East FET College-Kwa-Thema Campus</option>
+                                <option value="Ekurhuleni East FET College-Springs Campus">Ekurhuleni East FET College-Springs Campus</option>
+                                <option value="Ekurhuleni West College-Alberton">Ekurhuleni West College-Alberton</option>
+                                <option value="Ekurhuleni West College-Boksburg">Ekurhuleni West College-Boksburg</option>
+                                <option value="Ekurhuleni West College-Germiston">Ekurhuleni West College-Germiston</option>
+                                <option value="Ekurhuleni West College-Kathorus Campus">Ekurhuleni West College-Kathorus Campus</option>
+                                <option value="Ekurhuleni West College-Kempton Campus">Ekurhuleni West College-Kempton Campus</option>
+                                <option value="Ekurhuleni West College-Tembisa Campus">Ekurhuleni West College-Tembisa Campus</option>
+                                <option value="Elangeni FET College-Inanda">Elangeni FET College-Inanda</option>
+                                <option value="Elangeni FET College-Kwadabeka Campus">Elangeni FET College-Kwadabeka Campus</option>
+                                <option value="Elangeni FET College-KwaMashu Campus">Elangeni FET College-KwaMashu Campus</option>
+                                <option value="Elangeni FET College-Mpumalanga Campus">Elangeni FET College-Mpumalanga Campus</option>
+                                <option value="Elangeni FET College-Ndwedwe Campus">Elangeni FET College-Ndwedwe Campus</option>
+                                <option value="Elangeni FET College-Ntuzuma Campus">Elangeni FET College-Ntuzuma Campus</option>
+                                <option value="Elangeni FET College-Pinetown Campus">Elangeni FET College-Pinetown Campus</option>
+                                <option value="Elangeni FET College-Qadi Campus">Elangeni FET College-Qadi Campus</option>
+                                <option value="Esayidi FET College-Clydesdale Campus">Esayidi FET College-Clydesdale Campus</option>
+                                <option value="Esayidi FET College-Enyenyezi">Esayidi FET College-Enyenyezi</option>
+                                <option value="Esayidi FET College-Gamalakhe">Esayidi FET College-Gamalakhe</option>
+                                <option value="Esayidi FET College-Gcinangempi">Esayidi FET College-Gcinangempi</option>
+                                <option value="Esayidi FET College-Kokstad Campus">Esayidi FET College-Kokstad Campus</option>
+                                <option value="Esayidi FET College-Nqumusa">Esayidi FET College-Nqumusa</option>
+                                <option value="Esayidi FET College-Port Shepstone">Esayidi FET College-Port Shepstone</option>
+                                <option value="Esayidi FET College-Sizanani Campus">Esayidi FET College-Sizanani Campus</option>
+                                <option value="Esayidi FET College-Umzimkulu Campus">Esayidi FET College-Umzimkulu Campus</option>
+                                <option value="Esayidi FET College-Umzumbe Campus">Esayidi FET College-Umzumbe Campus</option>
+                                <option value="False Bay FET College-Access Programme Campus">False Bay FET College-Access Programme Campus</option>
+                                <option value="False Bay FET College-Good Hope Campus">False Bay FET College-Good Hope Campus</option>
+                                <option value="False Bay FET College-Mitchells Plain">False Bay FET College-Mitchells Plain</option>
+                                <option value="False Bay FET College-Muizenberg Campus">False Bay FET College-Muizenberg Campus</option>
+                                <option value="False Bay FET College-Noordhoek Campus">False Bay FET College-Noordhoek Campus</option>
+                                <option value="False Bay FET College-Westlake Campus">False Bay FET College-Westlake Campus</option>
+                                <option value="Flavius Mareka-Kroonstad Campus">Flavius Mareka-Kroonstad Campus</option>
+                                <option value="Flavius Mareka-Mphohadi Campus">Flavius Mareka-Mphohadi Campus</option>
+                                <option value="Flavius Mareka-Sasolburg Campus">Flavius Mareka-Sasolburg Campus</option>
+                                <option value="Gert Sibande FET College-Balfour">Gert Sibande FET College-Balfour</option>
+                                <option value="Gert Sibande FET College-Ermelo Campus">Gert Sibande FET College-Ermelo Campus</option>
+                                <option value="Gert Sibande FET College-Evander Campus">Gert Sibande FET College-Evander Campus</option>
+                                <option value="Gert Sibande FET College-Perdekop Campus">Gert Sibande FET College-Perdekop Campus</option>
+                                <option value="Gert Sibande FET College-Piet Retief Skills Centre">Gert Sibande FET College-Piet Retief Skills Centre</option>
+                                <option value="Gert Sibande FET College-Sibanesetfu">Gert Sibande FET College-Sibanesetfu</option>
+                                <option value="Gert Sibande FET College-Standerton Campus">Gert Sibande FET College-Standerton Campus</option>
+                                <option value="Goldfields FET College-Tosa Campus">Goldfields FET College-Tosa Campus</option>
+                                <option value="Goldfields FET College-Welkom Campus">Goldfields FET College-Welkom Campus</option>
+                                <option value="Ikhala FET College-Aliwal North">Ikhala FET College-Aliwal North</option>
+                                <option value="Ikhala FET College-Cradock">Ikhala FET College-Cradock</option>
+                                <option value="Ikhala FET College-Dordrechdt">Ikhala FET College-Dordrechdt</option>
+                                <option value="Ikhala FET College-Ezibeleni Business">Ikhala FET College-Ezibeleni Business</option>
+                                <option value="Ikhala FET College-Ezibeleni Engineering">Ikhala FET College-Ezibeleni Engineering</option>
+                                <option value="Ikhala FET College-Queen Nonesi">Ikhala FET College-Queen Nonesi</option>
+                                <option value="Ikhala FET College-Queenstown">Ikhala FET College-Queenstown</option>
+                                <option value="Ikhala FET College-Sterkspruit">Ikhala FET College-Sterkspruit</option>
+                                <option value="Ingwe FET College-Maluti">Ingwe FET College-Maluti</option>
+                                <option value="Ingwe FET College-Mt Fletcher">Ingwe FET College-Mt Fletcher</option>
+                                <option value="Ingwe FET College-Mt Frere">Ingwe FET College-Mt Frere</option>
+                                <option value="Ingwe FET College-Ngqungqushe">Ingwe FET College-Ngqungqushe</option>
+                                <option value="Ingwe FET College-Siteto">Ingwe FET College-Siteto</option>
+                                <option value="King Hintsa FET College-Centane Campus">King Hintsa FET College-Centane Campus</option>
+                                <option value="King Hintsa FET College-HB Tsengwa">King Hintsa FET College-HB Tsengwa</option>
+                                <option value="King Hintsa FET College-Idutywa Campus">King Hintsa FET College-Idutywa Campus</option>
+                                <option value="King Hintsa FET College-Teko Campus">King Hintsa FET College-Teko Campus</option>
+                                <option value="King Sabata Dalindyebo FET College-Engcobo Campus">King Sabata Dalindyebo FET College-Engcobo Campus</option>
+                                <option value="King Sabata Dalindyebo FET College-Libode Campus">King Sabata Dalindyebo FET College-Libode Campus</option>
+                                <option value="King Sabata Dalindyebo FET College-Mapuzi Campus">King Sabata Dalindyebo FET College-Mapuzi Campus</option>
+                                <option value="King Sabata Dalindyebo FET College-Mngazi Campus">King Sabata Dalindyebo FET College-Mngazi Campus</option>
+                                <option value="King Sabata Dalindyebo FET College-Mthatha Campus">King Sabata Dalindyebo FET College-Mthatha Campus</option>
+                                <option value="King Sabata Dalindyebo FET College-Ntabozuko Campus">King Sabata Dalindyebo FET College-Ntabozuko Campus</option>
+                                <option value="Lephalale FET College-Lephalale Campus">Lephalale FET College-Lephalale Campus</option>
+                                <option value="Lephalale FET College-Modimolle Campus">Lephalale FET College-Modimolle Campus</option>
+                                <option value="Letaba FET College-Giyani Campus">Letaba FET College-Giyani Campus</option>
+                                <option value="Letaba FET College-Maake Campus">Letaba FET College-Maake Campus</option>
+                                <option value="Letaba FET College-Tzaneen Campus">Letaba FET College-Tzaneen Campus</option>
+                                <option value="Lovedale FET College-Alice Campus">Lovedale FET College-Alice Campus</option>
+                                <option value="Lovedale FET College-King Campus">Lovedale FET College-King Campus</option>
+                                <option value="Lovedale FET College-Zwelitha Campus">Lovedale FET College-Zwelitha Campus</option>
+                                <option value="Majuba FET College-Centre for people Development Campus">Majuba FET College-Centre for people Development Campus</option>
+                                <option value="Majuba FET College-Dundee Technology Centre Campus">Majuba FET College-Dundee Technology Centre Campus</option>
+                                <option value="Majuba FET College-Escourt Campus">Majuba FET College-Escourt Campus</option>
+                                <option value="Majuba FET College-Ezakheni A Campus">Majuba FET College-Ezakheni A Campus</option>
+                                <option value="Majuba FET College-Information Technology & Business Campus">Majuba FET College-Information Technology & Business Campus</option>
+                                <option value="Majuba FET College-Majuba Technology Centre">Majuba FET College-Majuba Technology Centre</option>
+                                <option value="Majuba FET College-Newcastle Technology Campus">Majuba FET College-Newcastle Technology Campus</option>
+                                <option value="Majuba FET College-Newcastle Training Centre">Majuba FET College-Newcastle Training Centre</option>
+                                <option value="Maluti FET College-Bethlehem Campus">Maluti FET College-Bethlehem Campus</option>
+                                <option value="Maluti FET College-Bonamelo Campus">Maluti FET College-Bonamelo Campus</option>
+                                <option value="Maluti FET College-Harrismith">Maluti FET College-Harrismith</option>
+                                <option value="Maluti FET College-Itemoheleng Campus">Maluti FET College-Itemoheleng Campus</option>
+                                <option value="Maluti FET College-Kwetlisong">Maluti FET College-Kwetlisong</option>
+                                <option value="Maluti FET College-Main Campus">Maluti FET College-Main Campus</option>
+                                <option value="Maluti FET College-Sefikeng">Maluti FET College-Sefikeng</option>
+                                <option value="Maluti FET College-Tseki">Maluti FET College-Tseki</option>
+                                <option value="Mnambithi FET College-Ezakheni E-Section">Mnambithi FET College-Ezakheni E-Section</option>
+                                <option value="Mnambithi FET College-Ezakheni Skills Centre">Mnambithi FET College-Ezakheni Skills Centre</option>
+                                <option value="Mnambithi FET College-Ladysmith Campus">Mnambithi FET College-Ladysmith Campus</option>
+                                <option value="Mopani South East FET College-Phalaborwa Campus">Mopani South East FET College-Phalaborwa Campus</option>
+                                <option value="Mopani South East FET College-Sir Val Duncan Campus">Mopani South East FET College-Sir Val Duncan Campus</option>
+                                <option value="Motheo FET College-Bloemfontein Centre">Motheo FET College-Bloemfontein Centre</option>
+                                <option value="Motheo FET College-Bochabelo Multifunctional Centre">Motheo FET College-Bochabelo Multifunctional Centre</option>
+                                <option value="Motheo FET College-Hillside View Centre">Motheo FET College-Hillside View Centre</option>
+                                <option value="Motheo FET College-Hoer Skool Louw Wepener">Motheo FET College-Hoer Skool Louw Wepener</option>
+                                <option value="Motheo FET College-Hoer Skool Pellissier">Motheo FET College-Hoer Skool Pellissier</option>
+                                <option value="Motheo FET College-Hoerlandbou Skool Jacobusdal">Motheo FET College-Hoerlandbou Skool Jacobusdal</option>
+                                <option value="Motheo FET College-Hoerskool Christiaan de Wet">Motheo FET College-Hoerskool Christiaan de Wet</option>
+                                <option value="Motheo FET College-Hoerskool Zastron ">Motheo FET College-Hoerskool Zastron </option>
+                                <option value="Motheo FET College-Lenyora la thuto Centre">Motheo FET College-Lenyora la thuto Centre</option>
+                                <option value="Motheo FET College-Philipollis Centre">Motheo FET College-Philipollis Centre</option>
+                                <option value="Motheo FET College-Sehlabeng Campus">Motheo FET College-Sehlabeng Campus</option>
+                                <option value="Motheo FET College-Thaba Nchu Campus">Motheo FET College-Thaba Nchu Campus</option>
+                                <option value="Mthashana FET College-Babanango Campus">Mthashana FET College-Babanango Campus</option>
+                                <option value="Mthashana FET College-Emandleni Campus">Mthashana FET College-Emandleni Campus</option>
+                                <option value="Mthashana FET College-Kwa-Gqikazi Campus">Mthashana FET College-Kwa-Gqikazi Campus</option>
+                                <option value="Mthashana FET College-Maputa Campus">Mthashana FET College-Maputa Campus</option>
+                                <option value="Mthashana FET College-Nongoma Campus">Mthashana FET College-Nongoma Campus</option>
+                                <option value="Mthashana FET College-Vryheid Campus">Mthashana FET College-Vryheid Campus</option>
+                                <option value="Nkangala FET College-Allendale Satellite Campus">Nkangala FET College-Allendale Satellite Campus</option>
+                                <option value="Nkangala FET College-CN Mahlangu">Nkangala FET College-CN Mahlangu</option>
+                                <option value="Nkangala FET College-CTC Satellite">Nkangala FET College-CTC Satellite</option>
+                                <option value="Nkangala FET College-Kriel Satellite">Nkangala FET College-Kriel Satellite</option>
+                                <option value="Nkangala FET College-Middleburg Campus">Nkangala FET College-Middleburg Campus</option>
+                                <option value="Nkangala FET College-Middleburg Skills">Nkangala FET College-Middleburg Skills</option>
+                                <option value="Nkangala FET College-Mpondozankomo Campus">Nkangala FET College-Mpondozankomo Campus</option>
+                                <option value="Nkangala FET College-Witbank Campus">Nkangala FET College-Witbank Campus</option>
+                                <option value="Northern Cape Rural FET College-De Aar">Northern Cape Rural FET College-De Aar</option>
+                                <option value="Northern Cape Rural FET College-Kathu">Northern Cape Rural FET College-Kathu</option>
+                                <option value="Northern Cape Rural FET College-Kuruman">Northern Cape Rural FET College-Kuruman</option>
+                                <option value="Northern Cape Rural FET College-Namaqualand">Northern Cape Rural FET College-Namaqualand</option>
+                                <option value="Northern Cape Rural FET College-Upington">Northern Cape Rural FET College-Upington</option>
+                                <option value="Northern Cape Urban FET College-City Campus">Northern Cape Urban FET College-City Campus</option>
+                                <option value="Northern Cape Urban FET College-Moremogolo Campus">Northern Cape Urban FET College-Moremogolo Campus</option>
+                                <option value="Northlink FET College-Belhar Campus">Northlink FET College-Belhar Campus</option>
+                                <option value="Northlink FET College-Bellville Campus">Northlink FET College-Bellville Campus</option>
+                                <option value="Northlink FET College-Goodwood Campus">Northlink FET College-Goodwood Campus</option>
+                                <option value="Northlink FET College-Parow Campus">Northlink FET College-Parow Campus</option>
+                                <option value="Northlink FET College-Protea Campus">Northlink FET College-Protea Campus</option>
+                                <option value="Northlink FET College-Table Bay Campus">Northlink FET College-Table Bay Campus</option>
+                                <option value="Northlink FET College-Tygerberg Campus">Northlink FET College-Tygerberg Campus</option>
+                                <option value="Northlink FET College-Wingfield Campus">Northlink FET College-Wingfield Campus</option>
+                                <option value="Orbit FET College-Brits Campus">Orbit FET College-Brits Campus</option>
+                                <option value="Orbit FET College-Mankwe Campus">Orbit FET College-Mankwe Campus</option>
+                                <option value="Orbit FET College-Rustenburg Campus">Orbit FET College-Rustenburg Campus</option>
+                                <option value="Port Elizabeth FET College-Bethelsdorp Campus">Port Elizabeth FET College-Bethelsdorp Campus</option>
+                                <option value="Port Elizabeth FET College-Dower Campus">Port Elizabeth FET College-Dower Campus</option>
+                                <option value="Port Elizabeth FET College-Erica Campus">Port Elizabeth FET College-Erica Campus</option>
+                                <option value="Port Elizabeth FET College-Iqhayiya Campus">Port Elizabeth FET College-Iqhayiya Campus</option>
+                                <option value="Port Elizabeth FET College-Russell Road Campus">Port Elizabeth FET College-Russell Road Campus</option>
+                                <option value="Port Elizabeth FET College-Victoria Memorial">Port Elizabeth FET College-Victoria Memorial</option>
+                                <option value="Sedibeng FET College - Vereeniging">Sedibeng FET College - Vereeniging</option>
+                                <option value="Sedibeng FET College-Heidleberg">Sedibeng FET College-Heidleberg</option>
+                                <option value="Sedibeng FET College-Sebokeng">Sedibeng FET College-Sebokeng</option>
+                                <option value="Sedibeng FET College-Vanderbijipark">Sedibeng FET College-Vanderbijipark</option>
+                                <option value="Sekhukhune FET College-CN Barlow">Sekhukhune FET College-CN Barlow</option>
+                                <option value="Sekhukhune FET College-CN Phatuti">Sekhukhune FET College-CN Phatuti</option>
+                                <option value="South Cape FET College-Beaufort West Campus">South Cape FET College-Beaufort West Campus</option>
+                                <option value="South Cape FET College-Bitou Campus">South Cape FET College-Bitou Campus</option>
+                                <option value="South Cape FET College-George Campus">South Cape FET College-George Campus</option>
+                                <option value="South Cape FET College-Mosselbay Campus">South Cape FET College-Mosselbay Campus</option>
+                                <option value="South Cape FET College-Oudtshoorn Campus">South Cape FET College-Oudtshoorn Campus</option>
+                                <option value="South Cape FET College-Quteniqua Campus">South Cape FET College-Quteniqua Campus</option>
+                                <option value="South Cape FET College-Skills Centre Campus">South Cape FET College-Skills Centre Campus</option>
+                                <option value="South West FET College-Dobsonville Campus">South West FET College-Dobsonville Campus</option>
+                                <option value="South West FET College-George Tabor Campus">South West FET College-George Tabor Campus</option>
+                                <option value="South West FET College-Molapo Campus">South West FET College-Molapo Campus</option>
+                                <option value="South West FET College-Roodepoort Campus">South West FET College-Roodepoort Campus</option>
+                                <option value="South West FET College-Roodepoort West Campus">South West FET College-Roodepoort West Campus</option>
+                                <option value="South West FET College-Technise Randburg Campus">South West FET College-Technise Randburg Campus</option>
+                                <option value="Taletso FET College-Lehurutshe Campus">Taletso FET College-Lehurutshe Campus</option>
+                                <option value="Taletso FET College-Lichtenburg Campus">Taletso FET College-Lichtenburg Campus</option>
+                                <option value="Taletso FET College-Mafikeng Campus">Taletso FET College-Mafikeng Campus</option>
+                                <option value="Thekwini FET College-Cato Manor">Thekwini FET College-Cato Manor</option>
+                                <option value="Thekwini FET College-Centec Campus">Thekwini FET College-Centec Campus</option>
+                                <option value="Thekwini FET College-Melbourne Campus">Thekwini FET College-Melbourne Campus</option>
+                                <option value="Thekwini FET College-Springfield Campus">Thekwini FET College-Springfield Campus</option>
+                                <option value="Thekwini FET College-Umbilo Campus">Thekwini FET College-Umbilo Campus</option>
+                                <option value="Tshwane North FET College-Mamelodi Campus">Tshwane North FET College-Mamelodi Campus</option>
+                                <option value="Tshwane North FET College-Pretoria Campus">Tshwane North FET College-Pretoria Campus</option>
+                                <option value="Tshwane North FET College-Rosslyn Campus">Tshwane North FET College-Rosslyn Campus</option>
+                                <option value="Tshwane North FET College-Soshanguve Campus">Tshwane North FET College-Soshanguve Campus</option>
+                                <option value="Tshwane North FET College-Temba Campus">Tshwane North FET College-Temba Campus</option>
+                                <option value="Tshwane South FET College-Atteridgeville Campus">Tshwane South FET College-Atteridgeville Campus</option>
+                                <option value="Tshwane South FET College-Centurion Campus">Tshwane South FET College-Centurion Campus</option>
+                                <option value="Tshwane South FET College-Odi Campus">Tshwane South FET College-Odi Campus</option>
+                                <option value="Tshwane South FET College-Pretoria West Campus">Tshwane South FET College-Pretoria West Campus</option>
+                                <option value="Umfolozi FET College-Albert Luthuli Skills Centre">Umfolozi FET College-Albert Luthuli Skills Centre</option>
+                                <option value="Umfolozi FET College-Eshowe Campus">Umfolozi FET College-Eshowe Campus</option>
+                                <option value="Umfolozi FET College-Esikhawini Campus">Umfolozi FET College-Esikhawini Campus</option>
+                                <option value="Umfolozi FET College-Jininindomnyama Skills Centre">Umfolozi FET College-Jininindomnyama Skills Centre</option>
+                                <option value="Umfolozi FET College-Mandeni Campus">Umfolozi FET College-Mandeni Campus</option>
+                                <option value="Umfolozi FET College-Nseleni Skills Centre">Umfolozi FET College-Nseleni Skills Centre</option>
+                                <option value="Umfolozi FET College-Richtek Campus">Umfolozi FET College-Richtek Campus</option>
+                                <option value="Umfolozi FET College-Sikhanyisele Skills Centre">Umfolozi FET College-Sikhanyisele Skills Centre</option>
+                                <option value="Umfolozi FET College-Sundumbili Skills Centre">Umfolozi FET College-Sundumbili Skills Centre</option>
+                                <option value="Umfolozi FET CollegeThubelihle Skills Centre">Umfolozi FET CollegeThubelihle Skills Centre</option>
+                                <option value="Umfolozi FET College-ZCBF">Umfolozi FET College-ZCBF</option>
+                                <option value="Umgungu-ndlovu FET College-Edendale Campus">Umgungu-ndlovu FET College-Edendale Campus</option>
+                                <option value="Umgungu-ndlovu FET College-Midlands Campus">Umgungu-ndlovu FET College-Midlands Campus</option>
+                                <option value="Umgungu-ndlovu FET College-Msundusi Campus">Umgungu-ndlovu FET College-Msundusi Campus</option>
+                                <option value="Umgungu-ndlovu FET College-Northdale Campus">Umgungu-ndlovu FET College-Northdale Campus</option>
+                                <option value="Umgungu-ndlovu FET College-Plessislaer Campus">Umgungu-ndlovu FET College-Plessislaer Campus</option>
+                                <option value="Vhembe FET College-Makwarela Campus">Vhembe FET College-Makwarela Campus</option>
+                                <option value="Vhembe FET College-Mashamba Campus">Vhembe FET College-Mashamba Campus</option>
+                                <option value="Vhembe FET College-Mavhoi Campus">Vhembe FET College-Mavhoi Campus</option>
+                                <option value="Vuselela FET College-Carltonville Campus">Vuselela FET College-Carltonville Campus</option>
+                                <option value="Vuselela FET College-Jouberton Campus">Vuselela FET College-Jouberton Campus</option>
+                                <option value="Vuselela FET College-Klerksdorp Campus">Vuselela FET College-Klerksdorp Campus</option>
+                                <option value="Vuselela FET College-Potchefstroom Campus">Vuselela FET College-Potchefstroom Campus</option>
+                                <option value="Vuselela FET College-Taung Campus">Vuselela FET College-Taung Campus</option>
+                                <option value="Vuselela FET College-Training Centre">Vuselela FET College-Training Centre</option>
+                                <option value="Waterberg FET College-Lebowakgomo Skills Training & Engineering Centre">Waterberg FET College-Lebowakgomo Skills Training & Engineering Centre</option>
+                                <option value="Waterberg FET College-Mahwelereng Business Studies Centre">Waterberg FET College-Mahwelereng Business Studies Centre</option>
+                                <option value="Waterberg FET College-Mokopane Information Technology">Waterberg FET College-Mokopane Information Technology</option>
+                                <option value="West Coast FET College-Atlantis Campus">West Coast FET College-Atlantis Campus</option>
+                                <option value="West Coast FET College-Citrusdal Campus">West Coast FET College-Citrusdal Campus</option>
+                                <option value="West Coast FET College-Malmesbury Campus">West Coast FET College-Malmesbury Campus</option>
+                                <option value="West Coast FET College-Vredenburg Campus">West Coast FET College-Vredenburg Campus</option>
+                                <option value="West Coast FET College-Vredendal Campus">West Coast FET College-Vredendal Campus</option>
+                                <option value="Western College FET-Carltonville Campus">Western College FET-Carltonville Campus</option>
+                                <option value="Western College FET-Krugersdorp Campus">Western College FET-Krugersdorp Campus</option>
+                            </InputSelect>
                             <ValidationMessage For="@(() => personEducation.Institution)" />
                         </div>
                         <div class="form-group col">
-                            <label>Field of Sturdy</label>
+                            <label>Qualification Name</label>
                             <InputText @bind-Value="personEducation.FieldOfStudy" class="form-control" />
                             <ValidationMessage For="@(() => personEducation.FieldOfStudy)" />
                         </div>
@@ -106,17 +472,25 @@
                             <label>Qualification Level</label>
                             <InputSelect @bind-Value="personEducation.QualificationLevel" class="form-control">
                                 <option value=""></option>
-                                <option value="option1">option1</option>
-                                <option value="option2">option2</option>
-                                <option value="option3">option3</option>
-                                <option value="option4">option4</option>
+                                <option value="BTech">BTech</option>
+                                <option value="Degree">Degree</option>
+                                <option value="Diploma">Diploma</option>
+                                <option value="Adv Diploma">Adv Diploma</option>
+                                <option value="Honours">Honours</option>
+                                <option value="Masters">Masters</option>
+                                <option value="Matric">Matric</option>
+                                <option value="MTech">MTech</option>
+                                <option value="N04">N04</option>
+                                <option value="N04">N04</option>
+                                <option value="N06">N06</option>
+                                <option value="Post Graduate diploma">Post Graduate diploma </option>
                             </InputSelect>
                             <ValidationMessage For="@(() => personEducation.QualificationLevel)" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-outline-success">Cancel</button>
-                        <button @onclick="HandleValidSubmit"  class="btn btn-outline-success mr-1">Save</button>
+                        <button data-toggle="collapse" href="#collapseExample" @onclick="Cancel" class="btn btn-outline-success">Cancel</button>
+                        <button @onclick="HandleValidSubmit" class="btn btn-outline-success mr-1">Save</button>
                     </div>
                 </EditForm>
             </div>
@@ -124,43 +498,43 @@
     </div>
     @if (personEducations.Count > 0)
     {
-    <div class="card card-body">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Institution</th>
-                    <th scope="col">Field of Sturdy</th>
-                    <th scope="col">Qualification Start Date</th>
-                    <th scope="col">Qualification End Date</th>
-                    <th scope="col">Qualification level</th>
-                    <th scope="col">Update</th>
-                    <th scope="col">Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var education in personEducations)
-                {
-                <tr>
-                    <td>@education.Institution</td>
-                    <td>@education.FieldOfStudy</td>
-                    <td>@education.QualificationStartDate</td>
-                    <td>@education.QualificationEndDate</td>
-                    <td>@education.QualificationLevel</td>
-                    <td><a data-toggle="collapse" href="#collapseExample" @onclick="@(()=>GetEducation(education.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-edit"></i></a></td>
-                    <td><a data-toggle="collapse" href="#collapseExample" @onclick="@(()=>GetEducation(education.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-trash"></i></a></td>
-                </tr>
-                }
+        <div class="card card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Institution</th>
+                        <th scope="col">Field of Sturdy</th>
+                        <th scope="col">Qualification Start Date</th>
+                        <th scope="col">Qualification End Date</th>
+                        <th scope="col">Qualification level</th>
+                        <th scope="col">Update</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var education in personEducations)
+                    {
+                        <tr>
+                            <td>@education.Institution</td>
+                            <td>@education.FieldOfStudy</td>
+                            <td>@education.QualificationStartDate</td>
+                            <td>@education.QualificationEndDate</td>
+                            <td>@education.QualificationLevel</td>
+                            <td><a @onclick="@(()=>GetEducation(education.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-edit"></i></a></td>
+                            <td><a @onclick="@(()=>DeleteEducation(education.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-trash"></i></a></td>
+                        </tr>
+                    }
 
-            </tbody>
-        </table>
-      </div>
+                </tbody>
+            </table>
+        </div>
     }
-        <div class="card-footer" style="background-color:white">
-            <div>
-                <button @onclick="@Back" class="btn btn-primary mr-1">Back</button>
-                <button @onclick="@Next" class="btn btn-primary mr-1">Next</button>
-            </div>
+    <div class="card-footer" style="background-color:white">
+        <div>
+            <button @onclick="@Back" class="btn btn-primary mr-1">Back</button>
+            <button @onclick="@Next" class="btn btn-primary mr-1">Next</button>
         </div>
     </div>
+</div>
 
 

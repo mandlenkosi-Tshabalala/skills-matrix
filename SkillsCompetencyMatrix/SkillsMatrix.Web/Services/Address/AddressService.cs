@@ -34,9 +34,5 @@ namespace SkillsMatrix.Web.Services
             return await httpClient.PutJsonAsync<Address>($"api/Addresses", PersonAddress);
         }
 
-        public async Task<PersonalInfo> GetPersonByUserId(int Id)
-        {
-            return await httpClient.GetJsonAsync<PersonalInfo>($"api/Addresses/GetByUserId/{Id}");
-        }
     }
 }

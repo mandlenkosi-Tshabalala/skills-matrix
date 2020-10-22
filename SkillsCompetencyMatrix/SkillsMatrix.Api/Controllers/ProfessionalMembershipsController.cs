@@ -7,25 +7,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SkillsMatrix.Api.Controllers
+namespace ProfessionalMembershipsMatrix.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class ProfessionalMembershipsController : ControllerBase
     {
-        private readonly IProfessionalMembershipRepository professionalMembershipRepository;
+        private readonly IProfessionalMembershipRepository ProfessionalMembershipRepository;
 
         public ProfessionalMembershipsController(IProfessionalMembershipRepository professionalMembershipRepository)
         {
-            this.professionalMembershipRepository = professionalMembershipRepository;
+            this.ProfessionalMembershipRepository = professionalMembershipRepository;
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetProfessionalMembershipCategories()
+        public async Task<ActionResult> GetProfessionalMemberships()
         {
             try
             {
-                return Ok(await professionalMembershipRepository.GetAll());
+                return Ok(await ProfessionalMembershipRepository.GetAll());
             }
             catch (Exception)
             {
@@ -39,7 +39,7 @@ namespace SkillsMatrix.Api.Controllers
         {
             try
             {
-                var result = await professionalMembershipRepository.GetById(id);
+                var result = await ProfessionalMembershipRepository.GetById(id);
 
                 if (result == null)
                 {
@@ -55,17 +55,38 @@ namespace SkillsMatrix.Api.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<ActionResult<Membership>> CreateProfessionalMembership(Membership professionalMembership)
+        [HttpGet("List/{UserID:int}")]
+        public async Task<ActionResult<IEnumerable<Membership>>> GetProfessionalMemberships(int UserID)
         {
             try
             {
-                if (professionalMembership == null)
+                var result = await ProfessionalMembershipRepository.GetMemberships(UserID);
+
+                if (result == null)
+                {
+                    return NotFound();
+                }
+
+                return result.ToList();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                   "Error retrieving data from the database");
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Membership>> CreateProfessionalMembership(Membership ProfessionalMembership)
+        {
+            try
+            {
+                if (ProfessionalMembership == null)
                 {
                     return BadRequest();
                 }
 
-                var result = await professionalMembershipRepository.Add(professionalMembership);
+                var result = await ProfessionalMembershipRepository.Add(ProfessionalMembership);
 
                 return CreatedAtAction(nameof(GetProfessionalMembership), new { id = result.Id }, result);
             }
@@ -77,28 +98,28 @@ namespace SkillsMatrix.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<Membership>> UpdateProfessionalMembership(Membership professionalMembership)
+        public async Task<ActionResult<Membership>> UpdateProfessionalMembership(Membership ProfessionalMembership)
         {
             try
             {
-                //if (id != professionalMembership.Id)
+                //if (id != ProfessionalMembership.Id)
                 //{
                 //    return BadRequest("ProfessionalMembership ID mismatch");
                 //}
 
-                var result = await professionalMembershipRepository.GetById(professionalMembership.Id);
+                //var result =  ProfessionalMembershipRepository.GetById(ProfessionalMembership.Id);
 
-                if (result == null)
+                if (ProfessionalMembership == null)
                 {
                     return new Membership();
                 }
 
-                return await professionalMembershipRepository.Update(professionalMembership);
+                return await ProfessionalMembershipRepository.Update(ProfessionalMembership);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                  "Error updating data");
+                  "Error updating data" + ex.Message);
             }
         }
 
@@ -107,19 +128,18 @@ namespace SkillsMatrix.Api.Controllers
         {
             try
             {
-                var result = await professionalMembershipRepository.GetById(id);
-
-                if (result == null)
+                if (id > 0)
                 {
-                    return NotFound($"ProfessionalMembership with Id = {id} not found.");
+                    return await ProfessionalMembershipRepository.Delete(id);
                 }
 
-                return await professionalMembershipRepository.Delete(id);
+                return null;
+
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                 "Error deleting data");
+                 "Error deleting data " + ex.Message);
             }
         }
     }

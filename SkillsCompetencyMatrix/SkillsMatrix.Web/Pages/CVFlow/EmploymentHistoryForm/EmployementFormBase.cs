@@ -8,6 +8,8 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using SkillsMatrix.Web.Services;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace SkillsMatrix.Web.Pages.CVFlow.EmploymentHistoryForm
 {
@@ -20,46 +22,107 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EmploymentHistoryForm
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
-        [Parameter]
-        public string UserId { get; set; }
+        [Inject]
+        protected SignInManager<IdentityUser<int>> SignInManager { get; set; }
 
-        protected Employment EmploymentHistory = new Employment();
+        [Inject]
+        protected UserManager<IdentityUser<int>> UserManager { get; set; }
+
+        [CascadingParameter]
+        protected Task<AuthenticationState> AuthState { get; set; }
+
+        public int UserId { get; set; }
+
+        protected List<Employment> personEmployments = new List<Employment>();
+
+        protected Employment personEmployment = new Employment();
 
         protected EditContext editContext;
 
+        private bool edit = false;
+
         protected override async Task OnInitializedAsync()
         {
-            editContext = new EditContext(EmploymentHistory);
+            var principalUser = (await AuthState).User;
 
-            EmploymentHistory = await EmployementService.Get(1);
+            editContext = new EditContext(personEmployment);
 
-            if (EmploymentHistory != null)
+            if (principalUser.Identity.IsAuthenticated)
             {
-                editContext = new EditContext(EmploymentHistory);
+                var user = await UserManager.FindByEmailAsync(principalUser.Identity.Name);
+                if (user != null)
+                {
+                    UserId = user.Id;
+
+
+                    personEmployments = await EmployementService.GetEmployment(user.Id);
+
+
+                }
             }
+
         }
 
-        protected void HandleValidSubmit()
+        protected async void HandleValidSubmit()
         {
-            //if (EmploymentHistory != null)
-            //    EmploymentHistory.UserId = int.Parse(UserId);
 
-            //Check if its a new record 
-            if (EmploymentHistory.Id == 0)
+
+            if (edit == false)
             {
-                EmployementService.Create(EmploymentHistory);
-                NavigationManager.NavigateTo($"/expertise/{UserId}");
+                personEmployment.UserId = UserId;
+                await EmployementService.Create(personEmployment);
+                await OnInitializedAsync();
+                NavigationManager.NavigateTo($"/personEmpolyment");
+                personEmployment = new Employment();
+
             }
             else
             {
-                EmployementService.Update(EmploymentHistory);
-                NavigationManager.NavigateTo($"/expertise/{UserId}");
+                await EmployementService.Update(personEmployment);
+                await OnInitializedAsync();
+                edit = false;
+                NavigationManager.NavigateTo($"/personEmpolyment");
+                personEmployment = new Employment();
+
+
             }
+
         }
 
         protected void Back()
         {
-            NavigationManager.NavigateTo($"/personEducation/{UserId}");
+            NavigationManager.NavigateTo($"/personEducation");
+        }
+
+        protected void Next()
+        {
+            NavigationManager.NavigateTo("/expertise");
+        }
+
+        protected async void Cancel()
+        {
+            personEmployment = new Employment();
+            NavigationManager.NavigateTo($"/personEmpolyment");
+
+        }
+
+
+        protected async Task GetEmployment(int id)
+        {
+            personEmployment = await EmployementService.Get(id);
+            edit = true;
+
+        }
+
+        protected async Task DeleteEmployment(int id)
+        {
+            await EmployementService.Delete(id);
+
+            await OnInitializedAsync();
+            NavigationManager.NavigateTo($"/personEmpolyment");
+            personEmployment = new Employment();
+
+
         }
     }
 }

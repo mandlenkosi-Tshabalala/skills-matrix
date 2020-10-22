@@ -70,6 +70,26 @@ namespace SkillsMatrix.Web
                 client.BaseAddress = new Uri(url);
             });
 
+            services.AddHttpClient<IExpertiseService, ExpertiseService>(client =>
+            {
+                client.BaseAddress = new Uri(url);
+            });
+
+            services.AddHttpClient<ISkillsService, SkillsService>(client =>
+            {
+                client.BaseAddress = new Uri(url);
+            });
+
+            services.AddHttpClient<ICompetenciesService, CompetenciesService>(client =>
+            {
+                client.BaseAddress = new Uri(url);
+            });
+
+            services.AddHttpClient<ICompetenciesCategoryService, CompetenciesCategoryService>(client =>
+            {
+                client.BaseAddress = new Uri(url);
+            });
+
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddScoped<IHostEnvironmentAuthenticationStateProvider>(sp =>
             {

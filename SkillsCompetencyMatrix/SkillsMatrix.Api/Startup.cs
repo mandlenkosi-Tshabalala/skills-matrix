@@ -36,7 +36,6 @@ namespace SkillsMatrix.Api
             services.AddScoped<ICompetencyCategoryRepository, CompetencyCategoryRepository>();
             services.AddScoped<IEducationRepository, EducationRepository>();
             services.AddScoped<IEmploymentHistoryRepository, EmploymentHistoryRepository>();
-            services.AddScoped<IExpertiseCategoryRepository, ExpertiseCategoryRepository>();
             services.AddScoped<IExpertiseRepository, ExpertiseRepository>();
             services.AddScoped<IIndustryRepository, IndustryRepository>();
             services.AddScoped<IPersonRepository, PersonRepository>();
@@ -45,7 +44,17 @@ namespace SkillsMatrix.Api
             services.AddScoped<ISkillsRepository, SkillsRepository>();
             services.AddScoped<IUsersRepository, UsersRepository>();
 
+            services.AddScoped<IUserSkillsRepository, UserSkillsRepository>();
+            services.AddScoped<IUserExpertiseRepository, UserExpertiseRepository>();
+            services.AddScoped<IPersonCompetenciesRepository, PersonCompetenciesRepository>();
+            services.AddScoped<IProfessionalMembershipRepository, ProfessionalMembershipRepository>();
+
             services.AddControllers();
+
+            services.AddControllersWithViews()
+    .AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

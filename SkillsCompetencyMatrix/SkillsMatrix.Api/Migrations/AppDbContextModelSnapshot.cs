@@ -249,14 +249,8 @@ namespace SkillsMatrix.Api.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CatagoryId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("ExpertiseId")
-                        .HasColumnType("int");
 
                     b.Property<string>("IPAddress")
                         .HasColumnType("nvarchar(max)");
@@ -268,34 +262,8 @@ namespace SkillsMatrix.Api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CatagoryId");
 
                     b.ToTable("Expertises");
-                });
-
-            modelBuilder.Entity("SkillsMatrix.Models.ExpertiseCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("IPAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ExpertiseCategories");
                 });
 
             modelBuilder.Entity("SkillsMatrix.Models.Industry", b =>
@@ -435,8 +403,8 @@ namespace SkillsMatrix.Api.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Level")
-                        .HasColumnType("int");
+                    b.Property<string>("Level")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -654,13 +622,6 @@ namespace SkillsMatrix.Api.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("SkillsMatrix.Models.Expertise", b =>
-                {
-                    b.HasOne("SkillsMatrix.Models.ExpertiseCategory", "Catagory")
-                        .WithMany()
-                        .HasForeignKey("CatagoryId");
                 });
 
             modelBuilder.Entity("SkillsMatrix.Models.Membership", b =>

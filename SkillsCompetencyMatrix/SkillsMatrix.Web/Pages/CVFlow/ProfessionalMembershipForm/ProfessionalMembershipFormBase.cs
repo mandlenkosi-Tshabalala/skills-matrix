@@ -1,13 +1,15 @@
 ﻿using SkillsMatrix.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using SkillsMatrix.Web.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using SkillsMatrix.Web.Services;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace SkillsMatrix.Web.Pages.CVFlow.ProfessionalMembershipForm
 {
@@ -20,46 +22,112 @@ namespace SkillsMatrix.Web.Pages.CVFlow.ProfessionalMembershipForm
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
+        [Inject]
+        protected SignInManager<IdentityUser<int>> SignInManager { get; set; }
+
+        [Inject]
+        protected UserManager<IdentityUser<int>> UserManager { get; set; }
+
+        [CascadingParameter]
+        protected Task<AuthenticationState> AuthState { get; set; }
+
+        public int UserId { get; set; }
+
+        private bool edit = false;
+
         [Parameter]
         public string PersonId { get; set; }
 
         protected Membership membership = new Membership();
 
+        protected List<Membership> memberships = new List<Membership>();
+
         protected EditContext editContext;
-      
-        protected override async Task  OnInitializedAsync()
+
+
+        protected override async Task OnInitializedAsync()
         {
-            // fetch all from DB and assign
+            var principalUser = (await AuthState).User;
+
             editContext = new EditContext(membership);
 
-            membership = await ProfessionalMembershipService.Get(1);
-
-            if (membership != null)
+            if (principalUser.Identity.IsAuthenticated)
             {
-                editContext = new EditContext(membership);
+                var user = await UserManager.FindByEmailAsync(principalUser.Identity.Name);
+                if (user != null)
+                {
+                    UserId = user.Id;
+
+
+                    memberships = await ProfessionalMembershipService.GetAll(user.Id);
+
+
+                }
             }
 
         }
 
-        protected void HandleValidSubmit()
+        protected async void HandleValidSubmit()
         {
-            //Check if its a new record
-            if (membership.Id == 0)
-            {
 
-                ProfessionalMembershipService.Create(membership);
-                NavigationManager.NavigateTo($"/personDetails/{PersonId}");
+
+            if (edit == false)
+            {
+                membership.UserId = UserId;
+                await ProfessionalMembershipService.Create(membership);
+                await OnInitializedAsync();
+                NavigationManager.NavigateTo($"/membership");
+                membership = new Membership();
+
             }
             else
             {
-                ProfessionalMembershipService.Update(membership);
-                NavigationManager.NavigateTo($"/personDetails/{PersonId}");
+                await ProfessionalMembershipService.Update(membership);
+                await OnInitializedAsync();
+                edit = false;
+                NavigationManager.NavigateTo($"/membership");
+                membership = new Membership();
+
+
             }
+
         }
+
 
         protected void Back()
         {
-            NavigationManager.NavigateTo($"/personDetails/{PersonId}");
+            NavigationManager.NavigateTo($"/personCompetencies");
+        }
+
+        protected void Next()
+        {
+            NavigationManager.NavigateTo("/skills");
+        }
+
+        protected async void Cancel()
+        {
+            membership = new Membership();
+            NavigationManager.NavigateTo($"/membership");
+
+        }
+
+
+        protected async Task GetMembership(int id)
+        {
+            membership = await ProfessionalMembershipService.Get(id);
+            edit = true;
+
+        }
+
+        protected async Task DeleteMembership(int id)
+        {
+            await ProfessionalMembershipService.Delete(id);
+
+            await OnInitializedAsync();
+            NavigationManager.NavigateTo($"/membership");
+            membership = new Membership();
+
+
         }
     }
 }

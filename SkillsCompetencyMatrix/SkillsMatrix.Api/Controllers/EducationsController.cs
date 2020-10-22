@@ -128,19 +128,18 @@ namespace SkillsMatrix.Api.Controllers
         {
             try
             {
-                var result = await educationRepository.GetById(id);
-
-                if (result == null)
+                if( id >  0)
                 {
-                    return NotFound($"Education with Id = {id} not found.");
+                    return await educationRepository.Delete(id);
                 }
 
-                return await educationRepository.Delete(id);
+                return null;
+
             }
-            catch (Exception)
+            catch (Exception ex )
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                 "Error deleting data");
+                 "Error deleting data " + ex.Message);
             }
         }
     }

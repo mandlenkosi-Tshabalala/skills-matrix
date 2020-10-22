@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace SkillsMatrix.Api.Models
 {
-    public interface IProfessionalMembershipRepository : IGenericRepository<Membership>
+    public interface IEmploymentHistoryRepository: IGenericRepository<Employment>
     {
+        Task<IEnumerable<Employment>> GetEmployments(int UserID);
     }
 }

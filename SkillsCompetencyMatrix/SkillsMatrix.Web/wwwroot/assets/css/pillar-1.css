@@ -2320,16 +2320,16 @@ fieldset:disabled a.btn {
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #434E5E;
-  border-color: #434E5E;
+    color: #fff;
+    background-color: #229383;
+    border-color: #229383;
 }
 
-.btn-primary:hover {
-  color: #fff;
-  background-color: #333b48;
-  border-color: #2e3540;
-}
+    .btn-primary:hover {
+        color: #fff;
+        background-color: #229383;
+        border-color: #229383;
+    }
 
 .btn-primary:focus, .btn-primary.focus {
   color: #fff;
@@ -9714,7 +9714,7 @@ a.theme-btn-on-bg:hover, a.theme-btn-on-bg:focus, a.theme-btn-on-bg:active, .the
 }
 
 .resume-header .picture {
-  width: 220px;
+  width: 200px;
 }
 
 .resume-header .name {

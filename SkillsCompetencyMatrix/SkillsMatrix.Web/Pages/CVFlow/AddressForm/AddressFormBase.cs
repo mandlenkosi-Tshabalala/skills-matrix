@@ -1,17 +1,12 @@
 ﻿
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using SkillsMatrix.Models;
 using Microsoft.AspNetCore.Components.Authorization;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using SkillsMatrix.Web.Services;
+
 
 namespace SkillsMatrix.Web.Pages.CVFlow.AddressForm
 {
@@ -93,5 +88,8 @@ namespace SkillsMatrix.Web.Pages.CVFlow.AddressForm
         {
             NavigationManager.NavigateTo($"/personDetails");
         }
+
     }
 }
+
+

@@ -64,59 +64,124 @@
         </div>
     </div>
     <div class="card-body">
-        <EditForm EditContext="@editContext" OnValidSubmit="HandleValidSubmit">
-            <DataAnnotationsValidator />
-            <div class="form-row">
-                <div class="form-group col">
-                    <label>Company Name</label>
-                    <InputText @bind-Value="EmploymentHistory.CompanyName" class="form-control" />
-                    <ValidationMessage For="@(() => EmploymentHistory.CompanyName)" />
-                </div>
-                <div class="form-group col">
-                    <label>Role</label>
-                    <InputText @bind-Value="EmploymentHistory.Role" class="form-control" />
-                    <ValidationMessage For="@(() => EmploymentHistory.Role)" />
-                </div>
+        <div class="form-row">
+            <div class="col">
+                What is your education background?
             </div>
-            <div class="form-row">
-                <div class="form-group col">
-                    <label> Start Date</label>
-                    <InputDate @bind-Value="EmploymentHistory.StartDate" class="form-control" />
-                    <ValidationMessage For="@(() => EmploymentHistory.StartDate)" />
-                </div>
-                <div class="form-group col">
-                    <label>End Date</label>
-                    <InputDate @bind-Value="EmploymentHistory.EndDate" class="form-control" />
-                    <ValidationMessage For="@(() => EmploymentHistory.EndDate)" />
-                </div>
+            <div class="col">
+                @*<p style="float:right"><a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> add</a></p>*@
             </div>
-            <div class="form-row">
-                <div class="form-group col">
-                    <label>Qualification Level</label>
-                    <InputSelect @bind-Value="EmploymentHistory.Country" class="form-control">
-                        <option value=""></option>
-                        <option value="option1">option1</option>
-                        <option value="option2">option2</option>
-                        <option value="option3">option3</option>
-                        <option value="option4">option4</option>
-                    </InputSelect>
-                    <ValidationMessage For="@(() => EmploymentHistory.Country)" />
-                </div>
+        </div>
+
+        <div>
+            <div class="card card-body">
+                <EditForm EditContext="@editContext">
+                    <DataAnnotationsValidator />
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label>Company Name</label>
+                            <InputText @bind-Value="personEmployment.CompanyName" class="form-control" />
+                            <ValidationMessage For="@(() => personEmployment.CompanyName)" />
+                        </div>
+                        <div class="form-group col">
+                            <label>Role</label>
+                            <InputText @bind-Value="personEmployment.Role" class="form-control" />
+                            <ValidationMessage For="@(() => personEmployment.Role)" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label> Start Date</label>
+                            <InputDate @bind-Value="personEmployment.StartDate" class="form-control" />
+                            <ValidationMessage For="@(() => personEmployment.StartDate)" />
+                        </div>
+                        <div class="form-group col">
+                            <label>End Date</label>
+                            <InputDate @bind-Value="personEmployment.EndDate" class="form-control" />
+                            <ValidationMessage For="@(() => personEmployment.EndDate)" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label>Employment Country</label>
+                            <InputSelect @bind-Value="personEmployment.Country" class="form-control">
+                                <option value=""></option>
+                                <option value="Angola">Angola</option>
+                                <option value="Asian Countries">Asian Countries</option>
+                                <option value="Australia and New Zealand">Australia and New Zealand</option>
+                                <option value="Botswana">Botswana</option>
+                                <option value="Central and South American Countries">Central and South American Countries</option>
+                                <option value="European Countries">European Countries</option>
+                                <option value="Lesotho">Lesotho</option>
+                                <option value="Malawi">Malawi</option>
+                                <option value="Mauritius">Mauritius</option>
+                                <option value="Mozambique">Mozambique</option>
+                                <option value="Namibia">Namibia</option>
+                                <option value="North American Countries">North American Countries</option>
+                                <option value="Rest of Africa">Rest of Africa</option>
+                                <option value="SADC except SA">SADC except SA</option>
+                                <option value="Seychelles">Seychelles</option>
+                                <option value="South Africa">South Africa</option>
+                                <option value="Swaziland">Swaziland</option>
+                                <option value="Tanzania">Tanzania</option>
+                                <option value="Zaire">Zaire</option>
+                                <option value="Zambia">Zambia</option>
+                                <option value="Zimbabwe">Zimbabwe</option>
+                            </InputSelect>
+                            <ValidationMessage For="@(() => personEmployment.Country)" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label>Role Description</label>
+                            <InputTextArea @bind-Value="personEmployment.RoleDescription" class="form-control " style="height:250px">
+                            </InputTextArea>
+                            <ValidationMessage For="@(() => personEmployment.RoleDescription)" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button data-toggle="collapse" href="#collapseExample" @onclick="Cancel" class="btn btn-outline-success">Cancel</button>
+                        <button @onclick="HandleValidSubmit" class="btn btn-outline-success mr-1">Save</button>
+                    </div>
+                </EditForm>
             </div>
-            <div class="form-row">
-                <div class="form-group col">
-                    <label>Qualification Level</label>
-                    <InputTextArea @bind-Value="EmploymentHistory.RoleDescription" class="form-control">
-                    </InputTextArea>
-                    <ValidationMessage For="@(() => EmploymentHistory.RoleDescription)" />
-                </div>
-            </div>
-        </EditForm>
+        </div>
     </div>
+    @if (personEmployments.Count > 0)
+    {
+        <div class="card card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">CompanyName</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">StartDate</th>
+                        <th scope="col">End Date</th>
+                        <th scope="col">Update</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var employment in personEmployments)
+                    {
+                        <tr>
+                            <td>@employment.CompanyName</td>
+                            <td>@employment.Role</td>
+                            <td>@employment.StartDate</td>
+                            <td>@employment.EndDate</td>
+                            <td><a @onclick="@(()=>GetEmployment(employment.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-edit"></i></a></td>
+                            <td><a @onclick="@(()=>DeleteEmployment(employment.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-trash"></i></a></td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    }
     <div class="card-footer" style="background-color:white">
         <div>
             <button @onclick="@Back" class="btn btn-primary mr-1">Back</button>
-            <button @onclick="@HandleValidSubmit" class="btn btn-primary mr-1">Next</button>
+            <button @onclick="@Next" class="btn btn-primary mr-1">Next</button>
         </div>
     </div>
 </div>

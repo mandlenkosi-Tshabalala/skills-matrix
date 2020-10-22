@@ -20,17 +20,28 @@ namespace SkillsMatrix.Web.Services
 
         public async Task<Membership> Create(Membership person)
         {
-            return await httpClient.PostJsonAsync<Membership>($"api/Persons", person);
+            return await httpClient.PostJsonAsync<Membership>($"api/ProfessionalMemberships", person);
         }
 
         public async Task<Membership> Get(int Id)
         {
-           return await httpClient.GetJsonAsync<Membership>($"api/Persons/{Id}");
+           return await httpClient.GetJsonAsync<Membership>($"api/ProfessionalMemberships/{Id}");
         }
 
         public async Task<Membership> Update(Membership person)
         {
-            return await httpClient.PutJsonAsync<Membership>($"api/Persons", person);
+            return await httpClient.PutJsonAsync<Membership>($"api/ProfessionalMemberships", person);
+        }
+
+        public async Task<List<Membership>> GetAll(int UserID)
+        {
+            return await httpClient.GetJsonAsync<List<Membership>>($"api/ProfessionalMemberships/List/{UserID}");
+        }
+
+        public async Task Delete(int Id)
+        {
+            //return await httpClient.DeleteAsync<Education>($"api/Educations/Delete", Id.ToString());
+            await httpClient.DeleteAsync($"api/ProfessionalMemberships/{Id}");
         }
     }
 }

@@ -1,72 +1,130 @@
 ﻿@attribute [Authorize]
-@page "/membership/{PersonId}"
+@page "/membership"
 @inherits ProfessionalMembershipFormBase
 
 @using System.ComponentModel.DataAnnotations
 @using System.Text.Json
 @inject IJSRuntime JSRuntime;
 
-<style>
-    .validation-message {
-        display: none;
-        width: 100%;
-        margin-top: 0.25rem;
-        font-size: 80%;
-        color: #dc3545;
-    }
 
-    .invalid ~ .validation-message {
-        display: block;
-    }
-
-    .form-control.invalid {
-        border-color: #dc3545;
-        padding-right: calc(1.5em + 0.75rem);
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23dc3545' viewBox='0 0 12 12'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
-        background-repeat: no-repeat;
-        background-position: right calc(0.375em + 0.1875rem) center;
-        background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
-    }
-
-        .form-control.invalid:focus {
-            border-color: #dc3545;
-            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
-        }
-
-    textarea.form-control.invalid {
-        padding-right: calc(1.5em + 0.75rem);
-        background-position: top calc(0.375em + 0.1875rem) right calc(0.375em + 0.1875rem);
-    }
-
-    .form-check-input.invalid ~ .form-check-label {
-        color: #dc3545;
-    }
-
-    .form-check-input.invalid ~ .validation-message {
-        display: block;
-    }
-</style>
 <div class="card m-3">
-    <div class="card-header">
-        <h3>Address</h3>
-    </div>
-    <div class="card-body">
-        <EditForm EditContext="@editContext" OnValidSubmit="HandleValidSubmit">
-            <DataAnnotationsValidator />
-            <div class="form-row">
-                <div class="form-group col">
-                    <label>Physical Code</label>
-                    <InputText class="form-control" />
+    <div class="card-header" style="background-color:white">
+        <div class="mdl-card__supporting-text">
+
+            <div class="mdl-stepper-horizontal-alternative">
+                <div class="mdl-stepper-step step-done active-step">
+                    <div class="mdl-stepper-circle"><span>1</span></div>
+                    <div class="mdl-stepper-title">Personal Details</div>
+                    <div class="mdl-stepper-bar-left"></div>
+                    <div class="mdl-stepper-bar-right"></div>
+                </div>
+                <div class="mdl-stepper-step step-done active-step">
+                    <div class="mdl-stepper-circle"><span>2</span></div>
+                    <div class="mdl-stepper-title">Address</div>
+                    <div class="mdl-stepper-bar-left"></div>
+                    <div class="mdl-stepper-bar-right"></div>
+                </div>
+                <div class="mdl-stepper-step step-done active-step">
+                    <div class="mdl-stepper-circle"><span>3</span></div>
+                    <div class="mdl-stepper-title">Education</div>
+                    <div class="mdl-stepper-bar-left"></div>
+                    <div class="mdl-stepper-bar-right"></div>
+                </div>
+                <div class="mdl-stepper-step step-done active-step">
+                    <div class="mdl-stepper-circle"><span>4</span></div>
+                    <div class="mdl-stepper-title">Employment History</div>
+                    <div class="mdl-stepper-bar-left"></div>
+                    <div class="mdl-stepper-bar-right"></div>
+                </div>
+                <div class="mdl-stepper-step step-done active-step">
+                    <div class="mdl-stepper-circle"><span>6</span></div>
+                    <div class="mdl-stepper-title">Expertise</div>
+                    <div class="mdl-stepper-bar-left"></div>
+                    <div class="mdl-stepper-bar-right"></div>
+                </div>
+                <div class="mdl-stepper-step step-done active-step">
+                    <div class="mdl-stepper-circle"><span>6</span></div>
+                    <div class="mdl-stepper-title">Competencies</div>
+                    <div class="mdl-stepper-bar-left"></div>
+                    <div class="mdl-stepper-bar-right"></div>
+                </div>
+                <div class="mdl-stepper-step active-step">
+                    <div class="mdl-stepper-circle"><span>7</span></div>
+                    <div class="mdl-stepper-title">Professinal Membership</div>
+                    <div class="mdl-stepper-bar-left"></div>
+                    <div class="mdl-stepper-bar-right"></div>
+                </div>
+                <div class="mdl-stepper-step">
+                    <div class="mdl-stepper-circle"><span>8</span></div>
+                    <div class="mdl-stepper-title">Skills</div>
+                    <div class="mdl-stepper-bar-left"></div>
+                    <div class="mdl-stepper-bar-right"></div>
                 </div>
             </div>
-        </EditForm>
-    </div>
-    <div class="card-footer">
-        <div>
-            <button @onclick="@Back" class="btn btn-primary mr-1">Back</button>
-            <button @onclick="@HandleValidSubmit" class="btn btn-primary mr-1">Next</button>
+
         </div>
     </div>
-</div>
+    <div class="card-body">
+        <div class="form-row">
+            <div class="col">
+                What professional bodies are you affiliated with?
+            </div>
+            <div class="col">
+                @*<p style="float:right"><a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> add</a></p>*@
+            </div>
+        </div>
+
+        <div>
+            <div class="card card-body">
+                <EditForm EditContext="@editContext">
+                    <DataAnnotationsValidator />
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <label>Professional Membership</label>
+                            <InputText @bind-Value="membership.Description" class="form-control" />
+                            <ValidationMessage For="@(() => membership.Description)" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button data-toggle="collapse" href="#collapseExample" @onclick="Cancel" class="btn btn-outline-success">Cancel</button>
+                        <button @onclick="HandleValidSubmit" class="btn btn-outline-success mr-1">Save</button>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+    @if (memberships.Count > 0)
+    {
+        <div class="card card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Update</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var membership in memberships)
+                    {
+                        <tr>
+                            <td>@membership.Description</td>
+                            <td><a @onclick="@(()=>GetMembership(membership.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-edit"></i></a></td>
+                            <td><a @onclick="@(()=>DeleteMembership(membership.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-trash"></i></a></td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    }
+    <div class="card-footer" style="background-color:white">
+        <div>
+            <button @onclick="@Back" class="btn btn-primary mr-1">Back</button>
+            <button @onclick="@Next" class="btn btn-primary mr-1">Next</button>
+        </div>
+    </div>
+  </div>
+
 
 

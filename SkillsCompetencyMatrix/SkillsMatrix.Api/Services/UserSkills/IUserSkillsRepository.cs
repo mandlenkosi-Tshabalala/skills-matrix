@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace SkillsMatrix.Api.Models
 {
-
-    public interface IExpertiseCategoryRepository : IGenericRepository<ExpertiseCategory>
+    public interface IUserSkillsRepository : IGenericRepository<Skill>
     {
+        Task<IEnumerable<Skill>> GetUserSkills(int UserID);
     }
 }

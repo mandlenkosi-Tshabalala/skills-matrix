@@ -1,0 +1,149 @@
+﻿@attribute [Authorize]
+@page "/skills"
+@inherits SkillsFormBase
+
+@using System.ComponentModel.DataAnnotations
+@using System.Text.Json
+@inject IJSRuntime JSRuntime;
+
+
+<div class="card m-3">
+    <div class="card-header" style="background-color:white">
+        <div class="mdl-card__supporting-text">
+
+            <div class="mdl-stepper-horizontal-alternative">
+                <div class="mdl-stepper-step step-done active-step">
+                    <div class="mdl-stepper-circle"><span>1</span></div>
+                    <div class="mdl-stepper-title">Personal Details</div>
+                    <div class="mdl-stepper-bar-left"></div>
+                    <div class="mdl-stepper-bar-right"></div>
+                </div>
+                <div class="mdl-stepper-step step-done active-step">
+                    <div class="mdl-stepper-circle"><span>2</span></div>
+                    <div class="mdl-stepper-title">Address</div>
+                    <div class="mdl-stepper-bar-left"></div>
+                    <div class="mdl-stepper-bar-right"></div>
+                </div>
+                <div class="mdl-stepper-step step-done active-step">
+                    <div class="mdl-stepper-circle"><span>3</span></div>
+                    <div class="mdl-stepper-title">Education</div>
+                    <div class="mdl-stepper-bar-left"></div>
+                    <div class="mdl-stepper-bar-right"></div>
+                </div>
+                <div class="mdl-stepper-step step-done active-step">
+                    <div class="mdl-stepper-circle"><span>4</span></div>
+                    <div class="mdl-stepper-title">Employment History</div>
+                    <div class="mdl-stepper-bar-left"></div>
+                    <div class="mdl-stepper-bar-right"></div>
+                </div>
+                <div class="mdl-stepper-step step-done active-step">
+                    <div class="mdl-stepper-circle"><span>6</span></div>
+                    <div class="mdl-stepper-title">Expertise</div>
+                    <div class="mdl-stepper-bar-left"></div>
+                    <div class="mdl-stepper-bar-right"></div>
+                </div>
+                <div class="mdl-stepper-step step-done active-step">
+                    <div class="mdl-stepper-circle"><span>6</span></div>
+                    <div class="mdl-stepper-title">Competencies</div>
+                    <div class="mdl-stepper-bar-left"></div>
+                    <div class="mdl-stepper-bar-right"></div>
+                </div>
+                <div class="mdl-stepper-step step-done active-step">
+                    <div class="mdl-stepper-circle"><span>7</span></div>
+                    <div class="mdl-stepper-title">Professinal Membership</div>
+                    <div class="mdl-stepper-bar-left"></div>
+                    <div class="mdl-stepper-bar-right"></div>
+                </div>
+                <div class="mdl-stepper-step active-step">
+                    <div class="mdl-stepper-circle"><span>8</span></div>
+                    <div class="mdl-stepper-title">Skills</div>
+                    <div class="mdl-stepper-bar-left"></div>
+                    <div class="mdl-stepper-bar-right"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="form-row">
+            <div class="col">
+                What Skills do you have?
+            </div>
+            <div class="col">
+                @*<p style="float:right"><a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> add</a></p>*@
+            </div>
+        </div>
+
+        <div>
+            <div class="card card-body">
+                <EditForm EditContext="@editContext">
+                    <DataAnnotationsValidator />
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <label>Name</label>
+                            <InputText @bind-Value="skill.Name" class="form-control" />
+                            <ValidationMessage For="@(() => skill.Name)" />
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Level</label>
+                            <InputSelect @bind-Value="skill.Level" class="form-control">
+                                <option value=""></option>
+                                <option value="10%">10%</option>
+                                <option value="20%">20%</option>
+                                <option value="30%">30%</option>
+                                <option value="40%">40%</option>
+                                <option value="50%">50%</option>
+                                <option value="60%">60%</option>
+                                <option value="70%">70%</option>
+                                <option value="80%">80%</option>
+                                <option value="90%">90%</option>
+                                <option value="100%">100%</option>
+                            </InputSelect>
+                            <ValidationMessage For="@(() => skill.Level)" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button data-toggle="collapse" href="#collapseExample" @onclick="Cancel" class="btn btn-outline-success">Cancel</button>
+                        <button @onclick="HandleValidSubmit" class="btn btn-outline-success mr-1">Save</button>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+    @if (skills.Count > 0)
+    {
+        <div class="card card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Level</th>
+                        <th scope="col">Update</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var skill in skills)
+                    {
+                    <tr>
+                        <td>@skill.Name</td>
+                        <td>@skill.Level</td>
+                        <td><a @onclick="@(()=>GetSkill(skill.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-edit"></i></a></td>
+                        <td><a @onclick="@(()=>DeleteSkill(skill.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-trash"></i></a></td>
+                    </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    }
+    <div class="card-footer" style="background-color:white">
+        <div>
+            <button @onclick="@Back" class="btn btn-primary mr-1">Back</button>
+            <button @onclick="@Next" class="btn btn-primary mr-1">View CV</button>
+        </div>
+    </div>
+  </div>
+
+
+

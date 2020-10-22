@@ -12,6 +12,8 @@ namespace SkillsMatrix.Web.Services
       Task<Employment> Get(int Id);
       Task<Employment> Create(Employment person);
       Task<Employment> Update(Employment person);
+        Task<List<Employment>> GetEmployment(int UserID);
+        Task Delete(int Id);
 
     }
 }

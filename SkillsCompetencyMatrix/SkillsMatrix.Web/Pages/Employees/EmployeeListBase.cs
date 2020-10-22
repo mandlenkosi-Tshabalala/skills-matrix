@@ -40,8 +40,8 @@ namespace SkillsMatrix.Web.Pages.Employees
         {
 
             Employees = await PersonService.GetAllEmployees("", 0, 0);
-            functionalList = await PersonExpertiseService.GetExpertiseCategories();
-            competencyList = await PersonCompetenciesService.GetCompetencies();
+           // functionalList = await PersonExpertiseService.GetExpertiseCategories();
+           // competencyList = await PersonCompetenciesService.GetCompetencies();
 
         }
 

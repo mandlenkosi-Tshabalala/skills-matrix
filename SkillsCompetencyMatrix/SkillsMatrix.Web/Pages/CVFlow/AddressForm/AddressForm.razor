@@ -1,74 +1,76 @@
 ﻿@attribute [Authorize]
 @page "/address"
 @inherits AddressFormBase
-
-@using System.ComponentModel.DataAnnotations
-@using System.Text.Json
 @inject IJSRuntime JSRuntime;
 
-<div class="card m-3">
-    <div class="card-header" style="background-color:white">
-        <div class="mdl-card__supporting-text">
+    <div class="card m-3">
+        <div class="card-header" style="background-color:white">
+            <div class="mdl-card__supporting-text">
 
-            <div class="mdl-stepper-horizontal-alternative">
-                <div class="mdl-stepper-step step-done active-step">
-                    <div class="mdl-stepper-circle"><span>1</span></div>
-                    <div class="mdl-stepper-title">Personal Details</div>
-                    <div class="mdl-stepper-bar-left"></div>
-                    <div class="mdl-stepper-bar-right"></div>
+                <div class="mdl-stepper-horizontal-alternative">
+                    <div class="mdl-stepper-step step-done active-step">
+                        <div class="mdl-stepper-circle"><span>1</span></div>
+                        <div class="mdl-stepper-title">Personal Details</div>
+                        <div class="mdl-stepper-bar-left"></div>
+                        <div class="mdl-stepper-bar-right"></div>
+                    </div>
+                    <div class="mdl-stepper-step active-step">
+                        <div class="mdl-stepper-circle"><span>2</span></div>
+                        <div class="mdl-stepper-title">Address</div>
+                        <div class="mdl-stepper-bar-left"></div>
+                        <div class="mdl-stepper-bar-right"></div>
+                    </div>
+                    <div class="mdl-stepper-step">
+                        <div class="mdl-stepper-circle"><span>3</span></div>
+                        <div class="mdl-stepper-title">Education</div>
+                        <div class="mdl-stepper-bar-left"></div>
+                        <div class="mdl-stepper-bar-right"></div>
+                    </div>
+                    <div class="mdl-stepper-step">
+                        <div class="mdl-stepper-circle"><span>4</span></div>
+                        <div class="mdl-stepper-title">Employment History</div>
+                        <div class="mdl-stepper-bar-left"></div>
+                        <div class="mdl-stepper-bar-right"></div>
+                    </div>
+                    <div class="mdl-stepper-step">
+                        <div class="mdl-stepper-circle"><span>5</span></div>
+                        <div class="mdl-stepper-title">Expertise</div>
+                        <div class="mdl-stepper-bar-left"></div>
+                        <div class="mdl-stepper-bar-right"></div>
+                    </div>
+                    <div class="mdl-stepper-step">
+                        <div class="mdl-stepper-circle"><span>6</span></div>
+                        <div class="mdl-stepper-title">Competencies</div>
+                        <div class="mdl-stepper-bar-left"></div>
+                        <div class="mdl-stepper-bar-right"></div>
+                    </div>
+                    <div class="mdl-stepper-step">
+                        <div class="mdl-stepper-circle"><span>7</span></div>
+                        <div class="mdl-stepper-title">Professinal Membership</div>
+                        <div class="mdl-stepper-bar-left"></div>
+                        <div class="mdl-stepper-bar-right"></div>
+                    </div>
+                    <div class="mdl-stepper-step">
+                        <div class="mdl-stepper-circle"><span>8</span></div>
+                        <div class="mdl-stepper-title">Skills</div>
+                        <div class="mdl-stepper-bar-left"></div>
+                        <div class="mdl-stepper-bar-right"></div>
+                    </div>
                 </div>
-                <div class="mdl-stepper-step active-step">
-                    <div class="mdl-stepper-circle"><span>2</span></div>
-                    <div class="mdl-stepper-title">Address</div>
-                    <div class="mdl-stepper-bar-left"></div>
-                    <div class="mdl-stepper-bar-right"></div>
-                </div>
-                <div class="mdl-stepper-step">
-                    <div class="mdl-stepper-circle"><span>3</span></div>
-                    <div class="mdl-stepper-title">Education</div>
-                    <div class="mdl-stepper-bar-left"></div>
-                    <div class="mdl-stepper-bar-right"></div>
-                </div>
-                <div class="mdl-stepper-step">
-                    <div class="mdl-stepper-circle"><span>4</span></div>
-                    <div class="mdl-stepper-title">Employment History</div>
-                    <div class="mdl-stepper-bar-left"></div>
-                    <div class="mdl-stepper-bar-right"></div>
-                </div>
-                <div class="mdl-stepper-step">
-                    <div class="mdl-stepper-circle"><span>5</span></div>
-                    <div class="mdl-stepper-title">Expertise</div>
-                    <div class="mdl-stepper-bar-left"></div>
-                    <div class="mdl-stepper-bar-right"></div>
-                </div>
-                <div class="mdl-stepper-step">
-                    <div class="mdl-stepper-circle"><span>6</span></div>
-                    <div class="mdl-stepper-title">Competencies</div>
-                    <div class="mdl-stepper-bar-left"></div>
-                    <div class="mdl-stepper-bar-right"></div>
-                </div>
-                <div class="mdl-stepper-step">
-                    <div class="mdl-stepper-circle"><span>7</span></div>
-                    <div class="mdl-stepper-title">Professinal Membership</div>
-                    <div class="mdl-stepper-bar-left"></div>
-                    <div class="mdl-stepper-bar-right"></div>
-                </div>
-                <div class="mdl-stepper-step">
-                    <div class="mdl-stepper-circle"><span>8</span></div>
-                    <div class="mdl-stepper-title">Skills</div>
-                    <div class="mdl-stepper-bar-left"></div>
-                    <div class="mdl-stepper-bar-right"></div>
-                </div>
-            </div>
 
-        </div>
-    </div>
-    <div class="card-body">
-        <div class="form-row">
-            <div class="form-group col-6">
-                <input type="text" id="autocomplete" onFocus="geolocate()" class="form-control bg-light border-0  small row-cols-md-3" placeholder="Seach your address" aria-label="Search" aria-describedby="basic-addon2">
             </div>
         </div>
+        <div class="card-body">
+            <div class="form-row">
+                <div class="form-group col-6">
+                    <div id="locationField">
+                        <input id="autocomplete11"
+                               placeholder="Enter your address"
+                               onFocus="geolocate()"
+                               type="text" />
+                    </div>
+                </div>
+            </div>
 
 
             <EditForm EditContext="@editContext" OnValidSubmit="HandleValidSubmit">
@@ -125,7 +127,3 @@
         </div>
     </div>
 
-@code{
-
-
-}

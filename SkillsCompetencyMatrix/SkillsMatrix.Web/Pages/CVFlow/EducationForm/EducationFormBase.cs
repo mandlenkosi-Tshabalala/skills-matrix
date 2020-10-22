@@ -117,11 +117,29 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EducationForm
             NavigationManager.NavigateTo("/personEmpolyment");
         }
 
+        protected async void Cancel()
+        {
+            personEducation = new Education();
+            NavigationManager.NavigateTo($"/personEducation");
+
+        }
+
 
         protected async Task GetEducation(int id)
         {
             personEducation = await EducationService.Get(id);
             edit = true;
+
+        }
+
+        protected async Task DeleteEducation(int id)
+        {
+            await EducationService.Delete(id);
+
+            await OnInitializedAsync();
+            NavigationManager.NavigateTo($"/personEducation");
+            personEducation = new Education();
+
 
         }
     }

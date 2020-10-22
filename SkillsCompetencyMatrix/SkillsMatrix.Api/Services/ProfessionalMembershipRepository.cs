@@ -1,4 +1,5 @@
-﻿using SkillsMatrix.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using SkillsMatrix.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,15 @@ namespace SkillsMatrix.Api.Models
             : base(appDbContext)
         {
             this.appDbContext = appDbContext;
+        }
+
+        public async Task<IEnumerable<Membership>> GetMemberships(int UserID)
+        {
+            IQueryable<Membership> query = appDbContext.Memberships.Where(e => e.UserId == UserID);
+
+
+            return await query.ToListAsync();
+
         }
     }
 }

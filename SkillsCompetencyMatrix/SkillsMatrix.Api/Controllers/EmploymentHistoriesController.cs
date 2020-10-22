@@ -55,6 +55,28 @@ namespace SkillsMatrix.Api.Controllers
             }
         }
 
+        [HttpGet("List/{UserID:int}")]
+        public async Task<ActionResult<IEnumerable<Employment>>> GetEmploymentHistorys(int UserID)
+        {
+            try
+            {
+                var result = await employmentHistoryRepository.GetEmployments(UserID);
+
+                if (result == null)
+                {
+                    return NotFound();
+                }
+
+                return result.ToList();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                   "Error retrieving data from the database");
+            }
+        }
+
+
         [HttpPost]
         public async Task<ActionResult<Employment>> CreateEmploymentHistory(Employment employmentHistory)
         {
@@ -86,12 +108,12 @@ namespace SkillsMatrix.Api.Controllers
                 //    return BadRequest("EmploymentHistory ID mismatch");
                 //}
 
-                var result = await employmentHistoryRepository.GetById(employmentHistory.Id);
+                //var result = await employmentHistoryRepository.GetById(employmentHistory.Id);
 
-                if (result == null)
-                {
-                    return new Employment();
-                }
+                //if (result == null)
+                //{
+                //    return new Employment();
+                //}
 
                 return await employmentHistoryRepository.Update(employmentHistory);
             }
@@ -107,14 +129,13 @@ namespace SkillsMatrix.Api.Controllers
         {
             try
             {
-                var result = await employmentHistoryRepository.GetById(id);
-
-                if (result == null)
+                if (id > 0)
                 {
-                    return NotFound($"EmploymentHistory with Id = {id} not found.");
+
+                    return await employmentHistoryRepository.Delete(id);
                 }
 
-                return await employmentHistoryRepository.Delete(id);
+                return null;
             }
             catch (Exception)
             {

@@ -72,10 +72,13 @@
                     <label>Title</label>
                     <InputSelect @bind-Value="person.Title" class="form-control">
                         <option value=""></option>
-                        <option value="Mr">MR</option>
-                        <option value="Mrs">Mrs</option>
+                        <option value="Adv">Adv</option>
+                        <option value="Dr">Dr</option>
                         <option value="Miss">Miss</option>
+                        <option value="Mr">Mr</option>
+                        <option value="Mrs">Mrs</option>
                         <option value="Ms">Ms</option>
+                        <option value="Prof">Prof</option>
                     </InputSelect>
                     <ValidationMessage For="@(() => person.Title)" />
                 </div>
@@ -124,8 +127,27 @@
                     <label>Nationality</label>
                     <InputSelect @bind-Value="person.Nationality" class="form-control">
                         <option value=""></option>
-                        <option value="South African">South African</option>
-                        <option value="Non South African">Non South African</option>
+                        <option value="Angola">Angola</option>
+                        <option value="Asian Countries">Asian Countries</option>
+                        <option value="Australia and New Zealand">Australia and New Zealand</option>
+                        <option value="Botswana">Botswana</option>
+                        <option value="Central and South American Countries">Central and South American Countries</option>
+                        <option value="European Countries">European Countries</option>
+                        <option value="Lesotho">Lesotho</option>
+                        <option value="Malawi">Malawi</option>
+                        <option value="Mauritius">Mauritius</option>
+                        <option value="Mozambique">Mozambique</option>
+                        <option value="Namibia">Namibia</option>
+                        <option value="North American Countries">North American Countries</option>
+                        <option value="Rest of Africa">Rest of Africa</option>
+                        <option value="SADC except SA">SADC except SA</option>
+                        <option value="Seychelles">Seychelles</option>
+                        <option value="South Africa">South Africa</option>
+                        <option value="Swaziland">Swaziland</option>
+                        <option value="Tanzania">Tanzania</option>
+                        <option value="Zaire">Zaire</option>
+                        <option value="Zambia">Zambia</option>
+                        <option value="Zimbabwe">Zimbabwe</option>
                     </InputSelect>
                     <ValidationMessage For="@(() => person.Nationality)" />
                 </div>

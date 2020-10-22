@@ -34,9 +34,19 @@ namespace SkillsMatrix.Web.Services
             return await httpClient.GetJsonAsync<List<Education>>($"api/Educations/List/{UserID}");
         }
 
+     
+
+        public async Task Delete(int Id)
+        {
+            //return await httpClient.DeleteAsync<Education>($"api/Educations/Delete", Id.ToString());
+             await httpClient.DeleteAsync($"api/Educations/{Id}");
+        }
+
         public async Task<Education> Update(Education person)
         {
             return await httpClient.PutJsonAsync<Education>($"api/Educations", person);
         }
+
+
     }
 }

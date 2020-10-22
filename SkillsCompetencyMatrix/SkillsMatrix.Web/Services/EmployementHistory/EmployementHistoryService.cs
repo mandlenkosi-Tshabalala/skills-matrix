@@ -21,17 +21,28 @@ namespace SkillsMatrix.Web.Services
 
         public async Task<Employment> Create(Employment EmploymentHistory)
         {
-            return await httpClient.PostJsonAsync<Employment>($"api/Persons", EmploymentHistory);
+            return await httpClient.PostJsonAsync<Employment>($"api/EmploymentHistories", EmploymentHistory);
         }
 
         public async Task<Employment> Get(int Id)
         {
-           return await httpClient.GetJsonAsync<Employment>($"api/Persons/{Id}");
+           return await httpClient.GetJsonAsync<Employment>($"api/EmploymentHistories/{Id}");
         }
 
         public async Task<Employment> Update(Employment EmploymentHistory)
         {
-            return await httpClient.PutJsonAsync<Employment>($"api/Persons", EmploymentHistory);
+            return await httpClient.PutJsonAsync<Employment>($"api/EmploymentHistories", EmploymentHistory);
+        }
+
+        public async Task Delete(int Id)
+        {
+            //return await httpClient.DeleteAsync<Education>($"api/Educations/Delete", Id.ToString());
+            await httpClient.DeleteAsync($"api/EmploymentHistories/{Id}");
+        }
+
+        public async Task<List<Employment>> GetEmployment(int UserID)
+        {
+            return await httpClient.GetJsonAsync<List<Employment>>($"api/EmploymentHistories/List/{UserID}");
         }
     }
 }

@@ -8,6 +8,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace SkillsMatrix.Web.Pages.CVFlow.CompetenciesForm
 {
@@ -15,54 +17,150 @@ namespace SkillsMatrix.Web.Pages.CVFlow.CompetenciesForm
     {
 
         [Inject]
-        public IPersonCompetencies PersonCompetencies { get; set; }
+        public IPersonCompetencies personCompetencies { get; set; }
+
+        [Inject]
+        public ICompetenciesService competenciesService { get; set; }
+
+        [Inject]
+        public ICompetenciesCategoryService competenciesCategoryService { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
-        [Parameter]
-        public string PersonId { get; set; }
+        [Inject]
+        protected SignInManager<IdentityUser<int>> SignInManager { get; set; }
 
-        protected Competency personCompetencies = new Competency();
+        [Inject]
+        protected UserManager<IdentityUser<int>> UserManager { get; set; }
+
+        [CascadingParameter]
+        protected Task<AuthenticationState> AuthState { get; set; }
+
+        public int UserId { get; set; }
+
+        protected List<UserCompetency> userCompetencies = new List<UserCompetency>();
+
+        protected IEnumerable<Competency> competencies;
+        protected IEnumerable<CompetencyCategory> competencyCategories;
+
+        protected UserCompetency UserCompetency = new UserCompetency();
 
         protected EditContext editContext;
 
+        protected string competencyID { get; set; }
+
+        private bool edit = false;
+
         protected override async Task OnInitializedAsync()
         {
+            var principalUser = (await AuthState).User;
 
-            editContext = new EditContext(personCompetencies);
+            editContext = new EditContext(UserCompetency);
 
-            personCompetencies = await PersonCompetencies.Get(1);
-
-            if (personCompetencies != null)
+            if (principalUser.Identity.IsAuthenticated)
             {
-                editContext = new EditContext(personCompetencies);
+
+
+
+                var user = await UserManager.FindByEmailAsync(principalUser.Identity.Name);
+                if (user != null)
+                {
+                    UserId = user.Id;
+                    //competencies = await competenciesService.GetCompetencies();
+
+                   // userCompetencies = await personCompetencies.GetAll(user.Id);
+
+                   // competencyCategories = await competenciesCategoryService.GetCompetencies();
+
+
+                }
             }
 
         }
 
-        protected void HandleValidSubmit()
+        protected async void HandleValidSubmit()
         {
-            //if (personCompetencies != null)
-            //    personCompetencies.PersonID = int.Parse(PersonId);
 
-            //Check if its a new record 
-            if (personCompetencies.Id == 0)
+
+            if (edit == false)
             {
-                PersonCompetencies.Create(personCompetencies);
-                NavigationManager.NavigateTo($"/viewCV/{PersonId}");
+                UserCompetency.UserId = UserId;
+                UserCompetency.CompetencyId = Int32.Parse(competencyID);
+                await personCompetencies.Create(UserCompetency);
+                await OnInitializedAsync();
+                NavigationManager.NavigateTo($"/personCompetencies");
+                UserCompetency = new UserCompetency();
+
             }
             else
             {
-                PersonCompetencies.Update(personCompetencies);
-                NavigationManager.NavigateTo($"/personDetails/{PersonId}");
+                await personCompetencies.Update(UserCompetency);
+                await OnInitializedAsync();
+                edit = false;
+                NavigationManager.NavigateTo($"/personCompetencies");
+                UserCompetency = new UserCompetency();
+
+
+            }
+
+        }
+
+        protected async void HandleDelete()
+        {
+
+            if (UserCompetency.Id == 0)
+            {
+
+                await personCompetencies.Create(UserCompetency);
+                NavigationManager.NavigateTo($"/personCompetencies");
+            }
+            else
+            {
+                await personCompetencies.Update(UserCompetency);
+                NavigationManager.NavigateTo($"/personCompetencies");
             }
 
         }
 
         protected void Back()
         {
-            NavigationManager.NavigateTo($"/expertise/{PersonId}");
+            NavigationManager.NavigateTo($"/expertise");
+        }
+
+        protected void Next()
+        {
+            NavigationManager.NavigateTo("/membership");
+        }
+
+        protected async void Cancel()
+        {
+            UserCompetency = new UserCompetency();
+            NavigationManager.NavigateTo($"/personCompetencies");
+
+        }
+
+
+        protected async Task GetExpertise(int id)
+        {
+            UserCompetency = await personCompetencies.Get(id);
+            edit = true;
+
+        }
+
+        protected async Task DeleteExpertise(int id)
+        {
+
+            if (id != 0)
+            {
+                await personCompetencies.Delete(id);
+
+                await OnInitializedAsync();
+                NavigationManager.NavigateTo($"/personCompetencies");
+                UserCompetency = new UserCompetency();
+            }
+
+
         }
     }
 }

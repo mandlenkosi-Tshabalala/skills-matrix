@@ -11,6 +11,8 @@ namespace SkillsMatrix.Web.Services
       Task<Membership> Get(int Id);
       Task<Membership> Create(Membership professionalMembership);
       Task<Membership> Update(Membership professionalMembership);
+      Task<List<Membership>> GetAll(int UserID);
+      Task Delete(int Id);
 
     }
 }
