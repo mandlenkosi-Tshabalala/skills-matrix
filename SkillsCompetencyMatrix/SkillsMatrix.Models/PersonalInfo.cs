@@ -32,5 +32,7 @@ namespace SkillsMatrix.Models
         [Required]
         public string Profile { get; set; }
 
+        public string ImagePath { get; set; }
+
     }
 }

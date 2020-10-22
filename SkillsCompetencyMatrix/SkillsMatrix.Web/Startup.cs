@@ -97,6 +97,8 @@ namespace SkillsMatrix.Web
                 return provider;
             });
 
+            services.AddScoped<IFileUploadService, FileUploadService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

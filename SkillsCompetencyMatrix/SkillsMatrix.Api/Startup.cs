@@ -40,7 +40,6 @@ namespace SkillsMatrix.Api
             services.AddScoped<IIndustryRepository, IndustryRepository>();
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IProfessionalMembershipRepository, ProfessionalMembershipRepository>();
-            services.AddScoped<IReferenceRepository, ReferenceRepository>();
             services.AddScoped<ISkillsRepository, SkillsRepository>();
             services.AddScoped<IUsersRepository, UsersRepository>();
 

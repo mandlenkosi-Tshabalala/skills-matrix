@@ -5,7 +5,7 @@ using System.Security.Principal;
 
 namespace SkillsMatrix.Models
 {
-    public class User : BaseEntity
+    public class User
     {
         public User()
         {
@@ -19,27 +19,47 @@ namespace SkillsMatrix.Models
             UserDocuments = new HashSet<Document>();
         }
 
+        [Key]
+        public int Id { get; set; }
+
+        [MaxLength(256)]
         [Required]
         public string UserName { get; set; }
-        public string NormalizedUserName { get; set; }
-        [DataType(DataType.EmailAddress)]
-        [Required]
-        public string Email { get; set; }
-        public string NormalizedEmail { get; set; }
-        public bool EmailConfirmed { get; set; }
-        public string PasswordHash { get; set; }
-        public string SecurityStamp { get; set; }
-        public string ConcurrencyStamp { get; set; }
-        public string PhoneNumber { get; set; }
-        public bool PhoneNumberConfirmed { get; set; }
-        public bool TwoFactorEnabled { get; set; }
-        public DateTime LockoutEnd { get; set; }
-        public bool LockoutEnabled { get; set; }
-        public int AccessFailedCount { get; set; }
 
-        // Foreign Keys
-        public int PersonalInfoId { get; set; }
-        public int AddressId { get; set; }
+        [MaxLength(256)]
+        public string NormalizedUserName { get; set; }
+
+        [MaxLength(256)]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+
+        [MaxLength(256)]
+        public string NormalizedEmail { get; set; }
+
+        [Required]
+        public bool EmailConfirmed { get; set; }
+
+        public string PasswordHash { get; set; }
+
+        public string SecurityStamp { get; set; }
+
+        public string ConcurrencyStamp { get; set; }
+
+        public string PhoneNumber { get; set; }
+
+        [Required]
+        public bool PhoneNumberConfirmed { get; set; }
+
+        [Required]
+        public bool TwoFactorEnabled { get; set; }
+
+        public DateTime? LockoutEnd { get; set; }
+
+        [Required]
+        public bool LockoutEnabled { get; set; }
+
+        [Required]
+        public int AccessFailedCount { get; set; }
 
         // Navigation Properties
         public virtual PersonalInfo PersonalInfo { get; set; }

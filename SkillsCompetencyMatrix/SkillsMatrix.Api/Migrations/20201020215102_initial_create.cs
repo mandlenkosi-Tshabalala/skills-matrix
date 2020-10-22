@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SkillsMatrix.Api.Migrations
 {
-    public partial class initial : Migration
+    public partial class initial_create : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,15 +13,10 @@ namespace SkillsMatrix.Api.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    IPAddress = table.Column<string>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    UserId = table.Column<int>(nullable: false),
-                    UserId1 = table.Column<int>(nullable: true),
-                    UserName = table.Column<string>(nullable: false),
-                    NormalizedUserName = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: false),
-                    NormalizedEmail = table.Column<string>(nullable: true),
+                    UserName = table.Column<string>(maxLength: 256, nullable: false),
+                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
+                    Email = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(nullable: false),
                     PasswordHash = table.Column<string>(nullable: true),
                     SecurityStamp = table.Column<string>(nullable: true),
@@ -29,21 +24,13 @@ namespace SkillsMatrix.Api.Migrations
                     PhoneNumber = table.Column<string>(nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(nullable: false),
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
-                    LockoutEnd = table.Column<DateTime>(nullable: false),
+                    LockoutEnd = table.Column<DateTime>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false),
-                    PersonalInfoId = table.Column<int>(nullable: false),
-                    AddressId = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetUsers_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -63,7 +50,7 @@ namespace SkillsMatrix.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ExpertiseCategories",
+                name: "Expertises",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -71,11 +58,12 @@ namespace SkillsMatrix.Api.Migrations
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     IPAddress = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    ExpertiseId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ExpertiseCategories", x => x.Id);
+                    table.PrimaryKey("PK_Expertises", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -104,14 +92,12 @@ namespace SkillsMatrix.Api.Migrations
                     IPAddress = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     UserId = table.Column<int>(nullable: false),
-                    PhysicalCode = table.Column<string>(nullable: false),
-                    PostalCode = table.Column<string>(nullable: false),
-                    PhysicalAddressLine1 = table.Column<string>(nullable: true),
-                    PostalAddressLine1 = table.Column<string>(nullable: true),
-                    PhysicalAddressLine2 = table.Column<string>(nullable: false),
-                    PostalAddressLine2 = table.Column<string>(nullable: true),
-                    PhysicalAddressLine3 = table.Column<string>(nullable: true),
-                    PostalAddressLine3 = table.Column<string>(nullable: true)
+                    StreetNumber = table.Column<string>(nullable: true),
+                    StreetName = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: false),
+                    State = table.Column<string>(nullable: false),
+                    ZipCode = table.Column<string>(nullable: false),
+                    Country = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -158,8 +144,8 @@ namespace SkillsMatrix.Api.Migrations
                     UserId = table.Column<int>(nullable: false),
                     Institution = table.Column<string>(nullable: false),
                     FieldOfStudy = table.Column<string>(nullable: false),
-                    QualificationStartDate = table.Column<string>(nullable: false),
-                    QualificationEndDate = table.Column<string>(nullable: false),
+                    QualificationStartDate = table.Column<DateTime>(nullable: false),
+                    QualificationEndDate = table.Column<DateTime>(nullable: false),
                     QualificationLevel = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
@@ -244,7 +230,9 @@ namespace SkillsMatrix.Api.Migrations
                     Gender = table.Column<string>(nullable: false),
                     Nationality = table.Column<string>(nullable: false),
                     Email = table.Column<string>(nullable: false),
-                    Phone = table.Column<string>(nullable: true)
+                    Phone = table.Column<string>(nullable: false),
+                    Profile = table.Column<string>(nullable: false),
+                    ImagePath = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -305,27 +293,31 @@ namespace SkillsMatrix.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Expertises",
+                name: "UserExpertises",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(nullable: false),
+                    ExpertiseId = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false),
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     IPAddress = table.Column<string>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    ExpertiseId = table.Column<int>(nullable: false),
-                    CatagoryId = table.Column<int>(nullable: true)
+                    IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Expertises", x => x.Id);
+                    table.PrimaryKey("PK_UserExpertises", x => new { x.UserId, x.ExpertiseId });
                     table.ForeignKey(
-                        name: "FK_Expertises_ExpertiseCategories_CatagoryId",
-                        column: x => x.CatagoryId,
-                        principalTable: "ExpertiseCategories",
+                        name: "FK_UserExpertises_Expertises_ExpertiseId",
+                        column: x => x.ExpertiseId,
+                        principalTable: "Expertises",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserExpertises_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -384,44 +376,11 @@ namespace SkillsMatrix.Api.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "UserExpertises",
-                columns: table => new
-                {
-                    UserId = table.Column<int>(nullable: false),
-                    ExpertiseId = table.Column<int>(nullable: false),
-                    Id = table.Column<int>(nullable: false),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    IPAddress = table.Column<string>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserExpertises", x => new { x.UserId, x.ExpertiseId });
-                    table.ForeignKey(
-                        name: "FK_UserExpertises_Expertises_ExpertiseId",
-                        column: x => x.ExpertiseId,
-                        principalTable: "Expertises",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserExpertises_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Addresses_UserId",
                 table: "Addresses",
                 column: "UserId",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_UserId1",
-                table: "AspNetUsers",
-                column: "UserId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Competencies_CatagoryId",
@@ -442,11 +401,6 @@ namespace SkillsMatrix.Api.Migrations
                 name: "IX_Employments_UserId",
                 table: "Employments",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Expertises_CatagoryId",
-                table: "Expertises",
-                column: "CatagoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Memberships_UserId",
@@ -526,9 +480,6 @@ namespace SkillsMatrix.Api.Migrations
 
             migrationBuilder.DropTable(
                 name: "CompetencyCatagories");
-
-            migrationBuilder.DropTable(
-                name: "ExpertiseCategories");
         }
     }
 }

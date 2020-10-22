@@ -54,7 +54,7 @@ namespace SkillsMatrix.Web.Pages.Auth
             var user = new IdentityUser<int> { 
                 UserName = Input.Email, 
                 Email = Input.Email, 
-                EmailConfirmed = true 
+                EmailConfirmed = true
             };
 
             var result = await _userManager.CreateAsync(user, Input.Password);

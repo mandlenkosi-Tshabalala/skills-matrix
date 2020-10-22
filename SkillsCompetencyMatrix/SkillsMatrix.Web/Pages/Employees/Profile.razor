@@ -1,0 +1,12 @@
+﻿@page "/profile"
+@inherits ProfileBase
+
+<h3>Profile</h3>
+
+<InputFile OnChange="HandleFileSelected"></InputFile>
+@if (file != null)
+{
+    <p>Name: @file.Name</p>
+    <p>Name: @file.Size</p>
+    <p>Name: @file.Type</p>
+}
