@@ -7,12 +7,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Blazored.Toast.Services;
 
 namespace SkillsMatrix.Web.Pages.CVFlow.ExpertiseForm
 {
     public class ExpertiseFormBase : ComponentBase
     {
-
+        [Inject]
+        public IToastService toastService { get; set; }
         [Inject]
         public IPersonExpertiseService UserExpertiseService { get; set; }
 
@@ -60,7 +62,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.ExpertiseForm
                 if (user != null)
                 {
                     UserId = user.Id;
-                    Expertises = await ExpertiseService.GetExpertises();
+                    Expertises = await ExpertiseService.GetAll();
                  
                     userExpertises = await UserExpertiseService.GetAll(user.Id);
 

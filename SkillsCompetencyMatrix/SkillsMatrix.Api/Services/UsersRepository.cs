@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace SkillsMatrix.Api.Models
 {
     public class UsersRepository : GenericRepository<User>, IUsersRepository
@@ -33,5 +34,7 @@ namespace SkillsMatrix.Api.Models
         //      var result = await appDbContext.Users.Include(x => x.Address).ThenInclude(y => y.)
 
         //}
+
+
     }
 }

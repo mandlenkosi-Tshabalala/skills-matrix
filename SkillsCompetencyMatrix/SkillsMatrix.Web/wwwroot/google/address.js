@@ -13,9 +13,17 @@
         function initAutocomplete() {
         // Create the autocomplete object, restricting the search predictions to
         // geographical location types.
+
+            var org = document.getElementById('autocomplete');
+
+           // new google.maps.places.Autocomplete(org, options);
+
         autocomplete = new google.maps.places.Autocomplete(
-            document.getElementById("autocomplete111"),
+           org,
             { types: ["geocode"] }
+
+
+
         );
             // Avoid paying for data that you don't need by restricting the set of
             // place fields that are returned to just the address components.
@@ -48,7 +56,8 @@
 
         // Bias the autocomplete object to the user's geographical location,
         // as supplied by the browser's 'navigator.geolocation' object.
-        function geolocate() {
+function geolocate() {
+    alert(document.getElementById("autocomplete"));
             if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
             const geolocation = {

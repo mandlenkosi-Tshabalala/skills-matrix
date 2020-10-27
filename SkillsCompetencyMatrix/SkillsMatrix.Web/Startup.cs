@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Blazored.Toast;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
@@ -89,7 +90,8 @@ namespace SkillsMatrix.Web
             {
                 client.BaseAddress = new Uri(url);
             });
-
+             
+            services.AddBlazoredToast();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddScoped<IHostEnvironmentAuthenticationStateProvider>(sp =>
             {

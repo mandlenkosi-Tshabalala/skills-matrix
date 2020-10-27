@@ -20,8 +20,8 @@ namespace SkillsMatrix.Api.Controllers
             this.expertiseRepository = expertiseRepository;
         }
 
-        [HttpGet("Expertises")]
-        public async Task<ActionResult> GetExpertiseCategories()
+        [HttpGet]
+        public async Task<ActionResult> GetExpertises()
         {
             try
             {
@@ -86,12 +86,12 @@ namespace SkillsMatrix.Api.Controllers
                 //    return BadRequest("Expertise ID mismatch");
                 //}
 
-                var result = await expertiseRepository.GetById(expertise.Id);
+               // var result = await expertiseRepository.GetById(expertise.Id);
 
-                if (result == null)
-                {
-                    return new Expertise();
-                }
+                //if (result == null)
+                //{
+                //    return new Expertise();
+                //}
 
                 return await expertiseRepository.Update(expertise);
             }

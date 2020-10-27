@@ -1,22 +1,20 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Blazored.Toast.Services;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using SkillsMatrix.Models;
 using SkillsMatrix.Web.Services;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using System.Text.Json;
+
 using System.Threading.Tasks;
 
 namespace SkillsMatrix.Web.Pages.CVFlow.PersonalDetailsForm
 {
     public class DetailsFormBase : ComponentBase
     {
-
+        [Inject]
+        public IToastService toastService { get; set; } 
         [Inject]
         public IPersonService PersonService { get; set; }
 
@@ -63,32 +61,89 @@ namespace SkillsMatrix.Web.Pages.CVFlow.PersonalDetailsForm
 
         protected async void HandleValidSubmit()
         {
-            //Check if its a new record 
-            if (person.Id == 0)
+            var isValid = editContext.Validate();
+
+            if (isValid)
             {
-                try
+                //Check if its a new record 
+                if (person.Id == 0)
                 {
-                    person.UserId = UserId;
-                    await PersonService.Create(person);
+                    try
+                    {
+                        person.UserId = UserId;
+                        await PersonService.Create(person);
+                        NavigationManager.NavigateTo($"/address");
+                    }
+                    catch (Exception ex)
+                    {
+                        toastService.ShowError("There was an error when trying to save", "Error");
+                    }
+
+                  
                 }
-                catch (Exception ex)
+                else
                 {
-                    // display message
+                    try
+                    {
+                        await PersonService.Update(person);
+                        NavigationManager.NavigateTo($"/address");
+                    }
+                    catch (Exception ex)
+                    {
+                        toastService.ShowError("There was an error when trying to save", "Error");
+                    }
+                 
                 }
-              
-                NavigationManager.NavigateTo($"/address");
             }
             else
             {
-                try
+                toastService.ShowError("Please make sure that you fill all required field", "Error");
+            }
+        }
+
+        protected async void QuickSave()
+        {
+            var isValid = editContext.Validate();
+
+            if (isValid)
+            {
+                //Check if its a new record 
+                if (person.Id == 0)
                 {
-                    await PersonService.Update(person);
+                  
+                    try
+                    {
+                        person.UserId = UserId;
+                        await PersonService.Create(person);                   
+                        toastService.ShowSuccess("The information has been saved successfully", "Saved");
+                        await OnInitializedAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        toastService.ShowError("There was an error when trying to save", "Error");
+                    }
+
                 }
-                catch (Exception ex)
+                else
                 {
-                    // display message
+                    try
+                    {
+                        await PersonService.Update(person);
+                        toastService.ShowSuccess("The information has been saved successfully", "Success");
+                        await OnInitializedAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        toastService.ShowError("There was an error when trying to save", "Error");
+                    }
+
                 }
-                NavigationManager.NavigateTo($"/address");
+
+
+            }
+            else
+            {
+                toastService.ShowError("Please make sure that you fill all required field", "Error");
             }
         }
     }

@@ -10,12 +10,14 @@ using System.Threading.Tasks;
 using SkillsMatrix.Web.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Blazored.Toast.Services;
 
 namespace SkillsMatrix.Web.Pages.CVFlow.ProfessionalMembershipForm
 {
     public class ProfessionalMembershipFormBase : ComponentBase
     {
-
+        [Inject]
+        public IToastService toastService { get; set; }
         [Inject]
         public IProfessionalMembershipService ProfessionalMembershipService { get; set; }
 

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SkillsMatrix.Api.Migrations
 {
-    public partial class initial_create : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -58,8 +58,7 @@ namespace SkillsMatrix.Api.Migrations
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     IPAddress = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    ExpertiseId = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -256,7 +255,7 @@ namespace SkillsMatrix.Api.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     UserId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    Level = table.Column<int>(nullable: false)
+                    Level = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

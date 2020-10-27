@@ -10,7 +10,10 @@ using System.Threading.Tasks;
 using SkillsMatrix.Web.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
-
+using Syncfusion.HtmlConverter;
+using Syncfusion.Pdf;
+using System.IO;
+//using System.Web.Hosting;
 
 namespace SkillsMatrix.Web.Pages.CVFlow.NewFolderForm
 {
@@ -85,6 +88,28 @@ namespace SkillsMatrix.Web.Pages.CVFlow.NewFolderForm
             NavigationManager.NavigateTo($"/membership");
         }
 
-       
+        public string Get(string url)
+        {
+            byte[] data = HTMLtoPDF(url);
+            return Convert.ToBase64String(data);
+        }
+        public byte[] HTMLtoPDF(string url)
+        {
+            //Initialize the HTML to PDF converter
+            HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter(HtmlRenderingEngine.WebKit);
+            WebKitConverterSettings webKitSettings = new WebKitConverterSettings();
+          //  webKitSettings.WebKitPath = HostingEnvironment.MapPath("~/QtBinaries");
+            //Assign the WebKit settings to HTML to PDF converter 
+           // htmlConverter.ConverterSettings = webKitSettings;
+            //Convert url to pdf
+            PdfDocument document = htmlConverter.Convert(url);
+            MemoryStream stream = new MemoryStream();
+            //Save and close the PDF document 
+            document.Save(stream);
+            document.Close(true);
+            return stream.ToArray();
+        }
+
+
     }
 }

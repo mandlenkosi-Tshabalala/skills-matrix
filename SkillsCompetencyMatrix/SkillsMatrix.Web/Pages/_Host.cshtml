@@ -14,9 +14,11 @@
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="layout/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="layout/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="layout/css/sb-admin-2.min.css" rel="stylesheet">
 
     <script src="_content/BlazorInputFile/inputfile.js"></script>
+    <link href="_content/Blazored.Toast/blazored-toast.min.css" rel="stylesheet" />
 
 </head>
 <body id="page-top">
@@ -24,6 +26,46 @@
     <app>
         <component type="typeof(App)" render-mode="ServerPrerendered" />
     </app>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $('#btn1').click(function () {
+            $.ajax({
+                url: 'https://localhost:44349/viewCV?url=http://www.google.com',
+                type: "GET",
+                success: function (data) {
+                    var filename = "HtmlToPDF.pdf";
+                    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                        // IE and Edge version
+                        var byteCharacters = atob(data);
+                        var byteNumbers = new Array(byteCharacters.length);
+                        for (var i = 0; i < byteCharacters.length; i++) {
+                            byteNumbers[i] = byteCharacters.charCodeAt(i);
+                        }
+                        var byteArray = new Uint8Array(byteNumbers);
+                        var blob = new Blob([byteArray], { type: 'application/pdf' });
+                        window.navigator.msSaveOrOpenBlob(blob, filename);
+
+                    }
+                    else if (typeof window.chrome !== 'undefined') {
+                        // Chrome version
+                        var pdfAsDataUri = "data:application/pdf;base64, " + data;
+                        var a = document.createElement('a');
+                        a.href = pdfAsDataUri;
+                        a.type = 'application/pdf';
+                        a.download = filename;
+                        a.click();
+                    } else {
+                        // Firefox version
+                        window.open("data:application/pdf;base64, " + data);
+                    }
+                }
+            });
+        });
+    </script>
+
+
 
     <script src="_framework/blazor.server.js"></script>
 
@@ -34,7 +76,13 @@
     <script src="google/address.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGafzh7tV2fKKypcr6LoR-KDIF1-S0cdg&callback=initAutocomplete&libraries=places&v=weekly"
-            defer></script>
+            async defer></script>
+
+    <!-- Page level plugins -->
+    <script src="layout/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="layout/vendor/datatables/TableMin.js"></script>
+    <!-- Page level custom scripts -->
+    <script src="layout/js/demo/datatables-demo.js"></script>
 
 </body>
 </html>

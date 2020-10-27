@@ -5,6 +5,7 @@
 @using System.ComponentModel.DataAnnotations
 @using System.Text.Json
 @inject IJSRuntime JSRuntime;
+@using Blazored.Toast.Configuration
 
 
 <div class="card m-3">
@@ -112,30 +113,30 @@
     </div>
     @if (skills.Count > 0)
     {
-        <div class="card card-body">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Level</th>
-                        <th scope="col">Update</th>
-                        <th scope="col">Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var skill in skills)
+    <div class="card card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Level</th>
+                    <th scope="col">Update</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var skill in skills)
                     {
-                    <tr>
-                        <td>@skill.Name</td>
-                        <td>@skill.Level</td>
-                        <td><a @onclick="@(()=>GetSkill(skill.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-edit"></i></a></td>
-                        <td><a @onclick="@(()=>DeleteSkill(skill.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-trash"></i></a></td>
-                    </tr>
+                <tr>
+                    <td>@skill.Name</td>
+                    <td>@skill.Level</td>
+                    <td><a @onclick="@(()=>GetSkill(skill.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-edit"></i></a></td>
+                    <td><a @onclick="@(()=>DeleteSkill(skill.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-trash"></i></a></td>
+                </tr>
                     }
 
-                </tbody>
-            </table>
-        </div>
+            </tbody>
+        </table>
+    </div>
     }
     <div class="card-footer" style="background-color:white">
         <div>
@@ -143,7 +144,16 @@
             <button @onclick="@Next" class="btn btn-primary mr-1">View CV</button>
         </div>
     </div>
-  </div>
+</div>
+
+<BlazoredToasts Position="ToastPosition.TopRight"
+                Timeout="5"
+                IconType="IconType.FontAwesome"
+                SuccessClass="success-toast-override"
+                SuccessIcon="fa fa-thumbs-up"
+                ErrorIcon="fa fa-bug">
+
+</BlazoredToasts>
 
 
 

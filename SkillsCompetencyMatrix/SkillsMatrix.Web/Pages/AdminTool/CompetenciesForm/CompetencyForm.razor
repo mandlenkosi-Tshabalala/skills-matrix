@@ -1,0 +1,84 @@
+﻿@attribute [Authorize]
+@page "/adminCompetency"
+@inherits CompetencyFormBase
+@inject IJSRuntime JSRuntime;
+@using Blazored.Toast.Configuration
+
+
+<style>
+    table.dataTable thead .sorting:after,
+    table.dataTable thead .sorting:before,
+    table.dataTable thead .sorting_asc:after,
+    table.dataTable thead .sorting_asc:before,
+    table.dataTable thead .sorting_asc_disabled:after,
+    table.dataTable thead .sorting_asc_disabled:before,
+    table.dataTable thead .sorting_desc:after,
+    table.dataTable thead .sorting_desc:before,
+    table.dataTable thead .sorting_desc_disabled:after,
+    table.dataTable thead .sorting_desc_disabled:before {
+        bottom: .5em;
+    }
+</style>
+<div class="card m-3">
+    <div class="card-header" style="background-color:white">
+        <p>Manage Competencies</p>
+    </div>
+    <div class="card-body">
+        <div class="card card-body">
+            <ul class="nav nav-tabs nav-justified md-tabs indigo" id="myTabJust" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab-just" data-toggle="tab" href="#home-just" role="tab" aria-controls="home-just"
+                       aria-selected="true">Competencies Categories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab-just" data-toggle="tab" href="#profile-just" role="tab" aria-controls="profile-just"
+                       aria-selected="false">Competencies</a>
+                </li>
+
+            </ul>
+            <div class="tab-content card pt-5" id="myTabContentJust">
+                <div class="tab-pane fade show active" id="home-just" role="tabpanel" aria-labelledby="home-tab-just">
+                    <EditForm EditContext="@editContext">
+                        <DataAnnotationsValidator />
+                        <div class="form-row">
+                            <div class="form-group col-6">
+                                <label>Name</label>
+                                <InputText @bind-Value="expertise.Name" class="form-control" />
+                                <ValidationMessage For="@(() =>expertise.Name)" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button @onclick="HandleValidSubmit" class="btn btn-outline-success mr-1">Save</button>
+                        </div>
+                    </EditForm>
+                </div>
+                <div class="tab-pane fade" id="profile-just" role="tabpanel" aria-labelledby="profile-tab-just">
+                    <EditForm EditContext="@editContext">
+                        <DataAnnotationsValidator />
+                        <div class="form-row">
+                            <div class="form-group col-6">
+                                <label>Name</label>
+                                <InputText @bind-Value="expertise.Name" class="form-control" />
+                                <ValidationMessage For="@(() =>expertise.Name)" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button @onclick="HandleValidSubmit" class="btn btn-outline-success mr-1">Save</button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    <BlazoredToasts Position="ToastPosition.TopRight"
+                    Timeout="5"
+                    IconType="IconType.FontAwesome"
+                    SuccessClass="success-toast-override"
+                    SuccessIcon="fa fa-thumbs-up"
+                    ErrorIcon="fa fa-bug">
+
+    </BlazoredToasts>
+

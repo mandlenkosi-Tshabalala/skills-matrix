@@ -1,0 +1,75 @@
+﻿@attribute [Authorize]
+@page "/adminExpertise"
+@inherits ExpertiseFormBase
+@inject IJSRuntime JSRuntime;
+@using Blazored.Toast.Configuration
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Manage Expertise</h1>
+    <p class="mb-4"></p>
+    </div>
+    <div class="card m-3">
+        <div class="card-body">
+            <div class="container-fluid">
+                <EditForm EditContext="@editContext">
+                    <DataAnnotationsValidator />
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <label>Name</label>
+                            <InputText @bind-Value="expertise.Name" class="form-control" />
+                            <ValidationMessage For="@(() =>expertise.Name)" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button @onclick="HandleValidSubmit" class="btn btn-outline-success mr-1">Save</button>
+                    </div>
+                </EditForm>
+
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Expertise Table</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Update</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var expertise in expertises)
+                                    {
+                                        <tr>
+                                            <td>@expertise.Name</td>
+                                            <td><a @onclick="@(() => GetExpertise(expertise.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-edit"></i></a></td>
+                                            <td><a @onclick="@(() => DeleteExpertise(expertise.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-trash"></i></a></td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <BlazoredToasts Position="ToastPosition.TopRight"
+                    Timeout="5"
+                    IconType="IconType.FontAwesome"
+                    SuccessClass="success-toast-override"
+                    SuccessIcon="fa fa-thumbs-up"
+                    ErrorIcon="fa fa-bug">
+
+    </BlazoredToasts>
+

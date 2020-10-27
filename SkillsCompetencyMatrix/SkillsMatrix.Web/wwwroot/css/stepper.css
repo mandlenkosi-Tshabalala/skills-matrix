@@ -53,8 +53,12 @@ textarea.form-control.invalid {
 }
 
 .mdl-card__supporting-text {
-    width: 100%;
+/*    width: 100%;*/
     padding: 0;
+
+    display: block;
+    width: 100%;
+    overflow-x: auto;
 }
 
 .mdl-stepper-horizontal-alternative .mdl-stepper-step {
@@ -66,9 +70,13 @@ textarea.form-control.invalid {
 /* Begin actual mdl-stepper css styles */
 
 .mdl-stepper-horizontal-alternative {
-    display: table;
+    /*    display: table;
     width: 100%;
     margin: 0 auto;
+*/
+    display: table;
+    width: 100%;
+    overflow-x: auto;
 }
 
     .mdl-stepper-horizontal-alternative .mdl-stepper-step {

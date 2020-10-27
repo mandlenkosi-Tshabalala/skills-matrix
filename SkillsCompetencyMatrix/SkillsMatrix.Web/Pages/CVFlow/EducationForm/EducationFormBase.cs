@@ -10,12 +10,14 @@ using System.Threading.Tasks;
 using SkillsMatrix.Web.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Blazored.Toast.Services;
 
 namespace SkillsMatrix.Web.Pages.CVFlow.EducationForm
 {
     public class EducationFormBase : ComponentBase
     {
-
+        [Inject]
+        public IToastService toastService { get; set; }
         [Inject]
         public IEducationService EducationService { get; set; }
 
@@ -44,9 +46,12 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EducationForm
 
         protected override async Task OnInitializedAsync()
         {
-            var principalUser = (await AuthState).User;
 
             editContext = new EditContext(personEducation);
+
+            var principalUser = (await AuthState).User;
+
+
 
             if (principalUser.Identity.IsAuthenticated)
             {
@@ -59,6 +64,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EducationForm
                     personEducations = await EducationService.GetEducations(user.Id);
 
 
+
                 }
             }
 
@@ -66,51 +72,60 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EducationForm
 
         protected  async void HandleValidSubmit()
         {
+            var isValid = editContext.Validate();
 
+            if (isValid)
+            {
 
-            if (edit == false)
-             {
-                personEducation.UserId = UserId;
-                await EducationService.Create(personEducation);
-                await OnInitializedAsync();
-                NavigationManager.NavigateTo($"/personEducation");
-                personEducation = new Education();
+                if (edit == false)
+                {
+                    try
+                    {
+                        personEducation.UserId = UserId;
+                        await EducationService.Create(personEducation);
+                        personEducation = new Education();
+                        await OnInitializedAsync();
+                        NavigationManager.NavigateTo($"/personEducation");                     
+                        toastService.ShowSuccess("The information has been saved successfully", "Saved");
+                    }
+                    catch(Exception ex)
+                    {
+                        toastService.ShowError("There was an error when trying to save", "Error");
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        await EducationService.Update(personEducation);
+                        await OnInitializedAsync();
+                        edit = false;
+                        toastService.ShowSuccess("The information has been saved successfully", "Saved");
+                        NavigationManager.NavigateTo($"/personEducation");
+                     
+                    }
+                    catch (Exception ex)
+                    {
+                        toastService.ShowError("There was an error when trying to save", "Error");
+                    }
 
+                }
             }
             else
             {
-                await EducationService.Update(personEducation);
-                await OnInitializedAsync();
-                edit = false;
-                NavigationManager.NavigateTo($"/personEducation");
-                personEducation = new Education();
-
-
+                toastService.ShowError("Please make sure that you fill all required field", "Error");
             }
 
         }
 
-        protected async void HandleDelete()
-        {
-
-            if (personEducation.Id == 0)
-            {
-
-                await EducationService.Create(personEducation);
-                NavigationManager.NavigateTo($"/personEmpolyment");
-            }
-            else
-            {
-                await EducationService.Update(personEducation);
-                NavigationManager.NavigateTo($"/personEmpolyment");
-            }
-
-        }
 
         protected void Back()
         {
+    
             NavigationManager.NavigateTo($"/address");
         }
+
+
 
         protected void Next()
         {
@@ -120,7 +135,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EducationForm
         protected async void Cancel()
         {
             personEducation = new Education();
-            NavigationManager.NavigateTo($"/personEducation");
+             await OnInitializedAsync();
 
         }
 
@@ -139,6 +154,8 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EducationForm
             await OnInitializedAsync();
             NavigationManager.NavigateTo($"/personEducation");
             personEducation = new Education();
+
+            toastService.ShowWarning("Qualifcation is removed", "Warning");
 
 
         }

@@ -10,12 +10,14 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Components.Authorization;
+using Blazored.Toast.Services;
 
 namespace SkillsMatrix.Web.Pages.CVFlow.CompetenciesForm
 {
     public class CompetencyFormBase : ComponentBase
     {
-
+        [Inject]
+        public IToastService toastService { get; set; }
         [Inject]
         public IPersonCompetencies personCompetencies { get; set; }
 

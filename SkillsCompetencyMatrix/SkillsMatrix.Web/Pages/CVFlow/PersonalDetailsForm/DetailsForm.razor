@@ -5,12 +5,13 @@
 @using System.ComponentModel.DataAnnotations
 @using System.Text.Json
 @inject IJSRuntime JSRuntime;
+@using Blazored.Toast.Configuration
 
-<div class="card m-3">
-    <div class="card-header" style="background-color:white">
-        <div class="mdl-card__supporting-text">
+<div class="card m-3 table-responsive">
+    <div class="card-header table-responsive" style="background-color:white">
+        <div class="mdl-card__supporting-text table-responsive">
 
-            <div class="mdl-stepper-horizontal-alternative">
+            <div class="mdl-stepper-horizontal-alternative table-responsive">
                 <div class="mdl-stepper-step active-step">
                     <div class="mdl-stepper-circle"><span>1</span></div>
                     <div class="mdl-stepper-title">Personal Details</div>
@@ -65,7 +66,7 @@
         </div>
     </div>
     <div class="card-body">
-        <EditForm EditContext="@editContext" OnValidSubmit="HandleValidSubmit">
+        <EditForm EditContext="@editContext">
             <DataAnnotationsValidator />
             <div class="form-row">
                 <div class="form-group col">
@@ -170,11 +171,13 @@
                 <div class="form-group col">
                     <label>Profile</label>
                     <InputTextArea @bind-Value="person.Profile" class=" form-control" style="height:250px">
-                    <ValidationMessage For="@(() => person.Profile)" />
-                </InputTextArea>
+                        <ValidationMessage For="@(() => person.Profile)" />
+                    </InputTextArea>
                 </div>
-                </div>
-
+            </div>
+            <div>
+                <button type="submit" @onclick="QuickSave" class="btn btn-outline-success mr-1">Quick Save</button>
+            </div>
         </EditForm>
     </div>
     <div class="card-footer " style="background-color:white">
@@ -183,5 +186,14 @@
         </div>
     </div>
 </div>
+
+<BlazoredToasts Position="ToastPosition.TopRight"
+                Timeout="5"
+                IconType="IconType.FontAwesome"
+                SuccessClass="success-toast-override"
+                SuccessIcon="fa fa-thumbs-up"
+                ErrorIcon="fa fa-bug">
+
+</BlazoredToasts>
 
 

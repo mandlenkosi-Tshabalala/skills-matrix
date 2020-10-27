@@ -6,12 +6,15 @@ using SkillsMatrix.Models;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using SkillsMatrix.Web.Services;
-
+using Blazored.Toast.Services;
+using System;
 
 namespace SkillsMatrix.Web.Pages.CVFlow.AddressForm
 {
     public class AddressFormBase : ComponentBase
     {
+        [Inject]
+        public IToastService toastService { get; set; }
         [Inject]
         public IAddressService AddressService { get; set; }
 
@@ -54,33 +57,102 @@ namespace SkillsMatrix.Web.Pages.CVFlow.AddressForm
 
         protected async void HandleValidSubmit()
         {
-            if (address != null)
-                address.UserId = UserId;
+            var isValid = editContext.Validate();
 
-            //Check if its a new record 
-            if (address.Id == 0)
+            if (isValid)
             {
-                var result = await AddressService.Create(address);
-                if (result == null)
+                if (address != null)
+                    address.UserId = UserId;
+
+                if (address.Id == 0)
                 {
-                    //Load Spinner
+                    try
+                    {
+                        await AddressService.Create(address);
+                        NavigationManager.NavigateTo($"/personEducation");
+
+                    }
+                    catch
+                    {
+                        toastService.ShowError("There was an error when trying to save", "Error");
+                    }
+
+                    
                 }
                 else
                 {
-                    NavigationManager.NavigateTo($"/personEducation");
+                    try
+                    {
+
+                        var result = await AddressService.Update(address);
+                        NavigationManager.NavigateTo($"/personEducation");
+                    }
+                    catch(Exception ex)
+                    {
+                        toastService.ShowError("There was an error when trying to save", "Error");
+                    }
+
+                    
+
                 }
             }
             else
             {
-                var result = await AddressService.Update(address);
-                NavigationManager.NavigateTo($"/personEducation");
+                toastService.ShowError("Please make sure that you fill all required field", "Error");
             }
         }
+
+        protected async void QuickSave()
+        {
+            var isValid = editContext.Validate();
+
+            if (isValid)
+            {
+                if (address != null)
+                    address.UserId = UserId;
+
+                if (address.Id == 0)
+                {
+                    try
+                    {
+                        await AddressService.Create(address);
+                        await  OnInitializedAsync();
+                        toastService.ShowSuccess("The information has been saved successfully", "Saved");
+
+                    }
+                    catch
+                    {
+                        toastService.ShowError("There was an error when trying to save", "Error");
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        
+                        var result = await AddressService.Update(address);
+                        await OnInitializedAsync();
+                        toastService.ShowSuccess("The information has been saved successfully", "Saved");
+                    }
+                    catch
+                    {
+                        toastService.ShowError("There was an error when trying to save", "Error");
+                    }
+
+                }
+            }
+            else
+            {
+                toastService.ShowError("Please make sure that you fill all required field", "Error");
+            }
+        }
+
 
         protected void Back()
         {
             NavigationManager.NavigateTo($"/personDetails");
         }
+
 
     }
 }

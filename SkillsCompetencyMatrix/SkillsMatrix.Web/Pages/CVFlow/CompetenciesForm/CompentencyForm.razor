@@ -5,6 +5,7 @@
 @using System.ComponentModel.DataAnnotations
 @using System.Text.Json
 @inject IJSRuntime JSRuntime;
+@using Blazored.Toast.Configuration
 
 <div class="card m-3">
     <div class="card-header" style="background-color:white">
@@ -81,12 +82,12 @@
                         <div class="form-group col">
                             <label>Category</label>
                             <InputSelect @bind-Value="competencyID" class="form-control">
-                                @if(competencies!=  null)
+                                @if (competencies != null)
                                 {
                                     @foreach (var competency in competencies)
                                     {
 
-                                <option value="@competency.Id">@competency.Name</option>
+                                        <option value="@competency.Id">@competency.Name</option>
 
                                     }
                                 }
@@ -150,5 +151,14 @@
         </div>
     </div>
 </div>
+
+<BlazoredToasts Position="ToastPosition.TopRight"
+                Timeout="5"
+                IconType="IconType.FontAwesome"
+                SuccessClass="success-toast-override"
+                SuccessIcon="fa fa-thumbs-up"
+                ErrorIcon="fa fa-bug">
+
+</BlazoredToasts>
 
 

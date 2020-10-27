@@ -33,14 +33,10 @@ namespace SkillsMatrix.Web.Services
             return await httpClient.PutJsonAsync<Expertise>($"api/Expertises", Expertise);
         }
 
-        public async Task<IEnumerable<Expertise>> GetExpertises()
-        {
-            return await httpClient.GetJsonAsync<IEnumerable<Expertise>>($"api/Expertises/Expertises");
-        }
 
-        public async Task<List<Expertise>> GetAll(int UserID)
+        public async Task<List<Expertise>> GetAll()
         {
-            return await httpClient.GetJsonAsync<List<Expertise>>($"api/Expertises/List/{UserID}");
+            return await httpClient.GetJsonAsync<List<Expertise>>($"api/Expertises");
         }
 
         public async Task Delete(int Id)
