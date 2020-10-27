@@ -479,6 +479,19 @@ mark,
 .img-fluid {
   max-width: 100%;
   height: auto;
+  border-radius: 50%;
+}
+
+.img-fluid-small {
+    max-width: 100%;
+    height: 25px;
+    border-radius: 50%;
+}
+
+.img-fluid-smaller {
+    max-width: 100%;
+    height: 20px;
+    border-radius: 50%;
 }
 
 .img-thumbnail {
@@ -1194,8 +1207,8 @@ pre code {
     max-width: 16.6666666667%;
   }
   .col-lg-3 {
-    flex: 0 0 25%;
-    max-width: 25%;
+    flex: 0 0 50%;
+    max-width: 35%;
   }
   .col-lg-4 {
     flex: 0 0 33.3333333333%;
@@ -1219,7 +1232,7 @@ pre code {
   }
   .col-lg-9 {
     flex: 0 0 75%;
-    max-width: 75%;
+    max-width: 65%;
   }
   .col-lg-10 {
     flex: 0 0 83.3333333333%;
@@ -2320,16 +2333,16 @@ fieldset:disabled a.btn {
 }
 
 .btn-primary {
-    color: #fff;
-    background-color: #229383;
-    border-color: #229383;
+  color: #fff;
+  background-color: #434E5E;
+  border-color: #434E5E;
 }
 
-    .btn-primary:hover {
-        color: #fff;
-        background-color: #229383;
-        border-color: #229383;
-    }
+.btn-primary:hover {
+  color: #fff;
+  background-color: #333b48;
+  border-color: #2e3540;
+}
 
 .btn-primary:focus, .btn-primary.focus {
   color: #fff;
@@ -7620,7 +7633,7 @@ button.bg-dark:focus {
 
 .ml-3,
 .mx-3 {
-  margin-left: 1rem !important;
+  margin-left: 6rem !important;
 }
 
 .m-4 {
@@ -7768,7 +7781,7 @@ button.bg-dark:focus {
 }
 
 .p-4 {
-  padding: 1.5rem !important;
+  padding: 4rem !important;
 }
 
 .pt-4,
@@ -9549,6 +9562,10 @@ a.text-dark:hover, a.text-dark:focus {
   color: rgba(0, 0, 0, 0.5) !important;
 }
 
+.text-black {
+    color: black !important;
+}
+
 .text-white-50 {
   color: rgba(255, 255, 255, 0.5) !important;
 }
@@ -9708,19 +9725,36 @@ a.theme-btn-on-bg:hover, a.theme-btn-on-bg:focus, a.theme-btn-on-bg:active, .the
 }
 
 .resume-header {
-  background: #434E5E;
+  background: white;
   color: rgba(255, 255, 255, 0.9);
   height: 220px;
 }
 
 .resume-header .picture {
-  width: 200px;
+  width: 220px;
+}
+
+.resume-header .pictureSmall {
+    width: 220px;
+    height: 10px;
 }
 
 .resume-header .name {
   font-size: 2.25rem;
   letter-spacing: 0.175rem;
   font-weight: 900;
+}
+
+.resume-header .surnname {
+    font-size: 2.25rem;
+    letter-spacing: 0.175rem;
+    font-weight: 400;
+}
+
+.resume-header .job {
+    font-size: 1.00rem;
+    letter-spacing: 0.175rem;
+    font-weight: 400;
 }
 
 .resume-header .title {
