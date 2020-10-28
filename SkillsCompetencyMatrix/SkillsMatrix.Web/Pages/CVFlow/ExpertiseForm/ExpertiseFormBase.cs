@@ -43,7 +43,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.ExpertiseForm
 
         protected EditContext editContext;
 
-        protected string expertisID { get; set; }
+        protected string expertiseID { get; set; }
 
         private bool edit = false;
 
@@ -79,7 +79,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.ExpertiseForm
             if (edit == false)
             {
                 userExpertise.UserId = UserId;
-                userExpertise.ExpertiseId = Int32.Parse(expertisID);
+                userExpertise.ExpertiseId = Int32.Parse(expertiseID);
                 await UserExpertiseService.Create(userExpertise);
                 await OnInitializedAsync();
                 NavigationManager.NavigateTo($"/expertise");

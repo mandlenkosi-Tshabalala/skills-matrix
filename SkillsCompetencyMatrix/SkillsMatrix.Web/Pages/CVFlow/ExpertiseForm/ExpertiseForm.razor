@@ -81,7 +81,8 @@
                     <div class="form-row">
                         <div class="form-group col-6">
                             <label>Expertise</label>
-                            <InputSelect @bind-Value="expertisID" class="form-control">
+                            <InputSelect @bind-Value="this.expertiseID" class="form-control">
+                                <option value="0" selected>Selet Expertise...</option>
                                 @if (Expertises != null)
                                 {
 
