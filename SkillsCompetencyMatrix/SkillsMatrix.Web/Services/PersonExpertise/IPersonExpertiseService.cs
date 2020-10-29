@@ -11,7 +11,8 @@ namespace SkillsMatrix.Web.Services
       Task<UserExpertise> Update(UserExpertise Expertise);
       Task<IEnumerable<UserExpertise>> GetExpertiseCategories();
       Task<List<UserExpertise>> GetAll(int UserID);
-      Task Delete(int Id);
-
+      Task Delete(int id);
+      Task<UserExpertise> GetByUserAndExpertise(int UserId, int ExpertiseId);
+      Task DeleteByUserAndExpertise(int UserId, int ExpertiseId);
     }
 }

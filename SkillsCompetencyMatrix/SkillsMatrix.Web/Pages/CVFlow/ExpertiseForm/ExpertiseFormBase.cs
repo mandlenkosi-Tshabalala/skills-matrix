@@ -81,18 +81,18 @@ namespace SkillsMatrix.Web.Pages.CVFlow.ExpertiseForm
                 userExpertise.UserId = UserId;
                 userExpertise.ExpertiseId = Int32.Parse(expertiseID);
                 await UserExpertiseService.Create(userExpertise);
+                userExpertise = new UserExpertise();
                 await OnInitializedAsync();
                 NavigationManager.NavigateTo($"/expertise");
-                userExpertise = new UserExpertise();
 
             }
             else
             {
                 await UserExpertiseService.Update(userExpertise);
+                userExpertise = new UserExpertise();
                 await OnInitializedAsync();
                 edit = false;
                 NavigationManager.NavigateTo($"/expertise");
-                userExpertise = new UserExpertise();
 
 
             }
@@ -136,7 +136,9 @@ namespace SkillsMatrix.Web.Pages.CVFlow.ExpertiseForm
 
         protected async Task GetExpertise(int id)
         {
-            userExpertise = await UserExpertiseService.Get(id);
+            userExpertise = await UserExpertiseService.GetByUserAndExpertise(UserId, id);
+            expertiseID = id.ToString();
+            await OnInitializedAsync();
             edit = true;
 
         }
@@ -146,7 +148,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.ExpertiseForm
 
             if (id != 0)
             {
-                await UserExpertiseService.Delete(id);
+                await UserExpertiseService.DeleteByUserAndExpertise(UserId, id);
 
                 await OnInitializedAsync();
                 NavigationManager.NavigateTo($"/expertise");

@@ -82,7 +82,7 @@
                         <div class="form-group col-6">
                             <label>Expertise</label>
                             <InputSelect @bind-Value="this.expertiseID" class="form-control">
-                                <option value="0" selected>Selet Expertise...</option>
+                                <option value="0" selected>Select Expertise...</option>
                                 @if (Expertises != null)
                                 {
 
@@ -111,7 +111,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Name</th>
-                        <th scope="col">Update</th>
+                        @*<th scope="col">Update</th>*@
                         <th scope="col">Delete</th>
                     </tr>
                 </thead>
@@ -120,7 +120,7 @@
                     {
                         <tr>
                             <td>@userExpertise.Expertise.Name</td>
-                            <td><a @onclick="@(()=>GetExpertise(userExpertise.ExpertiseId))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-edit"></i></a></td>
+                            @*<td><a @onclick="@(()=>GetExpertise(userExpertise.ExpertiseId))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-edit"></i></a></td>*@
                             <td><a @onclick="@(()=>DeleteExpertise(userExpertise.ExpertiseId))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-trash"></i></a></td>
                         </tr>
                     }

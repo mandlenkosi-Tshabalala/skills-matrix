@@ -34,12 +34,12 @@ namespace SkillsMatrix.Api.Controllers
             }
         }
 
-        [HttpGet("{id:int}")]
-        public async Task<ActionResult<UserExpertise>> GetUserExpertise(int id)
+        [HttpGet("[action]")]
+        public async Task<ActionResult<UserExpertise>> GetUserExpertise(int UserId, int ExpertiseId)
         {
             try
             {
-                var result = await userExpertiseRepository.GetById(id);
+                var result = await userExpertiseRepository.GetByUserAndExpertiseId(UserId, ExpertiseId);
 
                 if (result == null)
                 {
@@ -87,9 +87,20 @@ namespace SkillsMatrix.Api.Controllers
                     return BadRequest();
                 }
 
-                var result = await userExpertiseRepository.Add(UserExpertise);
+                var checkexist = await userExpertiseRepository.GetByUserAndExpertiseId(UserExpertise.UserId, UserExpertise.ExpertiseId);
 
-                return CreatedAtAction(nameof(GetUserExpertise), new { id = result.Id }, result);
+                if (checkexist == null)
+                {
+                    var result = await userExpertiseRepository.Add(UserExpertise);
+
+                    return CreatedAtAction(nameof(GetUserExpertise), new { id = result.Id }, result);
+                }
+                else
+                {
+
+                    var result = await userExpertiseRepository.UnDeleteByUserAndExpertiseId(UserExpertise.UserId, UserExpertise.ExpertiseId);
+                    return UserExpertise;
+                }
             }
             catch (Exception ex)
             {
@@ -141,6 +152,27 @@ namespace SkillsMatrix.Api.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                  "Error deleting data " + ex.Message);
+            }
+        }
+
+        [HttpDelete("[action]/{UserId:int}/{ExpertiseId:int}")]
+        public async Task<ActionResult<UserExpertise>> DeleteByUserExpertiseIds(int UserId, int ExpertiseId)
+        {
+            try
+            {
+                var result = await userExpertiseRepository.DeleteByUserAndExpertiseId(UserId, ExpertiseId);
+
+                if (result == null)
+                {
+                    return NotFound();
+                }
+
+                return result;
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                   "Error retrieving data from the database");
             }
         }
     }

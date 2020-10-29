@@ -76,14 +76,15 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EmploymentHistoryForm
                 {
                     personEmployment.UserId = UserId;
                     await EmployementService.Create(personEmployment);
+                    personEmployment = new Employment();
                     await OnInitializedAsync();
                     NavigationManager.NavigateTo($"/personEmpolyment");
-                    personEmployment = new Employment();
 
                 }
                 else
                 {
                     await EmployementService.Update(personEmployment);
+                    personEmployment = new Employment();
                     await OnInitializedAsync();
                     edit = false;
                     NavigationManager.NavigateTo($"/personEmpolyment");
@@ -115,6 +116,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EmploymentHistoryForm
         protected async Task GetEmployment(int id)
         {
             personEmployment = await EmployementService.Get(id);
+            await OnInitializedAsync();
             edit = true;
 
         }

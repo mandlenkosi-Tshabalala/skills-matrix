@@ -25,7 +25,12 @@ namespace SkillsMatrix.Web.Services
 
         public async Task<UserExpertise> Get(int Id)
         {
-           return await httpClient.GetJsonAsync<UserExpertise>($"api/UserExpertise/{Id}");
+           return await httpClient.GetJsonAsync<UserExpertise>($"api/UserExpertise/GetUserExpertise/{Id}");
+        }
+
+        public async Task<UserExpertise> GetByUserAndExpertise(int UserId, int ExpertiseId)
+        {
+            return await httpClient.GetJsonAsync<UserExpertise>($"api/UserExpertise/GetUserExpertise?UserId=" + UserId + "&ExpertiseId=" + ExpertiseId);
         }
 
         public async Task<UserExpertise> Update(UserExpertise PersonExpertise)
@@ -46,6 +51,11 @@ namespace SkillsMatrix.Web.Services
         public async Task Delete(int Id)
         {
             await httpClient.DeleteAsync($"api/UserExpertise/{Id}");
+        }
+
+        public async Task DeleteByUserAndExpertise(int UserId, int ExpertiseId)
+        {
+            await httpClient.DeleteAsync($"api/UserExpertise/DeleteByUserExpertiseIds/{UserId}/{ExpertiseId}");
         }
     }
 }
