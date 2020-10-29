@@ -68,27 +68,30 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EmploymentHistoryForm
         protected async void HandleValidSubmit()
         {
 
+            var isValid = editContext.Validate();
 
-            if (edit == false)
+            if (isValid)
             {
-                personEmployment.UserId = UserId;
-                await EmployementService.Create(personEmployment);
-                await OnInitializedAsync();
-                NavigationManager.NavigateTo($"/personEmpolyment");
-                personEmployment = new Employment();
+                if (edit == false)
+                {
+                    personEmployment.UserId = UserId;
+                    await EmployementService.Create(personEmployment);
+                    await OnInitializedAsync();
+                    NavigationManager.NavigateTo($"/personEmpolyment");
+                    personEmployment = new Employment();
 
+                }
+                else
+                {
+                    await EmployementService.Update(personEmployment);
+                    await OnInitializedAsync();
+                    edit = false;
+                    NavigationManager.NavigateTo($"/personEmpolyment");
+                    personEmployment = new Employment();
+
+
+                }
             }
-            else
-            {
-                await EmployementService.Update(personEmployment);
-                await OnInitializedAsync();
-                edit = false;
-                NavigationManager.NavigateTo($"/personEmpolyment");
-                personEmployment = new Employment();
-
-
-            }
-
         }
 
         protected void Back()
