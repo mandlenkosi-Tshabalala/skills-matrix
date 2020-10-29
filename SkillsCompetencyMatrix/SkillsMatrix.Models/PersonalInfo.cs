@@ -34,5 +34,10 @@ namespace SkillsMatrix.Models
 
         public string ImagePath { get; set; }
 
+        [StringLength(250)]
+        public string PlaceOfBirth { get; set; }
+
+        [StringLength(50)]
+        public string MaritalStatus { get; set; }
     }
 }

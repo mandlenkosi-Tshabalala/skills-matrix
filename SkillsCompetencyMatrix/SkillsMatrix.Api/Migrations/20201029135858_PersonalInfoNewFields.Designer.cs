@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SkillsMatrix.Api.Models;
 
 namespace SkillsMatrix.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201029135858_PersonalInfoNewFields")]
+    partial class PersonalInfoNewFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -361,8 +363,7 @@ namespace SkillsMatrix.Api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MaritalStatus")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MiddleName")
                         .HasColumnType("nvarchar(max)");
@@ -376,8 +377,7 @@ namespace SkillsMatrix.Api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PlaceOfBirth")
-                        .HasColumnType("nvarchar(250)")
-                        .HasMaxLength(250);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Profile")
                         .IsRequired()
