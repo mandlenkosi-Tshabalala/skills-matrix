@@ -1,5 +1,6 @@
 ﻿@attribute [Authorize]
 @page "/viewCV"
+@page "/viewCV/{ViewUserId:int}"
 @inherits CVBasecs
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
 
@@ -30,7 +31,7 @@
                             <p class="mb-0">@personalInfo.Profile</p>
                         </div>
                     </section><!--//summary-section-->
-                   
+
                     <section class="resume-section experience-section mb-5">
 
                         <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Professional Experiences</h2>
@@ -55,8 +56,8 @@
                                 </div><!--//resume-timeline-->
                             </div>
                         }
-                        </section><!--//experience-section-->
-                   
+                    </section><!--//experience-section-->
+
 
 
                     <section class="resume-section experience-section mb-5">
@@ -72,7 +73,7 @@
                                     </div><!--//resume-timeline-item-header-->
                                     <div class="resume-timeline-item-desc">
                                         <p>
-                                            6 months trainee in kitchen department which is in charge at Cold Kitchen,Hot Kitchen, 
+                                            6 months trainee in kitchen department which is in charge at Cold Kitchen,Hot Kitchen,
                                             Semi-Fine Dining, Commissary, Banquet, Larder, and Grill.
                                         </p>
                                     </div><!--//resume-timeline-item-desc-->
@@ -83,7 +84,7 @@
                                     </div><!--//resume-timeline-item-header-->
                                     <div class="resume-timeline-item-desc">
                                         <p>
-                                            12 months trainee in kitchen department which is in charge at Cold Kitchen,Hot Kitchen, 
+                                            12 months trainee in kitchen department which is in charge at Cold Kitchen,Hot Kitchen,
                                             Semi-Fine Dining, Commissary, Banquet, Larder, and Grill.
                                         </p>
                                     </div>
@@ -114,7 +115,7 @@
                                 </p>
                                 <p>
                                     <div class="mb-1">Place of Birth</div>
-                                    <div class="mb-1">Pretoria</div>
+                                    <div class="mb-1">@personalInfo.PlaceOfBirth</div>
                                 </p>
                                 <p>
                                     <div class="mb-1">Nationality</div>
@@ -122,40 +123,42 @@
                                 </p>
                                 <p>
                                     <div class="mb-1">Marital Status</div>
-                                    <div class="mb-1">Single</div>
+                                    <div class="mb-1">@personalInfo.MaritalStatus</div>
                                 </p>
                             </div>
                         </section><!--//Address-section-->
                         <section class="resume-section education-section mb-5">
                             <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Education</h2>
-                           <div class="resume-section-content">
+                            <div class="resume-section-content">
 
-                               @foreach (var education in educations) {
-                                <ul class="list-unstyled">
-                                    <li class="mb-2">
-                                        <div class="resume-degree font-weight-bold">@education.FieldOfStudy</div>
-                                        <div class="resume-degree-org">@education.Institution</div>
-                                        <div class="resume-degree-time">@education.QualificationStartDate.ToShortDateString() - @education.QualificationEndDate.ToShortDateString()</div>
-                                    </li>
-                                </ul>
-                               }
+                                @foreach (var education in educations)
+                                {
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2">
+                                            <div class="resume-degree font-weight-bold">@education.FieldOfStudy</div>
+                                            <div class="resume-degree-org">@education.Institution</div>
+                                            <div class="resume-degree-time">@education.QualificationStartDate.ToShortDateString() - @education.QualificationEndDate.ToShortDateString()</div>
+                                        </li>
+                                    </ul>
+                                }
                             </div>
                         </section><!--//education-section-->
                         <section class="resume-section skills-section mb-5">
                             <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Skills</h2>
                             <div class="resume-section-content">
                                 <div class="resume-skill-item">
-                                @foreach (var skill in skills) {
-                                    <ul class="list-unstyled mb-4">
-                                        <li class="mb-2">
-                                            <div class="resume-skill-name">@skill.Name</div>
-                                            <div class="progress resume-progress">
-                                            <div class="progress-bar theme-progress-bar-dark" role="progressbar" style="width: @skill.Level" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </li>
+                                    @foreach (var skill in skills)
+                                    {
+                                        <ul class="list-unstyled mb-4">
+                                            <li class="mb-2">
+                                                <div class="resume-skill-name">@skill.Name</div>
+                                                <div class="progress resume-progress">
+                                                    <div class="progress-bar theme-progress-bar-dark" role="progressbar" style="width: @skill.Level" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </li>
 
-                                    </ul>
-                                }
+                                        </ul>
+                                    }
                                 </div><!--//resume-skill-item-->
 
                             </div><!--resume-section-content-->

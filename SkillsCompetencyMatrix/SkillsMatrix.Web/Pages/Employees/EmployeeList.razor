@@ -120,6 +120,7 @@
                         <th>ID Number</th>
                         <th>EMail</th>
                         <th>Phone Number</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -133,6 +134,7 @@
                             <td>@emp.IdNumber</td>
                             <td>@emp.Email</td>
                             <td>@emp.Phone</td>
+                            <td><button type="submit" @onclick="@(() => ViewCV(emp.UserId))"class="btn btn-primary btn-sm mr-1 ">View CV</button></td>
                         </tr>
                     }
                 </tbody>

@@ -98,6 +98,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EducationForm
                     try
                     {
                         await EducationService.Update(personEducation);
+                        personEducation = new Education();
                         await OnInitializedAsync();
                         edit = false;
                         toastService.ShowSuccess("The information has been saved successfully", "Saved");
@@ -143,6 +144,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EducationForm
         protected async Task GetEducation(int id)
         {
             personEducation = await EducationService.Get(id);
+            await OnInitializedAsync();
             edit = true;
 
         }

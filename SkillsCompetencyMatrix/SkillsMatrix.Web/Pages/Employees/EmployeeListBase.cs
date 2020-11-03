@@ -17,7 +17,7 @@ namespace SkillsMatrix.Web.Pages.Employees
         public IPersonService PersonService { get; set; }
 
         [Inject]
-        public IPersonExpertiseService PersonExpertiseService { get; set; }
+        public IExpertiseService ExpertiseService { get; set; }
 
         [Inject]
         public IPersonCompetencies PersonCompetenciesService { get; set; }
@@ -36,12 +36,15 @@ namespace SkillsMatrix.Web.Pages.Employees
 
         public IEnumerable<Competency> competencyList { set; get; }
 
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
 
             Employees = await PersonService.GetAllEmployees("", 0, 0);
-           // functionalList = await PersonExpertiseService.GetExpertiseCategories();
-           // competencyList = await PersonCompetenciesService.GetCompetencies();
+            functionalList = await ExpertiseService.GetAll();
+            //competencyList = await PersonCompetenciesService.GetCompetencies();
 
         }
 
@@ -59,6 +62,12 @@ namespace SkillsMatrix.Web.Pages.Employees
 
         protected void DownloadCV()
         {
+        }
+
+        protected void ViewCV(int ViewUserID)
+        {
+
+            NavigationManager.NavigateTo($"/viewCV/" + ViewUserID.ToString());
         }
 
         public List<int> EmployeeCheckedList { get; set; } = new List<int>();

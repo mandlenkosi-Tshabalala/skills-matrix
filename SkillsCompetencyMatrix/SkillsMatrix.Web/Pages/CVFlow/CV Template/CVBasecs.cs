@@ -52,6 +52,9 @@ namespace SkillsMatrix.Web.Pages.CVFlow.NewFolderForm
         [Parameter]
         public string PersonId { get; set; }
 
+        [Parameter]
+        public int ViewUserId { get; set; }
+
         protected PersonalInfo personalInfo = new PersonalInfo();
         protected Address address = new Address();
         protected List<Skill> skills = new List<Skill>();
@@ -63,20 +66,31 @@ namespace SkillsMatrix.Web.Pages.CVFlow.NewFolderForm
             var principalUser = (await AuthState).User;
 
 
-            if (principalUser.Identity.IsAuthenticated)
+            if (ViewUserId > 0)
             {
-                var user = await UserManager.FindByEmailAsync(principalUser.Identity.Name);
-                if (user != null)
+                personalInfo = await personService.GetPersonByUserId(ViewUserId);
+                address = await AddressService.Get(ViewUserId);
+                skills = await SkillsService.GetSkills(ViewUserId);
+                educations = await educationService.GetEducations(ViewUserId);
+                employments = await employementHistoryService.GetEmployment(ViewUserId);
+            }
+            else
+            {
+                if (principalUser.Identity.IsAuthenticated)
                 {
-                    UserId = user.Id;
+                    var user = await UserManager.FindByEmailAsync(principalUser.Identity.Name);
+                    if (user != null)
+                    {
+                        UserId = user.Id;
 
-                    personalInfo = await personService.GetPersonByUserId(UserId);
-                    address = await AddressService.Get(UserId);
-                    skills = await SkillsService.GetSkills(UserId);
-                    educations = await educationService.GetEducations(UserId);
-                    employments = await employementHistoryService.GetEmployment(UserId);
+                        personalInfo = await personService.GetPersonByUserId(UserId);
+                        address = await AddressService.Get(UserId);
+                        skills = await SkillsService.GetSkills(UserId);
+                        educations = await educationService.GetEducations(UserId);
+                        employments = await employementHistoryService.GetEmployment(UserId);
 
 
+                    }
                 }
             }
 
@@ -98,9 +112,9 @@ namespace SkillsMatrix.Web.Pages.CVFlow.NewFolderForm
             //Initialize the HTML to PDF converter
             HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter(HtmlRenderingEngine.WebKit);
             WebKitConverterSettings webKitSettings = new WebKitConverterSettings();
-          //  webKitSettings.WebKitPath = HostingEnvironment.MapPath("~/QtBinaries");
+            //  webKitSettings.WebKitPath = HostingEnvironment.MapPath("~/QtBinaries");
             //Assign the WebKit settings to HTML to PDF converter 
-           // htmlConverter.ConverterSettings = webKitSettings;
+            // htmlConverter.ConverterSettings = webKitSettings;
             //Convert url to pdf
             PdfDocument document = htmlConverter.Convert(url);
             MemoryStream stream = new MemoryStream();
