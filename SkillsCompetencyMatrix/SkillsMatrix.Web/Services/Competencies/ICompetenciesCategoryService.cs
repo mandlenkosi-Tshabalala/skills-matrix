@@ -15,7 +15,7 @@ namespace SkillsMatrix.Web.Services
 
       Task<IEnumerable<CompetencyCategory>> GetCompetencies();
 
-      Task<List<CompetencyCategory>> GetAll(int UserID);
+      Task<List<CompetencyCategory>> GetAll();
         Task Delete(int Id);
 
     }

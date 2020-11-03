@@ -23,7 +23,7 @@ namespace SkillsMatrix.Api.Controllers
             this._logger = logger;
         }
 
-        [HttpGet("[action]")]
+        [HttpGet]
         public async Task<ActionResult> GetCompetencies()
         {
             try
@@ -38,6 +38,23 @@ namespace SkillsMatrix.Api.Controllers
                     "Error retrieving data from the database");
             }
         }
+
+        [HttpGet("List/{id}")]
+        public async Task<ActionResult> GetCompetencies(int id)
+        {
+            try
+            {
+                _logger.LogInformation("GetCompetencies Started");
+                return Ok(await competencyRepository.GetAllByID(id));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error retrieving data from the database", null);
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving data from the database");
+            }
+        }
+
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Competency>> GetCompetency(int id)

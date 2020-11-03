@@ -15,5 +15,6 @@ namespace SkillsMatrix.Api.Models
         {
             this.appDbContext = appDbContext;
         }
+
     }
 }

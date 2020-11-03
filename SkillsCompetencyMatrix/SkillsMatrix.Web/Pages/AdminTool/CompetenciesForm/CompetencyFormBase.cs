@@ -17,7 +17,10 @@ namespace SkillsMatrix.Web.Pages.AdminTool
         [Inject]
         public IToastService toastService { get; set; }
         [Inject]
-        public IExpertiseService expertiseService { get; set; }
+        public ICompetenciesCategoryService CompetenciesCategoryService { get; set; }
+
+        [Inject]
+        public ICompetenciesService CompetenciesService { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -34,73 +37,122 @@ namespace SkillsMatrix.Web.Pages.AdminTool
         protected Task<AuthenticationState> AuthState { get; set; }
 
         public int UserId { get; set; }
-        protected Expertise expertise = new Expertise();
-        protected List<Expertise> expertises = new List<Expertise>();
+        protected Competency competency = new Competency();
+        protected List<Competency> competencies = new List<Competency>();
+
+        protected CompetencyCategory competencyCategory = new CompetencyCategory();
+        protected List<CompetencyCategory> competencyCategories = new List<CompetencyCategory>();
+
+        protected int competencyCategoryID { get; set; }
+
         protected EditContext editContext;
 
         protected override async Task OnInitializedAsync()
         {
             var principalUser = (await AuthState).User;
 
-            editContext = new EditContext(expertise);
+            editContext = new EditContext(competency);
 
             if (principalUser.Identity.IsAuthenticated)
             {
                 var user = await UserManager.FindByEmailAsync(principalUser.Identity.Name);
                 if (user != null)
                 {
-                    UserId = user.Id;
-
-
-                    expertises = await expertiseService.GetAll();
-
-
+                   // competencies = await CompetenciesService.GetAll();
+                    competencyCategories = await CompetenciesCategoryService.GetAll();
                 }
             }
 
         }
 
-        protected async void HandleValidSubmit()
+        protected async void HandleCategory()
         {
 
 
             if (edit == false)
             {
 
-                await expertiseService.Create(expertise);
+                await CompetenciesCategoryService.Create(competencyCategory);
                 await OnInitializedAsync();
-                NavigationManager.NavigateTo($"/adminExpertise");
-                expertise = new Expertise();
+                NavigationManager.NavigateTo($"/adminCompetency");
+                competencyCategory = new CompetencyCategory();
 
             }
             else
             {
-                await expertiseService.Update(expertise);
+                await CompetenciesCategoryService.Update(competencyCategory);
                 await OnInitializedAsync();
                 edit = false;
-                NavigationManager.NavigateTo($"/adminExpertise");
-                expertise = new Expertise();
+                NavigationManager.NavigateTo($"/adminCompetency");
+                competencyCategory = new CompetencyCategory();
 
 
             }
 
         }
 
-
-        protected async Task GetExpertise(int id)
+        protected async void HandleCompetency()
         {
-            expertise = await expertiseService.Get(id);
+            if (edit == false)
+            {
+                competency.CatagoryId = competencyCategoryID;
+                await CompetenciesService.Create(competency);
+                await CompetenciesService.GetAll(competencyCategoryID);
+            }
+            else
+            {
+                await CompetenciesService.Update(competency);
+                await OnInitializedAsync();
+                edit = false;
+                NavigationManager.NavigateTo($"/adminCompetency");
+                competency = new Competency();
+            }
+
+        }
+
+        protected async void SearchCompetency(ChangeEventArgs e)
+        {
+             competencyCategoryID = (Convert.ToInt32(e.Value));
+
+             competencies = await  CompetenciesService.GetAll(competencyCategoryID);
+
+        }
+
+
+
+
+        protected async Task GetCompetency(int id)
+        {
+            competency = await CompetenciesService.Get(id);
             edit = true;
 
         }
 
-        protected async Task DeleteExpertise(int id)
+        protected async Task GetCompetencyCategory(int id)
         {
-            await expertiseService.Delete(id);
+            competencyCategory = await CompetenciesCategoryService.Get(id);
+            edit = true;
+
+        }
+
+        protected async Task DeleteCategory(int id)
+        {
+            await CompetenciesCategoryService.Delete(id);
 
             await OnInitializedAsync();
-            NavigationManager.NavigateTo($"/adminExpertise");
-            expertise = new Expertise();
+            NavigationManager.NavigateTo($"/adminCompetency");
+            competency = new Competency();
+
+
+        }
+
+        protected async Task DeleteCompetency(int id)
+        {
+            await CompetenciesService.Delete(id);
+
+            await OnInitializedAsync();
+            NavigationManager.NavigateTo($"/adminCompetency");
+            competencyCategory = new CompetencyCategory();
 
 
         }

@@ -8,5 +8,6 @@ namespace SkillsMatrix.Api.Models
 {
     public interface ICompetencyCategoryRepository : IGenericRepository<CompetencyCategory>
     {
+   
     }
 }

@@ -9,5 +9,6 @@ namespace SkillsMatrix.Api.Models
     public interface ICompetencyRepository : IGenericRepository<Competency>
     {
         Task<IEnumerable<Competency>> Search(string name);
+        Task<IEnumerable<Competency>> GetAllByID(int Id);
     }
 }

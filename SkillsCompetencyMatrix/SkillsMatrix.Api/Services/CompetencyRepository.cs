@@ -17,6 +17,16 @@ namespace SkillsMatrix.Api.Models
             this.appDbContext = appDbContext;
         }
 
+        public async Task<IEnumerable<Competency>> GetAllByID(int Id)
+        {
+
+            IQueryable<Competency> query = appDbContext.Competencies.Where(c => c.CatagoryId == Id);
+
+
+            return await query.ToListAsync();
+
+        }
+
         public async Task<IEnumerable<Competency>> Search(string name)
         {
             IQueryable<Competency> query = appDbContext.Competencies;

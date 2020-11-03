@@ -36,9 +36,9 @@ namespace SkillsMatrix.Web.Services
             return await httpClient.GetJsonAsync<IEnumerable<Competency>>($"api/Competencies/GetCompetencies");
         }
 
-        public async Task<List<Competency>> GetAll(int UserID)
+        public async Task<List<Competency>> GetAll(int id)
         {
-            return await httpClient.GetJsonAsync<List<Competency>>($"api/Competencies/List/{UserID}");
+            return await httpClient.GetJsonAsync<List<Competency>>($"api/Competencies/List/{id}");
         }
 
 
