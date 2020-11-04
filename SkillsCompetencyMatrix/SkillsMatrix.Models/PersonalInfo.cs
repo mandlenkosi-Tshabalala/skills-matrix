@@ -26,6 +26,7 @@ namespace SkillsMatrix.Models
         [Required]
         public string Nationality { get; set; }
         [Required]
+        [EmailAddress]
         public string Email { get; set; }
         [Required]
         public string Phone { get; set; }
