@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using SkillsMatrix.Web.Services;
 using Blazored.Toast.Services;
 using System;
+using Microsoft.JSInterop;
 
 namespace SkillsMatrix.Web.Pages.CVFlow.AddressForm
 {
@@ -27,12 +28,16 @@ namespace SkillsMatrix.Web.Pages.CVFlow.AddressForm
         [Inject]
         protected UserManager<IdentityUser<int>> UserManager { get; set; }
 
+        [Inject]
+        IJSRuntime jsRuntime { get; set; }
+
         [CascadingParameter]
         protected Task<AuthenticationState> AuthState { get; set; }
 
         public int UserId { get; set; }
         protected Address address = new Address();
         protected EditContext editContext;
+        private bool SetupDone { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -52,6 +57,12 @@ namespace SkillsMatrix.Web.Pages.CVFlow.AddressForm
                         editContext = new EditContext(address);
                     }
                 }
+            }
+
+            if (!SetupDone)
+            {
+                SetupDone = true;
+                await SetupAddress();
             }
         }
 
@@ -151,6 +162,11 @@ namespace SkillsMatrix.Web.Pages.CVFlow.AddressForm
         protected void Back()
         {
             NavigationManager.NavigateTo($"/personDetails");
+        }
+
+        private async Task SetupAddress()
+        {
+            await jsRuntime.InvokeVoidAsync("DoScriptSetup");
         }
 
 
