@@ -16,7 +16,18 @@
                     <div class="primary-info">
                         <h1 class="name mt-0 mb-1 text-black text-uppercase text-uppercase">@personalInfo.FirstName</h1>
                         <h1 class="surnname mt-0 mb-1 text-black text-uppercase text-uppercase">@personalInfo.LastName</h1>
-                        <div class="job mt-0 mb-1 text-black text-uppercase text-uppercase">Full Stack Developer</div>
+                        @{ 
+                            var LatestRole = string.Empty;
+                        }
+                        @if (employments.Count > 0)
+                        {
+                            @foreach (var employment in employments)
+                            {
+                                LatestRole = employment.Role.ToString();
+                            }
+                        }
+                        }
+                        <div class="job mt-0 mb-1 text-black text-uppercase text-uppercase">@LatestRole</div>
                     </div><!--//primary-info-->
 
                 </div><!--//media-body-->
@@ -107,22 +118,22 @@
                             </div>
                             <div class="resume-section-content">
                                 <p>
-                                    <div class="mb-1">eriksenfood.com</div>
+                                    <div class="mb-1"></div>
                                 </p>
                                 <p>
-                                    <div class="mb-1">Date Of Birth</div>
+                                    <div class="mb-1 font-weight-bold">Date Of Birth</div>
                                     <div class="mb-1">@personalInfo.DateOfBirth.ToShortDateString()</div>
                                 </p>
                                 <p>
-                                    <div class="mb-1">Place of Birth</div>
+                                    <div class="mb-1 font-weight-bold">Place of Birth</div>
                                     <div class="mb-1">@personalInfo.PlaceOfBirth</div>
                                 </p>
                                 <p>
-                                    <div class="mb-1">Nationality</div>
+                                    <div class="mb-1 font-weight-bold">Nationality</div>
                                     <div class="mb-1">@personalInfo.Nationality</div>
                                 </p>
                                 <p>
-                                    <div class="mb-1">Marital Status</div>
+                                    <div class="mb-1 font-weight-bold">Marital Status</div>
                                     <div class="mb-1">@personalInfo.MaritalStatus</div>
                                 </p>
                             </div>

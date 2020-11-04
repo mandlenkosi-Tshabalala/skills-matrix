@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Identity;
 using SkillsMatrix.Models;
 using SkillsMatrix.Web.Services;
 using System;
-
 using System.Threading.Tasks;
 
 namespace SkillsMatrix.Web.Pages.CVFlow.PersonalDetailsForm
@@ -146,5 +145,8 @@ namespace SkillsMatrix.Web.Pages.CVFlow.PersonalDetailsForm
                 toastService.ShowError("Please make sure that you fill all required field", "Error");
             }
         }
+
     }
+
 }
+

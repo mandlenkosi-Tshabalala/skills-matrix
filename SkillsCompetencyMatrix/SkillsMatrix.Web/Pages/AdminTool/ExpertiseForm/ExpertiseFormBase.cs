@@ -62,25 +62,31 @@ namespace SkillsMatrix.Web.Pages.AdminTool
 
         protected async void HandleValidSubmit()
         {
-
-
-            if (edit == false)
+            try
             {
 
-                await expertiseService.Create(expertise);
-                await OnInitializedAsync();
-                NavigationManager.NavigateTo($"/adminExpertise");
-                expertise = new Expertise();
+                if (edit == false)
+                {
 
+                    await expertiseService.Create(expertise);
+                    await OnInitializedAsync();
+                    NavigationManager.NavigateTo($"/adminExpertise");
+                    expertise = new Expertise();
+
+                }
+                else
+                {
+                    await expertiseService.Update(expertise);
+                    await OnInitializedAsync();
+                    edit = false;
+                    NavigationManager.NavigateTo($"/adminExpertise");
+                    expertise = new Expertise();
+
+
+                }
             }
-            else
+            catch(Exception ex)
             {
-                await expertiseService.Update(expertise);
-                await OnInitializedAsync();
-                edit = false;
-                NavigationManager.NavigateTo($"/adminExpertise");
-                expertise = new Expertise();
-
 
             }
 
