@@ -29,44 +29,6 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
 
-    <script type="text/javascript">
-        $('#btn1').click(function () {
-            $.ajax({
-                url: 'https://localhost:44349/viewCV?url=http://www.google.com',
-                type: "GET",
-                success: function (data) {
-                    var filename = "HtmlToPDF.pdf";
-                    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-                        // IE and Edge version
-                        var byteCharacters = atob(data);
-                        var byteNumbers = new Array(byteCharacters.length);
-                        for (var i = 0; i < byteCharacters.length; i++) {
-                            byteNumbers[i] = byteCharacters.charCodeAt(i);
-                        }
-                        var byteArray = new Uint8Array(byteNumbers);
-                        var blob = new Blob([byteArray], { type: 'application/pdf' });
-                        window.navigator.msSaveOrOpenBlob(blob, filename);
-
-                    }
-                    else if (typeof window.chrome !== 'undefined') {
-                        // Chrome version
-                        var pdfAsDataUri = "data:application/pdf;base64, " + data;
-                        var a = document.createElement('a');
-                        a.href = pdfAsDataUri;
-                        a.type = 'application/pdf';
-                        a.download = filename;
-                        a.click();
-                    } else {
-                        // Firefox version
-                        window.open("data:application/pdf;base64, " + data);
-                    }
-                }
-            });
-        });
-    </script>
-
-
-
     <script src="_framework/blazor.server.js"></script>
 
     <script src="layout/vendor/jquery/jquery.min.js"></script>
