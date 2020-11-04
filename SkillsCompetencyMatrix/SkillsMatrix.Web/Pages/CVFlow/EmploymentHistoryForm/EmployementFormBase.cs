@@ -74,24 +74,41 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EmploymentHistoryForm
             {
                 if (edit == false)
                 {
+                    try
+                    {
                     personEmployment.UserId = UserId;
                     await EmployementService.Create(personEmployment);
                     personEmployment = new Employment();
                     await OnInitializedAsync();
                     NavigationManager.NavigateTo($"/personEmpolyment");
-
+                    toastService.ShowSuccess("The information has been saved successfully", "Saved");
+                    }
+                    catch (Exception ex)
+                    {
+                        toastService.ShowError("There was an error when trying to save", "Error");
+                    }
                 }
                 else
                 {
-                    await EmployementService.Update(personEmployment);
+                    try
+                    {
+                        await EmployementService.Update(personEmployment);
                     personEmployment = new Employment();
                     await OnInitializedAsync();
                     edit = false;
                     NavigationManager.NavigateTo($"/personEmpolyment");
                     personEmployment = new Employment();
 
-
-                }
+                    }
+                    catch (Exception ex)
+                    {
+                        toastService.ShowError("There was an error when trying to save", "Error");
+                    }
+            }
+        }
+            else
+            {
+                toastService.ShowError("Please make sure that you fill all required field", "Error");
             }
         }
 
@@ -128,7 +145,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EmploymentHistoryForm
             await OnInitializedAsync();
             NavigationManager.NavigateTo($"/personEmpolyment");
             personEmployment = new Employment();
-
+            toastService.ShowWarning("Empolyment history is removed", "Warning");
 
         }
     }

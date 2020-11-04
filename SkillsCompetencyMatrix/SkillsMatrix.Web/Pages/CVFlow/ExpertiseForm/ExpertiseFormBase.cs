@@ -74,29 +74,51 @@ namespace SkillsMatrix.Web.Pages.CVFlow.ExpertiseForm
 
         protected async void HandleValidSubmit()
         {
+            var isValid = editContext.Validate();
 
-
-            if (edit == false)
+            if (isValid)
             {
-                userExpertise.UserId = UserId;
+
+                if (edit == false)
+            {
+               try
+                {
+                 userExpertise.UserId = UserId;
                 userExpertise.ExpertiseId = Int32.Parse(expertiseID);
                 await UserExpertiseService.Create(userExpertise);
                 userExpertise = new UserExpertise();
                 await OnInitializedAsync();
                 NavigationManager.NavigateTo($"/expertise");
+                toastService.ShowSuccess("The information has been saved successfully", "Saved");
+                    }
+                    catch (Exception ex)
+                    {
+                        toastService.ShowError("There was an error when trying to save", "Error");
+                    }
 
-            }
+                }
             else
             {
-                await UserExpertiseService.Update(userExpertise);
+              try
+              {
+                 await UserExpertiseService.Update(userExpertise);
                 userExpertise = new UserExpertise();
                 await OnInitializedAsync();
                 edit = false;
                 NavigationManager.NavigateTo($"/expertise");
+                    }
+                    catch (Exception ex)
+                    {
+                        toastService.ShowError("There was an error when trying to save", "Error");
+                    }
 
+                }
 
+        }
+            else
+            {
+                toastService.ShowError("Please make sure that you fill all required field", "Error");
             }
-
         }
 
         protected async void HandleDelete()
@@ -153,6 +175,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.ExpertiseForm
                 await OnInitializedAsync();
                 NavigationManager.NavigateTo($"/expertise");
                 userExpertise = new UserExpertise();
+                toastService.ShowWarning("Expertise is removed", "Warning");
             }
 
 

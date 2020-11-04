@@ -71,29 +71,51 @@ namespace SkillsMatrix.Web.Pages.CVFlow.ProfessionalMembershipForm
 
         protected async void HandleValidSubmit()
         {
+            var isValid = editContext.Validate();
 
-
-            if (edit == false)
+            if (isValid)
             {
-                membership.UserId = UserId;
+
+                if (edit == false)
+            {
+               try
+                {
+                 membership.UserId = UserId;
                 await ProfessionalMembershipService.Create(membership);
                 await OnInitializedAsync();
                 NavigationManager.NavigateTo($"/membership");
                 membership = new Membership();
-
-            }
+                toastService.ShowSuccess("The information has been saved successfully", "Saved");
+                    }
+                    catch (Exception ex)
+                    {
+                        toastService.ShowError("There was an error when trying to save", "Error");
+                    }
+                }
             else
             {
+             try
+               {
                 await ProfessionalMembershipService.Update(membership);
                 await OnInitializedAsync();
                 edit = false;
                 NavigationManager.NavigateTo($"/membership");
                 membership = new Membership();
+                    }
+                    catch (Exception ex)
+                    {
+                        toastService.ShowError("There was an error when trying to save", "Error");
+                    }
+                }
 
+            }
+            else
+            {
+                toastService.ShowError("Please make sure that you fill all required field", "Error");
 
             }
 
-        }
+            }
 
 
         protected void Back()
@@ -128,7 +150,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.ProfessionalMembershipForm
             await OnInitializedAsync();
             NavigationManager.NavigateTo($"/membership");
             membership = new Membership();
-
+            toastService.ShowWarning("Membership is removed", "Warning");
 
         }
     }

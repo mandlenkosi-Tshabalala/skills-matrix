@@ -71,29 +71,52 @@ namespace SkillsMatrix.Web.Pages.CVFlow.SkillsForm
 
         protected async void HandleValidSubmit()
         {
+            var isValid = editContext.Validate();
 
-
-            if (edit == false)
+            if (isValid)
             {
+
+                if (edit == false)
+            {
+              try
+                {
                 skill.UserId = UserId;
                 await SkillsService.Create(skill);
                 await OnInitializedAsync();
                 NavigationManager.NavigateTo($"/skills");
                 skill = new Skill();
-
-            }
+                toastService.ShowSuccess("The information has been saved successfully", "Saved");
+                    }
+                    catch (Exception ex)
+                    {
+                        toastService.ShowError("There was an error when trying to save", "Error");
+                    }
+                }
+            
             else
             {
+             try
+              {
                 await SkillsService.Update(skill);
                 await OnInitializedAsync();
                 edit = false;
                 NavigationManager.NavigateTo($"/skills");
                 skill = new Skill();
+                    }
+                    catch (Exception ex)
+                    {
+                        toastService.ShowError("There was an error when trying to save", "Error");
+                    }
+                }
 
+            }
+            else
+            {
+                toastService.ShowError("Please make sure that you fill all required field", "Error");
 
             }
 
-        }
+            }
 
 
         protected void Back()
@@ -128,7 +151,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.SkillsForm
             await OnInitializedAsync();
             NavigationManager.NavigateTo($"/skills");
             skill = new Skill();
-
+            toastService.ShowWarning("Skill is removed", "Warning");
 
         }
     }
