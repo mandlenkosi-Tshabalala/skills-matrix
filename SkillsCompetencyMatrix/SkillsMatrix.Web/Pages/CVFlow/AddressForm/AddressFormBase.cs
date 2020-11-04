@@ -38,6 +38,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.AddressForm
         protected Address address = new Address();
         protected EditContext editContext;
         private bool SetupDone { get; set; }
+        private static Action<Address> AddressAction;
 
         protected override async Task OnInitializedAsync()
         {
@@ -88,7 +89,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.AddressForm
                         toastService.ShowError("There was an error when trying to save", "Error");
                     }
 
-                    
+
                 }
                 else
                 {
@@ -98,12 +99,12 @@ namespace SkillsMatrix.Web.Pages.CVFlow.AddressForm
                         var result = await AddressService.Update(address);
                         NavigationManager.NavigateTo($"/personEducation");
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         toastService.ShowError("There was an error when trying to save", "Error");
                     }
 
-                    
+
 
                 }
             }
@@ -127,7 +128,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.AddressForm
                     try
                     {
                         await AddressService.Create(address);
-                        await  OnInitializedAsync();
+                        await OnInitializedAsync();
                         toastService.ShowSuccess("The information has been saved successfully", "Saved");
 
                     }
@@ -140,7 +141,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.AddressForm
                 {
                     try
                     {
-                        
+
                         var result = await AddressService.Update(address);
                         await OnInitializedAsync();
                         toastService.ShowSuccess("The information has been saved successfully", "Saved");
@@ -169,7 +170,28 @@ namespace SkillsMatrix.Web.Pages.CVFlow.AddressForm
             await jsRuntime.InvokeVoidAsync("DoScriptSetup");
         }
 
+        protected override void OnInitialized()
+        {
+            AddressAction = UpdateAddress;
+        }
 
+        private void UpdateAddress(Address newAddress)
+        {
+            address.StreetNumber = newAddress.StreetNumber;
+            address.StreetName = newAddress.StreetName;
+            address.City = newAddress.City;
+            address.State = newAddress.State;
+            address.ZipCode = newAddress.ZipCode;
+            address.Country = newAddress.Country;
+            StateHasChanged();
+        }
+
+        [JSInvokable]
+        public static void UpdateAddressCaller(string Address)
+        {
+            Address newAddress = System.Text.Json.JsonSerializer.Deserialize<Address>(Address);
+            AddressAction.Invoke(newAddress);
+        }
     }
 }
 

@@ -52,6 +52,34 @@ function fillInAddress() {
             document.getElementById(addressType).value = val;
         }
     }
+
+    const address = {};
+
+    for (var i = 0; i < place.address_components.length; i++) {
+        var addressType = place.address_components[i].types[0];
+        if (componentForm[addressType]) {
+            if (addressType == "street_number") {
+                address.StreetNumber = place.address_components[i][componentForm[addressType]];
+            }
+            else if (addressType == "route") {
+                address.StreetName = place.address_components[i][componentForm[addressType]];
+            }
+            else if (addressType == "locality") {
+                address.City = place.address_components[i][componentForm[addressType]];
+            }
+            else if (addressType == "administrative_area_level_1") {
+                address.State = place.address_components[i][componentForm[addressType]];
+            }
+            else if (addressType == "postal_code") {
+                address.ZipCode = place.address_components[i][componentForm[addressType]];
+            }
+            else if (addressType == "country") {
+                address.Country = place.address_components[i][componentForm[addressType]];
+            }
+        }
+    }
+
+    DotNet.invokeMethodAsync('SkillsMatrix.Web', 'UpdateAddressCaller', JSON.stringify(address));
 }
 
 // Bias the autocomplete object to the user's geographical location,
