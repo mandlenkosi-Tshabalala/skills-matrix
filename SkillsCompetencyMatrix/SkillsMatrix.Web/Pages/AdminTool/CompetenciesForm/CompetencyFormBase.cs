@@ -113,8 +113,8 @@ namespace SkillsMatrix.Web.Pages.AdminTool
         protected async void SearchCompetency(ChangeEventArgs e)
         {
              competencyCategoryID = (Convert.ToInt32(e.Value));
-
              competencies = await  CompetenciesService.GetAll(competencyCategoryID);
+            this.StateHasChanged();
 
         }
 

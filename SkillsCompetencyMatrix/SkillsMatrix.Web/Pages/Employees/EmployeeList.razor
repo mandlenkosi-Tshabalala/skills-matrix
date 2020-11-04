@@ -72,85 +72,173 @@
         <h3>Employees</h3>
     </div>
     <div class="card-body">
+        @if (EmployeeCheckedList.Count() > 0)
+        {
+            <div class="row">
+                <div class="col-sm-12">
 
-        <div class="form-row">
-            <div class="form-group col">
-                <input class="form-control" Placeholder="Employee Name" @bind-value="this.EmployeeName" />
+
+                    <button type="submit" @onclick="DownloadCV" class="btn btn-primary mr-1 float-right">Download</button>
+                   
+                </div>
             </div>
-            <div class="form-group col">
-                <select class="form-control" @onchange="eventArgs => { functionalClicked(eventArgs.Value); }">
-                    <option value="0" selected>Functional Expertise...</option>
-                    @if (functionalList != null)
+            <br />
+        }
+            <div class="row">
+                <div class="col-sm-3 border-right">
+
+
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <input class="form-control" Placeholder="Employee Name" @bind-value="this.EmployeeName" />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <input class="form-control" Placeholder="Skills" @bind-value="this.Skills" />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <select class="form-control" @bind="this.QualificationLevel">
+                                <option value="" selected>Qualification Level*</option>
+                                <option value="BTech">BTech</option>
+                                <option value="Degree">Degree</option>
+                                <option value="Diploma">Diploma</option>
+                                <option value="Adv Diploma">Adv Diploma</option>
+                                <option value="Honours">Honours</option>
+                                <option value="Masters">Masters</option>
+                                <option value="Matric">Matric</option>
+                                <option value="MTech">MTech</option>
+                                <option value="N04">N04</option>
+                                <option value="N04">N04</option>
+                                <option value="N06">N06</option>
+                                <option value="Post Graduate diploma">Post Graduate diploma </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <select class="form-control" @onchange="eventArgs => { functionalClicked(eventArgs.Value); }">
+                                <option value="0" selected>Functional Expertise*</option>
+                                @if (functionalList != null)
+                                {
+                                    @foreach (var functional in functionalList)
+                                    {
+                                        <option value="@functional.Id">@functional.Name</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <select class="form-control" @bind="this.Country">
+                                <option value="" selected>Countries Worked*</option>
+                                <option value="Angola">Angola</option>
+                                <option value="Asian Countries">Asian Countries</option>
+                                <option value="Australia and New Zealand">Australia and New Zealand</option>
+                                <option value="Botswana">Botswana</option>
+                                <option value="Central and South American Countries">Central and South American Countries</option>
+                                <option value="European Countries">European Countries</option>
+                                <option value="Lesotho">Lesotho</option>
+                                <option value="Malawi">Malawi</option>
+                                <option value="Mauritius">Mauritius</option>
+                                <option value="Mozambique">Mozambique</option>
+                                <option value="Namibia">Namibia</option>
+                                <option value="North American Countries">North American Countries</option>
+                                <option value="Rest of Africa">Rest of Africa</option>
+                                <option value="SADC except SA">SADC except SA</option>
+                                <option value="Seychelles">Seychelles</option>
+                                <option value="South Africa">South Africa</option>
+                                <option value="Swaziland">Swaziland</option>
+                                <option value="Tanzania">Tanzania</option>
+                                <option value="Zaire">Zaire</option>
+                                <option value="Zambia">Zambia</option>
+                                <option value="Zimbabwe">Zimbabwe</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <select class="form-control" @onchange="eventArgs => { competencyCategoryClicked(eventArgs.Value); }">
+                                <option value="0" selected>Competencies Catagories*</option>
+                                @if (competencyCategoryList != null)
+                                {
+                                    @foreach (var competency in competencyCategoryList)
+                                    {
+                                        <option value="@competency.Id">@competency.Name</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <select class="form-control" @bind="competencyID">
+                                <option value="0" selected>Competencies*</option>
+                                @if (competencies != null)
+                                {
+                                    @foreach (var competency in competencies)
+                                    {
+                                        <option value="@competency.Id">@competency.Name</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <button type="submit" @onclick="Search" class="btn btn-primary mr-1 ">Search</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-9">
+                    @if (Employees == null)
                     {
-                        @foreach (var functional in functionalList)
-                        {
-                            <option value="@functional.Id">@functional.Name</option>
-                        }
+                        <p><em>No data...</em></p>
                     }
-                </select>
-            </div>
-            <div class="form-group col">
-                <select class="form-control" @onchange="eventArgs => { competencyClicked(eventArgs.Value); }">
-                    <option value="0" selected>Competencies Catagories...</option>
-                    @if (competencyList != null)
+                    else
                     {
-                        @foreach (var competency in competencyList)
-                        {
-                            <option value="@competency.Id">@competency.Name</option>
-                        }
+                        <table class='table'>
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" checked="@this.SelectAll" @onchange="eventArgs => { empSelectAll(eventArgs.Value); }" /></th>
+                                    <th>Name</th>
+                                    <th>ID Number</th>
+                                    <th>EMail</th>
+                                    <th>Phone Number</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var emp in Employees)
+                                {
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" checked="@this.empCheckSelectStatus(emp.Id)" @onchange="eventArgs => { empSelect(emp.Id, eventArgs.Value); }" />
+                                        </td>
+                                        <td>@emp.FirstName @emp.LastName</td>
+                                        <td>@emp.IdNumber</td>
+                                        <td>@emp.Email</td>
+                                        <td>@emp.Phone</td>
+                                        <td><button type="submit" @onclick="@(() => ViewCV(emp.UserId))" class="btn btn-primary btn-sm mr-1 ">View CV</button></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
                     }
-                </select>
-            </div>
-            <div class="form-group col">
-                <button type="submit" @onclick="Search" class="btn btn-primary mr-1 ">Search</button>
+                </div>
+
             </div>
         </div>
-
-        @if (Employees == null)
-        {
-            <p><em>No data...</em></p>
-        }
-        else
-        {
-            <table class='table'>
-                <thead>
-                    <tr>
-                        <th><input type="checkbox" checked="@this.SelectAll" @onchange="eventArgs => { empSelectAll(eventArgs.Value); }" /></th>
-                        <th>Name</th>
-                        <th>ID Number</th>
-                        <th>EMail</th>
-                        <th>Phone Number</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var emp in Employees)
-                    {
-                        <tr>
-                            <td>
-                                <input type="checkbox" checked="@this.empCheckSelectStatus(emp.Id)" @onchange="eventArgs => { empSelect(emp.Id, eventArgs.Value); }" />
-                            </td>
-                            <td>@emp.FirstName @emp.MiddleName @emp.LastName</td>
-                            <td>@emp.IdNumber</td>
-                            <td>@emp.Email</td>
-                            <td>@emp.Phone</td>
-                            <td><button type="submit" @onclick="@(() => ViewCV(emp.UserId))"class="btn btn-primary btn-sm mr-1 ">View CV</button></td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        }
     </div>
-    <div class="card-footer " style="background-color:white">
-        <div>
-            @if (EmployeeCheckedList.Count() > 0)
-            {
-
-                <button type="submit" @onclick="DownloadCV" class="btn btn-primary mr-1 ">Download</button>
-            }
-        </div>
-    </div>
-</div>
 
 @inherits EmployeeListBase
-

@@ -13,7 +13,7 @@ namespace SkillsMatrix.Web.Services
       Task<PersonalInfo> Create(PersonalInfo person);
       Task<PersonalInfo> Update(PersonalInfo person);
       Task<IEnumerable<PersonalInfo>> GetAllEmployees();
-      Task<IEnumerable<PersonalInfo>> GetAllEmployees(string EmployeeName, int expertiseID, int competencyID);
+      Task<IEnumerable<PersonalInfo>> GetAllEmployees(string EmployeeName, int expertiseID, int competencyCategoryID, string Skills, string QualificationLevel, string Country);
 
     }
 }

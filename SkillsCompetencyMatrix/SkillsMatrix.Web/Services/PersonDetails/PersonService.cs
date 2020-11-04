@@ -43,9 +43,9 @@ namespace SkillsMatrix.Web.Services
             return await httpClient.GetJsonAsync<PersonalInfo>($"api/Persons/GetByUserId/{Id}");
         }
 
-        public async Task<IEnumerable<PersonalInfo>> GetAllEmployees(string EmployeeName, int expertiseID, int competencyID)
+        public async Task<IEnumerable<PersonalInfo>> GetAllEmployees(string EmployeeName, int expertiseID, int competencyCategoryID, string Skills, string QualificationLevel, string Country)
         {
-            return await httpClient.GetJsonAsync<IEnumerable<PersonalInfo>>($"api/Persons/GetEmployees?EmployeeName=" + EmployeeName + "&expertiseID=" + expertiseID + "&competencyID=" + competencyID);
+            return await httpClient.GetJsonAsync<IEnumerable<PersonalInfo>>($"api/Persons/GetEmployees?EmployeeName=" + EmployeeName + "&expertiseID=" + expertiseID + "&competencyCategoryID=" + competencyCategoryID + "&Skills=" + Skills + "&QualificationLevel=" + QualificationLevel + "&Country=" + Country);
         }
     }
 }
