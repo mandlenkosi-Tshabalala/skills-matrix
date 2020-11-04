@@ -494,6 +494,12 @@ mark,
     border-radius: 50%;
 }
 
+.img-fluid-smaller2 {
+    max-width: 80%;
+    height: 13px;
+    border-radius: 50%;
+}
+
 .img-thumbnail {
   padding: 0.25rem;
   background-color: #fff;
@@ -2333,9 +2339,9 @@ fieldset:disabled a.btn {
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #434E5E;
-  border-color: #434E5E;
+    color: #fff;
+    background-color: #229383;
+    border-color: #229383;
 }
 
 .btn-primary:hover {
@@ -9737,6 +9743,11 @@ a.theme-btn-on-bg:hover, a.theme-btn-on-bg:focus, a.theme-btn-on-bg:active, .the
 .resume-header .pictureSmall {
     width: 220px;
     height: 10px;
+}
+
+.resume-header .pictureSmaller {
+    width: 180px;
+    height: 8px;
 }
 
 .resume-header .name {
