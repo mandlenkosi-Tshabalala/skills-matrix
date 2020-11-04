@@ -26,7 +26,7 @@
             <div class="row">
                 <div class="col-lg-9">
                     <section class="resume-section summary-section mb-5">
-                        <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Profile</h2>
+                        <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3"><img class="img-fluid-small pictureSmall" src="assets/images/icon-1.png" alt=""> Profile</h2>
                         <div class="resume-section-content">
                             <p class="mb-0">@personalInfo.Profile</p>
                         </div>
@@ -34,7 +34,7 @@
 
                     <section class="resume-section experience-section mb-5">
 
-                        <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Professional Experiences</h2>
+                        <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3"><img class="img-fluid-small pictureSmall" src="assets/images/icon-2.png" alt=""> Professional Experiences</h2>
                         @foreach (var employent in employments)
                         {
                             <div class="resume-section-content">
@@ -61,7 +61,7 @@
 
 
                     <section class="resume-section experience-section mb-5">
-                        <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Extra-Activities</h2>
+                        <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3"><img class="img-fluid-small pictureSmall" src="assets/images/icon-6.png" alt=""> Extra-Activities</h2>
                         <div class="resume-section-content">
                             <div>
                                 <article>
@@ -100,9 +100,9 @@
                         <section class="resume-section interests-section mb-5">
                             <div class="resume-section-content">
                                 <p>
-                                    <div class="mb-1">@address.StreetNumber @address.StreetName @address.City @address.ZipCode</div>
-                                    <div class="mb-1">@personalInfo.Phone</div>
-                                    <div class="mb-1">@personalInfo.Email</div>
+                                    <div class="mb-1"><img class="img-fluid-smaller pictureSmall" src="assets/images/icon-6.png" alt=""> @address.StreetNumber @address.StreetName @address.City @address.ZipCode</div>
+                                    <div class="mb-1"><img class="img-fluid-smaller pictureSmall" src="assets/images/icon-4.png" alt=""> @personalInfo.Phone</div>
+                                    <div class="mb-1"><img class="img-fluid-smaller pictureSmall" src="assets/images/icon-5.png" alt=""> @personalInfo.Email</div>
                                 </p>
                             </div>
                             <div class="resume-section-content">
@@ -128,7 +128,7 @@
                             </div>
                         </section><!--//Address-section-->
                         <section class="resume-section education-section mb-5">
-                            <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Education</h2>
+                            <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3"><img class="img-fluid-smaller2 pictureSmaller" src="assets/images/icon-7.png" alt=""> Education</h2>
                             <div class="resume-section-content">
 
                                 @foreach (var education in educations)
@@ -144,7 +144,7 @@
                             </div>
                         </section><!--//education-section-->
                         <section class="resume-section skills-section mb-5">
-                            <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Skills</h2>
+                            <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3"><img class="img-fluid-smaller2 pictureSmaller" src="assets/images/icon-7.png" alt=""> Skills</h2>
                             <div class="resume-section-content">
                                 <div class="resume-skill-item">
                                     @foreach (var skill in skills)
