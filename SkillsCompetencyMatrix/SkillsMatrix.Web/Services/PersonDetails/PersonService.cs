@@ -3,9 +3,13 @@ using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
+using System.Text.Encodings;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Text.Encodings.Web;
+using Microsoft.AspNetCore.Http.Extensions;
+using System.Web;
+
 namespace SkillsMatrix.Web.Services
 {
     public class PersonService : IPersonService
@@ -43,9 +47,9 @@ namespace SkillsMatrix.Web.Services
             return await httpClient.GetJsonAsync<PersonalInfo>($"api/Persons/GetByUserId/{Id}");
         }
 
-        public async Task<IEnumerable<PersonalInfo>> GetAllEmployees(string EmployeeName, int expertiseID, int competencyCategoryID, string Skills, string QualificationLevel, string Country)
+        public async Task<IEnumerable<PersonalInfo>> GetAllEmployees(string EmployeeName, int expertiseID, int competencyCategoryID, string Skills, string QualificationLevel, string Country, int competencyID)
         {
-            return await httpClient.GetJsonAsync<IEnumerable<PersonalInfo>>($"api/Persons/GetEmployees?EmployeeName=" + EmployeeName + "&expertiseID=" + expertiseID + "&competencyCategoryID=" + competencyCategoryID + "&Skills=" + Skills + "&QualificationLevel=" + QualificationLevel + "&Country=" + Country);
+            return await httpClient.GetJsonAsync<IEnumerable<PersonalInfo>>($"api/Persons/GetEmployees?EmployeeName=" + HttpUtility.UrlEncode(EmployeeName) + "&expertiseID=" + expertiseID + "&competencyCategoryID=" + competencyCategoryID + "&Skills=" + HttpUtility.UrlEncode(Skills) + "&QualificationLevel=" + QualificationLevel + "&Country=" + Country + "&competencyID=" + competencyID);
         }
     }
 }

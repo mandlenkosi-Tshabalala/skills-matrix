@@ -36,11 +36,11 @@ namespace SkillsMatrix.Api.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult> GetEmployees(string EmployeeName, int expertiseID, int competencyCategoryID, string Skills, string QualificationLevel, string Country)
+        public async Task<ActionResult> GetEmployees(string EmployeeName, int expertiseID, int competencyCategoryID, string Skills, string QualificationLevel, string Country, int competencyID)
         {
             try
             {
-                return Ok(await personRepository.GetAllEmployees(EmployeeName, expertiseID, competencyCategoryID, Skills, QualificationLevel, Country));
+                return Ok(await personRepository.GetAllEmployees(EmployeeName, expertiseID, competencyCategoryID, Skills, QualificationLevel, Country, competencyID));
             }
             catch (Exception)
             {

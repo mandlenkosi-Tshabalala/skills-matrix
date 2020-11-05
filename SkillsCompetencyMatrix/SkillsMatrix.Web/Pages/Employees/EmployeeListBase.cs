@@ -55,7 +55,7 @@ namespace SkillsMatrix.Web.Pages.Employees
         protected override async Task OnInitializedAsync()
         {
 
-            Employees = await PersonService.GetAllEmployees("", 0, 0,"","","");
+            Employees = await PersonService.GetAllEmployees("", 0, 0,"","","",0);
             functionalList = await ExpertiseService.GetAll();
             competencyCategoryList = await CompetenciesCategoryService.GetCompetencies();
 
@@ -63,7 +63,7 @@ namespace SkillsMatrix.Web.Pages.Employees
 
         protected async Task Search()
         {
-            Employees = await PersonService.GetAllEmployees(EmployeeName, Convert.ToInt32(expertiseID), Convert.ToInt32(competencyCategoryID), Skills, QualificationLevel,Country);
+            Employees = await PersonService.GetAllEmployees(EmployeeName, Convert.ToInt32(expertiseID), Convert.ToInt32(competencyCategoryID), Skills, QualificationLevel,Country, Convert.ToInt32(competencyID));
 
             if (Employees.Count() == 0)
             {
