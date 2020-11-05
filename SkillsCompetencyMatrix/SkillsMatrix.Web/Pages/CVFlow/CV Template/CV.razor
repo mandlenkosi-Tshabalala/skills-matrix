@@ -74,33 +74,25 @@
                     <section class="resume-section experience-section mb-5">
                         <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3"><img class="img-fluid-small pictureSmall" src="assets/images/icon-6.png" alt=""> Extra-Activities</h2>
                         <div class="resume-section-content">
-                            <div>
-                                <article>
-
-                                    <div class="resume-timeline-item-header mb-2">
-                                        <div class="d-flex flex-column flex-md-row">
-                                            <h3 class="resume-position-title font-weight-bold mb-1">Role</h3>
-                                        </div><!--//row-->
-                                    </div><!--//resume-timeline-item-header-->
-                                    <div class="resume-timeline-item-desc">
-                                        <p>
-                                            6 months trainee in kitchen department which is in charge at Cold Kitchen,Hot Kitchen,
-                                            Semi-Fine Dining, Commissary, Banquet, Larder, and Grill.
-                                        </p>
-                                    </div><!--//resume-timeline-item-desc-->
-                                    <div class="resume-timeline-item-header mb-2">
-                                        <div class="d-flex flex-column flex-md-row">
-                                            <h3 class="resume-position-title font-weight-bold mb-1">Role2</h3>
-                                        </div><!--//row-->
-                                    </div><!--//resume-timeline-item-header-->
-                                    <div class="resume-timeline-item-desc">
-                                        <p>
-                                            12 months trainee in kitchen department which is in charge at Cold Kitchen,Hot Kitchen,
-                                            Semi-Fine Dining, Commissary, Banquet, Larder, and Grill.
-                                        </p>
-                                    </div>
-                                </article><!--//resume-timeline-item-->
-                            </div>
+                            
+                                @foreach (var activity in activities)
+                                {
+                                <div>
+                                    <article>
+                                        <div class="resume-timeline-item-header mb-2">
+                                            <div class="d-flex flex-column flex-md-row">
+                                                <h3 class="resume-position-title font-weight-bold mb-1">@activity.Activity</h3>
+                                            </div><!--//row-->
+                                        </div><!--//resume-timeline-item-header-->
+                                        <div class="resume-timeline-item-desc">
+                                            <p>
+                                                @activity.ActivityDetail
+                                            </p>
+                                        </div><!--//resume-timeline-item-desc-->
+                                    </article>
+                                </div>
+                                }
+                            
                         </div>
                     </section>
 

@@ -11,15 +11,16 @@ using SkillsMatrix.Web.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Blazored.Toast.Services;
+using System.Diagnostics;
 
-namespace SkillsMatrix.Web.Pages.CVFlow.SkillsForm
+namespace SkillsMatrix.Web.Pages.CVFlow.ExtraActivitiesForm
 {
-    public class SkillsFormBase : ComponentBase
+    public class ExtraActivitiesFormBase : ComponentBase
     {
         [Inject]
         public IToastService toastService { get; set; }
         [Inject]
-        public ISkillsService SkillsService { get; set; }
+        public IActivityService ActivityService { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -40,9 +41,9 @@ namespace SkillsMatrix.Web.Pages.CVFlow.SkillsForm
         [Parameter]
         public string PersonId { get; set; }
 
-        protected Skill skill = new Skill();
+        protected UserActivities activity = new UserActivities();
 
-        protected List<Skill> skills = new List<Skill>();
+        protected List<UserActivities> activities = new List<UserActivities>();
 
         protected EditContext editContext;
 
@@ -51,7 +52,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.SkillsForm
         {
             var principalUser = (await AuthState).User;
 
-            editContext = new EditContext(skill);
+            editContext = new EditContext(activity);
 
             if (principalUser.Identity.IsAuthenticated)
             {
@@ -61,7 +62,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.SkillsForm
                     UserId = user.Id;
 
 
-                    skills = await SkillsService.GetSkills(user.Id);
+                    activities = await ActivityService.GetActivity(user.Id);
 
 
                 }
@@ -80,11 +81,11 @@ namespace SkillsMatrix.Web.Pages.CVFlow.SkillsForm
             {
               try
                 {
-                skill.UserId = UserId;
-                await SkillsService.Create(skill);
+                activity.UserId = UserId;
+                await ActivityService.Create(activity);
                 await OnInitializedAsync();
-                NavigationManager.NavigateTo($"/skills");
-                skill = new Skill();
+                NavigationManager.NavigateTo($"/extraactivities");
+                activity = new UserActivities();
                 toastService.ShowSuccess("The information has been saved successfully", "Saved");
                     }
                     catch (Exception ex)
@@ -97,11 +98,11 @@ namespace SkillsMatrix.Web.Pages.CVFlow.SkillsForm
             {
              try
               {
-                await SkillsService.Update(skill);
+                await ActivityService.Update(activity);
                 await OnInitializedAsync();
                 edit = false;
-                NavigationManager.NavigateTo($"/skills");
-                skill = new Skill();
+                NavigationManager.NavigateTo($"/extraactivities");
+                activity = new UserActivities();
                     }
                     catch (Exception ex)
                     {
@@ -121,37 +122,37 @@ namespace SkillsMatrix.Web.Pages.CVFlow.SkillsForm
 
         protected void Back()
         {
-            NavigationManager.NavigateTo($"/membership");
+            NavigationManager.NavigateTo($"/skills");
         }
 
         protected void Next()
         {
-            NavigationManager.NavigateTo($"/extraactivities");
+            NavigationManager.NavigateTo("/ViewCV");
         }
 
         protected async void Cancel()
         {
-            skill = new Skill();
-            NavigationManager.NavigateTo($"/skills");
+            activity = new UserActivities();
+            NavigationManager.NavigateTo($"/extraactivities");
 
         }
 
 
-        protected async Task GetSkill(int id)
+        protected async Task GetActivity(int id)
         {
-            skill = await SkillsService.Get(id);
+            activity = await ActivityService.Get(id);
             edit = true;
 
         }
 
-        protected async Task DeleteSkill(int id)
+        protected async Task DeleteActivity(int id)
         {
-            await SkillsService.Delete(id);
+            await ActivityService.Delete(id);
 
             await OnInitializedAsync();
-            NavigationManager.NavigateTo($"/skills");
-            skill = new Skill();
-            toastService.ShowWarning("Skill is removed", "Warning");
+            NavigationManager.NavigateTo($"/extraactivities");
+            activity = new UserActivities();
+            toastService.ShowWarning("Activity is removed", "Warning");
 
         }
     }
