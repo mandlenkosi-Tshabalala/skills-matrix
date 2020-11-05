@@ -119,6 +119,7 @@ namespace SkillsMatrix.Api.Models
 
         public DbSet<UserExpertise> UserExpertises { get; private set; }
         public DbSet<UserIndustry> UserIndustries { get; private set; }
+        public DbSet<UserActivities> UserActivities { get; private set; }
 
     }
 }

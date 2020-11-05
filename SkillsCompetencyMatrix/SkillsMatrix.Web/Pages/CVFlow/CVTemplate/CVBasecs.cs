@@ -18,6 +18,9 @@ namespace SkillsMatrix.Web.Pages.CVFlow.NewFolderForm
     public class CVBasecs : ComponentBase
     {
         [Inject]
+        public IActivityService ActivityService { get; set; }
+
+        [Inject]
         public ISkillsService SkillsService { get; set; }
         [Inject]
         public IPersonService personService { get; set; }
@@ -58,6 +61,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.NewFolderForm
         protected List<Skill> skills = new List<Skill>();
         protected List<Education> educations = new List<Education>();
         protected List<Employment> employments = new List<Employment>();
+        protected List<UserActivities> activities = new List<UserActivities>();
 
         protected override async Task OnInitializedAsync()
         {
@@ -71,6 +75,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.NewFolderForm
                 skills = await SkillsService.GetSkills(ViewUserId);
                 educations = await educationService.GetEducations(ViewUserId);
                 employments = await employementHistoryService.GetEmployment(ViewUserId);
+                activities = await ActivityService.GetActivity(ViewUserId);
             }
             else
             {
@@ -86,7 +91,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.NewFolderForm
                         skills = await SkillsService.GetSkills(UserId);
                         educations = await educationService.GetEducations(UserId);
                         employments = await employementHistoryService.GetEmployment(UserId);
-
+                        activities = await ActivityService.GetActivity(UserId);
 
                     }
                 }

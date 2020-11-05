@@ -90,7 +90,12 @@ namespace SkillsMatrix.Web
             {
                 client.BaseAddress = new Uri(url);
             });
-             
+
+            services.AddHttpClient<IActivityService, ActivityService>(client =>
+            {
+                client.BaseAddress = new Uri(url);
+            });
+
             services.AddBlazoredToast();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddScoped<IHostEnvironmentAuthenticationStateProvider>(sp =>

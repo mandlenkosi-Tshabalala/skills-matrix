@@ -20,21 +20,34 @@ namespace SkillsMatrix.Web.Pages.Employees
         public IExpertiseService ExpertiseService { get; set; }
 
         [Inject]
-        public IPersonCompetencies PersonCompetenciesService { get; set; }
+        public ICompetenciesCategoryService CompetenciesCategoryService { get; set; }
+
+        [Inject]
+        public ICompetenciesService CompetenciesService { get; set; }
 
         public IEnumerable<PersonalInfo> Employees { set; get; }
 
         public string EmployeeName { set; get; }
 
+        public string Skills { set; get; }
+
+        public string QualificationLevel { set; get; }
+
+        public string Country { set; get; }
+
         public bool SelectAll { set; get; }
 
         public string expertiseID { get; set; }
 
+        public string competencyCategoryID { get; set; }
+
         public string competencyID { get; set; }
 
-        public IEnumerable<Expertise> functionalList { set; get; }
+        public IEnumerable<Expertise> functionalList { get; set; }
 
-        public IEnumerable<Competency> competencyList { set; get; }
+        public IEnumerable<CompetencyCategory> competencyCategoryList { get; set; }
+
+        protected List<Competency> competencies { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -42,15 +55,15 @@ namespace SkillsMatrix.Web.Pages.Employees
         protected override async Task OnInitializedAsync()
         {
 
-            Employees = await PersonService.GetAllEmployees("", 0, 0);
+            Employees = await PersonService.GetAllEmployees("", 0, 0,"","","",0);
             functionalList = await ExpertiseService.GetAll();
-            //competencyList = await PersonCompetenciesService.GetCompetencies();
+            competencyCategoryList = await CompetenciesCategoryService.GetCompetencies();
 
         }
 
         protected async Task Search()
         {
-            Employees = await PersonService.GetAllEmployees(EmployeeName, Convert.ToInt32(expertiseID), Convert.ToInt32(competencyID));
+            Employees = await PersonService.GetAllEmployees(EmployeeName, Convert.ToInt32(expertiseID), Convert.ToInt32(competencyCategoryID), Skills, QualificationLevel,Country, Convert.ToInt32(competencyID));
 
             if (Employees.Count() == 0)
             {
@@ -144,9 +157,11 @@ namespace SkillsMatrix.Web.Pages.Employees
             expertiseID = functional.ToString();
         }
 
-        protected void competencyClicked(object competency)
+        protected async void competencyCategoryClicked(object competencyCategory)
         {
-            competencyID = competency.ToString();
+            competencyCategoryID = competencyCategory.ToString();
+            competencies = await CompetenciesService.GetAll(Convert.ToInt32(competencyCategoryID));
+            this.StateHasChanged();
         }
 
     }

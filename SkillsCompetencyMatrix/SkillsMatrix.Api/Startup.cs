@@ -47,6 +47,7 @@ namespace SkillsMatrix.Api
             services.AddScoped<IUserExpertiseRepository, UserExpertiseRepository>();
             services.AddScoped<IPersonCompetenciesRepository, PersonCompetenciesRepository>();
             services.AddScoped<IProfessionalMembershipRepository, ProfessionalMembershipRepository>();
+            services.AddScoped<IActivityRepository, ActivityRepository>();
 
             services.AddControllers();
 
