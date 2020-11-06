@@ -52,6 +52,9 @@ namespace SkillsMatrix.Web.Pages.CVFlow.CompetenciesForm
 
         protected string competencyID { get; set; }
 
+        public string competencyCategoryID { get; set; }
+
+
         private bool edit = false;
 
         protected override async Task OnInitializedAsync()
@@ -71,9 +74,9 @@ namespace SkillsMatrix.Web.Pages.CVFlow.CompetenciesForm
                     UserId = user.Id;
                     //competencies = await competenciesService.GetCompetencies();
 
-                   // userCompetencies = await personCompetencies.GetAll(user.Id);
+                    userCompetencies = await personCompetencies.GetAll(user.Id);
 
-                   // competencyCategories = await competenciesCategoryService.GetCompetencies();
+                    competencyCategories = await competenciesCategoryService.GetCompetencies();
 
 
                 }
@@ -91,8 +94,8 @@ namespace SkillsMatrix.Web.Pages.CVFlow.CompetenciesForm
                 UserCompetency.CompetencyId = Int32.Parse(competencyID);
                 await personCompetencies.Create(UserCompetency);
                 await OnInitializedAsync();
-                NavigationManager.NavigateTo($"/personCompetencies");
                 UserCompetency = new UserCompetency();
+                this.StateHasChanged();
 
             }
             else
@@ -108,20 +111,19 @@ namespace SkillsMatrix.Web.Pages.CVFlow.CompetenciesForm
 
         }
 
-        protected async void HandleDelete()
+
+        protected async Task Delete(int id)
         {
 
-            if (UserCompetency.Id == 0)
+            if (id != 0)
             {
+                await personCompetencies.Delete(UserId, id);
 
-                await personCompetencies.Create(UserCompetency);
-                NavigationManager.NavigateTo($"/personCompetencies");
+                await OnInitializedAsync();
+                this.StateHasChanged();
+
             }
-            else
-            {
-                await personCompetencies.Update(UserCompetency);
-                NavigationManager.NavigateTo($"/personCompetencies");
-            }
+
 
         }
 
@@ -133,6 +135,13 @@ namespace SkillsMatrix.Web.Pages.CVFlow.CompetenciesForm
         protected void Next()
         {
             NavigationManager.NavigateTo("/membership");
+        }
+
+        protected async void competencyCategoryClicked(object competencyCategory)
+        {
+            competencyCategoryID = competencyCategory.ToString();
+            competencies = await competenciesService.GetAll(Convert.ToInt32(competencyCategoryID));
+            this.StateHasChanged();
         }
 
         protected async void Cancel()
@@ -150,19 +159,6 @@ namespace SkillsMatrix.Web.Pages.CVFlow.CompetenciesForm
 
         }
 
-        protected async Task DeleteExpertise(int id)
-        {
-
-            if (id != 0)
-            {
-                await personCompetencies.Delete(id);
-
-                await OnInitializedAsync();
-                NavigationManager.NavigateTo($"/personCompetencies");
-                UserCompetency = new UserCompetency();
-            }
-
-
-        }
+       
     }
 }

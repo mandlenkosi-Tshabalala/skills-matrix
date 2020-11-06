@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using SkillsMatrix.Web.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
-using IronPdf;
+
 //using System.Web.Hosting;
 
 namespace SkillsMatrix.Web.Pages.CVFlow.NewFolderForm
@@ -110,9 +110,9 @@ namespace SkillsMatrix.Web.Pages.CVFlow.NewFolderForm
             try
             {
                 // Create a PDF from a web page
-                var Renderer = new HtmlToPdf();
-                var PDF = Renderer.RenderUrlAsPdf("https://en.wikipedia.org/wiki/Portable_Document_Format");
-                PDF.SaveAs("mpho.pdf");
+                //var Renderer = new HtmlToPdf();
+                //var PDF = Renderer.RenderUrlAsPdf("https://en.wikipedia.org/wiki/Portable_Document_Format");
+                //PDF.SaveAs("mpho.pdf");
 
                 // This neat trick opens our PDF file so we can see the result
                 //System.Diagnostics.Process.Start("wikipedia.pdf");

@@ -20,11 +20,7 @@ namespace SkillsMatrix.Api.Models
 
         public async Task<IEnumerable<UserExpertise>> GetUserExpertise(int UserID)
         {
-
-            //appDbContext.UserExpertises.Where(e => e.UserId == UserID);
             IQueryable<UserExpertise> query = appDbContext.UserExpertises.Include(a => a.Expertise).Where(e => e.UserId == UserID && e.IsDeleted == false); ;
-
-
 
             return await query.ToListAsync();
 
