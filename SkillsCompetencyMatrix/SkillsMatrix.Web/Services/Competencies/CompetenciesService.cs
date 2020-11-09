@@ -46,7 +46,7 @@ namespace SkillsMatrix.Web.Services
         public async Task Delete(int Id)
         {
             //return await httpClient.DeleteAsync<Education>($"api/Educations/Delete", Id.ToString());
-            await httpClient.DeleteAsync($"api/Educations/{Id}");
+            await httpClient.DeleteAsync($"api/Competencies/{Id}");
         }
 
     }

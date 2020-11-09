@@ -97,15 +97,17 @@ namespace SkillsMatrix.Web.Pages.AdminTool
             {
                 competency.CatagoryId = competencyCategoryID;
                 await CompetenciesService.Create(competency);
-                await CompetenciesService.GetAll(competencyCategoryID);
+                competencies =  await CompetenciesService.GetAll(competencyCategoryID);
+                competency.Name = "";
+                this.StateHasChanged();
             }
             else
             {
                 await CompetenciesService.Update(competency);
-                await OnInitializedAsync();
-                edit = false;
-                NavigationManager.NavigateTo($"/adminCompetency");
+                competencies = await CompetenciesService.GetAll(competencyCategoryID);
                 competency = new Competency();
+                edit = false;
+                this.StateHasChanged();
             }
 
         }
@@ -114,6 +116,7 @@ namespace SkillsMatrix.Web.Pages.AdminTool
         {
              competencyCategoryID = (Convert.ToInt32(e.Value));
              competencies = await  CompetenciesService.GetAll(competencyCategoryID);
+            competency.Name = "";
             this.StateHasChanged();
 
         }
@@ -150,9 +153,10 @@ namespace SkillsMatrix.Web.Pages.AdminTool
         {
             await CompetenciesService.Delete(id);
 
-            await OnInitializedAsync();
-            NavigationManager.NavigateTo($"/adminCompetency");
-            competencyCategory = new CompetencyCategory();
+            competency.CatagoryId = competencyCategoryID;
+            competencies = await CompetenciesService.GetAll(competencyCategoryID);
+            competency.Name = "";
+            this.StateHasChanged();
 
 
         }

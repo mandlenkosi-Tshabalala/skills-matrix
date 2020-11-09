@@ -91,36 +91,26 @@ namespace SkillsMatrix.Api.Controllers
 
                 return CreatedAtAction(nameof(GetCompetency), new { id = result.Id }, result);
             }
-            catch (Exception)
+            catch (Exception Ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                   "Error saving data");
+                   $"Error saving data {Ex.Message}");
             }
         }
 
-        [HttpPut("{id:int}")]
-        public async Task<ActionResult<Competency>> UpdateCompetency(int id, Competency competency)
+        [HttpPut]
+        public async Task<ActionResult<Competency>> UpdateCompetency( Competency competency)
         {
             try
             {
-                if (id != competency.Id)
-                {
-                    return BadRequest("Competency ID mismatch");
-                }
 
-                var result = await competencyRepository.GetById(id);
-
-                if (result == null)
-                {
-                    return NotFound($"Competency with Id = {id} not found.");
-                }
 
                 return await competencyRepository.Update(competency);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                  "Error updating data");
+                  $"Error updating data{ex.Message}");
             }
         }
 
