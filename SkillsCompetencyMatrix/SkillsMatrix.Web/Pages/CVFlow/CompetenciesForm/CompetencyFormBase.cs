@@ -86,26 +86,51 @@ namespace SkillsMatrix.Web.Pages.CVFlow.CompetenciesForm
 
         protected async void HandleValidSubmit()
         {
+            var isValid = editContext.Validate();
 
-
-            if (edit == false)
+            if (isValid)
             {
-                UserCompetency.UserId = UserId;
-                UserCompetency.CompetencyId = Int32.Parse(competencyID);
-                await personCompetencies.Create(UserCompetency);
-                await OnInitializedAsync();
-                UserCompetency = new UserCompetency();
-                this.StateHasChanged();
+                
 
+                    if (edit == false)
+                    {
+                    try
+                    {
+                        UserCompetency.UserId = UserId;
+                        UserCompetency.CompetencyId = Int32.Parse(competencyID);
+                        await personCompetencies.Create(UserCompetency);
+                        await OnInitializedAsync();
+                        UserCompetency = new UserCompetency();
+                        this.StateHasChanged();
+                        toastService.ShowSuccess("The information has been saved successfully", "Saved");
+                    }
+                    catch (Exception ex)
+                {
+                    toastService.ShowError("There was an error when trying to save", "Error");
+                }
             }
             else
             {
-                await personCompetencies.Update(UserCompetency);
-                await OnInitializedAsync();
-                edit = false;
-                NavigationManager.NavigateTo($"/personCompetencies");
-                UserCompetency = new UserCompetency();
+                try
+                {
+                    await personCompetencies.Update(UserCompetency);
+                    await OnInitializedAsync();
+                    edit = false;
+                    NavigationManager.NavigateTo($"/personCompetencies");
+                    UserCompetency = new UserCompetency();
+                    toastService.ShowSuccess("The information has been saved successfully", "Saved");
+                }
+                catch (Exception ex)
+                {
+                    toastService.ShowError("There was an error when trying to save", "Error");
+                }
 
+            }
+        }
+    
+            else
+            {
+                toastService.ShowError("Please make sure that you fill all required field", "Error");
 
             }
 
@@ -121,7 +146,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.CompetenciesForm
 
                 await OnInitializedAsync();
                 this.StateHasChanged();
-
+                toastService.ShowWarning("Competency is removed", "Warning");
             }
 
 
