@@ -16,9 +16,9 @@ namespace SkillsMatrix.Web.Services
             this.httpClient = httpClient;
         }
 
-        public async Task<UserCompetency> Create(UserCompetency person)
+        public async Task<UserCompetency> Create(UserCompetency competency)
         {
-            return await httpClient.PostJsonAsync<UserCompetency>($"api/PersonCompetencies", person);
+            return await httpClient.PostJsonAsync<UserCompetency>($"api/PersonCompetencies", competency);
         }
 
         public async Task<UserCompetency> Get(int Id)
@@ -43,10 +43,10 @@ namespace SkillsMatrix.Web.Services
 
 
 
-        public async Task Delete(int Id)
+        public async Task Delete(int userId,int Id)
         {
-            //return await httpClient.DeleteAsync<Education>($"api/Educations/Delete", Id.ToString());
-            await httpClient.DeleteAsync($"api/Educations/{Id}");
+
+            await httpClient.DeleteAsync($"api/PersonCompetencies/{Id}/{userId}");
         }
 
     }

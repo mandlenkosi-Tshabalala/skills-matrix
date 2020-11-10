@@ -110,13 +110,14 @@
                         </div>
                     </div>
                     <div id="profile" role="tabpanel" aria-labelledby="profile-tab" class="tab-pane fade px-4 py-5">
-                        <EditForm EditContext="@editContext">
-                            <DataAnnotationsValidator />
-                            <div class="form-row">
-                                <div class="form-group col-6">
-
-                                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                                        <div class="input-group">
+                    
+                       
+                          
+                                <EditForm EditContext="@editContext">
+                                    <DataAnnotationsValidator />
+                                    <div class="form-row">
+                                        <div class="form-group col-6">
+                                            <label>Competency Category</label>
                                             <select id="sle" @onchange="SearchCompetency" class="form-control">
                                                 <option value="0" selected>Select category.....</option>
                                                 @if (competencyCategories != null)
@@ -131,89 +132,57 @@
                                             </select>
 
                                         </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </EditForm>
-                        <div>
-                            <div class="form-row">
-                                <div class="col">
-                                    <a class="float-right" data-toggle="modal" data-target="#myModal"> <i class="fa fa-plus"></i></a>
-                                </div>
-                            </div>
-                           <!-- DataTales Example -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Competencies Table</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                            <thead>
-                                                <tr>
-                                                    <th>Name</th>
-                                                    <th>Update</th>
-                                                    <th>Delete</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (var competency in competencies)
-                                                {
-                                                    <tr>
-                                                        <td>@competency.Name</td>
-                                                        <td><a @onclick="@(() => GetCompetency(competency.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-edit"></i></a></td>
-                                                        <td><a @onclick="@(() => DeleteCompetency(competency.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-trash"></i></a></td>
-                                                    </tr>
-                                                }
 
-                                            </tbody>
-                                        </table>
+
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-6">
+                                            <label>Competency Name</label>
+                                            <InputText @bind-Value="competency.Name" class="form-control" />
+                                            <ValidationMessage For="@(() => competency.Name)" />
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <button @onclick="HandleCompetency" class="btn btn-outline-success mr-1">Save</button>
+                                        </div>
+                                    </div>
+                                </EditForm>
+                        
+
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Competencies Table</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Update</th>
+                                                        <th>Delete</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var competency in competencies)
+                                                    {
+                                                        <tr>
+                                                            <td>@competency.Name</td>
+                                                            <td><a @onclick="@(() => GetCompetency(competency.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-edit"></i></a></td>
+                                                            <td><a @onclick="@(() => DeleteCompetency(competency.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-trash"></i></a></td>
+                                                        </tr>
+                                                    }
+
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                   
 
-
-                        </div>
                     </div>
-
-                </div>
-            </div>
-        </div>
-
-        <!-- The Modal -->
-        <div class="modal" id="myModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                        <h4 class="modal-title">Add Competecy</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
-
-                    <!-- Modal body -->
-                    <div class="modal-body">
-                        <EditForm EditContext="@editContext">
-                            <DataAnnotationsValidator />
-                            <div class="form-row">
-                                <div class="form-group col-6">
-                                    <label>Name</label>
-                                    <InputText @bind-Value="competency.Name" class="form-control" />
-                                    <ValidationMessage For="@(() =>competency.Name)" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <button @onclick="HandleCompetency" class="btn btn-outline-success mr-1">Save</button>
-                            </div>
-                        </EditForm>
-                    </div>
-
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    </div>
-
-                </div>
             </div>
         </div>
 

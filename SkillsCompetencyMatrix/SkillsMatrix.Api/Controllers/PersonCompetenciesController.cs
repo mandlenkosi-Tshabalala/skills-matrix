@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace SkillsMatrix.Api.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class PersonCompetenciesController : ControllerBase
     {
         private readonly IPersonCompetenciesRepository competencyRepository;
@@ -19,7 +21,7 @@ namespace SkillsMatrix.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetEducations()
+        public async Task<ActionResult> GetCompetencies()
         {
             try
             {
@@ -33,7 +35,7 @@ namespace SkillsMatrix.Api.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<UserCompetency>> GetEducation(int id)
+        public async Task<ActionResult<UserCompetency>> GetCompetency(int id)
         {
             try
             {
@@ -54,7 +56,7 @@ namespace SkillsMatrix.Api.Controllers
         }
 
         [HttpGet("List/{UserID:int}")]
-        public async Task<ActionResult<IEnumerable<UserCompetency>>> GetEducations(int UserID)
+        public async Task<ActionResult<IEnumerable<UserCompetency>>> GetCompetencies(int UserID)
         {
             try
             {
@@ -75,7 +77,7 @@ namespace SkillsMatrix.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<UserCompetency>> CreateEducation(UserCompetency UserCompetency)
+        public async Task<ActionResult<UserCompetency>> CreateCompetency(UserCompetency UserCompetency)
         {
             try
             {
@@ -84,9 +86,24 @@ namespace SkillsMatrix.Api.Controllers
                     return BadRequest();
                 }
 
-                var result = await competencyRepository.Add(UserCompetency);
+                var checkexist = await competencyRepository.GetByUserAndCompetencyId(UserCompetency.UserId, UserCompetency.CompetencyId);
 
-                return CreatedAtAction(nameof(GetEducation), new { id = result.Id }, result);
+                if (checkexist == null)
+                {
+                    var result = await competencyRepository.Add(UserCompetency);
+
+                    return CreatedAtAction(nameof(GetCompetency), new { id = result.Id }, result);
+                }
+                else
+                {
+
+                    var result = await competencyRepository.UnDeleteCompetencyId(UserCompetency.UserId, UserCompetency.CompetencyId);
+                    return UserCompetency;
+                }
+
+                //var result = await competencyRepository.Add(UserCompetency);
+
+                //return CreatedAtAction(nameof(GetCompetency), new { id = result.Id }, result);
             }
             catch (Exception)
             {
@@ -96,7 +113,7 @@ namespace SkillsMatrix.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<UserCompetency>> UpdateEducation(UserCompetency UserCompetency)
+        public async Task<ActionResult<UserCompetency>> UpdateCompetency(UserCompetency UserCompetency)
         {
             try
             {
@@ -121,14 +138,15 @@ namespace SkillsMatrix.Api.Controllers
             }
         }
 
-        [HttpDelete("{id:int}")]
-        public async Task<ActionResult<UserCompetency>> DeleteEducation(int id)
+
+        [HttpDelete("{id:int}/{userid:int}")]
+        public async Task<ActionResult<UserCompetency>> DeleteCompetency(int id , int userid)
         {
             try
             {
                 if (id > 0)
                 {
-                    return await competencyRepository.Delete(id);
+                    return await competencyRepository.DeleteUserCompetencyId(userid, id);
                 }
 
                 return null;

@@ -1,11 +1,40 @@
 ﻿@inherits LayoutComponentBase
 @using Blazored.Toast.Configuration
+
+<style>
+    .anyClass {
+        height: 82vh;
+        overflow-y: scroll;
+    }
+
+    /* width */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background : inherit;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #229383;
+    }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #229383;
+        }
+</style>
     <div id="wrapper">
-        <NavMenu></NavMenu>
+
+            <NavMenu></NavMenu>
+
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
                 <TopNav></TopNav>
-                <div class="container-fluid">
+                <div class="container-fluid anyClass" >
                     @Body
                 </div>
             </div>
