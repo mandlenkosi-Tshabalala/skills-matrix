@@ -1,0 +1,194 @@
+﻿@layout CVLayout
+@page "/viewPDF/{ViewUserId:int}"
+@inherits CVBasecs
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
+
+<link id="theme-style" rel="stylesheet" href="assets/css/pillar-1.css">
+<style>
+    .body1 {
+        height: 100vh;
+        font-family: 'Roboto', sans-serif;
+        background: #F7F8FA;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        color: #fff;
+        background: #fff
+    }
+</style>
+<body class="body1">
+    <article class="resume-wrapper text-center position-relative">
+        <div class="resume-wrapper-inner text-left bg-white">
+            <header class="resume-header pt-4 pt-md-0">
+                <div class="media flex-column flex-md-row">
+                    <img class="mr-3 ml-3 mt-3 img-fluid picture" src="assets/images/profile1.jpg" alt="">
+                    <div class="media-body p-4 d-flex flex-column flex-md-row mx-auto mx-lg-0">
+                        <div class="primary-info">
+                            <h1 class="name mt-0 mb-1 text-black text-uppercase text-uppercase">@personalInfo.FirstName</h1>
+                            <h1 class="surnname mt-0 mb-1 text-black text-uppercase text-uppercase">@personalInfo.LastName</h1>
+                            @{
+                                var LatestRole = string.Empty;
+                            }
+                            @if (employments.Count > 0)
+                            {
+                                @foreach (var employment in employments)
+                                {
+                                    LatestRole = employment.Role.ToString();
+                                }
+                            }
+                            }
+                            <div class="job mt-0 mb-1 text-black text-uppercase text-uppercase">@LatestRole</div>
+                        </div><!--//primary-info-->
+
+                    </div><!--//media-body-->
+                </div><!--//media-->
+            </header>
+            <div class="resume-body p-5">
+                <div class="row">
+                    <div class="col-lg-9 position-relative">
+                        <section class="resume-section summary-section mb-5">
+                            <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3"><img class="img-fluid-small pictureSmall" src="assets/images/icon-1.png" alt=""> Profile</h2>
+                            <div class="resume-section-content">
+                                <p class="mb-0">@personalInfo.Profile</p>
+                            </div>
+                        </section><!--//summary-section-->
+
+                        <section class="resume-section experience-section mb-5">
+
+                            <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3"><img class="img-fluid-small pictureSmall" src="assets/images/icon-2.png" alt=""> Professional Experiences</h2>
+                            @foreach (var employent in employments)
+                            {
+                                <div class="resume-section-content">
+                                    <div>
+                                        <article class="pb-5">
+
+
+                                            <div class="resume-timeline-item-header mb-2">
+                                                <div class="d-flex flex-column flex-md-row">
+                                                    <h3 class="resume-position-title font-weight-bold mb-1">@employent.Role</h3>
+                                                    <div class="resume-company-name ml-auto">@employent.CompanyName</div>
+                                                </div><!--//row-->
+                                                <div class="resume-position-time">@employent.StartDate.ToShortDateString() - @employent.EndDate.ToShortDateString()</div>
+                                            </div><!--//resume-timeline-item-header-->
+                                            <div class="resume-timeline-item-desc">
+                                                <p>@employent.RoleDescription</p>
+                                            </div><!--//resume-timeline-item-desc-->
+                                        </article><!--//resume-timeline-item-->
+                                    </div><!--//resume-timeline-->
+                                </div>
+                            }
+                        </section><!--//experience-section-->
+
+
+
+                        <section class="resume-section experience-section mb-5">
+                            <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3"><img class="img-fluid-small pictureSmall" src="assets/images/icon-6.png" alt=""> Extra-Activities</h2>
+                            <div class="resume-section-content">
+
+                                @foreach (var activity in activities)
+                                {
+                                    <div>
+                                        <article>
+                                            <div class="resume-timeline-item-header mb-2">
+                                                <div class="d-flex flex-column flex-md-row">
+                                                    <h3 class="resume-position-title font-weight-bold mb-1">@activity.Activity</h3>
+                                                </div><!--//row-->
+                                            </div><!--//resume-timeline-item-header-->
+                                            <div class="resume-timeline-item-desc">
+                                                <p>
+                                                    @activity.ActivityDetail
+                                                </p>
+                                            </div><!--//resume-timeline-item-desc-->
+                                        </article>
+                                    </div>
+                                }
+
+                            </div>
+                        </section>
+
+                    </div>
+                    <div class="col-lg-3 resume-timeline position-relative">
+                        <article class="resume-timeline-item position-relative pb-5">
+                            <!--//resume-timeline-item-->
+                            <section class="resume-section interests-section mb-5">
+                                <div class="resume-section-content">
+                                    <p>
+                                        <div class="mb-1"><img class="img-fluid-smaller pictureSmall" src="assets/images/icon-6.png" alt=""> @address.StreetNumber @address.StreetName @address.City @address.ZipCode</div>
+                                        <div class="mb-1"><img class="img-fluid-smaller pictureSmall" src="assets/images/icon-4.png" alt=""> @personalInfo.Phone</div>
+                                        <div class="mb-1"><img class="img-fluid-smaller pictureSmall" src="assets/images/icon-5.png" alt=""> @personalInfo.Email</div>
+                                    </p>
+                                </div>
+                                <div class="resume-section-content">
+                                    <p>
+                                        <div class="mb-1"></div>
+                                    </p>
+                                    <p>
+                                        <div class="mb-1 font-weight-bold">Date Of Birth</div>
+                                        <div class="mb-1">@personalInfo.DateOfBirth.ToShortDateString()</div>
+                                    </p>
+                                    <p>
+                                        <div class="mb-1 font-weight-bold">Place of Birth</div>
+                                        <div class="mb-1">@personalInfo.PlaceOfBirth</div>
+                                    </p>
+                                    <p>
+                                        <div class="mb-1 font-weight-bold">Nationality</div>
+                                        <div class="mb-1">@personalInfo.Nationality</div>
+                                    </p>
+                                    <p>
+                                        <div class="mb-1 font-weight-bold">Marital Status</div>
+                                        <div class="mb-1">@personalInfo.MaritalStatus</div>
+                                    </p>
+                                </div>
+                            </section><!--//Address-section-->
+                            <section class="resume-section education-section mb-5">
+                                <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3"><img class="img-fluid-smaller2 pictureSmaller" src="assets/images/icon-7.png" alt=""> Education</h2>
+                                <div class="resume-section-content">
+
+                                    @foreach (var education in educations)
+                                    {
+                                        <ul class="list-unstyled">
+                                            <li class="mb-2">
+                                                <div class="resume-degree font-weight-bold">@education.FieldOfStudy</div>
+                                                <div class="resume-degree-org">@education.Institution</div>
+                                                <div class="resume-degree-time">@education.QualificationStartDate.ToShortDateString() - @education.QualificationEndDate.ToShortDateString()</div>
+                                            </li>
+                                        </ul>
+                                    }
+                                </div>
+                            </section><!--//education-section-->
+                            <section class="resume-section skills-section mb-5">
+                                <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3"><img class="img-fluid-smaller2 pictureSmaller" src="assets/images/icon-7.png" alt=""> Skills</h2>
+                                <div class="resume-section-content">
+                                    <div class="resume-skill-item">
+                                        @foreach (var skill in skills)
+                                        {
+                                            <ul class="list-unstyled mb-4">
+                                                <li class="mb-2">
+                                                    <div class="resume-skill-name">@skill.Name</div>
+                                                    <div class="progress resume-progress">
+                                                        <div class="progress-bar theme-progress-bar-dark" role="progressbar" style="width: @skill.Level" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </li>
+
+                                            </ul>
+                                        }
+                                    </div><!--//resume-skill-item-->
+
+                                </div><!--resume-section-content-->
+                            </section><!--//skills-section-->
+                        </article>
+                        <article class="resume-timeline-item position-relative">
+                            <!--//resume-timeline-item-->
+                        </article>
+                    </div>
+                </div><!--//row-->
+            </div><!--//resume-body-->
+
+
+        </div>
+    </article>
+</body>
+    
+
+
+
+

@@ -34,8 +34,10 @@ namespace SkillsMatrix.Web.Pages.Auth
 
             _logger.LogInformation("User logged out.");
             _navigationManager.NavigateTo("/signin");
-
+            this.StateHasChanged();
             return base.OnAfterRenderAsync(firstRender);
+
+          
         }
     }
 }

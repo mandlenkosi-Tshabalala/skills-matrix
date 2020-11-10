@@ -16,7 +16,7 @@
                     <div class="primary-info">
                         <h1 class="name mt-0 mb-1 text-black text-uppercase text-uppercase">@personalInfo.FirstName</h1>
                         <h1 class="surnname mt-0 mb-1 text-black text-uppercase text-uppercase">@personalInfo.LastName</h1>
-                        @{ 
+                        @{
                             var LatestRole = string.Empty;
                         }
                         @if (employments.Count > 0)
@@ -74,9 +74,9 @@
                     <section class="resume-section experience-section mb-5">
                         <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3"><img class="img-fluid-small pictureSmall" src="assets/images/icon-6.png" alt=""> Extra-Activities</h2>
                         <div class="resume-section-content">
-                            
-                                @foreach (var activity in activities)
-                                {
+
+                            @foreach (var activity in activities)
+                            {
                                 <div>
                                     <article>
                                         <div class="resume-timeline-item-header mb-2">
@@ -91,8 +91,8 @@
                                         </div><!--//resume-timeline-item-desc-->
                                     </article>
                                 </div>
-                                }
-                            
+                            }
+
                         </div>
                     </section>
 
@@ -178,6 +178,11 @@
     </div>
 </article>
 
-<input type="submit" value="Generate PDF" @onclick="Download" class="Button" id="btn1" />
+<div class="form-group">
+    <button @onclick="ExportToPDF" class="btn btn-outline-success mr-1">Download CV</button>
+</div>
+
+
+
 
 

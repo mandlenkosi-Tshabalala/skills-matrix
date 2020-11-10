@@ -10,6 +10,16 @@ using System.Threading.Tasks;
 using SkillsMatrix.Web.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
+using System.IO;
+using SelectPdf;
+using System.Linq;
+using System.Web;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.JSInterop;
+
+
+
+
 
 //using System.Web.Hosting;
 
@@ -20,6 +30,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.NewFolderForm
         [Inject]
         public IActivityService ActivityService { get; set; }
 
+
         [Inject]
         public ISkillsService SkillsService { get; set; }
         [Inject]
@@ -27,6 +38,9 @@ namespace SkillsMatrix.Web.Pages.CVFlow.NewFolderForm
 
         [Inject]
         public IAddressService AddressService { get; set; }
+
+        [Inject]
+        Microsoft.JSInterop.IJSRuntime JS { get; set; }
 
         [Inject]
         public IEducationService educationService { get; set; }
@@ -63,6 +77,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.NewFolderForm
         protected List<Employment> employments = new List<Employment>();
         protected List<UserActivities> activities = new List<UserActivities>();
 
+
         protected override async Task OnInitializedAsync()
         {
             var principalUser = (await AuthState).User;
@@ -95,6 +110,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.NewFolderForm
 
                     }
                 }
+
             }
 
         }
@@ -123,7 +139,81 @@ namespace SkillsMatrix.Web.Pages.CVFlow.NewFolderForm
             }
         }
 
+        protected async  void  ExportToPDF()
+        {
+
+            var principalUser = ( await AuthState).User;
+
+            if (principalUser.Identity.IsAuthenticated)
+            {
+                var user = await UserManager.FindByEmailAsync(principalUser.Identity.Name);
+                if (user != null)
+                {
+                    UserId = user.Id;
+                }
+            }
+            string url = "";
+
+            if (ViewUserId == 0)
+            {
+                 url = $"https://localhost:44349/viewPDF/{UserId}";
+                personalInfo = await personService.GetPersonByUserId(UserId);
+            }
+            else
+            {
+                url = $"https://localhost:44349/viewPDF/{ViewUserId}";
+                personalInfo = await personService.GetPersonByUserId(ViewUserId);
+            }
+
+            string pdf_page_size = "A4";
+            PdfPageSize pageSize = (PdfPageSize)Enum.Parse(typeof(PdfPageSize),
+                pdf_page_size, true);
+
+            string pdf_orientation = "Portrait";
+            //PdfPageOrientation pdfOrientation =
+            //    (PdfPageOrientation)Enum.Parse(typeof(PdfPageOrientation),
+            //    pdf_orientation, true);
+
+            int webPageWidth = 1024;
+            try
+            {
+                webPageWidth = Convert.ToInt32("1024");
+            }
+            catch { }
+
+            int webPageHeight = 0;
+            try
+            {
+                webPageHeight = Convert.ToInt32("0");
+            }
+            catch { }
+
+            // instantiate a html to pdf converter object
+            HtmlToPdf converter = new HtmlToPdf();
+
+            // set converter options
+            converter.Options.PdfPageSize = pageSize;
+            //  converter.Options.PdfPageOrientation = pdfOrientation;
+            converter.Options.WebPageWidth = webPageWidth;
+            converter.Options.WebPageHeight = webPageHeight;
+            converter.Options.MarginBottom = 15;
+            converter.Options.MarginTop = 15;
+            converter.Options.MarginLeft = 10;
+            converter.Options.MarginRight = 10;
+            // create a new pdf document converting an url
+            PdfDocument doc = converter.ConvertUrl(url);
+
+            MemoryStream ms = new MemoryStream();
+            doc.Save(ms);
+            doc.Save();
+
+
+            //Download the PDF in the browser.
+           await JS.SaveAs($"{personalInfo.FirstName} {personalInfo.LastName} CV.pdf", ms.ToArray());
+
+
+        }
 
 
     }
-}
+    }
