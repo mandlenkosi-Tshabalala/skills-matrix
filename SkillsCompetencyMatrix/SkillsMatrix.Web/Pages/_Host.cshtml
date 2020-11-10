@@ -21,7 +21,7 @@
     <link href="_content/Blazored.Toast/blazored-toast.min.css" rel="stylesheet" />
 
 </head>
-<body id="page-top" style="position:fixed; width:100%; height: inherit">
+<body id="page-top">
 
     <app>
         <component type="typeof(App)" render-mode="ServerPrerendered" />
@@ -38,13 +38,38 @@
     <script src="google/address.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGafzh7tV2fKKypcr6LoR-KDIF1-S0cdg&callback=initAutocomplete&libraries=places&v=weekly"
-            async defer></script>*@
+        async defer></script>*@
 
     <!-- Page level plugins -->
     <script src="layout/vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="layout/vendor/datatables/TableMin.js"></script>
     <!-- Page level custom scripts -->
     <script src="layout/js/demo/datatables-demo.js"></script>
+
+    <script type="text/javascript">
+        function saveAsFile(filename, bytesBase64) {
+            if (navigator.msSaveBlob) {
+                //Download document in Edge browser
+                var data = window.atob(bytesBase64);
+                var bytes = new Uint8Array(data.length);
+                for (var i = 0; i < data.length; i++) {
+                    bytes[i] = data.charCodeAt(i);
+                }
+                var blob = new Blob([bytes.buffer], { type: "application/octet-stream" });
+                navigator.msSaveBlob(blob, filename);
+            }
+            else {
+                var link = document.createElement('a');
+                link.download = filename;
+                link.href = "data:application/octet-stream;base64," + bytesBase64;
+                document.body.appendChild(link); // Needed for Firefox
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+
+
+    </script>
 
 </body>
 </html>

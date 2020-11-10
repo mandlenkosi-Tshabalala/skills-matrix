@@ -137,7 +137,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.CompetenciesForm
             NavigationManager.NavigateTo("/membership");
         }
 
-        protected async void competencyCategoryClicked(object competencyCategory)
+        protected async void CompetencyCategoryClicked(object competencyCategory)
         {
             competencyCategoryID = competencyCategory.ToString();
             competencies = await competenciesService.GetAll(Convert.ToInt32(competencyCategoryID));
