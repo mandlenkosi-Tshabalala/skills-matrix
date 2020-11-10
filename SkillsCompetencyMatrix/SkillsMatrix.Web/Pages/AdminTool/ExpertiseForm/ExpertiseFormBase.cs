@@ -62,38 +62,50 @@ namespace SkillsMatrix.Web.Pages.AdminTool
 
         protected async void HandleValidSubmit()
         {
-            try
+            var isValid = editContext.Validate();
+
+            if (isValid)
             {
-
                 if (edit == false)
+            {
+                    try
                 {
-
-                    await expertiseService.Create(expertise);
-                    await OnInitializedAsync();
-                    NavigationManager.NavigateTo($"/adminExpertise");
-                    expertise = new Expertise();
-
+                await expertiseService.Create(expertise);
+                await OnInitializedAsync();
+                NavigationManager.NavigateTo($"/adminExpertise");
+                expertise = new Expertise();
+                toastService.ShowSuccess("The information has been saved successfully", "Saved");
+                    }
+                    catch (Exception ex)
+                    {
+                        toastService.ShowError("There was an error when trying to save", "Error");
+                    }
                 }
-                else
-                {
-                    await expertiseService.Update(expertise);
-                    await OnInitializedAsync();
-                    edit = false;
-                    NavigationManager.NavigateTo($"/adminExpertise");
-                    expertise = new Expertise();
-
+            else
+            {
+                    try
+                    {
+                await expertiseService.Update(expertise);
+                await OnInitializedAsync();
+                edit = false;
+                NavigationManager.NavigateTo($"/adminExpertise");
+                expertise = new Expertise();
+                    }
+                    catch (Exception ex)
+                    {
+                        toastService.ShowError("There was an error when trying to save", "Error");
+                    }
 
                 }
             }
-            catch(Exception ex)
+            else
             {
+                toastService.ShowError("Please make sure that you fill all required field", "Error");
 
             }
 
         }
-
-
-        protected async Task GetExpertise(int id)
+         protected async Task GetExpertise(int id)
         {
             expertise = await expertiseService.Get(id);
             edit = true;
@@ -107,7 +119,7 @@ namespace SkillsMatrix.Web.Pages.AdminTool
             await OnInitializedAsync();
             NavigationManager.NavigateTo($"/adminExpertise");
             expertise = new Expertise();
-
+            toastService.ShowWarning("Expertise is removed", "Warning");
 
         }
     }

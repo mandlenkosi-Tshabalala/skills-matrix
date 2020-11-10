@@ -67,25 +67,46 @@ namespace SkillsMatrix.Web.Pages.AdminTool
 
         protected async void HandleCategory()
         {
+            var isValid = editContext.Validate();
 
-
-            if (edit == false)
+            if (isValid)
             {
 
+                if (edit == false)
+            {
+               try
+                {
                 await CompetenciesCategoryService.Create(competencyCategory);
                 await OnInitializedAsync();
                 NavigationManager.NavigateTo($"/adminCompetency");
                 competencyCategory = new CompetencyCategory();
-
-            }
+                toastService.ShowSuccess("The information has been saved successfully", "Saved");
+                    }
+                    catch (Exception ex)
+                    {
+                        toastService.ShowError("There was an error when trying to save", "Error");
+                    }
+                }
             else
             {
+              try
+               {
                 await CompetenciesCategoryService.Update(competencyCategory);
                 await OnInitializedAsync();
                 edit = false;
                 NavigationManager.NavigateTo($"/adminCompetency");
                 competencyCategory = new CompetencyCategory();
+                    }
+                    catch (Exception ex)
+                    {
+                        toastService.ShowError("There was an error when trying to save", "Error");
+                    }
 
+                }
+            }
+            else
+            {
+                toastService.ShowError("Please make sure that you fill all required field", "Error");
 
             }
 
@@ -93,21 +114,45 @@ namespace SkillsMatrix.Web.Pages.AdminTool
 
         protected async void HandleCompetency()
         {
-            if (edit == false)
+            var isValid = editContext.Validate();
+
+            if (isValid)
             {
-                competency.CatagoryId = competencyCategoryID;
-                await CompetenciesService.Create(competency);
-                await CompetenciesService.GetAll(competencyCategoryID);
-            }
+                if (edit == false)
+                {
+                    try
+                    {
+                        competency.CatagoryId = competencyCategoryID;
+                        await CompetenciesService.Create(competency);
+                        await CompetenciesService.GetAll(competencyCategoryID);
+                        toastService.ShowSuccess("The information has been saved successfully", "Saved");
+                    }
+                    catch (Exception ex)
+                    {
+                        toastService.ShowError("There was an error when trying to save", "Error");
+                    }
+                }
+            else
+                    {
+                        try
+                        { 
+                        await CompetenciesService.Update(competency);
+                        await OnInitializedAsync();
+                        edit = false;
+                        NavigationManager.NavigateTo($"/adminCompetency");
+                        competency = new Competency();
+                        toastService.ShowSuccess("The information has been saved successfully", "Saved");
+                    }
+                    catch (Exception ex)
+                    {
+                        toastService.ShowError("There was an error when trying to save", "Error");
+                    }
+                }
+        }
             else
             {
-                await CompetenciesService.Update(competency);
-                await OnInitializedAsync();
-                edit = false;
-                NavigationManager.NavigateTo($"/adminCompetency");
-                competency = new Competency();
+                toastService.ShowError("Please make sure that you fill all required field", "Error");
             }
-
         }
 
         protected async void SearchCompetency(ChangeEventArgs e)
@@ -142,7 +187,7 @@ namespace SkillsMatrix.Web.Pages.AdminTool
             await OnInitializedAsync();
             NavigationManager.NavigateTo($"/adminCompetency");
             competency = new Competency();
-
+            toastService.ShowWarning("Category is removed", "Warning");
 
         }
 
@@ -153,6 +198,7 @@ namespace SkillsMatrix.Web.Pages.AdminTool
             await OnInitializedAsync();
             NavigationManager.NavigateTo($"/adminCompetency");
             competencyCategory = new CompetencyCategory();
+            toastService.ShowWarning("Competency is removed", "Warning");
 
 
         }
