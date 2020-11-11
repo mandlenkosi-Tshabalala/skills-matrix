@@ -2,6 +2,8 @@
 @page "/viewCV"
 @page "/viewCV/{ViewUserId:int}"
 @inherits CVBasecs
+@using Blazored.Toast.Configuration
+
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
 
 <link id="theme-style" rel="stylesheet" href="assets/css/pillar-1.css">
@@ -179,8 +181,25 @@
 </article>
 
 <div class="form-group">
-    <button @onclick="ExportToPDF" class="btn btn-outline-success mr-1">Download CV</button>
+    @*<button @onclick="ExportToPDF" class="btn btn-outline-success mr-1">Download CV</button>*@
+    @if (IsDownloading)
+    {
+        <button class="btn btn-outline-success mr-1 download disabled" disabled><span class='fa-left fas fa-sync-alt spinning'></span>Downloading...</button>
+    }
+    else
+    {
+        <button class="btn btn-outline-success mr-1 download" @onclick="Download">Download CV</button>
+    }
 </div>
+
+<BlazoredToasts Position="ToastPosition.TopRight"
+                Timeout="5"
+                IconType="IconType.FontAwesome"
+                SuccessClass="success-toast-override"
+                SuccessIcon="fa fa-thumbs-up"
+                ErrorIcon="fa fa-bug">
+
+</BlazoredToasts>
 
 
 

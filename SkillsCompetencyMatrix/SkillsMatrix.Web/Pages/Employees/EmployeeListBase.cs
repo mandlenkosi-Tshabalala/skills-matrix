@@ -1,18 +1,26 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Blazored.Toast.Services;
+using Microsoft.AspNetCore.Components;
 using SkillsMatrix.Models;
 using SkillsMatrix.Web.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using SelectPdf;
 
 namespace SkillsMatrix.Web.Pages.Employees
 {
     public class EmployeeListBase : ComponentBase
     {
+
+        [Inject]
+        public IToastService toastService { get; set; }
+
         [Inject]
         public IPersonService PersonService { get; set; }
 
@@ -26,6 +34,9 @@ namespace SkillsMatrix.Web.Pages.Employees
         public ICompetenciesService CompetenciesService { get; set; }
 
         public IEnumerable<PersonalInfo> Employees { set; get; }
+
+        [Inject]
+        Microsoft.JSInterop.IJSRuntime JS { get; set; }
 
         public string EmployeeName { set; get; }
 
@@ -43,6 +54,10 @@ namespace SkillsMatrix.Web.Pages.Employees
 
         public string competencyID { get; set; }
 
+        public bool Searching = true;
+
+        protected bool IsDownloading { get; set; }
+
         public IEnumerable<Expertise> functionalList { get; set; }
 
         public IEnumerable<CompetencyCategory> competencyCategoryList { get; set; }
@@ -54,16 +69,19 @@ namespace SkillsMatrix.Web.Pages.Employees
 
         protected override async Task OnInitializedAsync()
         {
-
-            Employees = await PersonService.GetAllEmployees("", 0, 0,"","","",0);
+            Employees = await PersonService.GetAllEmployees("", 0, 0, "", "", "", 0);
             functionalList = await ExpertiseService.GetAll();
             competencyCategoryList = await CompetenciesCategoryService.GetCompetencies();
+            Searching = false;
 
         }
 
         protected async Task Search()
         {
-            Employees = await PersonService.GetAllEmployees(EmployeeName, Convert.ToInt32(expertiseID), Convert.ToInt32(competencyCategoryID), Skills, QualificationLevel,Country, Convert.ToInt32(competencyID));
+            Searching = true;
+            this.StateHasChanged();
+
+            Employees = await PersonService.GetAllEmployees(EmployeeName, Convert.ToInt32(expertiseID), Convert.ToInt32(competencyCategoryID), Skills, QualificationLevel, Country, Convert.ToInt32(competencyID));
 
             if (Employees.Count() == 0)
             {
@@ -71,10 +89,37 @@ namespace SkillsMatrix.Web.Pages.Employees
             }
 
             EmployeeCheckedList.Clear();
+
+            Searching = false;
+            this.StateHasChanged();
         }
 
-        protected void DownloadCV()
+        public async Task DownloadCV()
         {
+            IsDownloading = true;
+            this.StateHasChanged();
+
+            if (EmployeeCheckedList.Count == 0)
+            {
+                toastService.ShowError("Please ensure at least one employee is selected for CV Download.", "Error");
+            }
+
+            else
+            {
+                try
+                {
+                    await ExportToPDF();
+                    EmployeeCheckedList.Clear();
+                }
+
+                catch (Exception ex)
+                {
+                    toastService.ShowError("Error downloading CV", "Error");
+                }
+            }
+
+            IsDownloading = false;
+            this.StateHasChanged();
         }
 
         protected void ViewCV(int ViewUserID)
@@ -83,42 +128,42 @@ namespace SkillsMatrix.Web.Pages.Employees
             NavigationManager.NavigateTo($"/viewCV/" + ViewUserID.ToString());
         }
 
-        public List<int> EmployeeCheckedList { get; set; } = new List<int>();
-        protected void empSelect(int empID, object checkedValue)
+        public List<PersonalInfo> EmployeeCheckedList { get; set; } = new List<PersonalInfo>();
+        protected void empSelect(PersonalInfo emp, object checkedValue)
         {
             if ((bool)checkedValue)
             {
-                if(EmployeeCheckedList.Count == Employees.Count())
+                if (EmployeeCheckedList.Count == Employees.Count())
                 {
                     SelectAll = true;
                 }
-                    
-                if (!EmployeeCheckedList.Contains(empID))
+                
+                if (!EmployeeCheckedList.Any(x => x.Id == emp.Id))
                 {
-                    EmployeeCheckedList.Add(empID);
+                    EmployeeCheckedList.Add(emp);
                 }
             }
             else
             {
                 SelectAll = false;
 
-                if (EmployeeCheckedList.Contains(empID))
+                if (EmployeeCheckedList.Any(x => x.Id == emp.Id))
                 {
-                    EmployeeCheckedList.Remove(empID);
+                    EmployeeCheckedList.Remove(emp);
                 }
             }
         }
 
         protected void empSelectAll(object checkedValue)
         {
-            
+
             if ((bool)checkedValue)
             {
                 foreach (var item in Employees)
                 {
-                    if (!EmployeeCheckedList.Contains(item.Id))
+                    if (!EmployeeCheckedList.Any(x => x.Id == item.Id))
                     {
-                        EmployeeCheckedList.Add(item.Id);
+                        EmployeeCheckedList.Add(item);
                     }
                 }
 
@@ -128,9 +173,9 @@ namespace SkillsMatrix.Web.Pages.Employees
             {
                 foreach (var item in Employees)
                 {
-                    if (EmployeeCheckedList.Contains(item.Id))
+                    if (EmployeeCheckedList.Any(x => x.Id == item.Id))
                     {
-                        EmployeeCheckedList.Remove(item.Id);
+                        EmployeeCheckedList.Remove(item);
                     }
                 }
 
@@ -142,7 +187,7 @@ namespace SkillsMatrix.Web.Pages.Employees
 
         protected bool empCheckSelectStatus(int empID)
         {
-            if (EmployeeCheckedList.Contains(empID))
+            if (EmployeeCheckedList.Any(x => x.Id == empID))
             {
                 return true;
             }
@@ -164,9 +209,104 @@ namespace SkillsMatrix.Web.Pages.Employees
             this.StateHasChanged();
         }
 
+        public static byte[] GetZipArchive(List<InMemoryFile> files)
+        {
+            byte[] archiveFile;
+            using (var archiveStream = new MemoryStream())
+            {
+                using (var archive = new ZipArchive(archiveStream, ZipArchiveMode.Create, true))
+                {
+                    foreach (var file in files)
+                    {
+                        var zipArchiveEntry = archive.CreateEntry(file.FileName, CompressionLevel.Fastest);
+                        using (var zipStream = zipArchiveEntry.Open())
+                            zipStream.Write(file.Content, 0, file.Content.Length);
+                    }
+                }
+
+
+                archiveFile = archiveStream.ToArray();
+            }
+
+            return archiveFile;
+        }
+
+        protected async Task<string> ExportToPDF()
+        {
+            return await Task.Run(async () =>
+            {
+                string pdf_page_size = "A4";
+            PdfPageSize pageSize = (PdfPageSize)Enum.Parse(typeof(PdfPageSize), pdf_page_size, true);
+
+            int webPageWidth = 1024;
+            try
+            {
+                webPageWidth = Convert.ToInt32("1024");
+            }
+            catch { }
+
+            int webPageHeight = 0;
+            try
+            {
+                webPageHeight = Convert.ToInt32("0");
+            }
+            catch { }
+
+            // instantiate a html to pdf converter object
+            HtmlToPdf converter = new HtmlToPdf();
+
+            // set converter options
+            converter.Options.PdfPageSize = pageSize;
+            converter.Options.WebPageWidth = webPageWidth;
+            converter.Options.WebPageHeight = webPageHeight;
+            converter.Options.MarginBottom = 15;
+            converter.Options.MarginTop = 15;
+            converter.Options.MarginLeft = 10;
+            converter.Options.MarginRight = 10;
+            // create a new pdf document converting an url
+
+            List<InMemoryFile> files = new List<InMemoryFile>();
+            byte[] zip;
+
+            foreach (var item in EmployeeCheckedList)
+            {
+                string url = "";
+
+                url = NavigationManager.ToAbsoluteUri("/viewPDF/" + item.UserId.ToString()).ToString();
+
+                PdfDocument doc = converter.ConvertUrl(url);
+                MemoryStream pdfStream = new MemoryStream();
+                
+                doc.Save(pdfStream);
+                doc.Save();
+                doc.Close();
+                
+                files.Add(new InMemoryFile() { FileName = item.FirstName + "_" + item.LastName + "_" + string.Format("{0:yyyy-MM-dd_HH-mm-ss-fff}", DateTime.Now) + "_CV.pdf", Content = pdfStream.ToArray() });
+                
+                pdfStream.Close();
+                pdfStream.Dispose();
+            }
+
+            if (files.Count == 1)
+            {
+                await JS.SaveAs(files[0].FileName, files[0].Content);
+
+            }
+
+            else
+            {
+                zip = GetZipArchive(files);
+                await JS.SaveAs($"DownloadCV_" + string.Format("{0:yyyy-MM-dd_HH-mm-ss-fff}", DateTime.Now) + ".zip", zip.ToArray());
+            }
+
+                return "Task Complete";
+            });
+        }
     }
 
-
-
-
+    public class InMemoryFile
+    {
+        public string FileName { get; set; }
+        public byte[] Content { get; set; }
+    }
 }
