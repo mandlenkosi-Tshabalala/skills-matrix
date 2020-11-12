@@ -68,6 +68,8 @@ namespace SkillsMatrix.Web.Pages.CVFlow.NewFolderForm
 
         private bool edit = false;
 
+        public bool Searching = true;
+
         protected bool IsDownloading { get; set; }
 
         [Parameter]
@@ -87,7 +89,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.NewFolderForm
         protected override async Task OnInitializedAsync()
         {
             var principalUser = (await AuthState).User;
-
+            Searching = true;
 
             if (ViewUserId > 0)
             {
@@ -97,6 +99,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.NewFolderForm
                 educations = await educationService.GetEducations(ViewUserId);
                 employments = await employementHistoryService.GetEmployment(ViewUserId);
                 activities = await ActivityService.GetActivity(ViewUserId);
+                Searching = false;
             }
             else
             {
@@ -113,6 +116,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.NewFolderForm
                         educations = await educationService.GetEducations(UserId);
                         employments = await employementHistoryService.GetEmployment(UserId);
                         activities = await ActivityService.GetActivity(UserId);
+                        Searching = false;
 
                     }
                 }
@@ -149,6 +153,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.NewFolderForm
 
         protected async Task<string> ExportToPDF()
         {
+   
             return await Task.Run(async () =>
             {
                 var principalUser = (await AuthState).User;
