@@ -19,7 +19,15 @@ else
     <div class="resume-wrapper-inner mx-auto text-left bg-white shadow-lg">
         <header class="resume-header pt-4 pt-md-0">
             <div class="media flex-column flex-md-row">
-                <img class="mr-3 ml-3 mt-3 img-fluid picture" src="assets/images/profile1.jpg" alt="">
+                @if (personalInfo.ImagePath == null)
+                {
+                    <img class="mr-3 ml-3 mt-3 img-fluid picture" src="images/profile.png" alt="">
+                }
+                else
+                {
+                    <img class="mr-3 ml-3 mt-3 img-fluid picture" src="images/@personalInfo.ImagePath" alt="">
+                }
+
                 <div class="media-body p-4 d-flex flex-column flex-md-row mx-auto mx-lg-0">
                     <div class="primary-info">
                         <h1 class="name mt-0 mb-1 text-black text-uppercase text-uppercase">@personalInfo.FirstName</h1>

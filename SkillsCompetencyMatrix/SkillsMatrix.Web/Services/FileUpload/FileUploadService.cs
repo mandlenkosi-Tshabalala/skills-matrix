@@ -19,7 +19,7 @@ namespace SkillsMatrix.Web.Services
 
         public async Task<string> UploadAsync(IFileListEntry file)
         {
-            var path = Path.Combine(_environment.ContentRootPath, "Upload", file.Name);
+            var path = Path.Combine(_environment.ContentRootPath, "wwwroot//images", file.Name);
             var ms = new MemoryStream();
             await file.Data.CopyToAsync(ms);
 

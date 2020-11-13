@@ -7624,7 +7624,7 @@ button.bg-dark:focus {
 
 .mt-3,
 .my-3 {
-  margin-top: 1rem !important;
+  margin-top: 3rem !important;
 }
 
 .mr-3,
@@ -9737,7 +9737,8 @@ a.theme-btn-on-bg:hover, a.theme-btn-on-bg:focus, a.theme-btn-on-bg:active, .the
 }
 
 .resume-header .picture {
-  width: 220px;
+  width: 170px;
+  height: 170px
 }
 
 .resume-header .pictureSmall {

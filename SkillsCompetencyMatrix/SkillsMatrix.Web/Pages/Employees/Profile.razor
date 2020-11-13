@@ -10,10 +10,19 @@
         <div class="card">
             <div class="card-body">
                 <center class="m-t-30">
-                    <img src="assets/images/profile1.jpg" class="img-circle"
-                         width="150" />
-                    <h4 class="card-title m-t-10">Mpho Nethathe</h4>
-                    <h6 class="card-subtitle">Software Developer</h6>
+
+                    @if (@Person.ImagePath != null)
+                    {
+                        <img src="images/@Person.ImagePath" class="img-circle"
+                             width="150" />
+                    }
+                    else
+                    {
+                        <img src="images/profile.png" class="img-circle"
+                             width="150" />
+                    }
+                    <h4 class="card-title m-t-10">@Person.FirstName @Person.LastName</h4>
+                    <h6 class="card-subtitle">@Person.Nationality</h6>
                 </center>
             </div>
             <div class="card-footer">

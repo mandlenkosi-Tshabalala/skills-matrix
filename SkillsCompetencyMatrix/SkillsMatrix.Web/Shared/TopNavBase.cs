@@ -9,13 +9,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SkillsMatrix.Web.Pages.Employees
+namespace SkillsMatrix.Web.Shared
 {
-    public class ProfileBase : ComponentBase
+    public class TopNavBase : ComponentBase
     {
-        [Inject]
-        public IFileUploadService uploadService {get;set;}
-        protected IFileListEntry file;
 
         [Inject]
         public IPersonService PersonService { get; set; }
@@ -29,11 +26,7 @@ namespace SkillsMatrix.Web.Pages.Employees
         [CascadingParameter]
         protected Task<AuthenticationState> AuthState { get; set; }
 
-        [Inject]
-        public NavigationManager NavigationManager { get; set; }
-
         public int UserId { get; set; }
-        public int PersonId { get; set; }
 
         protected PersonalInfo Person = new PersonalInfo();
 
@@ -47,28 +40,10 @@ namespace SkillsMatrix.Web.Pages.Employees
                 if (user != null)
                 {
                     UserId = user.Id;
-                    Person = await PersonService.GetPersonByUserId(user.Id);
-
-                    if (Person != null)
-                    {
-                        PersonId = Person.Id;
-                    }
+                    Person = await PersonService.GetPersonByUserId(UserId);
                 }
             }
         }
 
-        public async Task HandleFileSelected(IFileListEntry[] files)
-        {
-            file = files.FirstOrDefault();
-            if(file != null)
-            {
-                var path = await uploadService.UploadAsync(file);
-                if (!string.IsNullOrEmpty(path))
-                {
-                    Person.ImagePath = file.Name;
-                    await PersonService.Update(Person);
-                }
-            }
-        }
     }
 }
