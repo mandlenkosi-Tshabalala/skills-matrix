@@ -1,105 +1,188 @@
 ﻿@page "/profile"
 @inherits ProfileBase
+@using Blazored.Toast.Configuration
+<style>
+    .img-fluid {
+        max-width: 100%;
+        height: auto;
+        border-radius: 50%;
+    }
+
+    .img-fluid-small {
+        max-width: 100%;
+        height: 25px;
+        border-radius: 50%;
+    }
+
+    .img-fluid-smaller {
+        max-width: 100%;
+        height: 20px;
+        border-radius: 50%;
+    }
+
+    .img-fluid-smaller2 {
+        max-width: 80%;
+        height: 13px;
+        border-radius: 50%;
+    }
+
+    .img-thumbnail {
+        padding: 0.25rem;
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: 0.25rem;
+        max-width: 100%;
+        height: auto
+    }
+
+
+
+    .resume-header {
+        width: 170px;
+        height: 170px
+    }
+</style>
+
+
 
 <h3>Profile</h3>
 
+@if (Searching == true)
+        {
+
+<div class="spinner"></div>
+        }else{
+
 
 <div class="row">
-    <!-- Column -->
+    @if (Person.Id > 0)
+    {
+
     <div class="col-lg-4 col-xlg-3 col-md-5">
+
         <div class="card">
             <div class="card-body">
                 <center class="m-t-30">
 
                     @if (@Person.ImagePath != null)
-                    {
-                        <img src="images/@Person.ImagePath" class="img-circle"
-                             width="150" />
-                    }
-                    else
-                    {
-                        <img src="images/profile.png" class="img-circle"
-                             width="150" />
-                    }
+                        {
+
+                    <img class="resume-header img-fluid picture" src="images/@Person.ImagePath" />
+                        }
+                        else
+                        {
+                    <img class="resume-header  img-fluid picture" src="images/profile.png" />
+                        }
                     <h4 class="card-title m-t-10">@Person.FirstName @Person.LastName</h4>
                     <h6 class="card-subtitle">@Person.Nationality</h6>
+                    <hr />
+                    <h1 class="card-subtitle">My Profile</h1>
+                    <p>@Person.Profile</p>
                 </center>
             </div>
-            <div class="card-footer">
-                <InputFile OnChange="HandleFileSelected"></InputFile>
+            <div class="card-footer" style="background-color:white">
+                <InputFile OnChange="HandleFileSelected" class="btn btn-primary mr-1"></InputFile>
             </div>
         </div>
+
+
+
     </div>
-    <!-- Column -->
-    <!-- Column -->
+
     <div class="col-lg-8 col-xlg-9 col-md-7">
         <div class="card">
             <!-- Tab panes -->
             <div class="card-body">
-                <form class="form-horizontal form-material">
-                    <div class="form-group">
-                        <label class="col-md-12">Full Name</label>
-                        <div class="col-md-12">
-                            <input type="text" placeholder="Mpho Nethathe"
-                                   class="form-control form-control-line">
+                <EditForm EditContext="@editContext">
+                    <DataAnnotationsValidator />
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <label>First Name</label>
+                            <InputText @bind-Value="Person.FirstName" class="form-control" />
+                            <ValidationMessage For="@(() => Person.FirstName)" />
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label>Middle Name</label>
+                            <InputText @bind-Value="Person.MiddleName" class="form-control" />
+                            <ValidationMessage For="@(() => Person.MiddleName)" />
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <label>Last Name</label>
+                            <InputText @bind-Value="Person.LastName" class="form-control" />
+                            <ValidationMessage For="@(() => Person.LastName)" />
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Nationality</label>
+                            <InputSelect @bind-Value="Person.Nationality" class="form-control">
+                                <option value=""></option>
+                                <option value="Angola">Angola</option>
+                                <option value="Asian Countries">Asian Countries</option>
+                                <option value="Australia and New Zealand">Australia and New Zealand</option>
+                                <option value="Botswana">Botswana</option>
+                                <option value="Central and South American Countries">Central and South American Countries</option>
+                                <option value="European Countries">European Countries</option>
+                                <option value="Lesotho">Lesotho</option>
+                                <option value="Malawi">Malawi</option>
+                                <option value="Mauritius">Mauritius</option>
+                                <option value="Mozambique">Mozambique</option>
+                                <option value="Namibia">Namibia</option>
+                                <option value="North American Countries">North American Countries</option>
+                                <option value="Rest of Africa">Rest of Africa</option>
+                                <option value="SADC except SA">SADC except SA</option>
+                                <option value="Seychelles">Seychelles</option>
+                                <option value="South Africa">South Africa</option>
+                                <option value="Swaziland">Swaziland</option>
+                                <option value="Tanzania">Tanzania</option>
+                                <option value="Zaire">Zaire</option>
+                                <option value="Zambia">Zambia</option>
+                                <option value="Zimbabwe">Zimbabwe</option>
+                            </InputSelect>
+                            <ValidationMessage For="@(() => Person.Nationality)" />
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="example-email" class="col-md-12">Email</label>
-                        <div class="col-md-12">
-                            <input type="email" placeholder="mphonethathe@gmail.com"
-                                   class="form-control form-control-line" name="example-email"
-                                   id="example-email">
+
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <label>Email</label>
+                            <InputText @bind-Value="Person.Email" class="form-control" />
+                            <ValidationMessage For="@(() => Person.Email)" />
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Contact Number</label>
+                            <InputText @bind-Value="Person.Phone" class="form-control" />
+                            <ValidationMessage For="@(() => Person.Phone)" />
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-md-12">Password</label>
-                        <div class="col-md-12">
-                            <input type="password" value="password"
-                                   class="form-control form-control-line">
-                        </div>
+                    <hr />
+                    <div>
+                        <button type="submit" @onclick="QuickSave" class="btn btn-outline-success mr-1">Update</button>
                     </div>
-                    <div class="form-group">
-                        <label class="col-md-12">Confirm Password</label>
-                        <div class="col-md-12">
-                            <input type="password" value="password"
-                                   class="form-control form-control-line">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-12">Phone No</label>
-                        <div class="col-md-12">
-                            <input type="text" placeholder="072 1880 910"
-                                   class="form-control form-control-line">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-12">Select Country</label>
-                        <div class="col-sm-12">
-                            <select class="form-control form-control-line">
-                                <option>South Africa</option>
-                                <option>India</option>
-                                <option>Usa</option>
-                                <option>Canada</option>
-                                <option>Thailand</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                            <button class="btn btn-success">Update Profile</button>
-                        </div>
-                    </div>
-                </form>
+                </EditForm>
             </div>
         </div>
-    </div>
-    <!-- Column -->
-</div>
 
-@*@if (file != null)
-{
-    <p>Name: @file.Name</p>
-    <p>Name: @file.Size</p>
-    <p>Name: @file.Type</p>
-}*@
+    </div>
+
+    }
+    else
+    {
+    <p>Please make sure that you complete at least one step on "my cv" before you come to this page...</p>
+    }
+</div>
+}
+
+
+<BlazoredToasts Position="ToastPosition.TopRight"
+                Timeout="5"
+                IconType="IconType.FontAwesome"
+                SuccessClass="success-toast-override"
+                SuccessIcon="fa fa-thumbs-up"
+                ErrorIcon="fa fa-bug">
+
+</BlazoredToasts>
+

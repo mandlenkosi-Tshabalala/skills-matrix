@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Blazored.Toast.Services;
+using Microsoft.AspNetCore.Components.Forms;
+
 
 namespace SkillsMatrix.Web.Pages.Employees
 {
@@ -16,7 +19,8 @@ namespace SkillsMatrix.Web.Pages.Employees
         [Inject]
         public IFileUploadService uploadService {get;set;}
         protected IFileListEntry file;
-
+        [Inject]
+        public IToastService toastService { get; set; }
         [Inject]
         public IPersonService PersonService { get; set; }
 
@@ -26,8 +30,13 @@ namespace SkillsMatrix.Web.Pages.Employees
         [Inject]
         protected UserManager<IdentityUser<int>> UserManager { get; set; }
 
+        public bool Searching = true;
+
         [CascadingParameter]
         protected Task<AuthenticationState> AuthState { get; set; }
+
+        protected EditContext editContext;
+
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -39,7 +48,11 @@ namespace SkillsMatrix.Web.Pages.Employees
 
         protected override async Task OnInitializedAsync()
         {
-            var principalUser = (await AuthState).User;
+              Searching = true;
+
+           var principalUser = (await AuthState).User;
+
+            editContext = new EditContext(Person);
 
             if (principalUser.Identity.IsAuthenticated)
             {
@@ -49,10 +62,14 @@ namespace SkillsMatrix.Web.Pages.Employees
                     UserId = user.Id;
                     Person = await PersonService.GetPersonByUserId(user.Id);
 
+                    editContext = new EditContext(Person);
+
                     if (Person != null)
                     {
                         PersonId = Person.Id;
                     }
+
+                    Searching = false;
                 }
             }
         }
@@ -68,6 +85,35 @@ namespace SkillsMatrix.Web.Pages.Employees
                     Person.ImagePath = file.Name;
                     await PersonService.Update(Person);
                 }
+            }
+
+        }
+
+        protected async void QuickSave()
+        {
+            var isValid = editContext.Validate();
+
+            if (isValid)
+            {
+
+                    try
+                    {
+                        await PersonService.Update(Person);
+                        toastService.ShowSuccess("The information has been saved successfully", "Success");
+                        await OnInitializedAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        toastService.ShowError("There was an error when trying to save", "Error");
+                    }
+
+                
+
+
+            }
+            else
+            {
+                toastService.ShowError("Please make sure that you fill all required field", "Error");
             }
         }
     }
