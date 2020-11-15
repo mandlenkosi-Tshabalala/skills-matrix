@@ -75,10 +75,15 @@
                         }
                     <h4 class="card-title m-t-10">@Person.FirstName @Person.LastName</h4>
                     <h6 class="card-subtitle">@Person.Nationality</h6>
+
                     <hr />
-                    <h1 class="card-subtitle">My Profile</h1>
-                    <p>@Person.Profile</p>
-                </center>
+                    CV Progress <div class="progress">
+    <div class="progress-bar bg-danger" style="width:70%">70%</div>
+                    </div>
+    <hr />
+    <h1 class="card-subtitle">My Profile</h1>
+    <p>@Person.Profile</p>
+</center>
             </div>
             <div class="card-footer" style="background-color:white">
                 <InputFile OnChange="HandleFileSelected" class="btn btn-primary mr-1"></InputFile>

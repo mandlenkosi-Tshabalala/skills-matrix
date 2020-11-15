@@ -6,32 +6,78 @@
 @using System.Text.Json
 @inject IJSRuntime JSRuntime;
 @using Blazored.Toast.Configuration
+<link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet">
 
-<div class="container-fluid">
-    <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Search Employees</h1>
-    <p class="mb-4"></p>
-</div>
+<style>
+    .img-fluid {
+        max-width: 100%;
+        height: auto;
+        border-radius: 50%;
+    }
+
+    .img-fluid-small {
+        max-width: 100%;
+        height: 25px;
+        border-radius: 50%;
+    }
+
+    .img-fluid-smaller {
+        max-width: 100%;
+        height: 20px;
+        border-radius: 50%;
+    }
+
+    .img-fluid-smaller2 {
+        max-width: 80%;
+        height: 13px;
+        border-radius: 50%;
+    }
+
+    .img-thumbnail {
+        padding: 0.25rem;
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: 0.25rem;
+        max-width: 100%;
+        height: auto
+    }
+
+
+
+    .resume-header {
+        width: 50px;
+        height: 50px
+    }
+</style>
+
+
 
 @*@if (EmployeeCheckedList.Count() > 0)
     {*@
 <div class="row">
     <div class="col-sm-12">
 
-
-        @*<button type="submit" @onclick="DownloadCV" class="btn btn-primary mr-1 float-right">Download CV</button>*@
-
         @if (IsDownloading)
         {
-            <button class="btn btn-primary mr-1 float-right download disabled" disabled><span class='fa-left fas fa-sync-alt spinning'></span>Downloading...</button>
-        }
-        else
-        {
-            <button class="btn btn-primary mr-1 float-right download" @onclick="DownloadCV">Download CV</button>
-        }
+             <div>
+            Dashboard > Employees
 
+            <button class="btn btn-primary mr-1 float-right download disabled" disabled><span class='fa-left fas fa-sync-alt spinning'></span>Downloading...</button>
+
+            </div>
+            }
+            else
+            {
+            <div>
+                Dashboard > Employees
+
+                <button class="btn btn-primary mr-1 float-right download" @onclick="DownloadCV">Download CV</button>
+            </div>
+
+            }
+
+        </div>
     </div>
-</div>
 <br />
 @*}*@
 
@@ -40,7 +86,7 @@
     <div class="col-lg-3 col-xlg-3 col-md-3">
         <div class="card">
             <div class="card-header" style="background-color:white">
-                <p>Select from different option to search....</p>
+                <p>Search using skills, expertise etc..</p>             
             </div>
             <div class="card-body">
 
@@ -167,63 +213,76 @@
         @if (Searching == true)
         {
 
-            <div class="spinner"></div>
+        <div class="spinner"></div>
         }
         else if(Employees == null)
         {
-            <p><em>No data...</em></p>
-        }
-        else
-        {
-            <div class="card">
-                <div class="card-body">
-
-
-                    <div class="table-responsive">
-                        <table class="table table-hover" width="100%" cellspacing="0">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th><input type="checkbox" checked="@this.SelectAll" @onchange="eventArgs => { empSelectAll(eventArgs.Value); }" /></th>
-                                    <th>Name</th>
-                                    <th>ID Number</th>
-                                    <th>EMail</th>
-                                    <th>Phone Number</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var emp in Employees)
-                                {
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox" checked="@this.empCheckSelectStatus(emp.Id)" @onchange="eventArgs => { empSelect(emp, eventArgs.Value); }" />
-                                        </td>
-                                        <td>@emp.FirstName @emp.LastName</td>
-                                        <td>@emp.IdNumber</td>
-                                        <td>@emp.Email</td>
-                                        <td>@emp.Phone</td>
-                                        <td><button type="button" @onclick="@(() => ViewCV(emp.UserId))" class="btn btn-primary btn-sm mr-1 ">View CV</button></td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
-            </div>
-        }
-
+    <div class="text-center">
+        <div class="error mx-auto" data-text="eish">eish</div>
+        <i class="em em-face_with_rolling_eyes" aria-role="presentation" aria-label="No employee found"></i>
+        <p class="lead text-gray-800 mb-5">No employee found</p>
+        <p class="text-gray-500 mb-0">It looks like you found no results, search using different filters...</p>
+        <a href="employees">&larr; Back to Search</a>
     </div>
-    <!-- Column -->
-</div>
+                }
+                else
+                {
+    <div class="card">
+        <div class="card-header" style="background-color:white">
+            <p>@Employees.Count() Employees Found</p>
+        </div>
+        <div class="card-body">
 
-<BlazoredToasts Position="ToastPosition.TopRight"
-                Timeout="5"
-                IconType="IconType.FontAwesome"
-                SuccessClass="success-toast-override"
-                SuccessIcon="fa fa-thumbs-up"
-                ErrorIcon="fa fa-bug">
 
-</BlazoredToasts>
+            <div class="table-responsive">
+                <table class="table table-hover" width="100%" cellspacing="0">
+                    <thead class="thead-light">
+                        <tr>
+                            <th><input type="checkbox" checked="@this.SelectAll" @onchange="eventArgs => { empSelectAll(eventArgs.Value); }" /></th>
+                            <th></th>
+                            <th>Name</th>
+                            <th>EMail</th>
+                            <th>Phone Number</th>
+                            <th>CV Progress</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var emp in Employees)
+                                {
+                        <tr>
+                            <td>
+                                <input type="checkbox" checked="@this.empCheckSelectStatus(emp.Id)" @onchange="eventArgs => { empSelect(emp, eventArgs.Value); }" />
+                            </td>
+                            <td>  <img class="resume-header img-fluid picture" src="images/@emp.ImagePath" /> </td>
+                            <td>@emp.FirstName @emp.LastName</td>
+                            <td>@emp.Email</td>
+                            <td>@emp.Phone</td>
+                            <td><div class="progress">
+    <div class="progress-bar bg-danger" style="width:70%">70%</div>
+</div></td>
+                            <td><button type="button" @onclick="@(() => ViewCV(emp.UserId))" class="btn btn-primary btn-sm mr-1 ">View CV</button></td>
+                        </tr>
+                                }
+                    </tbody>
+                </table>
 
-@inherits EmployeeListBase
+            </div>
+        </div>
+    </div>
+                }
+
+            </div>
+            <!-- Column -->
+        </div>
+
+        <BlazoredToasts Position="ToastPosition.TopRight"
+                        Timeout="5"
+                        IconType="IconType.FontAwesome"
+                        SuccessClass="success-toast-override"
+                        SuccessIcon="fa fa-thumbs-up"
+                        ErrorIcon="fa fa-bug">
+
+        </BlazoredToasts>
+
+        @inherits EmployeeListBase

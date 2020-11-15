@@ -26,11 +26,20 @@
                 Menu
             </div>
 
+
             <li class="nav-item">
-                <a class="nav-link" href="personDetails">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCV" aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fa fa-address-book"></i>
                     <span>My CV</span>
                 </a>
+                <div id="collapseCV" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">My CV</h6>
+                        <a class="collapse-item" href="personDetails">CV Flow</a>
+                        <a class="collapse-item" href="viewCV">CV Preview</a>
+
+                    </div>
+                </div>
             </li>
 
             <li class="nav-item">
@@ -54,11 +63,11 @@
                 </div>
             </li>
             @*<li class="nav-item">
-                <a class="nav-link" href="reports">
-                    <i class="fa fa-flag"></i>
-                    <span>Reports</span>
-                </a>
-            </li>*@
+            <a class="nav-link" href="reports">
+                <i class="fa fa-flag"></i>
+                <span>Reports</span>
+            </a>
+        </li>*@
             <li class="nav-item">
                 <a class="nav-link" href="profile">
                     <i class="fa fa-eye"></i>
@@ -66,11 +75,11 @@
                 </a>
             </li>
             @*<li class="nav-item">
-                <a class="nav-link" href="settings">
-                    <i class="fa fa-wrench"></i>
-                    <span>Settings</span>
-                </a>
-            </li>*@
+            <a class="nav-link" href="settings">
+                <i class="fa fa-wrench"></i>
+                <span>Settings</span>
+            </a>
+        </li>*@
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

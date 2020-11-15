@@ -31,7 +31,7 @@ namespace SkillsMatrix.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            string url = "http://localhost:60241/";
+            string url = Configuration.GetValue<String>("ServiceBaseUrl");
             services.AddAuthentication("Identity.Application").AddCookie();
             services.AddRazorPages();
             services.AddServerSideBlazor();
