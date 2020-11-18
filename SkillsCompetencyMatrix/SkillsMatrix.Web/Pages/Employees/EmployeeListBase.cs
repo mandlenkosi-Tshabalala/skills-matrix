@@ -25,6 +25,29 @@ namespace SkillsMatrix.Web.Pages.Employees
         public IPersonService PersonService { get; set; }
 
         [Inject]
+        public IActivityService ActivityService { get; set; }
+
+        [Inject]
+        public ISkillsService SkillsService { get; set; }
+
+        [Inject]
+        public IPersonService personService { get; set; }
+
+        [Inject]
+        public IPersonCompetencies PersonCompetencies { get; set; }
+
+        [Inject]
+        public IPersonExpertiseService PersonExpertiseService { get; set; }
+
+        [Inject]
+        public IAddressService AddressService { get; set; }
+        [Inject]
+        public IEducationService educationService { get; set; }
+
+        [Inject]
+        public IEmployementHistoryService employementHistoryService { get; set; }
+
+        [Inject]
         public IExpertiseService ExpertiseService { get; set; }
 
         [Inject]
@@ -32,6 +55,16 @@ namespace SkillsMatrix.Web.Pages.Employees
 
         [Inject]
         public ICompetenciesService CompetenciesService { get; set; }
+
+        protected PersonalInfo Person = new PersonalInfo();
+
+        protected Address address = new Address();
+        protected List<Skill> skills = new List<Skill>();
+        protected List<Education> educations = new List<Education>();
+        protected List<Employment> employments = new List<Employment>();
+        protected List<UserActivities> activities = new List<UserActivities>();
+        protected List<UserCompetency> userCompetencies = new List<UserCompetency>();
+        protected List<UserExpertise> expertises = new List<UserExpertise>();
 
         public IEnumerable<PersonalInfo> Employees { set; get; }
 
@@ -56,6 +89,8 @@ namespace SkillsMatrix.Web.Pages.Employees
 
         public bool Searching = true;
 
+        public int Percentage;
+
         protected bool IsDownloading { get; set; }
 
         public IEnumerable<Expertise> functionalList { get; set; }
@@ -72,6 +107,13 @@ namespace SkillsMatrix.Web.Pages.Employees
             Employees = await PersonService.GetAllEmployees("", 0, 0, "", "", "", 0);
             functionalList = await ExpertiseService.GetAll();
             competencyCategoryList = await CompetenciesCategoryService.GetCompetencies();
+
+            //foreach(var emp in Employees)
+            //{
+            //    emp.CvProgress = await ProfileCompletion(emp.UserId);
+            //}
+
+
             Searching = false;
 
         }
@@ -82,7 +124,10 @@ namespace SkillsMatrix.Web.Pages.Employees
             this.StateHasChanged();
 
             Employees = await PersonService.GetAllEmployees(EmployeeName, Convert.ToInt32(expertiseID), Convert.ToInt32(competencyCategoryID), Skills, QualificationLevel, Country, Convert.ToInt32(competencyID));
-
+            //foreach (var emp in Employees)
+            //{
+            //    emp.CvProgress = await ProfileCompletion(emp.UserId);
+            //}
             if (Employees.Count() == 0)
             {
                 Employees = null;
@@ -301,6 +346,58 @@ namespace SkillsMatrix.Web.Pages.Employees
 
                 return "Task Complete";
             });
+        }
+
+        public async Task<int> ProfileCompletion(int UserId)
+        {
+            int Total = 0;
+            int t1 = 0, t2 = 0, t3 = 0, t4 = 0, t5 = 0, t6 = 0, t7 = 0, t8 = 0;
+
+            Person = await PersonService.GetPersonByUserId(UserId);
+            address = await AddressService.Get(UserId);
+            skills = await SkillsService.GetSkills(UserId);
+            educations = await educationService.GetEducations(UserId);
+            employments = await employementHistoryService.GetEmployment(UserId);
+            activities = await ActivityService.GetActivity(UserId);
+            expertises = await PersonExpertiseService.GetAll(UserId);
+            userCompetencies = await PersonCompetencies.GetAll(UserId);
+
+            if (Person != null)
+            {
+                t1 = 20;
+            }
+            if (address != null)
+            {
+                t2 = 20;
+            }
+            if (educations.Count != 0)
+            {
+                t3 = 10;
+            }
+            if (employments.Count != 0)
+            {
+                t4 = 10;
+            }
+            if (activities.Count != 0)
+            {
+                t5 = 10;
+            }
+            if (expertises.Count != 0)
+            {
+                t6 = 10;
+            }
+            if (userCompetencies.Count != 0)
+            {
+                t7 = 10;
+            }
+            if (skills.Count != 0)
+            {
+                t8 = 10;
+            }
+
+            Total = t1 + t2 + t3 + t4 + t5 + t6 + t7 + t8;
+
+            return Total;
         }
     }
 

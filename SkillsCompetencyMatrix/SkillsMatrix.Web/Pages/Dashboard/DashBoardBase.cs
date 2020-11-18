@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using SkillsMatrix.Models;
+using SkillsMatrix.Web.Pages.Employees;
 using SkillsMatrix.Web.Services;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,7 @@ namespace SkillsMatrix.Web.Pages.Dashboard
         [Inject]
         protected UserManager<IdentityUser<int>> UserManager { get; set; }
 
+        public int Percentage = 0;
 
         public int UserId { get; set; }
 
@@ -63,6 +65,8 @@ namespace SkillsMatrix.Web.Pages.Dashboard
                     personalInfo = await personService.GetPersonByUserId(UserId);
                     skills = await SkillsService.GetSkills(UserId);
 
+                  //  Percentage = await personService.GetPercentage(UserId);
+
                 }
             }
 
@@ -72,5 +76,6 @@ namespace SkillsMatrix.Web.Pages.Dashboard
         {
             NavigationManager.NavigateTo($"/viewCV");
         }
+
     }
 }

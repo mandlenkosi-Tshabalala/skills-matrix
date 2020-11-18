@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using SkillsMatrix.Models;
 using SkillsMatrix.Web.Services;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SkillsMatrix.Web.Pages.CVFlow.PersonalDetailsForm
@@ -13,7 +14,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.PersonalDetailsForm
     public class DetailsFormBase : ComponentBase
     {
         [Inject]
-        public IToastService toastService { get; set; } 
+        public IToastService toastService { get; set; }
         [Inject]
         public IPersonService PersonService { get; set; }
 
@@ -32,6 +33,8 @@ namespace SkillsMatrix.Web.Pages.CVFlow.PersonalDetailsForm
         public int UserId { get; set; }
 
         protected PersonalInfo person = new PersonalInfo();
+
+       
 
 
         protected EditContext editContext;
@@ -61,8 +64,13 @@ namespace SkillsMatrix.Web.Pages.CVFlow.PersonalDetailsForm
         protected async void HandleValidSubmit()
         {
             var isValid = editContext.Validate();
+            bool validID = CheckID(person.IdNumber);
+            if (validID != true)
+            {
+                toastService.ShowError("Invalid ID Number", "Error");
+            }
 
-            if (isValid)
+           else if (isValid)
             {
                 //Check if its a new record 
                 if (person.Id == 0)
@@ -104,7 +112,12 @@ namespace SkillsMatrix.Web.Pages.CVFlow.PersonalDetailsForm
         {
             var isValid = editContext.Validate();
 
-            if (isValid)
+           bool validID = CheckID(person.IdNumber);
+            if(validID!= true)
+            {
+                toastService.ShowError("Invalid ID Number", "Error");
+            }
+            else if (isValid)
             {
                 //Check if its a new record 
                 if (person.Id == 0)
@@ -144,6 +157,102 @@ namespace SkillsMatrix.Web.Pages.CVFlow.PersonalDetailsForm
             {
                 toastService.ShowError("Please make sure that you fill all required field", "Error");
             }
+        }
+
+        public  void ValidateID(ChangeEventArgs e)
+        {
+
+            string IdentityNumber;
+            bool IsSouthAfrican;
+            bool IsValid;
+
+            IdentityNumber = (Convert.ToString(e.Value) ?? string.Empty).Replace(" ", "");
+            if (IdentityNumber.Length == 13)
+            {
+                var digits = new int[13];
+                for (int i = 0; i < 13; i++)
+                {
+                    digits[i] = int.Parse(IdentityNumber.Substring(i, 1));
+                }
+                int control1 = digits.Where((v, i) => i % 2 == 0 && i < 12).Sum();
+                string second = string.Empty;
+                digits.Where((v, i) => i % 2 != 0 && i < 12).ToList().ForEach(v =>
+                      second += v.ToString());
+                var string2 = (int.Parse(second) * 2).ToString();
+                int control2 = 0;
+                for (int i = 0; i < string2.Length; i++)
+                {
+                    control2 += int.Parse(string2.Substring(i, 1));
+                }
+                var control = (10 - ((control1 + control2) % 10))% 10;
+                if (digits[12] == control)
+                {
+                    person.DateOfBirth = DateTime.ParseExact(IdentityNumber
+                        .Substring(0, 6), "yyMMdd", null);
+                    person.Gender = digits[6] < 5 ? "Female" : "Male";
+                    IsSouthAfrican = digits[10] == 0;
+                    if (IsSouthAfrican)
+                    {
+                        person.Nationality = "South Africa";
+                    }
+                    IsValid = true;
+                    if(IsValid != true)
+                    {
+                        toastService.ShowError("Invalid Id Number");
+                    }
+
+                }
+
+              
+
+            }
+            else 
+            {
+                    toastService.ShowError("Invalid Id Number");
+             
+            }
+
+            person.IdNumber = (Convert.ToInt64(IdentityNumber));
+        }
+
+        public bool CheckID(long idNumber)
+        {
+
+            string IdentityNumber;
+            bool IsValid = false;
+
+            IdentityNumber = (Convert.ToString(idNumber) ?? string.Empty).Replace(" ", "");
+            if (IdentityNumber.Length == 13)
+            {
+                var digits = new int[13];
+                for (int i = 0; i < 13; i++)
+                {
+                    digits[i] = int.Parse(IdentityNumber.Substring(i, 1));
+                }
+                int control1 = digits.Where((v, i) => i % 2 == 0 && i < 12).Sum();
+                string second = string.Empty;
+                digits.Where((v, i) => i % 2 != 0 && i < 12).ToList().ForEach(v =>
+                      second += v.ToString());
+                var string2 = (int.Parse(second) * 2).ToString();
+                int control2 = 0;
+                for (int i = 0; i < string2.Length; i++)
+                {
+                    control2 += int.Parse(string2.Substring(i, 1));
+                }
+                var control = (10 - ((control1 + control2) % 10)) % 10;
+                if (digits[12] == control)
+                {
+                    IsValid = true;
+
+
+                }
+
+
+
+
+            }
+
+            return IsValid;
         }
 
     }

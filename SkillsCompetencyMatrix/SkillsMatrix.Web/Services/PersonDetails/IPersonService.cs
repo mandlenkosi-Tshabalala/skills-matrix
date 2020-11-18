@@ -17,5 +17,6 @@ namespace SkillsMatrix.Web.Services
       Task<IEnumerable<PersonalInfo>> GetAllEmployees();
       Task<IEnumerable<PersonalInfo>> GetAllEmployees(string EmployeeName, int expertiseID, int competencyCategoryID, string Skills, string QualificationLevel, string Country, int competencyID);
 
+        Task<int> GetPercentage(int UserId);
     }
 }

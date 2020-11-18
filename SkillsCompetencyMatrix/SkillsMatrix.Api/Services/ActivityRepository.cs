@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SkillsMatrix.Api.Migrations;
 using SkillsMatrix.Models;
 using System;
 using System.Collections.Generic;

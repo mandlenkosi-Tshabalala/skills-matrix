@@ -65,25 +65,41 @@
                 <center class="m-t-30">
 
                     @if (@Person.ImagePath != null)
-                        {
+                    {
 
-                    <img class="resume-header img-fluid picture" src="images/@Person.ImagePath" />
-                        }
-                        else
-                        {
-                    <img class="resume-header  img-fluid picture" src="images/profile.png" />
-                        }
+                        <img class="resume-header img-fluid picture" src="images/@Person.ImagePath" />
+                    }
+                    else
+                    {
+                        <img class="resume-header  img-fluid picture" src="images/profile.png" />
+                    }
                     <h4 class="card-title m-t-10">@Person.FirstName @Person.LastName</h4>
                     <h6 class="card-subtitle">@Person.Nationality</h6>
 
                     <hr />
-                    CV Progress <div class="progress">
-    <div class="progress-bar bg-danger" style="width:70%">70%</div>
-                    </div>
-    <hr />
-    <h1 class="card-subtitle">My Profile</h1>
-    <p>@Person.Profile</p>
-</center>
+                    CV Progress
+                    @if (Percentage < 49)
+                    {
+                        <div class="progress">
+                            <div class="progress-bar bg-danger" style="width:@Percentage%">@Percentage%</div>
+                        </div>
+                    }
+                    else if (Percentage > 49 && Percentage < 99)
+                    {
+                        <div class="progress">
+                            <div class="progress-bar bg-warning" style="width:@Percentage%">@Percentage%</div>
+                        </div>
+                    }
+                    else if (Percentage > 99)
+                    {
+                        <div class="progress">
+                            <div class="progress-bar bg-success" style="width:@Percentage%">@Percentage%</div>
+                        </div>
+                    }
+                    <hr />
+                    <h1 class="card-subtitle">My Profile</h1>
+                    <p>@Person.Profile</p>
+                </center>
             </div>
             <div class="card-footer" style="background-color:white">
                 <InputFile OnChange="HandleFileSelected" class="btn btn-primary mr-1"></InputFile>

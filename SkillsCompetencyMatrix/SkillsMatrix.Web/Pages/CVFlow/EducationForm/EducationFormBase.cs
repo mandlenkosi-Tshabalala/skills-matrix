@@ -85,7 +85,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EducationForm
                         await EducationService.Create(personEducation);
                         personEducation = new Education();
                         await OnInitializedAsync();
-                        NavigationManager.NavigateTo($"/personEducation");                     
+                        this.StateHasChanged();
                         toastService.ShowSuccess("The information has been saved successfully", "Saved");
                     }
                     catch(Exception ex)
@@ -101,9 +101,8 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EducationForm
                         personEducation = new Education();
                         await OnInitializedAsync();
                         edit = false;
-                        toastService.ShowSuccess("The information has been saved successfully", "Saved");
-                        NavigationManager.NavigateTo($"/personEducation");
-                     
+                        this.StateHasChanged();
+                        toastService.ShowSuccess("The information has been saved successfully", "Saved");                    
                     }
                     catch (Exception ex)
                     {
@@ -135,7 +134,6 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EducationForm
 
         protected async void Cancel()
         {
-            personEducation = new Education();
              await OnInitializedAsync();
 
         }
@@ -152,10 +150,10 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EducationForm
         protected async Task DeleteEducation(int id)
         {
             await EducationService.Delete(id);
-
-            await OnInitializedAsync();
-            NavigationManager.NavigateTo($"/personEducation");
             personEducation = new Education();
+            await OnInitializedAsync();
+            this.StateHasChanged();
+         
 
             toastService.ShowWarning("Qualifcation is removed", "Warning");
 

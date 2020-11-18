@@ -171,10 +171,10 @@ namespace SkillsMatrix.Web.Pages.CVFlow.ExpertiseForm
             if (id != 0)
             {
                 await UserExpertiseService.DeleteByUserAndExpertise(UserId, id);
-
-                await OnInitializedAsync();
-                NavigationManager.NavigateTo($"/expertise");
                 userExpertise = new UserExpertise();
+                await OnInitializedAsync();
+                this.StateHasChanged();
+              
                 toastService.ShowWarning("Expertise is removed", "Warning");
             }
 

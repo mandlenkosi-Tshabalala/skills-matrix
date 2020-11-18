@@ -243,7 +243,7 @@
                             <th>Name</th>
                             <th>EMail</th>
                             <th>Phone Number</th>
-                            <th>CV Progress</th>
+                            @*<th>CV Progress</th>*@
                             <th></th>
                         </tr>
                     </thead>
@@ -254,13 +254,38 @@
                             <td>
                                 <input type="checkbox" checked="@this.empCheckSelectStatus(emp.Id)" @onchange="eventArgs => { empSelect(emp, eventArgs.Value); }" />
                             </td>
-                            <td>  <img class="resume-header img-fluid picture" src="images/@emp.ImagePath" /> </td>
+                            @if (@emp.ImagePath!= null)
+                            {
+                                <td>  <img class="resume-header img-fluid picture" src="images/@emp.ImagePath" /> </td>
+                            }
+                            else
+                            {
+                                <td>  <img class="resume-header img-fluid picture" src="images/profile.png" /> </td>
+                            }
+
                             <td>@emp.FirstName @emp.LastName</td>
                             <td>@emp.Email</td>
                             <td>@emp.Phone</td>
-                            <td><div class="progress">
-    <div class="progress-bar bg-danger" style="width:70%">70%</div>
-</div></td>
+                            @*<td>
+                                @if (emp.CvProgress < 49)
+                                {
+                                    <div class="progress">
+                                        <div class="progress-bar bg-danger" style="width:@emp.CvProgress%">@emp.CvProgress%</div>
+                                    </div>
+                                }
+                                else if (emp.CvProgress > 49 && emp.CvProgress < 99)
+                                {
+                                    <div class="progress">
+                                        <div class="progress-bar bg-warning" style="width:@emp.CvProgress%">@emp.CvProgress%</div>
+                                    </div>
+                                }
+                                else if (emp.CvProgress > 99)
+                                {
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" style="width:@emp.CvProgress%">@emp.CvProgress%</div>
+                                    </div>
+                                }
+                            </td>*@
                             <td><button type="button" @onclick="@(() => ViewCV(emp.UserId))" class="btn btn-primary btn-sm mr-1 ">View CV</button></td>
                         </tr>
                                 }

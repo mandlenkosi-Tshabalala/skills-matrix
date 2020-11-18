@@ -80,7 +80,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EmploymentHistoryForm
                     await EmployementService.Create(personEmployment);
                     personEmployment = new Employment();
                     await OnInitializedAsync();
-                    NavigationManager.NavigateTo($"/personEmpolyment");
+                        this.StateHasChanged();
                     toastService.ShowSuccess("The information has been saved successfully", "Saved");
                     }
                     catch (Exception ex)
@@ -96,8 +96,8 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EmploymentHistoryForm
                     personEmployment = new Employment();
                     await OnInitializedAsync();
                     edit = false;
-                    NavigationManager.NavigateTo($"/personEmpolyment");
-                    personEmployment = new Employment();
+                        this.StateHasChanged();
+                        toastService.ShowSuccess("The information has been saved successfully", "Saved");
 
                     }
                     catch (Exception ex)
@@ -124,9 +124,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EmploymentHistoryForm
 
         protected async void Cancel()
         {
-            personEmployment = new Employment();
-            NavigationManager.NavigateTo($"/personEmpolyment");
-
+            await OnInitializedAsync();
         }
 
 
@@ -141,12 +139,10 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EmploymentHistoryForm
         protected async Task DeleteEmployment(int id)
         {
             await EmployementService.Delete(id);
-
-            await OnInitializedAsync();
-            NavigationManager.NavigateTo($"/personEmpolyment");
             personEmployment = new Employment();
+            await OnInitializedAsync();   
             toastService.ShowWarning("Empolyment history is removed", "Warning");
-
+            this.StateHasChanged();
         }
     }
 }

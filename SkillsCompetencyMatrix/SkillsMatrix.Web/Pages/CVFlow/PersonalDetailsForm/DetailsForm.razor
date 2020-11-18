@@ -7,6 +7,29 @@
 @inject IJSRuntime JSRuntime;
 @using Blazored.Toast.Configuration
 
+<style>
+    /* style all input elements with a required attribute */
+    input:required {
+
+    }
+
+        /**
+ * style input elements that have a required
+ * attribute and a focus state
+ */
+        input:required:focus {
+            outline: none;
+        }
+
+        /**
+ * style input elements that have a required
+ * attribute and a hover state
+ */
+        input:required:hover {
+            opacity: 3;
+        }
+</style>
+
 <div class="card m-3 table-responsive">
     <div class="card-header table-responsive" style="background-color:white">
         <div class="mdl-card__supporting-text table-responsive">
@@ -75,7 +98,7 @@
         <EditForm EditContext="@editContext">
             <DataAnnotationsValidator />
             <div class="form-row">
-                <div class="form-group col">
+                <div class="form-group col-xl-6 col-sm-12 col-md-6 col-lg-6">
                     <label>Title</label>
                     <InputSelect @bind-Value="person.Title" class="form-control">
                         <option value=""></option>
@@ -89,31 +112,31 @@
                     </InputSelect>
                     <ValidationMessage For="@(() => person.Title)" />
                 </div>
-                <div class="form-group col">
+                <div class="form-group col-xl-6 col-sm-12 col-md-6 col-lg-6">
                     <label>First Name</label>
                     <InputText @bind-Value="person.FirstName" class="form-control" />
                     <ValidationMessage For="@(() => person.FirstName)" />
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col">
+                <div class="form-group col-xl-6 col-sm-12 col-md-6 col-lg-6">
                     <label>Middle Name</label>
                     <InputText @bind-Value="person.MiddleName" class="form-control" />
                     <ValidationMessage For="@(() => person.MiddleName)" />
                 </div>
-                <div class="form-group col">
+                <div class="form-group col-xl-6 col-sm-12 col-md-6 col-lg-6">
                     <label>Last Name</label>
                     <InputText @bind-Value="person.LastName" class="form-control" />
                     <ValidationMessage For="@(() => person.LastName)" />
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col">
+                <div class="form-group col-xl-6 col-sm-12 col-md-6 col-lg-6">
                     <label>ID Number</label>
-                    <InputNumber @bind-Value="person.IdNumber" class="form-control" />
+                    <input type="number" value="@person.IdNumber"  @onchange="ValidateID" class="form-control" />
                     <ValidationMessage For="@(() => person.IdNumber)" />
                 </div>
-                <div class="form-group col">
+                <div class="form-group col-xl-6 col-sm-12 col-md-6 col-lg-6">
                     <label>Date of Birth</label>
                     <InputDate @bind-Value="person.DateOfBirth" class="form-control" />
                     <ValidationMessage For="@(() => person.DateOfBirth)" />
@@ -121,7 +144,7 @@
 
             </div>
             <div class="form-row">
-                <div class="form-group col">
+                <div class="form-group col-xl-6 col-sm-12 col-md-6 col-lg-6">
                     <label>Gender</label>
                     <InputSelect @bind-Value="person.Gender" class="form-control">
                         <option value=""></option>
@@ -130,7 +153,7 @@
                     </InputSelect>
                     <ValidationMessage For="@(() => person.Gender)" />
                 </div>
-                <div class="form-group col">
+                <div class="form-group col-xl-6 col-sm-12 col-md-6 col-lg-6">
                     <label>Nationality</label>
                     <InputSelect @bind-Value="person.Nationality" class="form-control">
                         <option value=""></option>
@@ -161,24 +184,24 @@
 
             </div>
             <div class="form-row">
-                <div class="form-group col">
+                <div class="form-group col-xl-6 col-sm-12 col-md-6 col-lg-6">
                     <label>Email</label>
                     <InputText @bind-Value="person.Email" class="form-control" />
                     <ValidationMessage For="@(() => person.Email)" />
                 </div>
-                <div class="form-group col">
+                <div class="form-group col-xl-6 col-sm-12 col-md-6 col-lg-6">
                     <label>Contact Number</label>
                     <InputText @bind-Value="person.Phone" class="form-control" />
                     <ValidationMessage For="@(() => person.Phone)" />
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col">
+                <div class="form-group col-xl-6 col-sm-12 col-md-6 col-lg-6">
                     <label>Place Of Birth</label>
                     <InputText @bind-Value="person.PlaceOfBirth" class="form-control" />
                     <ValidationMessage For="@(() => person.PlaceOfBirth)" />
                 </div>
-                <div class="form-group col">
+                <div class="form-group col-xl-6 col-sm-12 col-md-6 col-lg-6">
                     <label>Marital Status</label>
                     <InputSelect @bind-Value="person.MaritalStatus" class="form-control">
                         <option value=""></option>
@@ -192,7 +215,7 @@
             </div>
             <hr />
             <div class="form-row">
-                <div class="form-group col">
+                <div class="form-group col-xl-12 col-sm-12 col-md-12 col-lg-12">
                     <label>Profile</label>
                     <InputTextArea @bind-Value="person.Profile" class=" form-control" style="height:250px">
                         <ValidationMessage For="@(() => person.Profile)" />

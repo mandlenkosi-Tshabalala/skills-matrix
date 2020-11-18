@@ -20,7 +20,7 @@ namespace SkillsMatrix.Models
         [Required]
         public long IdNumber { get; set; }
         [Required]
-        public DateTime DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; } = DateTime.Now;
         [Required]
         public string Gender { get; set; }
         [Required]
@@ -33,6 +33,8 @@ namespace SkillsMatrix.Models
         [Required]
         public string Profile { get; set; }
 
+        public int CvProgress{ get; set; }
+
         public string ImagePath { get; set; }
 
         [StringLength(250)]
@@ -40,5 +42,8 @@ namespace SkillsMatrix.Models
 
         [StringLength(50)]
         public string MaritalStatus { get; set; }
+
+     
+
     }
 }
