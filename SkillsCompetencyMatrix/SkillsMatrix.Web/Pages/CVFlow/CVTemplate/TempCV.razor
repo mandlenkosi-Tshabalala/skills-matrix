@@ -39,7 +39,12 @@
                             {
                                 @foreach (var employment in employments)
                                 {
-                                    LatestRole = employment.Role.ToString();
+                                    if (employment.CurrentlyWorking)
+                                    {
+
+                                        LatestRole = employment.Role.ToString();
+                                    }
+
                                 }
                             }
                             }
@@ -74,7 +79,11 @@
                                                     <h3 class="resume-position-title font-weight-bold mb-1">@employent.Role</h3>
                                                     <div class="resume-company-name ml-auto">@employent.CompanyName</div>
                                                 </div><!--//row-->
-                                                <div class="resume-position-time">@employent.StartDate.ToShortDateString() - @employent.EndDate.ToShortDateString()</div>
+                                                <div class="resume-position-time">@employent.StartDate.ToShortDateString() - @if (employent.CurrentlyWorking == false)
+                                                {@employent.EndDate.ToShortDateString()}
+                                            else
+                                            { @WorkHistoryMessage;
+                                        }</div>
                                             </div><!--//resume-timeline-item-header-->
                                             <div class="resume-timeline-item-desc">
                                                 <p>@employent.RoleDescription</p>
@@ -156,7 +165,11 @@
                                             <li class="mb-2">
                                                 <div class="resume-degree font-weight-bold">@education.FieldOfStudy</div>
                                                 <div class="resume-degree-org">@education.Institution</div>
-                                                <div class="resume-degree-time">@education.QualificationStartDate.ToShortDateString() - @education.QualificationEndDate.ToShortDateString()</div>
+                                                <div class="resume-degree-time">@education.QualificationStartDate.ToShortDateString() -@if (education.Progress == "Completed")
+                                                {@education.QualificationEndDate.ToShortDateString()}
+                                            else
+                                            { @EducationMessage;
+                                        }</div>
                                             </li>
                                         </ul>
                                     }

@@ -84,7 +84,8 @@ namespace SkillsMatrix.Web.Pages.CVFlow.NewFolderForm
         protected List<Education> educations = new List<Education>();
         protected List<Employment> employments = new List<Employment>();
         protected List<UserActivities> activities = new List<UserActivities>();
-
+        public string EducationMessage  = "Not Completed";
+        public string WorkHistoryMessage = "Present";
 
         protected override async Task OnInitializedAsync()
         {
