@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Http.Extensions;
 using System.Web;
+using System.Net.Http.Json;
 
 namespace SkillsMatrix.Web.Services
 {
@@ -92,57 +93,9 @@ namespace SkillsMatrix.Web.Services
         {
              await httpClient.GetJsonAsync<PersonalInfo>($"api/Persons/downloadCV/{intId}");
         }
-
-        public async Task<int> GetPercentage(int UserId)
+        public async Task UpdatePercentageComletion(int userId, int Percentage)
         {
-            int Total = 0;
-            int t1 = 0, t2 = 0, t3 = 0, t4 = 0, t5 = 0, t6 = 0, t7 = 0, t8 = 0;
-
-            Person = await PersonInfoService.GetPersonByUserId(UserId);
-            address = await AddressService.Get(UserId);
-            skills = await SkillsService.GetSkills(UserId);
-            educations = await educationService.GetEducations(UserId);
-            employments = await employementHistoryService.GetEmployment(UserId);
-            activities = await ActivityService.GetActivity(UserId);
-            expertises = await PersonExpertiseService.GetAll(UserId);
-            competencies = await PersonCompetencies.GetAll(UserId);
-
-            if (Person != null)
-            {
-                t1 = 20;
-            }
-            if (address != null)
-            {
-                t2 = 20;
-            }
-            if (educations.Count != 0)
-            {
-                t3 = 10;
-            }
-            if (employments.Count != 0)
-            {
-                t4 = 10;
-            }
-            if (activities.Count != 0)
-            {
-                t5 = 10;
-            }
-            if (expertises.Count != 0)
-            {
-                t6 = 10;
-            }
-            if (competencies.Count != 0)
-            {
-                t7 = 10;
-            }
-            if (skills.Count != 0)
-            {
-                t8 = 10;
-            }
-
-            Total = t1 + t2 + t3 + t4 + t5 + t6 + t7 + t8;
-
-            return Total;
+            await httpClient.PutJsonAsync($"api/Persons/UpdateCompletion/{userId}/{Percentage}", "");
         }
     }
 }

@@ -17,6 +17,7 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.JSInterop;
+using SkillsMatrix.Web.Services.Shared;
 
 
 
@@ -92,6 +93,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.NewFolderForm
             var principalUser = (await AuthState).User;
             Searching = true;
 
+
             if (ViewUserId > 0)
             {
                 personalInfo = await personService.GetPersonByUserId(ViewUserId);
@@ -101,6 +103,8 @@ namespace SkillsMatrix.Web.Pages.CVFlow.NewFolderForm
                 employments = await employementHistoryService.GetEmployment(ViewUserId);
                 activities = await ActivityService.GetActivity(ViewUserId);
                 Searching = false;
+
+
             }
             else
             {
@@ -118,6 +122,11 @@ namespace SkillsMatrix.Web.Pages.CVFlow.NewFolderForm
                         employments = await employementHistoryService.GetEmployment(UserId);
                         activities = await ActivityService.GetActivity(UserId);
                         Searching = false;
+
+                        if (personalInfo.CvProgress != 100)
+                        {
+                            toastService.ShowWarning("Your cv is not 100% completed , please go to Cv flow and complete.", "Warning");
+                        }
 
                     }
                 }

@@ -79,11 +79,13 @@
                                                     <h3 class="resume-position-title font-weight-bold mb-1">@employent.Role</h3>
                                                     <div class="resume-company-name ml-auto">@employent.CompanyName</div>
                                                 </div><!--//row-->
-                                                <div class="resume-position-time">@employent.StartDate.ToShortDateString() - @if (employent.CurrentlyWorking == false)
+                                                <div class="resume-position-time">
+                                                    @employent.StartDate.ToShortDateString() - @if (employent.CurrentlyWorking == false)
                                                 {@employent.EndDate.ToShortDateString()}
                                             else
                                             { @WorkHistoryMessage;
-                                        }</div>
+                                        }
+                                                </div>
                                             </div><!--//resume-timeline-item-header-->
                                             <div class="resume-timeline-item-desc">
                                                 <p>@employent.RoleDescription</p>
@@ -94,14 +96,14 @@
                             }
                         </section><!--//experience-section-->
 
+                        @foreach (var activity in activities)
+                        {
+                            <section class="resume-section experience-section mb-5">
+                                <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3"><img class="img-fluid-small pictureSmall" src="assets/images/icon-6.png" alt=""> Extra-Activities</h2>
+                                <div class="resume-section-content">
 
 
-                        <section class="resume-section experience-section mb-5">
-                            <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3"><img class="img-fluid-small pictureSmall" src="assets/images/icon-6.png" alt=""> Extra-Activities</h2>
-                            <div class="resume-section-content">
 
-                                @foreach (var activity in activities)
-                                {
                                     <div>
                                         <article>
                                             <div class="resume-timeline-item-header mb-2">
@@ -116,10 +118,11 @@
                                             </div><!--//resume-timeline-item-desc-->
                                         </article>
                                     </div>
-                                }
 
-                            </div>
-                        </section>
+
+                                </div>
+                            </section>
+                        }
 
                     </div>
                     <div class="col-lg-3 resume-timeline position-relative">
@@ -185,7 +188,7 @@
                                                 <li class="mb-2">
                                                     <div class="resume-skill-name">@skill.Name</div>
                                                     <div class="progress resume-progress">
-                                                        <div class="progress-bar theme-progress-bar-dark" role="progressbar" style="width: @skill.Level" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        <div class="progress-bar theme-progress-bar-dark" role="progressbar" style="width: @skill.Level%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                                     </div>
                                                 </li>
 

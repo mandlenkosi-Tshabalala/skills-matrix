@@ -12,11 +12,17 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Blazored.Toast.Services;
 using System.Diagnostics;
+using SkillsMatrix.Web.Services.Shared;
 
 namespace SkillsMatrix.Web.Pages.CVFlow.ExtraActivitiesForm
 {
     public class ExtraActivitiesFormBase : ComponentBase
     {
+        [Inject]
+        public IPersonService PersonService { get; set; }
+        [Inject]
+        public IPercentageCalc PercentageCalcService { get; set; }
+        public int percentage = 0;
         [Inject]
         public IToastService toastService { get; set; }
         [Inject]
@@ -78,31 +84,35 @@ namespace SkillsMatrix.Web.Pages.CVFlow.ExtraActivitiesForm
             {
 
                 if (edit == false)
-            {
-              try
                 {
-                activity.UserId = UserId;
-                await ActivityService.Create(activity);
-                await OnInitializedAsync();
-                NavigationManager.NavigateTo($"/extraactivities");
-                activity = new UserActivities();
-                toastService.ShowSuccess("The information has been saved successfully", "Saved");
+                    try
+                    {
+                        activity.UserId = UserId;
+                        await ActivityService.Create(activity);
+                        percentage = await PercentageCalcService.ProfileCompletion(UserId);
+                        await PersonService.UpdatePercentageComletion(UserId, percentage);
+                        await OnInitializedAsync();
+                        NavigationManager.NavigateTo($"/extraactivities");
+                        activity = new UserActivities();
+                        toastService.ShowSuccess("The information has been saved successfully", "Saved");
                     }
                     catch (Exception ex)
                     {
                         toastService.ShowError("There was an error when trying to save", "Error");
                     }
                 }
-            
-            else
-            {
-             try
-              {
-                await ActivityService.Update(activity);
-                await OnInitializedAsync();
-                edit = false;
-                NavigationManager.NavigateTo($"/extraactivities");
-                activity = new UserActivities();
+
+                else
+                {
+                    try
+                    {
+                        await ActivityService.Update(activity);
+                        percentage = await PercentageCalcService.ProfileCompletion(UserId);
+                        await PersonService.UpdatePercentageComletion(UserId, percentage);
+                        await OnInitializedAsync();
+                        edit = false;
+                        NavigationManager.NavigateTo($"/extraactivities");
+                        activity = new UserActivities();
                     }
                     catch (Exception ex)
                     {
@@ -117,7 +127,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.ExtraActivitiesForm
 
             }
 
-            }
+        }
 
 
         protected void Back()
@@ -141,6 +151,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.ExtraActivitiesForm
         protected async Task GetActivity(int id)
         {
             activity = await ActivityService.Get(id);
+            await OnInitializedAsync();
             edit = true;
 
         }
@@ -148,7 +159,8 @@ namespace SkillsMatrix.Web.Pages.CVFlow.ExtraActivitiesForm
         protected async Task DeleteActivity(int id)
         {
             await ActivityService.Delete(id);
-
+            percentage = await PercentageCalcService.ProfileCompletion(UserId);
+            await PersonService.UpdatePercentageComletion(UserId, percentage);
             await OnInitializedAsync();
             NavigationManager.NavigateTo($"/extraactivities");
             activity = new UserActivities();

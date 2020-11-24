@@ -6,8 +6,10 @@ namespace SkillsMatrix.Models
 {
     public class Skill : BaseEntity
     {
+        [Required]
         public string Name { get; set; }
-        public string Level { get; set; }
+        [Required]
+        public int Level { get; set; }
 
     }
 }

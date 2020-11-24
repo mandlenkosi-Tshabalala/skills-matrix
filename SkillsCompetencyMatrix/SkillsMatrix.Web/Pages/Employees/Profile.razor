@@ -78,22 +78,22 @@
 
                     <hr />
                     CV Progress
-                    @if (Percentage < 49)
+                    @if (@Person.CvProgress < 49)
                     {
                         <div class="progress">
-                            <div class="progress-bar bg-danger" style="width:@Percentage%">@Percentage%</div>
+                            <div class="progress-bar bg-danger" style="        width: @Person.CvProgress%">@Person.CvProgress%</div>
                         </div>
                     }
-                    else if (Percentage > 49 && Percentage < 99)
+                    else if (@Person.CvProgress > 49 && @Person.CvProgress < 99)
                     {
                         <div class="progress">
-                            <div class="progress-bar bg-warning" style="width:@Percentage%">@Percentage%</div>
+                            <div class="progress-bar bg-warning" style="width:@Person.CvProgress%">@Person.CvProgress%</div>
                         </div>
                     }
-                    else if (Percentage > 99)
+                    else if (@Person.CvProgress > 99)
                     {
                         <div class="progress">
-                            <div class="progress-bar bg-success" style="width:@Percentage%">@Percentage%</div>
+                            <div class="progress-bar bg-success" style="width:@Person.CvProgress%">@Person.CvProgress%</div>
                         </div>
                     }
                     <hr />

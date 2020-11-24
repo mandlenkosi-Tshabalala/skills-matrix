@@ -9,6 +9,7 @@ using SkillsMatrix.Web.Services;
 using Blazored.Toast.Services;
 using System;
 using Microsoft.JSInterop;
+using SkillsMatrix.Web.Services.Shared;
 
 namespace SkillsMatrix.Web.Pages.CVFlow.AddressForm
 {
@@ -18,6 +19,12 @@ namespace SkillsMatrix.Web.Pages.CVFlow.AddressForm
         public IToastService toastService { get; set; }
         [Inject]
         public IAddressService AddressService { get; set; }
+
+        [Inject]
+        public IPersonService PersonService { get; set; }
+        [Inject]
+        public IPercentageCalc PercentageCalcService { get; set; }
+        public int percentage = 0;
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -81,6 +88,8 @@ namespace SkillsMatrix.Web.Pages.CVFlow.AddressForm
                     try
                     {
                         await AddressService.Create(address);
+                        percentage = await PercentageCalcService.ProfileCompletion(UserId);
+                        await PersonService.UpdatePercentageComletion(UserId, percentage);
                         NavigationManager.NavigateTo($"/personEducation");
 
                     }
@@ -97,6 +106,8 @@ namespace SkillsMatrix.Web.Pages.CVFlow.AddressForm
                     {
 
                         var result = await AddressService.Update(address);
+                        percentage = await PercentageCalcService.ProfileCompletion(UserId);
+                        await PersonService.UpdatePercentageComletion(UserId, percentage);
                         NavigationManager.NavigateTo($"/personEducation");
                     }
                     catch (Exception ex)
@@ -128,6 +139,8 @@ namespace SkillsMatrix.Web.Pages.CVFlow.AddressForm
                     try
                     {
                         await AddressService.Create(address);
+                        percentage = await PercentageCalcService.ProfileCompletion(UserId);
+                        await PersonService.UpdatePercentageComletion(UserId, percentage);
                         await OnInitializedAsync();
                         toastService.ShowSuccess("The information has been saved successfully", "Saved");
 
@@ -143,6 +156,8 @@ namespace SkillsMatrix.Web.Pages.CVFlow.AddressForm
                     {
 
                         var result = await AddressService.Update(address);
+                        percentage = await PercentageCalcService.ProfileCompletion(UserId);
+                        await PersonService.UpdatePercentageComletion(UserId, percentage);
                         await OnInitializedAsync();
                         toastService.ShowSuccess("The information has been saved successfully", "Saved");
                     }

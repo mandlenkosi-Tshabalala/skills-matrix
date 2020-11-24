@@ -101,6 +101,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.ProfessionalMembershipForm
                 edit = false;
                 NavigationManager.NavigateTo($"/membership");
                 membership = new Membership();
+               toastService.ShowSuccess("The information has been saved successfully", "Saved");
                     }
                     catch (Exception ex)
                     {
@@ -139,6 +140,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.ProfessionalMembershipForm
         protected async Task GetMembership(int id)
         {
             membership = await ProfessionalMembershipService.Get(id);
+            await OnInitializedAsync();
             edit = true;
 
         }

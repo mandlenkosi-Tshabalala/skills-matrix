@@ -93,20 +93,23 @@
 
                 <div class="form-row">
                     <div class="form-group col">
-                        <input class="form-control" Placeholder="Employee Name" @bind-value="this.EmployeeName" />
+                        <label>Employee Name</label>
+                        <input class="form-control" @bind-value="this.EmployeeName" />
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group col">
-                        <input class="form-control" Placeholder="Skills" @bind-value="this.Skills" />
+                        <label>Skills</label>
+                        <input class="form-control" @bind-value="this.Skills" />
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group col">
+                        <label>Qualification Level</label>
                         <select class="form-control" @bind="this.QualificationLevel">
-                            <option value=" " selected>Qualification Level*</option>
+                            <option value="0"></option>
                             <option value="BTech">BTech</option>
                             <option value="Degree">Degree</option>
                             <option value="Diploma">Diploma</option>
@@ -125,10 +128,12 @@
 
                 <div class="form-row">
                     <div class="form-group col">
+                        <label>Functional Expertise</label>
                         <select class="form-control" @onchange="eventArgs => { functionalClicked(eventArgs.Value); }">
-                            <option value="0" selected>Functional Expertise*</option>
+                            <option value="0"></option>
                             @if (functionalList != null)
                             {
+
                                 @foreach (var functional in functionalList)
                                 {
                                     <option value="@functional.Id">@functional.Name</option>
@@ -140,8 +145,9 @@
 
                 <div class="form-row">
                     <div class="form-group col">
+                        <label>Countries Worked</label>
                         <select class="form-control" @bind="this.Country">
-                            <option value=" " selected>Countries Worked*</option>
+                            <option value="0"></option>
                             <option value="Angola">Angola</option>
                             <option value="Asian Countries">Asian Countries</option>
                             <option value="Australia and New Zealand">Australia and New Zealand</option>
@@ -169,13 +175,15 @@
 
                 <div class="form-row">
                     <div class="form-group col">
+                        <label>Competencies Catagories</label> 
                         <select class="form-control" @onchange="eventArgs => { competencyCategoryClicked(eventArgs.Value); }">
-                            <option value="0" selected>Competencies Catagories*</option>
+                            <option value="0"></option>
                             @if (competencyCategoryList != null)
                             {
-                                @foreach (var competency in competencyCategoryList)
+                                @foreach (var competencyC in competencyCategoryList)
                                 {
-                                    <option value="@competency.Id">@competency.Name</option>
+
+                                    <option value="@competencyC.Id">@competencyC.Name</option>
                                 }
                             }
                         </select>
@@ -184,8 +192,9 @@
 
                 <div class="form-row">
                     <div class="form-group col">
+                        <label>Competencies</label>
                         <select class="form-control" @bind="competencyID">
-                            <option value="0" selected>Competencies*</option>
+                            <option value="0"></option>
                             @if (competencies != null)
                             {
                                 @foreach (var competency in competencies)
@@ -197,9 +206,10 @@
                     </div>
                 </div>
                 <div class="card-footer" style="background-color:white">
-
-                    <button type="submit" @onclick="Search" class="btn btn-primary mr-1 ">Search</button>
-
+                    <div class="form-group">
+                        <button @onclick="Search" class="btn btn-primary mr-1">Search</button>
+                        <button @onclick="Clear" class="btn btn-primary mr-1">Clear</button>
+                    </div>
                 </div>
 
             </div>
@@ -243,7 +253,7 @@
                             <th>Name</th>
                             <th>EMail</th>
                             <th>Phone Number</th>
-                            @*<th>CV Progress</th>*@
+                            <th>CV Progress</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -266,7 +276,7 @@
                             <td>@emp.FirstName @emp.LastName</td>
                             <td>@emp.Email</td>
                             <td>@emp.Phone</td>
-                            @*<td>
+                            <td>
                                 @if (emp.CvProgress < 49)
                                 {
                                     <div class="progress">
@@ -285,7 +295,7 @@
                                         <div class="progress-bar bg-success" style="width:@emp.CvProgress%">@emp.CvProgress%</div>
                                     </div>
                                 }
-                            </td>*@
+                            </td>
                             <td><button type="button" @onclick="@(() => ViewCV(emp.UserId))" class="btn btn-primary btn-sm mr-1 ">View CV</button></td>
                         </tr>
                                 }

@@ -6,7 +6,38 @@
 @using System.Text.Json
 @inject IJSRuntime JSRuntime;
 @using Blazored.Toast.Configuration
+<style>
+    .resume-section-content {
+        color: #58677c;
+    }
 
+    .list-unstyled {
+        padding-left: 0;
+        list-style: none;
+    }
+
+    .mb-2,
+    .my-2 {
+        margin-bottom: 0.5rem !important;
+    }
+
+    .resume-degree {
+        color: #229383;
+    }
+
+    .resume-degree-org {
+        font-size: 0.875rem;
+    }
+
+    .resume-degree-time {
+        color: #aab4c3;
+        font-size: 0.875rem;
+    }
+
+    i {
+        margin-right: 15px;
+    }
+</style>
 <div class="card m-3">
     <div class="card-header" style="background-color:white">
         <div class="mdl-card__supporting-text">
@@ -71,14 +102,14 @@
         </div>
     </div>
     <div class="card-body">
-        <div class="form-row">
-            <div class="col">
-                What professional bodies are you affiliated with?
-            </div>
-            <div class="col">
-                @*<p style="float:right"><a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> add</a></p>*@
-            </div>
-        </div>
+
+
+        <label>
+            What professional bodies are you affiliated with ?
+        </label>
+
+        <br />
+        <br />
 
         <div>
             <div class="card card-body">
@@ -98,32 +129,30 @@
                 </EditForm>
             </div>
         </div>
-    </div>
-    @if (memberships.Count > 0)
-    {
-        <div class="card card-body">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Update</th>
-                        <th scope="col">Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var membership in memberships)
-                    {
-                        <tr>
-                            <td>@membership.Description</td>
-                            <td><a @onclick="@(()=>GetMembership(membership.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-edit"></i></a></td>
-                            <td><a @onclick="@(()=>DeleteMembership(membership.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-trash"></i></a></td>
-                        </tr>
-                    }
 
-                </tbody>
-            </table>
-        </div>
-    }
+        @if (memberships.Count > 0)
+        {
+            <br />
+            <br />
+
+            @foreach (var membership in memberships)
+            {
+                <div class="card shadow mb-4">
+                    <div class="card-body">
+                        <div class="resume-degree font-weight-bold">
+                            @membership.Description
+                        </div>
+                        <div>
+                            <a @onclick="@(()=>GetMembership(membership.Id))" role="button"><i class="fas fa-edit float-right"></i></a>
+                            <a @onclick="@(()=>DeleteMembership(membership.Id))" role="button"><i class="fas fa-trash float-right"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+            }
+
+        }
+    </div>
     <div class="card-footer" style="background-color:white">
         <div>
             <button @onclick="@Back" class="btn btn-primary mr-1">Back</button>

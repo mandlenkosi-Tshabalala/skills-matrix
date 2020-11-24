@@ -11,14 +11,21 @@ using SkillsMatrix.Web.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Blazored.Toast.Services;
+using SkillsMatrix.Web.Services.Shared;
 
 namespace SkillsMatrix.Web.Pages.CVFlow.EmploymentHistoryForm
 {
     public class EmployementFormBase : ComponentBase
     {
         [Inject]
+        public IPersonService PersonService { get; set; }
+        [Inject]
+        public IPercentageCalc PercentageCalcService { get; set; }
+        public int percentage = 0;
+        [Inject]
         public IToastService toastService { get; set; }
         [Inject]
+
         public IEmployementHistoryService EmployementService { get; set; }
 
         [Inject]
@@ -76,12 +83,14 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EmploymentHistoryForm
                 {
                     try
                     {
-                    personEmployment.UserId = UserId;
-                    await EmployementService.Create(personEmployment);
-                    personEmployment = new Employment();
-                    await OnInitializedAsync();
+                        personEmployment.UserId = UserId;
+                        await EmployementService.Create(personEmployment);
+                        percentage = await PercentageCalcService.ProfileCompletion(UserId);
+                        await PersonService.UpdatePercentageComletion(UserId, percentage);
+                        personEmployment = new Employment();
+                        await OnInitializedAsync();
                         this.StateHasChanged();
-                    toastService.ShowSuccess("The information has been saved successfully", "Saved");
+                        toastService.ShowSuccess("The information has been saved successfully", "Saved");
                     }
                     catch (Exception ex)
                     {
@@ -93,9 +102,11 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EmploymentHistoryForm
                     try
                     {
                         await EmployementService.Update(personEmployment);
-                    personEmployment = new Employment();
-                    await OnInitializedAsync();
-                    edit = false;
+                        percentage = await PercentageCalcService.ProfileCompletion(UserId);
+                        await PersonService.UpdatePercentageComletion(UserId, percentage);
+                        personEmployment = new Employment();
+                        await OnInitializedAsync();
+                        edit = false;
                         this.StateHasChanged();
                         toastService.ShowSuccess("The information has been saved successfully", "Saved");
 
@@ -104,8 +115,8 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EmploymentHistoryForm
                     {
                         toastService.ShowError("There was an error when trying to save", "Error");
                     }
+                }
             }
-        }
             else
             {
                 toastService.ShowError("Please make sure that you fill all required field", "Error");
@@ -139,8 +150,10 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EmploymentHistoryForm
         protected async Task DeleteEmployment(int id)
         {
             await EmployementService.Delete(id);
+            percentage = await PercentageCalcService.ProfileCompletion(UserId);
+            await PersonService.UpdatePercentageComletion(UserId, percentage);
             personEmployment = new Employment();
-            await OnInitializedAsync();   
+            await OnInitializedAsync();
             toastService.ShowWarning("Empolyment history is removed", "Warning");
             this.StateHasChanged();
         }

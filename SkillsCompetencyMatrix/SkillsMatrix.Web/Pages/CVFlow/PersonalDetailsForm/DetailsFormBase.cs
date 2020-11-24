@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Identity;
 using SkillsMatrix.Models;
 using SkillsMatrix.Web.Services;
+using SkillsMatrix.Web.Services.Shared;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,11 +14,16 @@ namespace SkillsMatrix.Web.Pages.CVFlow.PersonalDetailsForm
 {
     public class DetailsFormBase : ComponentBase
     {
+
+
         [Inject]
         public IToastService toastService { get; set; }
         [Inject]
         public IPersonService PersonService { get; set; }
 
+        [Inject]
+        public IPercentageCalc PercentageCalcService { get; set; }
+        public int percentage = 0;
         [Inject]
         protected SignInManager<IdentityUser<int>> SignInManager { get; set; }
 
@@ -33,6 +39,8 @@ namespace SkillsMatrix.Web.Pages.CVFlow.PersonalDetailsForm
         public int UserId { get; set; }
 
         protected PersonalInfo person = new PersonalInfo();
+
+  
 
        
 
@@ -79,6 +87,8 @@ namespace SkillsMatrix.Web.Pages.CVFlow.PersonalDetailsForm
                     {
                         person.UserId = UserId;
                         await PersonService.Create(person);
+                        percentage = await PercentageCalcService.ProfileCompletion(UserId);
+                        await PersonService.UpdatePercentageComletion(UserId,percentage);
                         NavigationManager.NavigateTo($"/address");
                     }
                     catch (Exception ex)
@@ -92,6 +102,8 @@ namespace SkillsMatrix.Web.Pages.CVFlow.PersonalDetailsForm
                 {
                     try
                     {
+                        percentage = await PercentageCalcService.ProfileCompletion(UserId);
+                        await PersonService.UpdatePercentageComletion(UserId, percentage);
                         await PersonService.Update(person);
                         NavigationManager.NavigateTo($"/address");
                     }
@@ -126,7 +138,9 @@ namespace SkillsMatrix.Web.Pages.CVFlow.PersonalDetailsForm
                     try
                     {
                         person.UserId = UserId;
-                        await PersonService.Create(person);                   
+                        await PersonService.Create(person);
+                        percentage = await PercentageCalcService.ProfileCompletion(UserId);
+                        await PersonService.UpdatePercentageComletion(UserId, percentage);
                         toastService.ShowSuccess("The information has been saved successfully", "Saved");
                         await OnInitializedAsync();
                     }
@@ -141,6 +155,8 @@ namespace SkillsMatrix.Web.Pages.CVFlow.PersonalDetailsForm
                     try
                     {
                         await PersonService.Update(person);
+                        percentage = await PercentageCalcService.ProfileCompletion(UserId);
+                        await PersonService.UpdatePercentageComletion(UserId, percentage);
                         toastService.ShowSuccess("The information has been saved successfully", "Success");
                         await OnInitializedAsync();
                     }

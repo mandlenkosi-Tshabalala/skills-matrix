@@ -11,6 +11,7 @@ using SkillsMatrix.Web.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Blazored.Toast.Services;
+using SkillsMatrix.Web.Services.Shared;
 
 namespace SkillsMatrix.Web.Pages.CVFlow.EducationForm
 {
@@ -20,7 +21,11 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EducationForm
         public IToastService toastService { get; set; }
         [Inject]
         public IEducationService EducationService { get; set; }
-
+        [Inject]
+        public IPersonService PersonService { get; set; }
+        [Inject]
+        public IPercentageCalc PercentageCalcService { get; set; }
+        public int percentage = 0;
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -60,7 +65,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EducationForm
                 {
                     UserId = user.Id;
 
-                 
+
                     personEducations = await EducationService.GetEducations(user.Id);
 
 
@@ -70,7 +75,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EducationForm
 
         }
 
-        protected  async void HandleValidSubmit()
+        protected async void HandleValidSubmit()
         {
             var isValid = editContext.Validate();
 
@@ -83,12 +88,14 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EducationForm
                     {
                         personEducation.UserId = UserId;
                         await EducationService.Create(personEducation);
+                        percentage = await PercentageCalcService.ProfileCompletion(UserId);
+                        await PersonService.UpdatePercentageComletion(UserId, percentage);
                         personEducation = new Education();
                         await OnInitializedAsync();
                         this.StateHasChanged();
                         toastService.ShowSuccess("The information has been saved successfully", "Saved");
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         toastService.ShowError("There was an error when trying to save", "Error");
                     }
@@ -98,11 +105,13 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EducationForm
                     try
                     {
                         await EducationService.Update(personEducation);
+                        percentage = await PercentageCalcService.ProfileCompletion(UserId);
+                        await PersonService.UpdatePercentageComletion(UserId, percentage);
                         personEducation = new Education();
                         await OnInitializedAsync();
                         edit = false;
                         this.StateHasChanged();
-                        toastService.ShowSuccess("The information has been saved successfully", "Saved");                    
+                        toastService.ShowSuccess("The information has been saved successfully", "Saved");
                     }
                     catch (Exception ex)
                     {
@@ -121,7 +130,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EducationForm
 
         protected void Back()
         {
-    
+
             NavigationManager.NavigateTo($"/address");
         }
 
@@ -134,7 +143,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EducationForm
 
         protected async void Cancel()
         {
-             await OnInitializedAsync();
+            await OnInitializedAsync();
 
         }
 
@@ -150,10 +159,12 @@ namespace SkillsMatrix.Web.Pages.CVFlow.EducationForm
         protected async Task DeleteEducation(int id)
         {
             await EducationService.Delete(id);
+            percentage = await PercentageCalcService.ProfileCompletion(UserId);
+            await PersonService.UpdatePercentageComletion(UserId, percentage);
             personEducation = new Education();
             await OnInitializedAsync();
             this.StateHasChanged();
-         
+
 
             toastService.ShowWarning("Qualifcation is removed", "Warning");
 

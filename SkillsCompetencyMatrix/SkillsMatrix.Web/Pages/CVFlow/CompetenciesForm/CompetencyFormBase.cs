@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Components.Authorization;
 using Blazored.Toast.Services;
+using SkillsMatrix.Web.Services.Shared;
 
 namespace SkillsMatrix.Web.Pages.CVFlow.CompetenciesForm
 {
@@ -21,6 +22,11 @@ namespace SkillsMatrix.Web.Pages.CVFlow.CompetenciesForm
         [Inject]
         public IPersonCompetencies personCompetencies { get; set; }
 
+        [Inject]
+        public IPersonService PersonService { get; set; }
+        [Inject]
+        public IPercentageCalc PercentageCalcService { get; set; }
+        public int percentage = 0;
         [Inject]
         public ICompetenciesService competenciesService { get; set; }
 
@@ -99,6 +105,8 @@ namespace SkillsMatrix.Web.Pages.CVFlow.CompetenciesForm
                         UserCompetency.UserId = UserId;
                         UserCompetency.CompetencyId = Int32.Parse(competencyID);
                         await personCompetencies.Create(UserCompetency);
+                        percentage = await PercentageCalcService.ProfileCompletion(UserId);
+                        await PersonService.UpdatePercentageComletion(UserId, percentage);
                         await OnInitializedAsync();
                         UserCompetency = new UserCompetency();
                         this.StateHasChanged();
@@ -114,6 +122,8 @@ namespace SkillsMatrix.Web.Pages.CVFlow.CompetenciesForm
                 try
                 {
                     await personCompetencies.Update(UserCompetency);
+                    percentage = await PercentageCalcService.ProfileCompletion(UserId);
+                    await PersonService.UpdatePercentageComletion(UserId, percentage);
                     await OnInitializedAsync();
                     edit = false;
                     NavigationManager.NavigateTo($"/personCompetencies");
@@ -143,7 +153,8 @@ namespace SkillsMatrix.Web.Pages.CVFlow.CompetenciesForm
             if (id != 0)
             {
                 await personCompetencies.Delete(UserId, id);
-
+                percentage = await PercentageCalcService.ProfileCompletion(UserId);
+                await PersonService.UpdatePercentageComletion(UserId, percentage);
                 await OnInitializedAsync();
                 this.StateHasChanged();
                 toastService.ShowWarning("Competency is removed", "Warning");

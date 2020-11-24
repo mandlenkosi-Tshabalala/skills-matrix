@@ -54,5 +54,12 @@ namespace SkillsMatrix.Api.Models
         {
             return appDbContext.PersonalInfos.SingleOrDefaultAsync(x => x.UserId== Id);
         }
+
+        public async Task<PersonalInfo> UpdatePercentage(int userId, int percentage)
+        {
+            var person = await appDbContext.PersonalInfos.SingleOrDefaultAsync(x => x.UserId == userId);
+            person.CvProgress = percentage;
+           return await Update(person);
+        }
     }
 }

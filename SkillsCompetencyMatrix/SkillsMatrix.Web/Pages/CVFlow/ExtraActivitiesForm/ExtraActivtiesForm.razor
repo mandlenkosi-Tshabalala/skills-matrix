@@ -7,7 +7,38 @@
 @inject IJSRuntime JSRuntime;
 @using Blazored.Toast.Configuration
 
+<style>
+    .resume-section-content {
+        color: #58677c;
+    }
 
+    .list-unstyled {
+        padding-left: 0;
+        list-style: none;
+    }
+
+    .mb-2,
+    .my-2 {
+        margin-bottom: 0.5rem !important;
+    }
+
+    .resume-degree {
+        color: #229383;
+    }
+
+    .resume-degree-org {
+        font-size: 0.875rem;
+    }
+
+    .resume-degree-time {
+        color: #aab4c3;
+        font-size: 0.875rem;
+    }
+
+    i {
+        margin-right: 15px;
+    }
+</style>
 <div class="card m-3">
     <div class="card-header" style="background-color:white">
         <div class="mdl-card__supporting-text">
@@ -72,67 +103,66 @@
         </div>
     </div>
     <div class="card-body">
-        <div class="form-row">
-            <div class="col">
-                Any Extra Activties?
-            </div>
-            <div class="col">
-                @*<p style="float:right"><a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> add</a></p>*@
-            </div>
+
+
+        <label>
+            Any Extra Activties ?
+        </label>
+
+        <br />
+        <br />
+
+        <div class="card card-body">
+            <EditForm EditContext="@editContext">
+                <DataAnnotationsValidator />
+                <div class="form-row">
+                    <div class="form-group col-6">
+                        <label>Activity</label>
+                        <InputText @bind-Value="activity.Activity" class="form-control" />
+                        <ValidationMessage For="@(() => activity.Activity)" />
+                        <br />
+                        <br />
+                        <label>Activity Detail</label>
+                        <InputTextArea @bind-Value="activity.ActivityDetail" class=" form-control" style="height:150px">
+                            <ValidationMessage For="@(() => activity.ActivityDetail)" />
+                        </InputTextArea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button data-toggle="collapse" href="#collapseExample" @onclick="Cancel" class="btn btn-outline-success">Cancel</button>
+                    <button @onclick="HandleValidSubmit" class="btn btn-outline-success mr-1">Save</button>
+                </div>
+            </EditForm>
         </div>
 
-        <div>
-            <div class="card card-body">
-                <EditForm EditContext="@editContext">
-                    <DataAnnotationsValidator />
-                    <div class="form-row">
-                        <div class="form-group col-6">
-                            <label>Activity</label>
-                            <InputText @bind-Value="activity.Activity" class="form-control" />
-                            <ValidationMessage For="@(() => activity.Activity)" />
-                            <br />
-                            <br />
-                            <label>Activity Detail</label>
-                            <InputTextArea @bind-Value="activity.ActivityDetail" class=" form-control" style="height:150px">
-                                <ValidationMessage For="@(() => activity.ActivityDetail)" />
-                            </InputTextArea>
+        @if (activities.Count > 0)
+        {
+            <br />
+            <br />
+
+            @foreach (var activity in activities)
+            {
+                <div class="card shadow mb-4">
+                    <div class="card-body">
+                        <div class="resume-degree font-weight-bold">
+                            @activity.Activity
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <button data-toggle="collapse" href="#collapseExample" @onclick="Cancel" class="btn btn-outline-success">Cancel</button>
-                        <button @onclick="HandleValidSubmit" class="btn btn-outline-success mr-1">Save</button>
-                    </div>
-                </EditForm>
-            </div>
-        </div>
-    </div>
-    @if (activities.Count > 0)
-    {
-    <div class="card card-body">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Activity</th>
-                    <th scope="col">Activity Detail</th>
-                    <th scope="col">Update</th>
-                    <th scope="col">Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var activity in activities)
-                    {
-                <tr>
-                    <td>@activity.Activity</td>
-                    <td>@activity.ActivityDetail</td>
-                    <td><a @onclick="@(()=>GetActivity(activity.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-edit"></i></a></td>
-                    <td><a @onclick="@(()=>DeleteActivity(activity.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-trash"></i></a></td>
-                </tr>
-                    }
+                        <div>
+                            <a @onclick="@(()=>GetActivity(activity.Id))" role="button"><i class="fas fa-edit float-right"></i></a>
+                            <a @onclick="@(()=>DeleteActivity(activity.Id))" role="button"><i class="fas fa-trash float-right"></i></a>
+                        </div>
+                        <div class="resume-degree-org">@activity.ActivityDetail</div>
 
-            </tbody>
-        </table>
+                    </div>
+
+                </div>
+
+            }
+
+        }
+
+
     </div>
-    }
     <div class="card-footer" style="background-color:white">
         <div>
             <button @onclick="@Back" class="btn btn-primary mr-1">Back</button>

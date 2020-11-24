@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SkillsMatrix.Models
 {
@@ -14,7 +15,6 @@ namespace SkillsMatrix.Models
         public string IPAddress { get; set; }
         public bool IsDeleted { get; set; }
         public string Name { get; set; }
-
         public int CatagoryId { get; set; }
         public virtual CompetencyCategory Catagory { get; set; }
 

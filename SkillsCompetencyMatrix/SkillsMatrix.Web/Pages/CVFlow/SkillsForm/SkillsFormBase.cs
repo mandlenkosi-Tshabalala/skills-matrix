@@ -11,11 +11,18 @@ using SkillsMatrix.Web.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Blazored.Toast.Services;
+using SkillsMatrix.Web.Services.Shared;
 
 namespace SkillsMatrix.Web.Pages.CVFlow.SkillsForm
 {
     public class SkillsFormBase : ComponentBase
     {
+        [Inject]
+        public IPersonService PersonService { get; set; }
+        [Inject]
+        public IPercentageCalc PercentageCalcService { get; set; }
+        public int percentage = 0;
+
         [Inject]
         public IToastService toastService { get; set; }
         [Inject]
@@ -41,6 +48,8 @@ namespace SkillsMatrix.Web.Pages.CVFlow.SkillsForm
         public string PersonId { get; set; }
 
         protected Skill skill = new Skill();
+
+        public string SkillLevel = "0";
 
         protected List<Skill> skills = new List<Skill>();
 
@@ -77,31 +86,40 @@ namespace SkillsMatrix.Web.Pages.CVFlow.SkillsForm
             {
 
                 if (edit == false)
-            {
-              try
                 {
-                skill.UserId = UserId;
-                await SkillsService.Create(skill);
-                await OnInitializedAsync();
-                NavigationManager.NavigateTo($"/skills");
-                skill = new Skill();
-                toastService.ShowSuccess("The information has been saved successfully", "Saved");
+                    try
+                    {
+                        skill.UserId = UserId;
+                        skill.Level = int.Parse(SkillLevel);
+                        await SkillsService.Create(skill);
+                        percentage = await PercentageCalcService.ProfileCompletion(UserId);
+                        await PersonService.UpdatePercentageComletion(UserId, percentage);
+                        await OnInitializedAsync();
+                        skill = new Skill();
+                        SkillLevel = "0";
+                        this.StateHasChanged();
+                        toastService.ShowSuccess("The information has been saved successfully", "Saved");
                     }
                     catch (Exception ex)
                     {
                         toastService.ShowError("There was an error when trying to save", "Error");
                     }
                 }
-            
-            else
-            {
-             try
-              {
-                await SkillsService.Update(skill);
-                await OnInitializedAsync();
-                edit = false;
-                NavigationManager.NavigateTo($"/skills");
-                skill = new Skill();
+
+                else
+                {
+                    try
+                    {
+                        skill.Level = int.Parse(SkillLevel);
+                        await SkillsService.Update(skill);
+                        percentage = await PercentageCalcService.ProfileCompletion(UserId);
+                        await PersonService.UpdatePercentageComletion(UserId, percentage);
+                        await OnInitializedAsync();
+                        edit = false;
+                        skill = new Skill();
+                        SkillLevel = "0";
+                        this.StateHasChanged();
+                        toastService.ShowSuccess("The information has been saved successfully", "Saved");
                     }
                     catch (Exception ex)
                     {
@@ -116,7 +134,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.SkillsForm
 
             }
 
-            }
+        }
 
 
         protected void Back()
@@ -140,6 +158,8 @@ namespace SkillsMatrix.Web.Pages.CVFlow.SkillsForm
         protected async Task GetSkill(int id)
         {
             skill = await SkillsService.Get(id);
+            SkillLevel = skill.Level.ToString();
+            await OnInitializedAsync();
             edit = true;
 
         }
@@ -147,7 +167,8 @@ namespace SkillsMatrix.Web.Pages.CVFlow.SkillsForm
         protected async Task DeleteSkill(int id)
         {
             await SkillsService.Delete(id);
-
+            percentage = await PercentageCalcService.ProfileCompletion(UserId);
+            await PersonService.UpdatePercentageComletion(UserId, percentage);
             await OnInitializedAsync();
             NavigationManager.NavigateTo($"/skills");
             skill = new Skill();

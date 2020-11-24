@@ -203,6 +203,20 @@ namespace SkillsMatrix.Api.Controllers
             }
         }
 
+        [HttpPut("UpdateCompletion/{userID:int}/{Percentage:int}")]
+        public async Task<ActionResult<PersonalInfo>> UpdateCompletion(int userID,int Percentage)
+        {
+            try
+            {
+                return await personRepository.UpdatePercentage(userID,Percentage);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                  $"Error updating data{ex.Message}");
+            }
+        }
+
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<PersonalInfo>> DeletePerson(int id)
         {

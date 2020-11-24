@@ -108,10 +108,6 @@ namespace SkillsMatrix.Web.Pages.Employees
             functionalList = await ExpertiseService.GetAll();
             competencyCategoryList = await CompetenciesCategoryService.GetCompetencies();
 
-            //foreach(var emp in Employees)
-            //{
-            //    emp.CvProgress = await ProfileCompletion(emp.UserId);
-            //}
 
 
             Searching = false;
@@ -124,10 +120,7 @@ namespace SkillsMatrix.Web.Pages.Employees
             this.StateHasChanged();
 
             Employees = await PersonService.GetAllEmployees(EmployeeName, Convert.ToInt32(expertiseID), Convert.ToInt32(competencyCategoryID), Skills, QualificationLevel, Country, Convert.ToInt32(competencyID));
-            //foreach (var emp in Employees)
-            //{
-            //    emp.CvProgress = await ProfileCompletion(emp.UserId);
-            //}
+
             if (Employees.Count() == 0)
             {
                 Employees = null;
@@ -137,6 +130,20 @@ namespace SkillsMatrix.Web.Pages.Employees
 
             Searching = false;
             this.StateHasChanged();
+        }
+
+        public void Clear()
+        {
+            EmployeeName = "";
+            Skills = "";
+            QualificationLevel = "";
+            Country = "";
+            expertiseID = "0";
+            competencyCategoryID = "0";
+            competencyID = "0";
+            functionalList = null;
+            competencyCategoryList = null;
+
         }
 
         public async Task DownloadCV()
@@ -348,57 +355,6 @@ namespace SkillsMatrix.Web.Pages.Employees
             });
         }
 
-        public async Task<int> ProfileCompletion(int UserId)
-        {
-            int Total = 0;
-            int t1 = 0, t2 = 0, t3 = 0, t4 = 0, t5 = 0, t6 = 0, t7 = 0, t8 = 0;
-
-            Person = await PersonService.GetPersonByUserId(UserId);
-            address = await AddressService.Get(UserId);
-            skills = await SkillsService.GetSkills(UserId);
-            educations = await educationService.GetEducations(UserId);
-            employments = await employementHistoryService.GetEmployment(UserId);
-            activities = await ActivityService.GetActivity(UserId);
-            expertises = await PersonExpertiseService.GetAll(UserId);
-            userCompetencies = await PersonCompetencies.GetAll(UserId);
-
-            if (Person != null)
-            {
-                t1 = 20;
-            }
-            if (address != null)
-            {
-                t2 = 20;
-            }
-            if (educations.Count != 0)
-            {
-                t3 = 10;
-            }
-            if (employments.Count != 0)
-            {
-                t4 = 10;
-            }
-            if (activities.Count != 0)
-            {
-                t5 = 10;
-            }
-            if (expertises.Count != 0)
-            {
-                t6 = 10;
-            }
-            if (userCompetencies.Count != 0)
-            {
-                t7 = 10;
-            }
-            if (skills.Count != 0)
-            {
-                t8 = 10;
-            }
-
-            Total = t1 + t2 + t3 + t4 + t5 + t6 + t7 + t8;
-
-            return Total;
-        }
     }
 
     public class InMemoryFile

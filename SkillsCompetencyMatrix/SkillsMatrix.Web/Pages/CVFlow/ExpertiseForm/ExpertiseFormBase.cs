@@ -8,11 +8,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Blazored.Toast.Services;
+using SkillsMatrix.Web.Services.Shared;
 
 namespace SkillsMatrix.Web.Pages.CVFlow.ExpertiseForm
 {
     public class ExpertiseFormBase : ComponentBase
     {
+
+        [Inject]
+        public IPersonService PersonService { get; set; }
+        [Inject]
+        public IPercentageCalc PercentageCalcService { get; set; }
+        public int percentage = 0;
         [Inject]
         public IToastService toastService { get; set; }
         [Inject]
@@ -37,7 +44,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.ExpertiseForm
 
         protected List<UserExpertise> userExpertises = new List<UserExpertise>();
 
-        protected IEnumerable<Expertise> Expertises; 
+        protected IEnumerable<Expertise> Expertises;
 
         protected UserExpertise userExpertise = new UserExpertise();
 
@@ -56,14 +63,14 @@ namespace SkillsMatrix.Web.Pages.CVFlow.ExpertiseForm
             if (principalUser.Identity.IsAuthenticated)
             {
 
-              
+
 
                 var user = await UserManager.FindByEmailAsync(principalUser.Identity.Name);
                 if (user != null)
                 {
                     UserId = user.Id;
                     Expertises = await ExpertiseService.GetAll();
-                 
+
                     userExpertises = await UserExpertiseService.GetAll(user.Id);
 
 
@@ -80,16 +87,18 @@ namespace SkillsMatrix.Web.Pages.CVFlow.ExpertiseForm
             {
 
                 if (edit == false)
-            {
-               try
                 {
-                 userExpertise.UserId = UserId;
-                userExpertise.ExpertiseId = Int32.Parse(expertiseID);
-                await UserExpertiseService.Create(userExpertise);
-                userExpertise = new UserExpertise();
-                await OnInitializedAsync();
-                NavigationManager.NavigateTo($"/expertise");
-                toastService.ShowSuccess("The information has been saved successfully", "Saved");
+                    try
+                    {
+                        userExpertise.UserId = UserId;
+                        userExpertise.ExpertiseId = Int32.Parse(expertiseID);
+                        await UserExpertiseService.Create(userExpertise);
+                        percentage = await PercentageCalcService.ProfileCompletion(UserId);
+                        await PersonService.UpdatePercentageComletion(UserId, percentage);
+                        userExpertise = new UserExpertise();
+                        await OnInitializedAsync();
+                        NavigationManager.NavigateTo($"/expertise");
+                        toastService.ShowSuccess("The information has been saved successfully", "Saved");
                     }
                     catch (Exception ex)
                     {
@@ -97,15 +106,17 @@ namespace SkillsMatrix.Web.Pages.CVFlow.ExpertiseForm
                     }
 
                 }
-            else
-            {
-              try
-              {
-                 await UserExpertiseService.Update(userExpertise);
-                userExpertise = new UserExpertise();
-                await OnInitializedAsync();
-                edit = false;
-                NavigationManager.NavigateTo($"/expertise");
+                else
+                {
+                    try
+                    {
+                        await UserExpertiseService.Update(userExpertise);
+                        percentage = await PercentageCalcService.ProfileCompletion(UserId);
+                        await PersonService.UpdatePercentageComletion(UserId, percentage);
+                        userExpertise = new UserExpertise();
+                        await OnInitializedAsync();
+                        edit = false;
+                        NavigationManager.NavigateTo($"/expertise");
                     }
                     catch (Exception ex)
                     {
@@ -114,7 +125,7 @@ namespace SkillsMatrix.Web.Pages.CVFlow.ExpertiseForm
 
                 }
 
-        }
+            }
             else
             {
                 toastService.ShowError("Please make sure that you fill all required field", "Error");
@@ -171,10 +182,12 @@ namespace SkillsMatrix.Web.Pages.CVFlow.ExpertiseForm
             if (id != 0)
             {
                 await UserExpertiseService.DeleteByUserAndExpertise(UserId, id);
+                percentage = await PercentageCalcService.ProfileCompletion(UserId);
+                await PersonService.UpdatePercentageComletion(UserId, percentage);
                 userExpertise = new UserExpertise();
                 await OnInitializedAsync();
                 this.StateHasChanged();
-              
+
                 toastService.ShowWarning("Expertise is removed", "Warning");
             }
 

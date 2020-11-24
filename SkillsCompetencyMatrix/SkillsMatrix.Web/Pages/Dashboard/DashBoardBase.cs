@@ -16,7 +16,8 @@ namespace SkillsMatrix.Web.Pages.Dashboard
     {
         [CascadingParameter]
         protected Task<AuthenticationState> AuthState { get; set; }
-
+        [Inject]
+        public IPersonService PersonService { get; set; }
         [Inject]
         public IPersonService personService { get; set; }
 

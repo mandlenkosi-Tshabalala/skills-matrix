@@ -10,5 +10,7 @@ namespace SkillsMatrix.Api.Models
     {
         Task<IEnumerable<PersonalInfo>>GetAllEmployees(string EmployeeName, int expertiseID, int competencyCategoryID, string Skills, string QualificationLevel, string Country, int competencyID);
         Task<PersonalInfo> GetByUserId(int Id);
+
+        Task<PersonalInfo> UpdatePercentage(int userId, int percentage);
     }
 }

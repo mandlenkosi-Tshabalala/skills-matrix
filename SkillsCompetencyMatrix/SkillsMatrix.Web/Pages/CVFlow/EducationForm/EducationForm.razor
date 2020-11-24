@@ -6,7 +6,38 @@
 @using System.Text.Json
 @inject IJSRuntime JSRuntime;
 @using Blazored.Toast.Configuration;
+<style>
+    .resume-section-content {
+        color: #58677c;
+    }
 
+    .list-unstyled {
+        padding-left: 0;
+        list-style: none;
+    }
+
+    .mb-2,
+    .my-2 {
+        margin-bottom: 0.5rem !important;
+    }
+
+    .resume-degree {
+        color: #229383;
+    }
+
+    .resume-degree-org {
+        font-size: 0.875rem;
+    }
+
+    .resume-degree-time {
+        color: #aab4c3;
+        font-size: 0.875rem;
+    }
+
+    i {
+        margin-right: 15px;
+    }
+</style>
 
 <div class="card m-3">
     <div class="card-header" style="background-color:white">
@@ -74,19 +105,13 @@
 
 
     <div class="card-body">
-        <div class="form-row">
-            <div class="col align-self-center">
-                What is your education background?
-            </div>
 
-            @*<div class="col">
-                    What is your education background?
-                </div>*@
-            <div class="col">
-                @*<p style="float:right"><a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> add</a></p>*@
-            </div>
-        </div>
+        <label>
+            What is your education background ? *
+        </label>
 
+        <br />
+        <br />
         <div>
             <div class="card card-body">
                 <EditForm EditContext="@editContext">
@@ -513,55 +538,48 @@
 
                     </div>
 
-                        <div class="form-group">
-                            <button data-toggle="collapse" href="#collapseExample" @onclick="Cancel" class="btn btn-outline-success">Cancel</button>
-                            <button @onclick="HandleValidSubmit" class="btn btn-outline-success mr-1">Save</button>
-                        </div>
-</EditForm>
+                    <div class="form-group">
+                        <button data-toggle="collapse" href="#collapseExample" @onclick="Cancel" class="btn btn-outline-success">Cancel</button>
+                        <button @onclick="HandleValidSubmit" class="btn btn-outline-success mr-1">Save</button>
+                    </div>
+                </EditForm>
             </div>
         </div>
-    </div>
-    @if (personEducations.Count > 0)
-    {
-        <div class="card card-body">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Institution</th>
-                        <th scope="col">Field of Sturdy</th>
-                        <th scope="col">Qualification Start Date</th>
-                        <th scope="col">Qualification End Date</th>
-                        <th scope="col">Qualification level</th>
-                        <th scope="col">Update</th>
-                        <th scope="col">Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var education in personEducations)
-                    {
-                    <tr>
-                        <td>@education.Institution</td>
-                        <td>@education.FieldOfStudy</td>
-                        <td>@education.QualificationStartDate</td>
-                        @if (@education.Progress != "Completed")
-                        {
-                            <td>@education.Progress</td>
-                        }
-                        else
-                        {
-                             <td>@education.QualificationEndDate</td>
-                        }
 
-                        <td>@education.QualificationLevel</td>
-                        <td><a @onclick="@(()=>GetEducation(education.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-edit"></i></a></td>
-                        <td><a @onclick="@(()=>DeleteEducation(education.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-trash"></i></a></td>
-                    </tr>
+        @if (personEducations.Count > 0)
+        {
+            <br />
+            <br />
+
+            @foreach (var education in personEducations)
+            {
+                <div class="card shadow mb-4">
+                    <div class="card-body">
+                        <div class="resume-degree font-weight-bold">
+                            @education.FieldOfStudy
+                        </div>
+                        <div>
+                            <a @onclick="@(()=>GetEducation(education.Id))" role="button"><i class="fas fa-edit float-right"></i></a>
+                            <a @onclick="@(()=>DeleteEducation(education.Id))" role="button"><i class="fas fa-trash float-right"></i></a>
+                        </div>
+                        <div class="resume-degree-org">@education.Institution</div>
+                        <div class="resume-degree-time">
+                            @education.QualificationStartDate.ToShortDateString() - @if (education.Progress == "Completed")
+                            {@education.QualificationEndDate.ToShortDateString()}
+                        else
+                        {@education.Progress
                     }
 
-                </tbody>
-            </table>
-        </div>
-    }
+
+                        </div>
+                    </div>
+
+                </div>
+
+            }
+
+        }
+    </div>
     <div class="card-footer" style="background-color:white">
         <div>
             <button @onclick="@Back" class="btn btn-primary mr-1">Back</button>

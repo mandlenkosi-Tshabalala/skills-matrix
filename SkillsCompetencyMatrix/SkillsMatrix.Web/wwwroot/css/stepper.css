@@ -126,7 +126,7 @@ textarea.form-control.invalid {
         }
 
         .mdl-stepper-horizontal-alternative .mdl-stepper-step.step-done .mdl-stepper-circle:before {
-            content: "\2714";
+            content: "\2713";
         }
 
         .mdl-stepper-horizontal-alternative .mdl-stepper-step.step-done .mdl-stepper-circle *,

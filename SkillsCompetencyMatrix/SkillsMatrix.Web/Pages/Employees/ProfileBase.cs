@@ -10,7 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components.Forms;
-
+using SkillsMatrix.Web.Services.Shared;
 
 namespace SkillsMatrix.Web.Pages.Employees
 {
@@ -25,7 +25,9 @@ namespace SkillsMatrix.Web.Pages.Employees
         public IPersonService PersonService { get; set; }
         [Inject]
         public IActivityService ActivityService { get; set; }
-
+        [Inject]
+        public IPercentageCalc PercentageCalcService { get; set; }
+        public int percentage = 0;
 
         [Inject]
         public ISkillsService SkillsService { get; set; }
@@ -54,7 +56,6 @@ namespace SkillsMatrix.Web.Pages.Employees
 
         public bool Searching = true;
 
-        public int Percentage;
 
         [CascadingParameter]
         protected Task<AuthenticationState> AuthState { get; set; }
@@ -92,7 +93,6 @@ namespace SkillsMatrix.Web.Pages.Employees
                 {
                     UserId = user.Id;
                     Person = await PersonService.GetPersonByUserId(user.Id);
-                    Percentage = await ProfileCompletion(UserId);
                     editContext = new EditContext(Person);
 
                     if (Person != null)
@@ -115,7 +115,12 @@ namespace SkillsMatrix.Web.Pages.Employees
                 {
                     Person.ImagePath = file.Name;
                     await PersonService.Update(Person);
+                    percentage = await PercentageCalcService.ProfileCompletion(UserId);
+                    await PersonService.UpdatePercentageComletion(UserId, percentage);
                 }
+
+                await OnInitializedAsync();
+                this.StateHasChanged();
             }
 
         }
@@ -148,56 +153,5 @@ namespace SkillsMatrix.Web.Pages.Employees
             }
         }
 
-        public async Task <int> ProfileCompletion(int UserId)
-        {
-            int Total = 0;
-            int t1 = 0, t2 = 0, t3 = 0, t4 = 0, t5 = 0, t6 = 0, t7 = 0, t8 = 0;
-
-            Person = await PersonService.GetPersonByUserId(UserId);
-            address = await AddressService.Get(UserId);
-            skills = await SkillsService.GetSkills(UserId);
-            educations = await educationService.GetEducations(UserId);
-            employments = await employementHistoryService.GetEmployment(UserId);
-            activities = await ActivityService.GetActivity(UserId);
-            expertises = await PersonExpertiseService.GetAll(UserId);
-            competencies = await PersonCompetencies.GetAll(UserId);
-
-            if(Person != null)
-            {
-                t1 = 20;
-            }
-            if (address != null)
-            {
-                t2 = 20;
-            }
-            if (educations.Count != 0)
-            {
-                t3 = 10;
-            }
-            if (employments.Count != 0)
-            {
-                t4 = 10;
-            }
-            if (activities.Count != 0)
-            {
-                t5 = 10;
-            }
-            if (expertises.Count != 0)
-            {
-                t6 = 10;
-            }
-            if (competencies.Count != 0)
-            {
-                t7 = 10;
-            }
-            if (skills.Count != 0)
-            {
-                t8 = 10;
-            }
-
-            Total = t1 + t2 + t3 + t4 + t5 + t6 + t7 + t8;
-
-            return Total;
-        }
     }
 }

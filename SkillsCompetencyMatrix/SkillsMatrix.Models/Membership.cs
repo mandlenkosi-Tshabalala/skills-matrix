@@ -6,6 +6,7 @@ namespace SkillsMatrix.Models
 {
     public class Membership : BaseEntity
     {
+        [Required]
         public string Description { get; set; }
  
     }

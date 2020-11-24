@@ -16,7 +16,9 @@ namespace SkillsMatrix.Web.Services
       Task<PersonalInfo> Update(PersonalInfo person);
       Task<IEnumerable<PersonalInfo>> GetAllEmployees();
       Task<IEnumerable<PersonalInfo>> GetAllEmployees(string EmployeeName, int expertiseID, int competencyCategoryID, string Skills, string QualificationLevel, string Country, int competencyID);
+      Task UpdatePercentageComletion(int userId, int Percentage);
 
-        Task<int> GetPercentage(int UserId);
+
+
     }
 }

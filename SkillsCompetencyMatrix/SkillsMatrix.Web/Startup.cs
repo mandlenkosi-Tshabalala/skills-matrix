@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SkillsMatrix.Web.Data;
 using SkillsMatrix.Web.Services;
+using SkillsMatrix.Web.Services.Shared;
 using SkillsMatrix.Web.Shared;
 
 namespace SkillsMatrix.Web
@@ -107,6 +108,7 @@ namespace SkillsMatrix.Web
 
             services.AddScoped<IFileUploadService, FileUploadService>();
 
+            services.AddScoped<IPercentageCalc, PercentageCalc>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
