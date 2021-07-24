@@ -29,7 +29,7 @@ namespace SkillsMatrix.Api.Controllers
             try
             {
                 _logger.LogInformation("GetCompetencies Started");
-                return Ok(await competencyRepository.GetAll());
+                return Ok(await competencyRepository.GetAllCompetencies());
             }
             catch (Exception ex)
             {

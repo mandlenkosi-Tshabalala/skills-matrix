@@ -69,7 +69,7 @@ namespace SkillsMatrix.Api.Controllers
 
                 return result.ToList();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                    "Error retrieving data from the database");
@@ -90,7 +90,7 @@ namespace SkillsMatrix.Api.Controllers
 
                 if (checkexist == null)
                 {
-                    var result = await competencyRepository.Add(UserCompetency);
+                    var result = await competencyRepository.AddUserCompetency(UserCompetency);
 
                     return CreatedAtAction(nameof(GetCompetency), new { id = result.Id }, result);
                 }

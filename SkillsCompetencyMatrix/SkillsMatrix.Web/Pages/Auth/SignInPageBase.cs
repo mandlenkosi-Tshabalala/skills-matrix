@@ -66,32 +66,44 @@ namespace SkillsMatrix.Web.Auth
 
         public async void HandleSignIn()
         {
-            Logger.LogInformation("HandleSignIn started...");
+            
+                Logger.LogInformation("HandleSignIn started...");
             var user = await UserManager.FindByNameAsync(userLoginDetails.Email);
-            var valid = await SignInManager.UserManager.CheckPasswordAsync(user, userLoginDetails.Password);
 
-            if (valid)
+            if (await UserManager.IsEmailConfirmedAsync(user))
             {
-                var principal = await SignInManager.CreateUserPrincipalAsync(user);
+                var valid = await SignInManager.UserManager.CheckPasswordAsync(user, userLoginDetails.Password);
 
-                var identity = new ClaimsIdentity(
-                    principal.Claims,
-                    Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme
-                );
+                if (valid)
+                {
+                    var principal = await SignInManager.CreateUserPrincipalAsync(user);
 
-                principal = new System.Security.Claims.ClaimsPrincipal(identity);
-                SignInManager.Context.User = principal;
-                HostAuthentication.SetAuthenticationState(Task.FromResult(new AuthenticationState(principal)));
+                    var identity = new ClaimsIdentity(
+                        principal.Claims,
+                        Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme
+                    );
 
-                // now the authState is updated
-                var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-                               
-                NavigationManager.NavigateTo("/");
+                    principal = new System.Security.Claims.ClaimsPrincipal(identity);
+                    SignInManager.Context.User = principal;
+                    HostAuthentication.SetAuthenticationState(Task.FromResult(new AuthenticationState(principal)));
+
+                    // now the authState is updated
+                    var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+                    NavigationManager.NavigateTo("/");
+                }
+                else
+                {
+                    Logger.LogWarning($"Username {userLoginDetails.Email} or password {userLoginDetails.Password} is incorrect.");
+                }
             }
+
             else
             {
-                Logger.LogWarning($"Username {userLoginDetails.Email} or password {userLoginDetails.Password} is incorrect.");
+                Logger.LogWarning($"Email {userLoginDetails.Email} is not confirmed.");
             }
+
+            
         }
 
         private async void CreateUser()

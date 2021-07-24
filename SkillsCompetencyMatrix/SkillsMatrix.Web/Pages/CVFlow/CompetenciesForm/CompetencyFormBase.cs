@@ -58,11 +58,16 @@ namespace SkillsMatrix.Web.Pages.CVFlow.CompetenciesForm
 
         protected string competencyID { get; set; }
 
+        
+
         public string competencyCategoryID { get; set; }
 
 
         private bool edit = false;
+        public List<string> subCompetencyIDs = new List<string>();
+        public Competency _competency;
 
+        public Dictionary<int, bool> expandCompetencies = new Dictionary<int, bool>();
         protected override async Task OnInitializedAsync()
         {
             var principalUser = (await AuthState).User;
@@ -78,9 +83,15 @@ namespace SkillsMatrix.Web.Pages.CVFlow.CompetenciesForm
                 if (user != null)
                 {
                     UserId = user.Id;
-                    //competencies = await competenciesService.GetCompetencies();
-
+                    competencies = null;
+                    competencyCategories = null;
                     userCompetencies = await personCompetencies.GetAll(user.Id);
+
+                    expandCompetencies.Clear();
+                    foreach (var userCompetency in userCompetencies)
+                    {
+                        expandCompetencies.Add(userCompetency.CompetencyId, false);
+                    }
 
                     competencyCategories = await competenciesCategoryService.GetCompetencies();
 
@@ -104,6 +115,11 @@ namespace SkillsMatrix.Web.Pages.CVFlow.CompetenciesForm
                     {
                         UserCompetency.UserId = UserId;
                         UserCompetency.CompetencyId = Int32.Parse(competencyID);
+                        UserCompetency.SubCompetencyIds = new List<int>();
+                        foreach (var subCompetencyID in subCompetencyIDs)
+                        {
+                            UserCompetency.SubCompetencyIds.Add(Int32.Parse(subCompetencyID));
+                        }
                         await personCompetencies.Create(UserCompetency);
                         percentage = await PercentageCalcService.ProfileCompletion(UserId);
                         await PersonService.UpdatePercentageComletion(UserId, percentage);
@@ -163,6 +179,27 @@ namespace SkillsMatrix.Web.Pages.CVFlow.CompetenciesForm
 
         }
 
+        protected void ExpandUserCompetency(int id)
+        {
+
+            if (id != 0)
+            {
+                if (expandCompetencies[id] == false)
+                {
+                    expandCompetencies[id] = true;
+                }
+
+                else
+                {
+                    expandCompetencies[id] = false;
+                }
+                
+            }
+
+
+        }
+        
+
         protected void Back()
         {
             NavigationManager.NavigateTo($"/expertise");
@@ -177,9 +214,40 @@ namespace SkillsMatrix.Web.Pages.CVFlow.CompetenciesForm
         {
             competencyCategoryID = competencyCategory.ToString();
             competencies = await competenciesService.GetAll(Convert.ToInt32(competencyCategoryID));
+            subCompetencyIDs.Clear();
             this.StateHasChanged();
         }
 
+        protected void CompetencyClicked(object id)
+        {
+            competencyID = id.ToString();
+            foreach (var __competency in competencies)
+            {
+                if(__competency.Id == Int32.Parse(id.ToString()))
+                {
+                    _competency = __competency;
+                    break;
+                }
+            }
+            
+            subCompetencyIDs.Clear();
+            this.StateHasChanged();
+        }
+
+        protected void SubCompetencyClicked(SubCompetency SubCompetency, object selected)
+        {
+            if ((bool)selected)
+            {
+                subCompetencyIDs.Add(SubCompetency.Id.ToString());
+            }
+
+            else
+            {
+                subCompetencyIDs.Remove(SubCompetency.Id.ToString());
+            }
+            
+            this.StateHasChanged();
+        }
         protected async void Cancel()
         {
             UserCompetency = new UserCompetency();

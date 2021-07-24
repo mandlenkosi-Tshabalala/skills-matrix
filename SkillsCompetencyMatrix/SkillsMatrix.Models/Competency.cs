@@ -9,6 +9,7 @@ namespace SkillsMatrix.Models
         public Competency()
         {
             UserCompetencies = new HashSet<UserCompetency>();
+            SubCompetencies = new HashSet<SubCompetency>();
         }
         public int Id { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
@@ -19,6 +20,6 @@ namespace SkillsMatrix.Models
         public virtual CompetencyCategory Catagory { get; set; }
 
         public virtual ICollection<UserCompetency> UserCompetencies { get; set; }
-
+        public virtual ICollection<SubCompetency> SubCompetencies { get; set; }
     }
 }

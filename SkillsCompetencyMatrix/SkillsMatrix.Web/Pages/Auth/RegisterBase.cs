@@ -11,6 +11,12 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http.Extensions;
+
+using NETCore.MailKit.Core;
+using MailKit.Net.Smtp;
+using System.Net.Mail;
+using System.Net;
 
 namespace SkillsMatrix.Web.Pages.Auth
 {
@@ -27,6 +33,8 @@ namespace SkillsMatrix.Web.Pages.Auth
         protected ILogger<RegisterBase> _logger { get; set; }
         [Inject]
         public NavigationManager _navigationManager { get; set; }
+        [Inject]
+        public IEmailService _emailService { get; set; }
 
         protected InputModel Input = new InputModel();
 
@@ -54,7 +62,7 @@ namespace SkillsMatrix.Web.Pages.Auth
             var user = new IdentityUser<int> { 
                 UserName = Input.Email, 
                 Email = Input.Email, 
-                EmailConfirmed = true
+                EmailConfirmed = false // email not yet confirmed at register
             };
 
             var result = await _userManager.CreateAsync(user, Input.Password);
@@ -64,23 +72,139 @@ namespace SkillsMatrix.Web.Pages.Auth
                 //create userrole
                 _logger.LogInformation("User created a new account with password.");
 
-                var principal = await _signInManager.CreateUserPrincipalAsync(user);
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                token = System.Web.HttpUtility.UrlEncode(token);
+                var confirmationLink = _navigationManager.BaseUri + "ConfirmEmail" + "?userId="  + user.Id + "&" +  "token=" + token;
+                MailMessage msg = new MailMessage();
+                //Add your email address to the recipients
+                msg.To.Add(user.Email);
+                //Configure the address we are sending the mail from
+                MailAddress address = new MailAddress("khai.mageba@gmail.com");
+                msg.From = address;
+                msg.Subject = "Email Verification";
+                msg.Body = $"<a href=\"{confirmationLink}\">Verify Email</a>" ;
 
-                var identity = new ClaimsIdentity(
-                    principal.Claims,
-                    Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme
-                );
+                //Configure an SmtpClient to send the mail.            
+                System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.EnableSsl = true;
+                //client.Host = "smtp.gmail.com";
+                client.Host = "localhost";
+                client.Port = 25;
 
-                principal = new ClaimsPrincipal(identity);
+                //Setup credentials to login to our sender email address ("UserName", "Password")
+                //NetworkCredential credentials = new NetworkCredential("khai.mageba@gmail.com", "kasaraji");
+                client.UseDefaultCredentials = false;
+                //client.Credentials = credentials;
 
-                _signInManager.Context.User = principal;
+                //Send the msg
+                client.Send(msg);
 
-                HostAuthentication.SetAuthenticationState(Task.FromResult(new AuthenticationState(principal)));
+                _navigationManager.NavigateTo("/RegisterConfirmation");
 
-                // now the authState is updated
-                var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
 
-                _navigationManager.NavigateTo("/");
+
+
+
+
+
+
+                //var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                //token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
+
+                //var confirmationLink = _navigationManager.BaseUri + "Auth/ConfirmEmail" + user.Id + token;
+
+
+                //await _emailService.SendAsync(user.Email," Email Verification", confirmationLink);
+                //Create the msg object to be sent
+
+
+
+
+
+
+
+
+                //using (var client = new SmtpClient())
+                //{
+                //    // For demo-purposes, accept all SSL certificates (in case the server supports STARTTLS)
+                //    client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+                //    Console.WriteLine("Connect");
+                //    client.Connect("smtp.gmail.com", 587, true); 
+                //    client.Authenticate("tfs.gettaxsolutions", "*********");
+
+                //    Console.WriteLine("Send Message");
+                //    client.Send(message);
+                //    Console.WriteLine("Disconnect");
+                //    client.Disconnect(true);
+                //}
+
+
+
+                //var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                //var confirmationLink = Url.Action(nameof(ConfirmEmail), "Account", new { token, email = user.Email }, Request.Scheme);
+                //var message = new Message(new string[] { user.Email }, "Confirmation email link", confirmationLink, null);
+                //await _emailSender.SendEmailAsync(message);
+
+
+                ////Generate Email confirmation link
+                //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+
+                //var s= _navigationManager.BaseUri + "/Pages/Auth";
+                //var callbackUrl = Url.Page(
+                //    "/Account/ConfirmEmail",
+                //    pageHandler: null,
+                //    values: new { area = "Identity", userId = user.Id, code = code },
+                //    protocol: Request.Scheme);
+
+                //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+
+
+
+
+
+                //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+
+                //var callbackUrl = Url.Page(
+                //    "/Account/ConfirmEmail",
+                //    pageHandler: null,
+                //    values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
+                //    protocol: Request.Scheme);
+
+                //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                //if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                //{
+                //    return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                //}
+                //else
+                //{
+                //    await _signInManager.SignInAsync(user, isPersistent: false);
+                //    return LocalRedirect(returnUrl);
+                //}
+
+                //var principal = await _signInManager.CreateUserPrincipalAsync(user);
+
+                //var identity = new ClaimsIdentity(
+                //    principal.Claims,
+                //    Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme
+                //);
+
+                //principal = new ClaimsPrincipal(identity);
+
+                //_signInManager.Context.User = principal;
+
+                //HostAuthentication.SetAuthenticationState(Task.FromResult(new AuthenticationState(principal)));
+
+                //// now the authState is updated
+                //var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+                //_navigationManager.NavigateTo("/");
             }
         }
     }

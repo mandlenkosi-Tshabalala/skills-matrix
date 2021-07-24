@@ -122,8 +122,8 @@
                     </div>
                     <div class="form-group col">
                         <label>Name</label>
-                        <select class="form-control" @bind="competencyID">
-                                 <option value="0"></option>
+                        <select class="form-control" @onchange="eventArgs => { CompetencyClicked(eventArgs.Value); }">
+                            <option value="0"></option>
                             @if (competencies != null)
                             {
                                 @foreach (var competency in competencies)
@@ -132,6 +132,24 @@
                                 }
                             }
                         </select>
+                    </div>
+
+
+
+                </div>
+                <div class="form-group row">
+                    <div class="form-group col">
+
+                        @if (_competency != null)
+                        {
+                            <label>Sub Competencies</label>
+                            <br />
+                            @foreach (var subCompetency in _competency.SubCompetencies)
+                            {
+                                <input type="checkbox" name=subCompetency.Name value=subCompetency.Id @onchange="eventArgs => { SubCompetencyClicked(subCompetency,eventArgs.Value); }">
+                                <label for="addition">@subCompetency.Name</label><br />
+                            }
+                        }
                     </div>
                 </div>
                 <div class="form-group">
@@ -152,14 +170,25 @@
                 <div class="card shadow mb-4">
                     <div class="card-body">
                         <div class="resume-degree font-weight-bold">
-                            @userCompetency.Competency.Name
+                            <a @onclick="@(()=>ExpandUserCompetency(userCompetency.CompetencyId))" href="javascript:;">@userCompetency.Competency.Name<i class="fas fa-angle-right"></i></a>
+                            
                         </div>
                         <div>
                             <a @onclick="@(()=>Delete(userCompetency.CompetencyId))" role="button"><i class="fas fa-trash float-right"></i></a>
                         </div>
+                        @if (userCompetency.UserSubCompetencies.Count > 0 && expandCompetencies[userCompetency.CompetencyId] ==true)
+                        {
+                            var userSubCompetencies = userCompetency.UserSubCompetencies;
+                            @foreach (var userSubCompetency in userSubCompetencies)
+                            {
+                                <input type="checkbox" checked disabled>
+                                <label>@userSubCompetency.SubCompetency.Name</label><br />
+                            }
+                        }
                     </div>
-
+                    
                 </div>
+
             }
 
         }

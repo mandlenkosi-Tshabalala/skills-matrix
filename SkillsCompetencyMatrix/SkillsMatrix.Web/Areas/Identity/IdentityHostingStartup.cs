@@ -19,8 +19,11 @@ namespace SkillsMatrix.Web.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("SkillsMatrixWebContextConnection")));
 
-                services.AddDefaultIdentity<IdentityUser<int>>(options => options.SignIn.RequireConfirmedAccount = true)
+                //require email confirmation
+                services.AddDefaultIdentity<IdentityUser<int>>(options => { options.SignIn.RequireConfirmedEmail = true; options.SignIn.RequireConfirmedAccount = true; })
                     .AddEntityFrameworkStores<SkillsMatrixWebContext>();
+                //services.AddDefaultIdentity<IdentityUser<int>>(options => options.SignIn.RequireConfirmedAccount = true)
+                //    .AddEntityFrameworkStores<SkillsMatrixWebContext>();
             });
         }
     }

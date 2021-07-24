@@ -15,5 +15,6 @@ namespace SkillsMatrix.Api.Models
         Task<UserCompetency> UnDeleteCompetencyId(int UserId, int ExpertiseId);
 
         Task<UserCompetency> GetByUserAndCompetencyId(int UserId, int ExpertiseId);
+        Task<UserCompetency> AddUserCompetency(UserCompetency userCompetency);
     }
 }

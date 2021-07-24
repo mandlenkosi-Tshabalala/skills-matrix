@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NETCore.MailKit.Extensions;
+using NETCore.MailKit.Infrastructure.Internal;
 using SkillsMatrix.Web.Data;
 using SkillsMatrix.Web.Services;
 using SkillsMatrix.Web.Services.Shared;
@@ -109,6 +111,12 @@ namespace SkillsMatrix.Web
             services.AddScoped<IFileUploadService, FileUploadService>();
 
             services.AddScoped<IPercentageCalc, PercentageCalc>();
+
+
+            var mailKitOptions = Configuration.GetSection("Email").Get<MailKitOptions>();
+            services.AddMailKit(config => {
+                config.UseMailKit(mailKitOptions);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
