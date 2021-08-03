@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Components.Server;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Server.IISIntegration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -36,9 +38,10 @@ namespace SkillsMatrix.Web
         {
             string url = Configuration.GetValue<String>("ServiceBaseUrl");
             services.AddAuthentication("Identity.Application").AddCookie();
+            services.AddAuthentication(IISDefaults.AuthenticationScheme);
             services.AddRazorPages();
             services.AddServerSideBlazor();
-
+            
 
             services.AddHttpClient<IPersonService, PersonService>(client =>
             {
@@ -100,14 +103,22 @@ namespace SkillsMatrix.Web
                 client.BaseAddress = new Uri(url);
             });
 
+            services.AddHttpClient<IRolesService, RolesService>(client =>
+            {
+                client.BaseAddress = new Uri(url);
+            });
+
             services.AddBlazoredToast();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
+            
             services.AddScoped<IHostEnvironmentAuthenticationStateProvider>(sp =>
             {
                 var provider = (ServerAuthenticationStateProvider)sp.GetRequiredService<AuthenticationStateProvider>();
                 return provider;
             });
-
+  
+            //    services.AddDefaultIdentity<IdentityUser>()
+            //.AddRoles<IdentityRole>();
             services.AddScoped<IFileUploadService, FileUploadService>();
 
             services.AddScoped<IPercentageCalc, PercentageCalc>();

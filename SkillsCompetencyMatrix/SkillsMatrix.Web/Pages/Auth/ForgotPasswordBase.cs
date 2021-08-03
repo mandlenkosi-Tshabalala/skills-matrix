@@ -17,6 +17,10 @@ using NETCore.MailKit.Core;
 using MailKit.Net.Smtp;
 using System.Net.Mail;
 using System.Net;
+using Microsoft.AspNetCore.Components.Forms;
+using Blazored.Toast.Services;
+using MimeKit;
+using MailKit.Security;
 
 namespace SkillsMatrix.Web.Pages.Auth
 {
@@ -35,22 +39,29 @@ namespace SkillsMatrix.Web.Pages.Auth
         public NavigationManager _navigationManager { get; set; }
         [Inject]
         public IEmailService _emailService { get; set; }
+        [Inject]
+        public IToastService toastService { get; set; }
 
         //protected InputModel Input = new InputModel();
 
         public class UserLoginDetails
         {
+            [Required]
+            [EmailAddress]
+            [Display(Name = "Email")]
             public string Email { set; get; }
             public string Password { set; get; }
         }
         protected UserLoginDetails userLoginDetails = new UserLoginDetails();
+
+        protected EditContext editContext;
 
         public bool EmailSent = false;
 
         protected override Task OnInitializedAsync()
         {
             _logger.LogInformation("OnInitializedAsync started...");
-
+            editContext = new EditContext(userLoginDetails);
             return base.OnInitializedAsync();
 
         }
@@ -63,39 +74,83 @@ namespace SkillsMatrix.Web.Pages.Auth
 
             if (user!=null)
             {
-                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-                //token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
-                token = System.Web.HttpUtility.UrlEncode(token);
-                var confirmationLink = _navigationManager.BaseUri + "forgotPasswordChange" + "?userId=" + user.Id + "&" + "token=" + token;
-                MailMessage msg = new MailMessage();
-                //Add your email address to the recipients
-                msg.To.Add(user.Email);
-                //Configure the address we are sending the mail from
-                MailAddress address = new MailAddress("khai.mageba@gmail.com");
-                msg.From = address;
-                msg.Subject = "Email Verification";
-                msg.Body = $"<a href=\"{confirmationLink}\">Verify Email</a>";
+                
+                try
+                {
+                    //var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                    ////token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
+                    //token = System.Web.HttpUtility.UrlEncode(token);
+                    //var confirmationLink = _navigationManager.BaseUri + "forgotPasswordChange" + "?userId=" + user.Id + "&" + "token=" + token;
+                    //MailMessage msg = new MailMessage();
+                    ////Add your email address to the recipients
+                    //msg.To.Add(user.Email);
+                    ////Configure the address we are sending the mail from
+                    //MailAddress address = new MailAddress("khai.mageba@gmail.com");
+                    //msg.From = address;
+                    //msg.Subject = "Email Verification";
+                    //msg.Body = $"<a href=\"{confirmationLink}\">Verify Email</a>";
 
-                //Configure an SmtpClient to send the mail.            
-                System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
-                client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                client.EnableSsl = true;
-                client.Host = "localhost";
-                client.Port = 25;
+                    ////Configure an SmtpClient to send the mail.            
+                    //System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
+                    //client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    //client.Host = "localhost";
+                    //client.Port = 25;
+                    //client.EnableSsl = true;
+                    //client.UseDefaultCredentials = false;
+                    ////NetworkCredential credentials = new NetworkCredential("dtservices1\\Indicium-Dev", "dtssAdmin123!!!");
+                    ////client.Credentials = credentials;
 
-                //Setup credentials to login to our sender email address ("UserName", "Password")
-                //NetworkCredential credentials = new NetworkCredential("khai.mageba@gmail.com", "kasaraji");
-                client.UseDefaultCredentials = false;
-                //client.Credentials = credentials;
+                    ////client.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
+                    //client.Send(msg);
+                    //_navigationManager.NavigateTo("/forgotPasswordMessageSent");
 
-                //Send the msg
-                client.Send(msg);
 
-                _navigationManager.NavigateTo("/forgotPasswordMessageSent");
+
+                    var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    token = System.Web.HttpUtility.UrlEncode(token);
+                    var confirmationLink = _navigationManager.BaseUri + "forgotPasswordChange" + "?userId=" + user.Id + "&" + "token=" + token;
+
+                    int port = 587;
+                    string host = "localhost";
+                    string username = "dtservices1\\Indicium-Dev";
+                    string password = "dtssAdmin123!!!";
+                    string mailFrom = "noreply@solugrowth.com";
+                    string mailTo = user.Email;
+                    string mailTitle = "Password change";
+                    string mailMessage = $"<a href=\"{confirmationLink}\">Verify Email</a>";
+                    var message = new MimeMessage();
+                    message.From.Add(new MailboxAddress(mailFrom));
+                    message.To.Add(new MailboxAddress(mailTo));
+                    message.Subject = mailTitle;
+                    message.Body = new TextPart("plain") { Text = mailMessage };
+
+                    using (var client = new MailKit.Net.Smtp.SmtpClient())
+                    {
+                        client.Connect(host, port, SecureSocketOptions.SslOnConnect);
+                        //client.Authenticate(username, password);
+
+                        client.Send(message);
+                        client.Disconnect(true);
+                        _navigationManager.NavigateTo("/RegisterConfirmation");
+                    }
+                }
+
+                catch (Exception ex)
+                {
+                    toastService.ShowError($"Message {ex.Message} string {ex.ToString()}");
+                    if (ex.InnerException!=null)
+                    {
+                        toastService.ShowError($"inner message {ex.InnerException.Message} string {ex.InnerException.ToString()}");
+                    }
+                }
+                
+
+                
             }
             else
             {
                 _logger.LogWarning($"Username {userLoginDetails.Email} is incorrect.");
+                toastService.ShowError($"Username {userLoginDetails.Email} is incorrect.");
             }
         }
     }

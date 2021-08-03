@@ -1,0 +1,288 @@
+﻿@attribute [Authorize]
+@page "/adminRole"
+@inherits RoleFormBase
+@inject IJSRuntime JSRuntime;
+@using Blazored.Toast.Configuration
+
+
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Manage Role</h1>
+    <p class="mb-4"></p>
+</div>
+<div class="card m-3">
+    <div class="card-body">
+        <div class="container-fluid">
+            <EditForm EditContext="@editContext">
+                <DataAnnotationsValidator />
+                <div class="form-row">
+                    <div class="form-group col-6">
+                        <label>Name</label>
+                        <InputText @bind-Value="role.Name" class="form-control" />
+                        <ValidationMessage For="@(() =>role.Name)" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button @onclick="HandleValidSubmit" class="btn btn-outline-success mr-1">Save</button>
+                </div>
+            </EditForm>
+
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Role Table</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Update</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var role in roles)
+                                {
+                                <tr>
+                                    <td>@role.Name</td>
+                                    <td><button type="button" @onclick="@(() => ManageRole(role.Id))" class="btn btn-primary btn-sm mr-1 ">Manage Role</button></td>
+                                    <td><a @onclick="@(() => DeleteRole(role.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-trash"></i></a></td>
+                                </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+<BlazoredToasts Position="ToastPosition.TopRight"
+                Timeout="5"
+                IconType="IconType.FontAwesome"
+                SuccessClass="success-toast-override"
+                SuccessIcon="fa fa-thumbs-up"
+                ErrorIcon="fa fa-bug">
+
+</BlazoredToasts>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<style>
+
+    .with-arrow .nav-link.active {
+        position: relative;
+    }
+
+        .with-arrow .nav-link.active::after {
+            content: '';
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 6px solid #2b90d9;
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: block;
+        }
+
+    .lined .nav-link {
+        border: none;
+        border-bottom: 3px solid transparent;
+    }
+
+        .lined .nav-link:hover {
+            border: none;
+            border-bottom: 3px solid transparent;
+        }
+
+        .lined .nav-link.active {
+            background: none;
+            color: #555;
+            border-color: #2b90d9;
+        }
+
+    .nav-pills .nav-link {
+        color: #555;
+    }
+
+    .text-uppercase {
+        letter-spacing: 0.1em;
+    }
+</style>
+
+
+
+
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Manage Competencies</h1>
+    <p class="mb-4"></p>
+    <div class="card m-3">
+        <div class="card-body">
+            <div class="container-fluid">
+
+                <ul id="myTab" role="tablist" class="nav nav-tabs nav-pills flex-column flex-sm-row text-center bg-light border-0 rounded-nav">
+                    <li class="nav-item flex-sm-fill">
+                        <a id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" class="nav-link border-0 text-uppercase font-weight-bold active">Roles</a>
+                    </li>
+                    <li class="nav-item flex-sm-fill">
+                        <a id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" class="nav-link border-0 text-uppercase font-weight-bold">User Roles</a>
+                    </li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div id="home" role="tabpanel" aria-labelledby="home-tab" class="tab-pane fade px-4 py-5 show active">
+                        <EditForm EditContext="@editContext">
+                            <DataAnnotationsValidator />
+                            <div class="form-row">
+                                <div class="form-group col-6">
+                                    <label>Name</label>
+                                    <InputText @bind-Value="role.Name" class="form-control" />
+                                    <ValidationMessage For="@(() =>role.Name)" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button @onclick="HandleValidSubmit" class="btn btn-outline-success mr-1">Save</button>
+                            </div>
+                        </EditForm>
+ DataTales Example 
+<div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Role Table</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Update</th>
+                                                <th>Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var role in roles)
+                                            {
+                                                <tr>
+                                                    <td>@role.Name</td>
+                                                    <td><a @onclick="@(() => GetRole(role.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-edit"></i></a></td>
+                                                    <td><a @onclick="@(() => DeleteRole(role.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-trash"></i></a></td>
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="profile" role="tabpanel" aria-labelledby="profile-tab" class="tab-pane fade px-4 py-5">
+
+
+
+                        <EditForm EditContext="@editContext">
+                            <DataAnnotationsValidator />
+                            <div class="form-row">
+                                <div class="form-group col-6">
+                                    <label>Competency Category</label>
+                                    <select id="sle" @onchange="SearchCompetency" class="form-control">
+                                        <option value="0" selected>Select category.....</option>
+                                        @if (competencyCategories != null)
+                                        {
+
+                                            @foreach (var category in competencyCategories)
+                                            {
+
+                                                <option value="@category.Id">@category.Name</option>
+                                            }
+                                        }
+                                    </select>
+
+                                </div>
+
+
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-6">
+                                    <label>Competency Name</label>
+                                    <InputText @bind-Value="competency.Name" class="form-control" />
+                                    <ValidationMessage For="@(() => competency.Name)" />
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <button @onclick="HandleCompetency" class="btn btn-outline-success mr-1">Save</button>
+                                </div>
+                            </div>
+                        </EditForm>
+
+
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Competencies Table</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Update</th>
+                                                <th>Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var competency in competencies)
+                                            {
+                                                <tr>
+                                                    <td>@competency.Name</td>
+                                                    <td><a @onclick="@(() => GetCompetency(competency.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-edit"></i></a></td>
+                                                    <td><a @onclick="@(() => DeleteCompetency(competency.Id))" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-trash"></i></a></td>
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<BlazoredToasts Position="ToastPosition.TopRight"
+                Timeout="5"
+                IconType="IconType.FontAwesome"
+                SuccessClass="success-toast-override"
+                SuccessIcon="fa fa-thumbs-up"
+                ErrorIcon="fa fa-bug">
+
+</BlazoredToasts>*@

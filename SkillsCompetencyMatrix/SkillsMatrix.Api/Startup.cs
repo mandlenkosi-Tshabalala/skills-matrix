@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -48,6 +49,7 @@ namespace SkillsMatrix.Api
             services.AddScoped<IPersonCompetenciesRepository, PersonCompetenciesRepository>();
             services.AddScoped<IProfessionalMembershipRepository, ProfessionalMembershipRepository>();
             services.AddScoped<IActivityRepository, ActivityRepository>();
+            services.AddScoped<IRolesRepository, RolesRepository>();
 
             services.AddControllers();
 

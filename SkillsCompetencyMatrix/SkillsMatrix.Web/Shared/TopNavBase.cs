@@ -22,6 +22,8 @@ namespace SkillsMatrix.Web.Shared
 
         [Inject]
         protected UserManager<IdentityUser<int>> UserManager { get; set; }
+        [Inject]
+        public NavigationManager _navigationManager { get; set; }
 
         [CascadingParameter]
         protected Task<AuthenticationState> AuthState { get; set; }
@@ -33,6 +35,11 @@ namespace SkillsMatrix.Web.Shared
         protected override async Task OnInitializedAsync()
         {
             var principalUser = (await AuthState).User;
+
+            if (principalUser.Identity.AuthenticationType != "Cookies")
+            {
+                _navigationManager.NavigateTo("/signin");
+            }
 
             if (principalUser.Identity.IsAuthenticated)
             {

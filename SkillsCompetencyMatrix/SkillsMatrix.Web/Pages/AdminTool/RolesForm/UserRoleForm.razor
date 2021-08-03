@@ -1,0 +1,314 @@
+﻿@attribute [Authorize]
+@page "/userrole"
+@page "/userrole/{RoleId:int}"
+@inherits UserRoleFormBase
+
+@using System.ComponentModel.DataAnnotations
+@using System.Text.Json
+@inject IJSRuntime JSRuntime;
+@using Blazored.Toast.Configuration
+<link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet">
+
+<style>
+    .img-fluid {
+        max-width: 100%;
+        height: auto;
+        border-radius: 50%;
+    }
+
+    .img-fluid-small {
+        max-width: 100%;
+        height: 25px;
+        border-radius: 50%;
+    }
+
+    .img-fluid-smaller {
+        max-width: 100%;
+        height: 20px;
+        border-radius: 50%;
+    }
+
+    .img-fluid-smaller2 {
+        max-width: 80%;
+        height: 13px;
+        border-radius: 50%;
+    }
+
+    .img-thumbnail {
+        padding: 0.25rem;
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: 0.25rem;
+        max-width: 100%;
+        height: auto
+    }
+
+
+
+    .resume-header {
+        width: 50px;
+        height: 50px
+    }
+</style>
+
+
+
+@*@if (EmployeeCheckedList.Count() > 0)
+    {*@
+@if (Role!=null)
+{
+    <div class="row">
+        <div class="col-sm-12">
+
+            <div>
+                @Role.Name
+
+
+                <button type="button" @onclick="@(() => AddUserToRole())" class="btn btn-primary btn-sm mr-1 float-right">Save To Role</button>
+                <button type="button" @onclick="@(() => BackToRole())" class="btn btn-primary btn-sm mr-1 float-right">Back</button>
+            </div>
+
+        </div>
+    </div>
+<br />
+}
+@*}*@
+
+<div class="row">
+    <!-- Column -->
+    <div class="col-lg-3 col-xlg-3 col-md-3">
+        <div class="card">
+            <div class="card-header" style="background-color:white">
+                <p>Search using skills, expertise etc..</p>
+            </div>
+            <div class="card-body">
+
+
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label>Employee Name</label>
+                        <input class="form-control" @bind-value="this.EmployeeName" />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label>Skills</label>
+                        <input class="form-control" @bind-value="this.Skills" />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label>Qualification Level</label>
+                        <select class="form-control" @bind="this.QualificationLevel">
+                            <option value="0"></option>
+                            <option value="BTech">BTech</option>
+                            <option value="Degree">Degree</option>
+                            <option value="Diploma">Diploma</option>
+                            <option value="Adv Diploma">Adv Diploma</option>
+                            <option value="Honours">Honours</option>
+                            <option value="Masters">Masters</option>
+                            <option value="Matric">Matric</option>
+                            <option value="MTech">MTech</option>
+                            <option value="N04">N04</option>
+                            <option value="N04">N04</option>
+                            <option value="N06">N06</option>
+                            <option value="Post Graduate diploma">Post Graduate diploma </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label>Functional Expertise</label>
+                        <select class="form-control" @onchange="eventArgs => { functionalClicked(eventArgs.Value); }">
+                            <option value="0"></option>
+                            @if (functionalList != null)
+                            {
+
+                                @foreach (var functional in functionalList)
+                                {
+                                    <option value="@functional.Id">@functional.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label>Countries Worked</label>
+                        <select class="form-control" @bind="this.Country">
+                            <option value="0"></option>
+                            <option value="Angola">Angola</option>
+                            <option value="Asian Countries">Asian Countries</option>
+                            <option value="Australia and New Zealand">Australia and New Zealand</option>
+                            <option value="Botswana">Botswana</option>
+                            <option value="Central and South American Countries">Central and South American Countries</option>
+                            <option value="European Countries">European Countries</option>
+                            <option value="Lesotho">Lesotho</option>
+                            <option value="Malawi">Malawi</option>
+                            <option value="Mauritius">Mauritius</option>
+                            <option value="Mozambique">Mozambique</option>
+                            <option value="Namibia">Namibia</option>
+                            <option value="North American Countries">North American Countries</option>
+                            <option value="Rest of Africa">Rest of Africa</option>
+                            <option value="SADC except SA">SADC except SA</option>
+                            <option value="Seychelles">Seychelles</option>
+                            <option value="South Africa">South Africa</option>
+                            <option value="Swaziland">Swaziland</option>
+                            <option value="Tanzania">Tanzania</option>
+                            <option value="Zaire">Zaire</option>
+                            <option value="Zambia">Zambia</option>
+                            <option value="Zimbabwe">Zimbabwe</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label>Competencies Catagories</label>
+                        <select class="form-control" @onchange="eventArgs => { competencyCategoryClicked(eventArgs.Value); }">
+                            <option value="0"></option>
+                            @if (competencyCategoryList != null)
+                            {
+                                @foreach (var competencyC in competencyCategoryList)
+                                {
+
+                                    <option value="@competencyC.Id">@competencyC.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label>Competencies</label>
+                        <select class="form-control" @bind="competencyID">
+                            <option value="0"></option>
+                            @if (competencies != null)
+                            {
+                                @foreach (var competency in competencies)
+                                {
+                                    <option value="@competency.Id">@competency.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="card-footer" style="background-color:white">
+                    <div class="form-group">
+                        <button @onclick="Search" class="btn btn-primary mr-1">Search</button>
+                        <button @onclick="Clear" class="btn btn-primary mr-1">Clear</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+    <!-- Column -->
+    <!-- Column -->
+    <div class="col-lg-9 col-xlg-9 col-md-8">
+        @if (Searching == true)
+        {
+
+            <div class="spinner"></div>
+        }
+        else if (Employees == null)
+        {
+            <div class="text-center">
+                <div class="error mx-auto" data-text="eish">eish</div>
+                <i class="em em-face_with_rolling_eyes" aria-role="presentation" aria-label="No employee found"></i>
+                <p class="lead text-gray-800 mb-5">No employee found</p>
+                <p class="text-gray-500 mb-0">It looks like you found no results, search using different filters...</p>
+                <a href="employees">&larr; Back to Search</a>
+            </div>
+        }
+        else
+        {
+            <div class="card">
+                <div class="card-header" style="background-color:white">
+                    <p>@Employees.Count() Employees Found</p>
+                </div>
+                <div class="card-body">
+
+
+                    <div class="table-responsive">
+                        <table class="table table-hover" width="100%" cellspacing="0">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th><input type="checkbox" checked="@this.SelectAll" @onchange="eventArgs => { empSelectAll(eventArgs.Value); }" /></th>
+                                    <th></th>
+                                    <th>Name</th>
+                                    <th>EMail</th>
+                                    <th>Phone Number</th>
+                                    <th>CV Progress</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var emp in Employees)
+                                {
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" checked="@this.empCheckSelectStatus(emp.Id)" @onchange="eventArgs => { empSelect(emp, eventArgs.Value); }" />
+                                    </td>
+                                    @if (@emp.ImagePath != null)
+                                    {
+                                        <td>  <img class="resume-header img-fluid picture" src="images/@emp.ImagePath" /> </td>
+                                    }
+                                    else
+                                    {
+                                        <td>  <img class="resume-header img-fluid picture" src="images/profile.png" /> </td>
+                                    }
+
+                                    <td>@emp.FirstName @emp.LastName</td>
+                                    <td>@emp.Email</td>
+                                    <td>@emp.Phone</td>
+                                    <td>
+                                        @if (emp.CvProgress < 49)
+                                        {
+                                            <div class="progress">
+                                                <div class="progress-bar bg-danger" style="width:@emp.CvProgress%">@emp.CvProgress%</div>
+                                            </div>
+                                        }
+                                        else if (emp.CvProgress > 49 && emp.CvProgress < 99)
+                                        {
+                                            <div class="progress">
+                                                <div class="progress-bar bg-warning" style="width:@emp.CvProgress%">@emp.CvProgress%</div>
+                                            </div>
+                                        }
+                                        else if (emp.CvProgress > 99)
+                                        {
+                                            <div class="progress">
+                                                <div class="progress-bar bg-success" style="width:@emp.CvProgress%">@emp.CvProgress%</div>
+                                            </div>
+                                        }
+                                    </td>
+                                    @*<td><button type="button" @onclick="@(() => AddUserToRole(emp.UserId))" class="btn btn-primary btn-sm mr-1 ">Save to role</button></td>*@
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+    <!-- Column -->
+</div>
+
+<BlazoredToasts Position="ToastPosition.TopRight"
+                Timeout="5"
+                IconType="IconType.FontAwesome"
+                SuccessClass="success-toast-override"
+                SuccessIcon="fa fa-thumbs-up"
+                ErrorIcon="fa fa-bug">
+
+</BlazoredToasts>

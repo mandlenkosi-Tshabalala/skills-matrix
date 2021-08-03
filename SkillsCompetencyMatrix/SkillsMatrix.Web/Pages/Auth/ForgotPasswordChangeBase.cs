@@ -18,6 +18,8 @@ using MailKit.Net.Smtp;
 using System.Net.Mail;
 using System.Net;
 using System.Web;
+using Microsoft.AspNetCore.Components.Forms;
+using Blazored.Toast.Services;
 
 namespace SkillsMatrix.Web.Pages.Auth
 {
@@ -36,16 +38,26 @@ namespace SkillsMatrix.Web.Pages.Auth
         public NavigationManager _navigationManager { get; set; }
         [Inject]
         public IEmailService _emailService { get; set; }
-
+        [Inject]
+        public IToastService toastService { get; set; }
         //protected InputModel Input = new InputModel();
 
         public class UserLoginDetails
         {
-            public string Password { set; get; }
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [DataType(DataType.Password)]
+            [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$", ErrorMessage = "Password must meet requirements")]
+            [Display(Name = "Password")]
+            public string Password { get; set; }
+
+            [DataType(DataType.Password)]
+            [Display(Name = "Confirm password")]
+            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string PasswordConfirm { set; get; }
         }
         protected UserLoginDetails userLoginDetails = new UserLoginDetails();
-
+        protected EditContext editContext;
 
         public string userID { get; set; }
         public string token { get; set; }
@@ -55,8 +67,6 @@ namespace SkillsMatrix.Web.Pages.Auth
         public async void HandleForgotPasswordChange()
         {
             _logger.LogInformation("HandleForgotPasswordChange started...");
-
-            
 
 
             var user = await _userManager.FindByIdAsync(userID);
@@ -71,7 +81,7 @@ namespace SkillsMatrix.Web.Pages.Auth
             }
             else
             {
-
+                toastService.ShowError("An error occured while changing the password.");
             }
         }
 
@@ -79,7 +89,7 @@ namespace SkillsMatrix.Web.Pages.Auth
         protected override async Task OnInitializedAsync()
         {
             _logger.LogInformation("OnInitializedAsync started...");
-
+            editContext = new EditContext(userLoginDetails);
             var uri = _navigationManager.ToAbsoluteUri(_navigationManager.Uri);
             if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("userId", out var _userId))
             {

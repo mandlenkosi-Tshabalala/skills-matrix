@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -21,9 +22,11 @@ namespace SkillsMatrix.Web.Areas.Identity
 
                 //require email confirmation
                 services.AddDefaultIdentity<IdentityUser<int>>(options => { options.SignIn.RequireConfirmedEmail = true; options.SignIn.RequireConfirmedAccount = true; })
-                    .AddEntityFrameworkStores<SkillsMatrixWebContext>();
+                    .AddRoles<IdentityRole<int>>().AddEntityFrameworkStores<SkillsMatrixWebContext>();
                 //services.AddDefaultIdentity<IdentityUser<int>>(options => options.SignIn.RequireConfirmedAccount = true)
                 //    .AddEntityFrameworkStores<SkillsMatrixWebContext>();
+
+                services.AddScoped<IRoleStore<IdentityRole<int>>, RoleStore<IdentityRole<int>, SkillsMatrixWebContext, int>>();
             });
         }
     }

@@ -19,6 +19,8 @@ namespace SkillsMatrix.Api.Models
             // User Address
             modelBuilder.Entity<User>().ToTable("AspNetUsers");
 
+            modelBuilder.Entity<Role>().ToTable("AspNetRoles");
+
             modelBuilder.Entity<User>()
                 .HasOne(a => a.Address)
                 .WithOne(a => a.User)
@@ -100,6 +102,10 @@ namespace SkillsMatrix.Api.Models
             modelBuilder.Entity<User>()
                 .HasMany<Skill>(uc => uc.UserSkills)
                 .WithOne(s => s.User);
+
+            //modelBuilder.Entity<User>()
+            //    .HasMany<Role>(ur => ur.UserRoles)
+            //    .WithOne(s => s.);
         }
 
         public DbSet<Address> Addresses { get; set; }
@@ -122,5 +128,7 @@ namespace SkillsMatrix.Api.Models
         public DbSet<UserActivities> UserActivities { get; private set; }
         public DbSet<SubCompetency> SubCompetencies { get; set; }
         public DbSet<UserSubCompetency> UserSubCompetencies { get; set; }
+        //public DbSet<Role> Roles { get; set; }
+        //public DbSet<UserRole> UserRoles { get; set; }
     }
 }

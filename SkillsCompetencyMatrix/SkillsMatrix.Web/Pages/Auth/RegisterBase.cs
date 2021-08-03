@@ -17,6 +17,10 @@ using NETCore.MailKit.Core;
 using MailKit.Net.Smtp;
 using System.Net.Mail;
 using System.Net;
+using Blazored.Toast.Services;
+using Microsoft.AspNetCore.Components.Forms;
+using MimeKit;
+using MailKit.Security;
 
 namespace SkillsMatrix.Web.Pages.Auth
 {
@@ -35,9 +39,11 @@ namespace SkillsMatrix.Web.Pages.Auth
         public NavigationManager _navigationManager { get; set; }
         [Inject]
         public IEmailService _emailService { get; set; }
+        [Inject]
+        public IToastService toastService { get; set; }
 
-        protected InputModel Input = new InputModel();
-
+        
+        protected EditContext editContext;
         public class InputModel
         {
             [Required]
@@ -48,6 +54,7 @@ namespace SkillsMatrix.Web.Pages.Auth
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
+            [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$", ErrorMessage = "Password must meet requirements")]
             [Display(Name = "Password")]
             public string Password { get; set; }
 
@@ -57,6 +64,13 @@ namespace SkillsMatrix.Web.Pages.Auth
             public string ConfirmPassword { get; set; }
         }
 
+        protected InputModel Input = new InputModel();
+        protected override Task OnInitializedAsync()
+        {
+            editContext = new EditContext(Input);
+
+            return base.OnInitializedAsync();
+        }
         protected async void HandleValidSubmit()
         {
             var user = new IdentityUser<int> { 
@@ -69,43 +83,84 @@ namespace SkillsMatrix.Web.Pages.Auth
 
             if (result.Succeeded)
             {
-                //create userrole
-                _logger.LogInformation("User created a new account with password.");
-
-                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                token = System.Web.HttpUtility.UrlEncode(token);
-                var confirmationLink = _navigationManager.BaseUri + "ConfirmEmail" + "?userId="  + user.Id + "&" +  "token=" + token;
-                MailMessage msg = new MailMessage();
-                //Add your email address to the recipients
-                msg.To.Add(user.Email);
-                //Configure the address we are sending the mail from
-                MailAddress address = new MailAddress("khai.mageba@gmail.com");
-                msg.From = address;
-                msg.Subject = "Email Verification";
-                msg.Body = $"<a href=\"{confirmationLink}\">Verify Email</a>" ;
-
-                //Configure an SmtpClient to send the mail.            
-                System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
-                client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                client.EnableSsl = true;
-                //client.Host = "smtp.gmail.com";
-                client.Host = "localhost";
-                client.Port = 25;
-
-                //Setup credentials to login to our sender email address ("UserName", "Password")
-                //NetworkCredential credentials = new NetworkCredential("khai.mageba@gmail.com", "kasaraji");
-                client.UseDefaultCredentials = false;
-                //client.Credentials = credentials;
-
-                //Send the msg
-                client.Send(msg);
-
-                _navigationManager.NavigateTo("/RegisterConfirmation");
+                
 
 
 
 
+                try
+                {
+                    //create userrole
+                    _logger.LogInformation("User created a new account with password.");
 
+                    //var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    //token = System.Web.HttpUtility.UrlEncode(token);
+                    //var confirmationLink = _navigationManager.BaseUri + "ConfirmEmail" + "?userId=" + user.Id + "&" + "token=" + token;
+                    //MailMessage msg = new MailMessage();
+                    ////Add your email address to the recipients
+                    //msg.To.Add(user.Email);
+                    ////Configure the address we are sending the mail from
+                    //MailAddress address = new MailAddress("noreply@solugrowth.com");
+                    //msg.From = address;
+                    //msg.Subject = "Email Verification";
+                    //msg.Body = $"<a href=\"{confirmationLink}\">Verify Email</a>";
+
+                    //Configure an SmtpClient to send the mail.            
+                    //System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
+                    //client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    //client.Host = "smtp.gmail.com";
+                    //client.Port = 587;
+                    //client.UseDefaultCredentials = true;
+                    //NetworkCredential credentials = new NetworkCredential("zibhovazi@gmail.com", "playmaker10");
+                    //client.Credentials = credentials;
+                    //client.EnableSsl = true;
+
+                    //client.Send(msg);
+
+                    //_navigationManager.NavigateTo("/RegisterConfirmation");
+
+
+
+
+                    var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    token = System.Web.HttpUtility.UrlEncode(token);
+                    var confirmationLink = _navigationManager.BaseUri + "ConfirmEmail" + "?userId=" + user.Id + "&" + "token=" + token;
+
+                    int port = 587;
+                    string host = "localhost";
+                    string username = "dtservices1\\Indicium-Dev";
+                    string password = "dtssAdmin123!!!";
+                    string mailFrom = "noreply@solugrowth.com";
+                    string mailTo = user.Email;
+                    string mailTitle = "Email Verification";
+                    string mailMessage = $"<a href=\"{confirmationLink}\">Verify Email</a>";
+                    var message = new MimeMessage();
+                    message.From.Add(new MailboxAddress(mailFrom));
+                    message.To.Add(new MailboxAddress(mailTo));
+                    message.Subject = mailTitle;
+                    message.Body = new TextPart("plain") { Text = mailMessage };
+
+                    using (var client = new MailKit.Net.Smtp.SmtpClient())
+                    {
+                        client.Connect(host, port, SecureSocketOptions.SslOnConnect);
+                        //client.Authenticate(username, password);
+
+                        client.Send(message);
+                        client.Disconnect(true);
+                        _navigationManager.NavigateTo("/RegisterConfirmation");
+                    }
+
+                    
+                }
+
+                catch (Exception ex)
+                {
+                    toastService.ShowError($"Message {ex.Message} string {ex.ToString()}");
+                    if (ex.InnerException != null)
+                    {
+                        toastService.ShowError($"inner message {ex.InnerException.Message} string {ex.InnerException.ToString()}");
+                    }
+                }
 
 
 
@@ -205,6 +260,11 @@ namespace SkillsMatrix.Web.Pages.Auth
                 //var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
 
                 //_navigationManager.NavigateTo("/");
+            }
+
+            else
+            {
+                toastService.ShowError("There was an error creating the user.");
             }
         }
     }

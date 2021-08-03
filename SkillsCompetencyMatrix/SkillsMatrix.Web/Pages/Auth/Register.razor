@@ -1,8 +1,10 @@
 ﻿@layout AuthLayout
 @inherits RegisterBase
 @page "/register"
+@inject IJSRuntime JSRuntime;
+@using Blazored.Toast.Configuration
 
-<form class="login100-form validate-form" @onsubmit="@HandleValidSubmit">
+@*<form class="login100-form validate-form" @onsubmit="@HandleValidSubmit">
     <span class="login100-form-title p-b-34">
         Account Registration
     </span>
@@ -23,5 +25,51 @@
             Register
         </button>
     </div>
-</form>
+</form>*@
 
+<EditForm class="login100-form validate-form" EditContext="@editContext" OnValidSubmit="@HandleValidSubmit">
+    <span class="login100-form-title p-b-34">
+        Account Registration
+    </span>
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+
+    <div class="authentication-controls">
+        <InputText id="first-name" class="form-control" required @bind-Value="Input.Email" type="email" name="email" placeholder="Email" />
+        <span class="focus-input100"></span>
+        <ValidationMessage For="@(() => Input.Email)" />
+    </div>
+
+    <div class="authentication-controls">
+
+        <InputText class="form-control" required type="password" @bind-Value="Input.Password" name="pass" placeholder="Password" />
+        <span class="focus-input100"></span>
+        <ValidationMessage For="@(() => Input.Password)" />
+    </div>
+
+    <div class="authentication-controls">
+
+        <InputText class="form-control" required type="password" @bind-Value="Input.ConfirmPassword" name="pass" placeholder="Confirm Password" />
+        <span class="focus-input100"></span>
+        <ValidationMessage For="@(() => Input.ConfirmPassword)" />
+    </div>
+
+
+    <div class="container-login100-form-btn">
+        <button class="login100-form-btn" type="submit">
+            Register
+        </button>
+    </div>
+
+</EditForm>
+
+
+<BlazoredToasts Position="ToastPosition.TopRight"
+                Timeout="5"
+                IconType="IconType.FontAwesome"
+                SuccessClass="success-toast-override"
+                SuccessIcon="fa fa-thumbs-up"
+                ErrorIcon="fa fa-bug">
+
+</BlazoredToasts>

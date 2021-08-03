@@ -17,6 +17,7 @@ namespace SkillsMatrix.Models
             UserIndustries = new HashSet<UserIndustry>();
             UserMemberships = new HashSet<Membership>();
             UserDocuments = new HashSet<Document>();
+            //UserRoles = new HashSet<UserRole>();
         }
 
         [Key]
@@ -72,5 +73,6 @@ namespace SkillsMatrix.Models
         public virtual ICollection<UserIndustry> UserIndustries { get; private set; }
         public virtual ICollection<Membership> UserMemberships { get; private set; }
         public virtual ICollection<Document> UserDocuments { get; private set; }
+        //public virtual ICollection<UserRole> UserRoles { get; private set; }
     }
 }
