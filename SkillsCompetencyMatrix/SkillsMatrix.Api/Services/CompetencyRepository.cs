@@ -39,7 +39,7 @@ namespace SkillsMatrix.Api.Models
 
         public async Task<IEnumerable<Competency>> Search(string name)
         {
-            IQueryable<Competency> query = appDbContext.Competencies;
+            IQueryable<Competency> query = appDbContext.Competencies.Include(b => b.SubCompetencies);
 
             if (!string.IsNullOrEmpty(name))
             {
@@ -47,6 +47,13 @@ namespace SkillsMatrix.Api.Models
             }
 
             return await query.ToListAsync();
+        }
+
+        public async Task<Competency> GetCompetencyByID(int Id)
+        {
+            var competency = appDbContext.Competencies.Include(b => b.SubCompetencies).FirstOrDefault(i => i.Id == Id);
+            return competency;
+
         }
     }
 }

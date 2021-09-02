@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using Blazored.Toast.Services;
 using MimeKit;
 using MailKit.Security;
+using System.Security.Authentication;
 
 namespace SkillsMatrix.Web.Pages.Auth
 {
@@ -72,9 +73,9 @@ namespace SkillsMatrix.Web.Pages.Auth
             _logger.LogInformation("HandleForgotPassword started...");
             var user = await _userManager.FindByNameAsync(userLoginDetails.Email);
 
-            if (user!=null)
+            if (user != null)
             {
-                
+
                 try
                 {
                     //var token = await _userManager.GeneratePasswordResetTokenAsync(user);
@@ -106,12 +107,42 @@ namespace SkillsMatrix.Web.Pages.Auth
 
 
 
+
+                    //var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                    ////token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
+                    //token = System.Web.HttpUtility.UrlEncode(token);
+                    //var confirmationLink = _navigationManager.BaseUri + "forgotPasswordChange" + "?userId=" + user.Id + "&" + "token=" + token;
+                    //MailMessage msg = new MailMessage();
+                    ////Add your email address to the recipients
+                    //msg.To.Add(user.Email);
+                    ////Configure the address we are sending the mail from
+                    //MailAddress address = new MailAddress("noreply@solugrowth.com");
+                    //msg.From = address;
+                    //msg.Subject = "Email Verification";
+                    //msg.Body = $"<a href=\"{confirmationLink}\">Verify Email</a>";
+
+                    ////Configure an SmtpClient to send the mail.            
+                    //System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
+                    //client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    //client.Host = "172.16.201.101";
+                    //client.Port = 25;
+                    //client.EnableSsl = false;
+                    //client.UseDefaultCredentials = false;
+                    //NetworkCredential credentials = new NetworkCredential("dtservices1\\Indicium-Dev", "dtssAdmin123!!!");
+                    //client.Credentials = credentials;
+
+                    ////client.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
+                    //client.Send(msg);
+                    //_navigationManager.NavigateTo("/forgotPasswordMessageSent");
+
+
+
                     var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     token = System.Web.HttpUtility.UrlEncode(token);
                     var confirmationLink = _navigationManager.BaseUri + "forgotPasswordChange" + "?userId=" + user.Id + "&" + "token=" + token;
 
-                    int port = 587;
-                    string host = "localhost";
+                    int port = 25;
+                    string host = "172.16.201.101";
                     string username = "dtservices1\\Indicium-Dev";
                     string password = "dtssAdmin123!!!";
                     string mailFrom = "noreply@solugrowth.com";
@@ -126,26 +157,37 @@ namespace SkillsMatrix.Web.Pages.Auth
 
                     using (var client = new MailKit.Net.Smtp.SmtpClient())
                     {
-                        client.Connect(host, port, SecureSocketOptions.SslOnConnect);
+                        //client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+                        //client.CheckCertificateRevocation = false;
+                        //client.SslProtocols = SslProtocols.Ssl3 | SslProtocols.Ssl2 | SslProtocols.Tls | SslProtocols.Tls11 | SslProtocols.Tls12;
+                        //client.Connect(host: host, port: port, options: SecureSocketOptions.SslOnConnect);
+
+                        client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+                        client.CheckCertificateRevocation = false;
+                        client.Connect(host, port, false);
+                        client.Capabilities &= ~SmtpCapabilities.Pipelining;
                         //client.Authenticate(username, password);
 
                         client.Send(message);
                         client.Disconnect(true);
                         _navigationManager.NavigateTo("/RegisterConfirmation");
                     }
+
+
+
                 }
 
                 catch (Exception ex)
                 {
                     toastService.ShowError($"Message {ex.Message} string {ex.ToString()}");
-                    if (ex.InnerException!=null)
+                    if (ex.InnerException != null)
                     {
                         toastService.ShowError($"inner message {ex.InnerException.Message} string {ex.InnerException.ToString()}");
                     }
                 }
-                
 
-                
+
+
             }
             else
             {

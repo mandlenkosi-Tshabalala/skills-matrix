@@ -61,7 +61,7 @@ namespace SkillsMatrix.Api.Controllers
         {
             try
             {
-                var result = await competencyRepository.GetById(id);
+                var result = await competencyRepository.GetCompetencyByID(id);
 
                 if (result == null)
                 {
@@ -70,7 +70,7 @@ namespace SkillsMatrix.Api.Controllers
 
                 return result;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                    "Error retrieving data from the database");

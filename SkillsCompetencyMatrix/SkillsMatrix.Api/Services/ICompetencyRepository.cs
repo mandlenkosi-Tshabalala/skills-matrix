@@ -11,5 +11,6 @@ namespace SkillsMatrix.Api.Models
         Task<IEnumerable<Competency>> Search(string name);
         Task<IEnumerable<Competency>> GetAllByID(int Id);
         Task<IEnumerable<Competency>> GetAllCompetencies();
+        Task<Competency> GetCompetencyByID(int Id);
     }
 }

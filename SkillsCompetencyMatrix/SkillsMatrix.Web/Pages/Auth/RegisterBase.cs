@@ -126,8 +126,8 @@ namespace SkillsMatrix.Web.Pages.Auth
                     token = System.Web.HttpUtility.UrlEncode(token);
                     var confirmationLink = _navigationManager.BaseUri + "ConfirmEmail" + "?userId=" + user.Id + "&" + "token=" + token;
 
-                    int port = 587;
-                    string host = "localhost";
+                    int port = 25;
+                    string host = "172.16.201.101";
                     string username = "dtservices1\\Indicium-Dev";
                     string password = "dtssAdmin123!!!";
                     string mailFrom = "noreply@solugrowth.com";
@@ -142,7 +142,8 @@ namespace SkillsMatrix.Web.Pages.Auth
 
                     using (var client = new MailKit.Net.Smtp.SmtpClient())
                     {
-                        client.Connect(host, port, SecureSocketOptions.SslOnConnect);
+                        client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+                        client.Connect(host, port, false);
                         //client.Authenticate(username, password);
 
                         client.Send(message);

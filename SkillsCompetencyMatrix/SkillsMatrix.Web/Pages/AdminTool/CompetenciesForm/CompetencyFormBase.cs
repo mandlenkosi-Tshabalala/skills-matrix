@@ -58,7 +58,7 @@ namespace SkillsMatrix.Web.Pages.AdminTool
                 var user = await UserManager.FindByEmailAsync(principalUser.Identity.Name);
                 if (user != null)
                 {
-                   // competencies = await CompetenciesService.GetAll();
+                    // competencies = await CompetenciesService.GetAll();
                     competencyCategories = await CompetenciesCategoryService.GetAll();
                 }
             }
@@ -73,78 +73,81 @@ namespace SkillsMatrix.Web.Pages.AdminTool
             {
 
                 if (edit == false)
-            {
+                {
                     try
                     {
-                await CompetenciesCategoryService.Create(competencyCategory);
-                await OnInitializedAsync();
-                NavigationManager.NavigateTo($"/adminCompetency");
-                competencyCategory = new CompetencyCategory();
-                toastService.ShowSuccess("The information has been saved successfully", "Saved");
+                        await CompetenciesCategoryService.Create(competencyCategory);
+                        await OnInitializedAsync();
+                        NavigationManager.NavigateTo($"/adminCompetency");
+                        competencyCategory = new CompetencyCategory();
+                        toastService.ShowSuccess("The information has been saved successfully", "Saved");
                     }
                     catch (Exception ex)
                     {
                         toastService.ShowError("There was an error when trying to save", "Error");
                     }
                 }
-            else
-            {
-                try
+                else
                 {
-                await CompetenciesCategoryService.Update(competencyCategory);
-                await OnInitializedAsync();
-                edit = false;
-                NavigationManager.NavigateTo($"/adminCompetency");
-                competencyCategory = new CompetencyCategory();
-                }
-                catch (Exception ex)
-                {
-                    toastService.ShowError("There was an error when trying to save", "Error");
-                }
+                    try
+                    {
+                        await CompetenciesCategoryService.Update(competencyCategory);
+                        await OnInitializedAsync();
+                        edit = false;
+                        NavigationManager.NavigateTo($"/adminCompetency");
+                        competencyCategory = new CompetencyCategory();
+                    }
+                    catch (Exception ex)
+                    {
+                        toastService.ShowError("There was an error when trying to save", "Error");
+                    }
 
+                }
             }
-        }
             else
             {
                 toastService.ShowError("Please make sure that you fill all required field", "Error");
 
             }
 
-}
+        }
 
+        protected void AddSubCompetency()
+        {
+            competency.SubCompetencies.Add(new SubCompetency());
+        }
 
-
-protected async void HandleCompetency()
+        protected async void HandleCompetency()
         {
             var isValid = editContext.Validate();
 
             if (isValid)
             {
                 if (edit == false)
-            {
+                {
                     try
                     {
-                competency.CatagoryId = competencyCategoryID;
-                await CompetenciesService.Create(competency);
-                competencies =  await CompetenciesService.GetAll(competencyCategoryID);
-                competency.Name = "";
-                this.StateHasChanged();
-                toastService.ShowSuccess("The information has been saved successfully", "Saved");
+                        competency.CatagoryId = competencyCategoryID;
+                        await CompetenciesService.Create(competency);
+                        competencies = await CompetenciesService.GetAll(competencyCategoryID);
+                        competency.Name = "";
+                        this.StateHasChanged();
+                        toastService.ShowSuccess("The information has been saved successfully", "Saved");
                     }
                     catch (Exception ex)
                     {
                         toastService.ShowError("There was an error when trying to save", "Error");
                     }
                 }
-            else
-            {
+                else
+                {
                     try
                     {
-                 await CompetenciesService.Update(competency);
-                competencies = await CompetenciesService.GetAll(competencyCategoryID);
-                competency = new Competency();
-                edit = false;
-                this.StateHasChanged();
+                        await CompetenciesService.Update(competency);
+                        competencies = await CompetenciesService.GetAll(competencyCategoryID);
+                        competency = new Competency();
+                        edit = false;
+                        this.StateHasChanged();
                     }
                     catch (Exception ex)
                     {
@@ -162,8 +165,8 @@ protected async void HandleCompetency()
 
         protected async void SearchCompetency(ChangeEventArgs e)
         {
-             competencyCategoryID = (Convert.ToInt32(e.Value));
-             competencies = await  CompetenciesService.GetAll(competencyCategoryID);
+            competencyCategoryID = (Convert.ToInt32(e.Value));
+            competencies = await CompetenciesService.GetAll(competencyCategoryID);
             competency.Name = "";
             this.StateHasChanged();
 
