@@ -22,6 +22,8 @@ using Blazored.Toast.Services;
 using MimeKit;
 using MailKit.Security;
 using System.Security.Authentication;
+using MailKit;
+using System.Threading;
 
 namespace SkillsMatrix.Web.Pages.Auth
 {
@@ -78,6 +80,12 @@ namespace SkillsMatrix.Web.Pages.Auth
 
                 try
                 {
+
+                   
+
+
+
+
                     //var token = await _userManager.GeneratePasswordResetTokenAsync(user);
                     ////token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
                     //token = System.Web.HttpUtility.UrlEncode(token);
@@ -155,7 +163,7 @@ namespace SkillsMatrix.Web.Pages.Auth
                     message.Subject = mailTitle;
                     message.Body = new TextPart("plain") { Text = mailMessage };
 
-                    using (var client = new MailKit.Net.Smtp.SmtpClient())
+                    using (var client = new MailKit.Net.Smtp.SmtpClient(new ProtocolLogger("smtp.log")))
                     {
                         //client.ServerCertificateValidationCallback = (s, c, h, e) => true;
                         //client.CheckCertificateRevocation = false;
@@ -167,10 +175,10 @@ namespace SkillsMatrix.Web.Pages.Auth
                         client.Connect(host, port, false);
                         client.Capabilities &= ~SmtpCapabilities.Pipelining;
                         //client.Authenticate(username, password);
-
+                        client.Timeout = 50000000;
                         client.Send(message);
                         client.Disconnect(true);
-                        _navigationManager.NavigateTo("/RegisterConfirmation");
+                        _navigationManager.NavigateTo("/forgotPasswordMessageSent");
                     }
 
 

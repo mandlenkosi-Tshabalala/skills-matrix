@@ -76,7 +76,7 @@ namespace SkillsMatrix.Web.Pages.Auth
             var user = new IdentityUser<int> { 
                 UserName = Input.Email, 
                 Email = Input.Email, 
-                EmailConfirmed = false // email not yet confirmed at register
+                EmailConfirmed = true // email not yet confirmed at register
             };
 
             var result = await _userManager.CreateAsync(user, Input.Password);
@@ -111,7 +111,7 @@ namespace SkillsMatrix.Web.Pages.Auth
                     //client.Host = "smtp.gmail.com";
                     //client.Port = 587;
                     //client.UseDefaultCredentials = true;
-                    //NetworkCredential credentials = new NetworkCredential("zibhovazi@gmail.com", "playmaker10");
+                    //NetworkCredential credentials = new NetworkCredential("zibhovazi@gmail.com", "");
                     //client.Credentials = credentials;
                     //client.EnableSsl = true;
 
