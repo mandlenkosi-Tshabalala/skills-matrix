@@ -8,13 +8,13 @@ namespace SkillsMatrix.Models
         public string StreetNumber { get; set; }
         public string StreetName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "City is required.")]
         public string City { get; set; }
-        [Required]
+        [Required(ErrorMessage = "State is required.")]
         public string State { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Zip code is required.")]
         public string ZipCode { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Country is required.")]
         public string Country { get; set; }
 
 

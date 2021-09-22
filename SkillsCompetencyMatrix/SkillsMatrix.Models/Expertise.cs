@@ -14,7 +14,7 @@ namespace SkillsMatrix.Models
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         public string IPAddress { get; set; }
         public bool IsDeleted { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Name is required is required.")]
         public string Name { get; set; }
         public virtual ICollection<UserExpertise> UserExpertises { get; set; }
 

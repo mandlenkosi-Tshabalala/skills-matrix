@@ -10,37 +10,37 @@ namespace SkillsMatrix.Models
         {
         }
 
-        [Required]
+        [Required(ErrorMessage = "Title is required.")]
         public string Title { get; set; }
-        [Required]
+        [Required(ErrorMessage = "First name is required.")]
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Last name is required.")]
         public string LastName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "ID number is required.")]
         public long IdNumber { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Date of birth is required.")]
         public DateTime DateOfBirth { get; set; } = DateTime.Now;
-        [Required]
+        [Required(ErrorMessage = "Gender is required.")]
         public string Gender { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Nationality is required.")]
         public string Nationality { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Email is required.")]
         [EmailAddress]
         public string Email { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Phone is required.")]
         public string Phone { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Profile is required.")]
         public string Profile { get; set; }
 
         public int CvProgress{ get; set; }
 
         public string ImagePath { get; set; }
 
-        [StringLength(250)]
+        [StringLength(250, ErrorMessage = "The {0} must be {1} characters long.")]
         public string PlaceOfBirth { get; set; }
 
-        [StringLength(50)]
+        [StringLength(50, ErrorMessage = "The {0} must be {1} characters long.")]
         public string MaritalStatus { get; set; }
 
      

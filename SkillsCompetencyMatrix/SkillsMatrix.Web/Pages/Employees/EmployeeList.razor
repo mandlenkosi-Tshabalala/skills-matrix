@@ -68,11 +68,14 @@
             }
             else
             {
-            <div>
-                Dashboard > Employees
+    <div>
+        Dashboard > Employees
 
-                <button class="btn btn-primary mr-1 float-right download" @onclick="DownloadCV">Download CV</button>
-            </div>
+        <button class="btn btn-primary mr-1 float-right download" @onclick="DownloadCV">Download CVs</button>
+        <button class="btn btn-primary mr-1 float-right download" @onclick="ExportToExcel">Export to Excel</button>
+        <button class="btn btn-primary mr-1 float-right download" @onclick="ExportToWord">Export to Word</button>
+        <button class="btn btn-primary mr-1 float-right download" @onclick="ExportToPeeDEEF">Export to PDF</button>
+    </div>
 
             }
 

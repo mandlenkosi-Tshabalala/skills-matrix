@@ -6,9 +6,9 @@ namespace SkillsMatrix.Models
 {
     public class Skill : BaseEntity
     {
-        [Required]
+        [Required(ErrorMessage = "Name is required is required.")]
         public string Name { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Level is required is required.")]
         public int Level { get; set; }
 
     }
