@@ -86,32 +86,32 @@ namespace SkillsMatrix.Web.Pages.Auth
 
 
 
-                    var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-                    //token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
-                    token = System.Web.HttpUtility.UrlEncode(token);
-                    var confirmationLink = _navigationManager.BaseUri + "forgotPasswordChange" + "?userId=" + user.Id + "&" + "token=" + token;
-                    MailMessage msg = new MailMessage();
-                    //Add your email address to the recipients
-                    msg.To.Add(user.Email);
-                    //Configure the address we are sending the mail from
-                    MailAddress address = new MailAddress("khai.mageba@gmail.com");
-                    msg.From = address;
-                    msg.Subject = "Change Password";
-                    msg.Body = $"<a href=\"{confirmationLink}\">Verify Email</a>";
+                    //var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                    ////token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
+                    //token = System.Web.HttpUtility.UrlEncode(token);
+                    //var confirmationLink = _navigationManager.BaseUri + "forgotPasswordChange" + "?userId=" + user.Id + "&" + "token=" + token;
+                    //MailMessage msg = new MailMessage();
+                    ////Add your email address to the recipients
+                    //msg.To.Add(user.Email);
+                    ////Configure the address we are sending the mail from
+                    //MailAddress address = new MailAddress("khai.mageba@gmail.com");
+                    //msg.From = address;
+                    //msg.Subject = "Change Password";
+                    //msg.Body = $"<a href=\"{confirmationLink}\">Verify Email</a>";
 
-                    //Configure an SmtpClient to send the mail.            
-                    System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
-                    client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    client.Host = "smtp.gmail.com";
-                    client.Port = 587;
-                    client.UseDefaultCredentials = false;
-                    client.EnableSsl = true;
-                    NetworkCredential credentials = new NetworkCredential("khai.mageba@gmail.com", "Khai.mageba10");
-                    client.Credentials = credentials;
+                    ////Configure an SmtpClient to send the mail.            
+                    //System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
+                    //client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    //client.Host = "smtp.gmail.com";
+                    //client.Port = 587;
+                    //client.UseDefaultCredentials = false;
+                    //client.EnableSsl = true;
+                    //NetworkCredential credentials = new NetworkCredential("khai.mageba@gmail.com", "Khai.mageba10");
+                    //client.Credentials = credentials;
 
-                    //client.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
-                    client.Send(msg);
-                    _navigationManager.NavigateTo("/forgotPasswordMessageSent");
+                    ////client.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
+                    //client.Send(msg);
+                    //_navigationManager.NavigateTo("/forgotPasswordMessageSent");
 
 
 
@@ -187,8 +187,43 @@ namespace SkillsMatrix.Web.Pages.Auth
 
 
 
-                }
 
+                    var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    token = System.Web.HttpUtility.UrlEncode(token);
+                    var confirmationLink = _navigationManager.BaseUri + "forgotPasswordChange" + "?userId=" + user.Id + "&" + "token=" + token;
+
+                    int port = 25;
+                    string host = "172.16.201.60";
+                    //string username = "dtservices1\\Indicium-Dev";
+                    //string password = "dtssAdmin123!!!";
+                    string mailFrom = "noreply@solugrowth.com";
+                    string mailTo = user.Email;
+                    string mailTitle = "Password change";
+                    string mailMessage = $"<a href=\"{confirmationLink}\">Verify Email</a>";
+                    var message = new MimeMessage();
+                    message.From.Add(new MailboxAddress(mailFrom));
+                    message.To.Add(new MailboxAddress(mailTo));
+                    message.Subject = mailTitle;
+                    message.Body = new TextPart("plain") { Text = mailMessage };
+
+                    using (var client = new MailKit.Net.Smtp.SmtpClient(new ProtocolLogger("smtp.log")))
+                    {
+                        //client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+                        //client.CheckCertificateRevocation = false;
+                        //client.SslProtocols = SslProtocols.Ssl3 | SslProtocols.Ssl2 | SslProtocols.Tls | SslProtocols.Tls11 | SslProtocols.Tls12;
+                        //client.Connect(host: host, port: port, options: SecureSocketOptions.SslOnConnect);
+
+                        client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+                        client.CheckCertificateRevocation = false;
+                        client.Connect(host, port, false);
+                        client.Capabilities &= ~SmtpCapabilities.Pipelining;
+                        //client.Authenticate(username, password);
+                        client.Timeout = 50000000;
+                        client.Send(message);
+                        client.Disconnect(true);
+                        _navigationManager.NavigateTo("/forgotPasswordMessageSent");
+                    }
+                }
                 catch (Exception ex)
                 {
                     toastService.ShowError($"Message {ex.Message} string {ex.ToString()}");

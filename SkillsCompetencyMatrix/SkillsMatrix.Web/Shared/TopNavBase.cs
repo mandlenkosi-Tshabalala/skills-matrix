@@ -36,10 +36,7 @@ namespace SkillsMatrix.Web.Shared
         {
             var principalUser = (await AuthState).User;
 
-            if (principalUser.Identity.AuthenticationType != "Cookies")
-            {
-                _navigationManager.NavigateTo("/signin");
-            }
+
 
             if (principalUser.Identity.IsAuthenticated)
             {
@@ -50,6 +47,7 @@ namespace SkillsMatrix.Web.Shared
                     Person = await PersonService.GetPersonByUserId(UserId);
                 }
             }
+
         }
 
     }
