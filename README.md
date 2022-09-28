@@ -1,5 +1,5 @@
 
-An HR application to help manage employee profiles as well as their skills and competencies
+Blazor Server App. Entity framework and sql as well as bootstrap on the front end. An HR application to help manage employee profiles as well as their skills and competencies
 ![Screenshot 2022-09-28 182248](https://user-images.githubusercontent.com/17761176/192833751-616b0304-05a6-43e3-b6f4-9e9e25d0a23c.png)
 
 
@@ -25,4 +25,4 @@ Search employees
 
 
 
-Blazor Server App.To run the app just download the database backup and restore from the .bak file. Also change the connection strings in the appSettings.json files. Then run the app through visual studio.
+To run the app just download the database backup and restore from the .bak file. Also change the connection strings in the appSettings.json files. Then run the app through visual studio.
