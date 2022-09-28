@@ -3,20 +3,20 @@ An HR application to help manage employee profiles as well as their skills and c
 ![Screenshot 2022-09-28 182248](https://user-images.githubusercontent.com/17761176/192833751-616b0304-05a6-43e3-b6f4-9e9e25d0a23c.png)
 
 
-
+Authentication and Authorization
 
 
 ![Screenshot 2022-09-28 182119](https://user-images.githubusercontent.com/17761176/192833855-898959fa-c9c3-4ce9-8462-98ee234a71e9.png)
 
 
-
+Profile management
 
 
 
 ![Screenshot 2022-09-28 182205](https://user-images.githubusercontent.com/17761176/192833889-c34c6fd7-9f6f-462a-a3b7-3084393b9b5f.png)
 
 
-
+Search employees
  
 
 
