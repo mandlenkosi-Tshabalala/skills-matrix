@@ -1,1 +1,1 @@
-# skills-matrix 
+Blazor Server App.To run the app just download the database backup and restore from the .bak file. Also change the connection strings in the appSettings.json files. Then run the app through visual studio.
