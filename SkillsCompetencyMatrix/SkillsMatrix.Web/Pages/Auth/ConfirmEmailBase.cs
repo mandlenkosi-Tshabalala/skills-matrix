@@ -59,9 +59,9 @@ namespace SkillsMatrix.Web.Pages.Auth
 
             if (result.Succeeded)
             {
-               
 
-                //NavigationManager.NavigateTo("/signin");
+
+                _navigationManager.NavigateTo("/signin");
             }
             else
             {
